@@ -1,4 +1,13 @@
-param (
+<#
+.SYNOPSIS
+    Install dotfiles
+.DESCRIPTION
+    Install symlinks to files inside this folder to expected locations
+.PARAMETER OverwriteFiles
+    Overwrite existing symlinks or files
+#>
+Param (
+	[Parameter(HelpMessage="Overwrite existing symlinks")]
 	[Switch]$OverwriteFiles = $False
 )
 
@@ -59,6 +68,11 @@ function Install-File
 Install-File -Name "Powershell" -Target $profile -Source "$env:USERPROFILE/Dotfiles/Powershell/Microsoft.PowerShell_profile.ps1" -NoBackup:$OverwriteFiles
 
 Install-File -Name "Starship" -Target "$env:USERPROFILE/.config/starship.toml" -Source "$env:USERPROFILE/Dotfiles/Starship/starship.toml" -NoBackup:$OverwriteFiles
+
+
+
+
+
 
 
 
