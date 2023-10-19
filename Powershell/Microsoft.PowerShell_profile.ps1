@@ -7,7 +7,7 @@ New-Alias -Name "touch" -Value "New-Item"
 
 New-Alias -Name "which" -Value "Get-Command"
 
-del alias:nv -Force
+Remove-Item alias:nv -Force
 
 # Completions
 
@@ -45,7 +45,7 @@ function Remove-SymLink ($link) {
 # Run neovim classic
 function vim {
     #$env:NVIM_APPNAME = 'nvim'
-	Set-Item -Path Env:NVIM_APPNAME -Value nvim
+    Set-Item -Path Env:NVIM_APPNAME -Value nvim
     & vim.cmd $args
 }
 
@@ -57,8 +57,8 @@ function nv {
 
 # Run neovim nightly
 function nvn {
-	$env:NVIM_APPNAME = 'nvim-nightly'
-	& d:\Dev\Applications\nvim\0.10\bin\nvim.exe $args
+    $env:NVIM_APPNAME = 'nvim-nightly'
+    & d:\Dev\Applications\nvim\0.10\bin\nvim.exe $args
 }
 
 # Update vcpkg manager
@@ -76,7 +76,7 @@ function Update-Vcpkg {
 # Backup .config files to Mega
 
 function Backup-Nvim-Nightly {
-	& rclone sync %userprofile%/.config/nvim-nightly Mega:dotfiles/nvim-nightly $args
+    & rclone sync %userprofile%/.config/nvim-nightly Mega:dotfiles/nvim-nightly $args
 }
 
 function Backup-Nvim-Test {
@@ -96,24 +96,24 @@ function Backup-Starship {
 }
 
 function Backup-Homeoffice {
-	& rclone sync C:\_Projects\KVP\src E:\_Projects_svn\KVP\src --exclude-from="$env:USERPROFILE\kovoprog.rclone.exclude" $args -P
+    & rclone sync C:\_Projects\KVP\src E:\_Projects_svn\KVP\src --exclude-from="$env:USERPROFILE\kovoprog.rclone.exclude" $args -P
 }
 
 function Backup-Config {
-	Write-Output "Running nvim backup..." | Green
-	Backup-Nvim -P -L --human-readable $args
+    Write-Output "Running nvim backup..." | Green
+    Backup-Nvim -P -L --human-readable $args
 
-	Write-Output "Running nvim-test backup..." | Green
-	Backup-Nvim-Test -P -L --human-readable $args
-	
-	Write-Output "Running nvim-nightly backup..." | Green
-	Backup-Nvim-Nightly -P -L --human-readable $args
-	
-	Write-Output "Running PowerShell profile backup..." | Green
-	Backup-Powershell -P -L --human-readable $args
-	
-	Write-Output "Running Starship profile backup..." | Green
-	Backup-Starship -P -L --human-readable $args
+    Write-Output "Running nvim-test backup..." | Green
+    Backup-Nvim-Test -P -L --human-readable $args
+
+    Write-Output "Running nvim-nightly backup..." | Green
+    Backup-Nvim-Nightly -P -L --human-readable $args
+
+    Write-Output "Running PowerShell profile backup..." | Green
+    Backup-Powershell -P -L --human-readable $args
+
+    Write-Output "Running Starship profile backup..." | Green
+    Backup-Starship -P -L --human-readable $args
 }
 
 # Download scripts from Mega backup
@@ -141,15 +141,13 @@ function Update-Starship {
 # Utils
 
 function Stop-Git {
-	& Stop-Process -Name "git"
+    & Stop-Process -Name "git"
 }
 
-function Green
-{
+function Green {
     process { Write-Host $_ -ForegroundColor Green }
 }
 
-function Red
-{
+function Red {
     process { Write-Host $_ -ForegroundColor Red }
 }
