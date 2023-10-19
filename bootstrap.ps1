@@ -13,7 +13,7 @@ Param (
 
 Write-Host "Installing symlinks for dotfiles ...`n"
 
-# Install symlink 
+# Create symlink for single configuration file
 function Install-File
 {
 	param (
@@ -32,13 +32,13 @@ function Install-File
 
 	Write-Host "$($Name):" -ForegroundColor Blue
 
-	$create_symlink = $true
+	$symlinkPresent = $false;
 	if (Test-Path $Target)
 	{
 		if ((Get-item $Target).LinkType -eq "SymbolicLink")
 		{
 			Write-Host "  Symlink present"
-			# $create_symlink = $false
+			$symlinkPresent = $true
 		} elseif (-not $NoBackup)
 		{
 			Write-Host "  Profile exists, renaming to .bak"
@@ -47,7 +47,7 @@ function Install-File
 
 	}
 
-	if ($create_symlink)
+	if ((-not $symlinkPresent) -or $NoBackup)
 	{
 		$err = @{}
 
@@ -56,18 +56,39 @@ function Install-File
 
 		if ($err)
 		{
-			Write-Host "  Error: $($err) " -ForegroundColor Red
+			Write-Host "  Error: $($err) " -ForegroundColor Red 
 		}
-
 	}
 
 	Write-Host "  Done`n" -ForegroundColor Green
 }
 
+# Install each dotfiles
 
 Install-File -Name "Powershell" -Target $profile -Source "$env:USERPROFILE/Dotfiles/Powershell/Microsoft.PowerShell_profile.ps1" -NoBackup:$OverwriteFiles
 
 Install-File -Name "Starship" -Target "$env:USERPROFILE/.config/starship.toml" -Source "$env:USERPROFILE/Dotfiles/Starship/starship.toml" -NoBackup:$OverwriteFiles
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
