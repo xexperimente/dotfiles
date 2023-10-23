@@ -1,5 +1,4 @@
 # Colors
-
 $psstyle.FileInfo.Directory = "`e[34m"
 
 # Aliases
@@ -15,11 +14,9 @@ Remove-Item alias:nv -Force
 # rclone completion powershell | Out-String | Invoke-Expression # Init rclone completion
 
 # Init Starship prompt
-
 Invoke-Expression (&starship init powershell)
 
 # Custom functions
-
 function New-SymLink ($link, $target) {
     if (test-path -pathtype container $target) {
         $command = "cmd /c mklink /d"
@@ -76,15 +73,15 @@ function Update-Vcpkg {
 # Backup .config files to Mega
 
 function Backup-Nvim-Nightly {
-    & rclone sync %userprofile%/.config/nvim-nightly Mega:dotfiles/nvim-nightly $args
+    & rclone sync %localappdata%/nvim-nightly Mega:dotfiles/nvim-nightly $args
 }
 
 function Backup-Nvim-Test {
-    & rclone sync %userprofile%/.config/nvim-test Mega:dotfiles/nvim-test $args
+    & rclone sync %localappdata%/nvim-test Mega:dotfiles/nvim-test $args
 }
 
 function Backup-Nvim {
-    & rclone sync %userprofile%/.config/nvim Mega:dotfiles/nvim $args
+    & rclone sync %localappdata%/nvim Mega:dotfiles/nvim $args
 }
 
 function Backup-Powershell {
@@ -119,15 +116,15 @@ function Backup-Config {
 # Download scripts from Mega backup
 
 function Update-Nvim-Test {
-    & rclone sync Mega:dotfiles/nvim-test %userprofile%/.config/nvim-test -P
+    & rclone sync Mega:dotfiles/nvim-test %localappdata%/nvim-test -P
 }
 
 function Update-Nvim {
-    & rclone sync Mega:dotfiles/nvim %userprofile%/.config/nvim -P
+    & rclone sync Mega:dotfiles/nvim %localappdata%/nvim -P
 }
 
 function Update-Nvim-Nightly {
-    & rclone sync Mega:dotfiles/nvim-nightly %userprofile%/.config/nvim-nightly -P
+    & rclone sync Mega:dotfiles/nvim-nightly %localappdata%/nvim-nightly -P
 }
 
 function Update-Powershell {
@@ -145,9 +142,9 @@ function Stop-Git {
 }
 
 function Green {
-    process { Write-Host $_ -ForegroundColor Green }
+    process { Write-Host $PSItem -ForegroundColor Green }
 }
 
 function Red {
-    process { Write-Host $_ -ForegroundColor Red }
+    process { Write-Host $PSItem -ForegroundColor Red }
 }
