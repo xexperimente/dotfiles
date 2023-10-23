@@ -1,5 +1,6 @@
 # Colors
 $psstyle.FileInfo.Directory = "`e[34m"
+Set-PSReadLineOption -Colors @{ InlinePrediction = "DarkBlue" }
 
 # Aliases
 New-Alias -Name "touch" -Value "New-Item"
