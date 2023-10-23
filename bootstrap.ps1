@@ -3,12 +3,19 @@
     Install dotfiles
 .DESCRIPTION
     Install symlinks to files inside this folder to expected locations
-.PARAMETER OverwriteFiles
-    Overwrite existing symlinks or files
+.PARAMETER Force
+    Overwrite existing symlinks or files. Default is False.
+.PARAMETER Backup
+    Rename existing files to .BAK. By default.
+.EXAMPLE
+    .\bootstrap.ps1 -Force -Backup
 #>
 Param (
 	[Parameter(HelpMessage="Overwrite existing symlinks")]
-	[Switch]$OverwriteFiles = $False
+	[Switch]$Force = $False,
+	
+	[Parameter(HelpMessage="Rename existing files to .BAK")]
+	[Switch]$Backup = $False
 )
 
 Write-Host "Installing symlinks for dotfiles ...`n"
@@ -27,7 +34,10 @@ function Install-File
 		[string]$Source,
 
 		[Parameter()]
-		[Switch]$NoBackup
+		[Switch]$Backup = $False,
+
+		[Parameter()]
+		[Switch]$Force = $False
 	)
 
 	Write-Host "$($Name):" -ForegroundColor Blue
@@ -39,7 +49,7 @@ function Install-File
 		{
 			Write-Host "  Symlink present"
 			$symlinkPresent = $true
-		} elseif (-not $NoBackup)
+		} elseif ($Backup)
 		{
 			Write-Host "  Profile exists, renaming to .bak"
 			Rename-item -Path $Target -NewName "$($Target).bak"
@@ -47,12 +57,12 @@ function Install-File
 
 	}
 
-	if ((-not $symlinkPresent) -or $NoBackup)
+	if ((-not $symlinkPresent) -or $Force)
 	{
 		$err = @{}
 
 		Write-Host "  Creating symlink"
-		New-Item -ItemType SymbolicLink -Path $Target -Value $Source -Force:$NoBackup -EA SilentlyContinue -EV err | Out-Null
+		New-Item -ItemType SymbolicLink -Path $Target -Value $Source -Force:$Force -EA SilentlyContinue -EV err | Out-Null
 
 		if ($err)
 		{
@@ -65,44 +75,9 @@ function Install-File
 
 # Install each dotfiles
 
-Install-File -Name "Powershell" -Target $profile -Source "$env:USERPROFILE/Dotfiles/Powershell/Microsoft.PowerShell_profile.ps1" -NoBackup:$OverwriteFiles
+Install-File -Name "Powershell" -Target $profile -Source "$env:USERPROFILE/Dotfiles/Powershell/Microsoft.PowerShell_profile.ps1" -Backup:$Backup -Force:$Force
 
-Install-File -Name "Starship" -Target "$env:USERPROFILE/.config/starship.toml" -Source "$env:USERPROFILE/Dotfiles/Starship/starship.toml" -NoBackup:$OverwriteFiles
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Install-File -Name "Starship" -Target "$env:USERPROFILE/.config/starship.toml" -Source "$env:USERPROFILE/Dotfiles/Starship/starship.toml" -Backup:$Backup -Force:$Force
 
 
 
