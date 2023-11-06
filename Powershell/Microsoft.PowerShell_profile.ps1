@@ -13,6 +13,7 @@ New-Alias -Name "mklink" -Value "New-SymLink"
 
 New-Alias -Name "Remove-SymLink" -Value "Remove-Item"
 
+New-Alias -Name "Init-dev" -Value "Initialize-Dev"
 
 # Init Starship prompt
 Invoke-Expression (&starship init powershell)
@@ -154,9 +155,12 @@ function Update-Starship
 }
 
 # Utils
-function Init-Dev
+
+function Initialize-Dev
 {
-	&{Import-Module "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\Tools\Microsoft.VisualStudio.DevShell.dll"; Enter-VsDevShell 368fdbdb -SkipAutomaticLocation -DevCmdArguments "-arch=x64 -host_arch=x64"}
+	$installPath = &"C:/Program Files (x86)/Microsoft Visual Studio/Installer/vswhere.exe"  -prerelease -latest -property installationPath
+	Import-Module (Join-Path $installPath "Common7/Tools/Microsoft.VisualStudio.DevShell.dll")
+	Enter-VsDevShell -VsInstallPath $installPath -SkipAutomaticLocation
 }
 
 function Stop-Git
@@ -183,4 +187,17 @@ function Red
 
 # Import-Module 'D:\Dev\vcpkg\scripts\posh-vcpkg' # Init vcpkg completion
 # rclone completion powershell | Out-String | Invoke-Expression # Init rclone completion
+
+
+
+
+
+
+
+
+
+
+
+
+
 
