@@ -154,6 +154,10 @@ function Update-Starship
 }
 
 # Utils
+function Init-Dev
+{
+	&{Import-Module "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\Tools\Microsoft.VisualStudio.DevShell.dll"; Enter-VsDevShell 368fdbdb -SkipAutomaticLocation -DevCmdArguments "-arch=x64 -host_arch=x64"}
+}
 
 function Stop-Git
 {
