@@ -13,7 +13,7 @@ New-Alias -Name "mklink" -Value "New-SymLink"
 
 New-Alias -Name "Remove-SymLink" -Value "Remove-Item"
 
-New-Alias -Name "Init-dev" -Value "Initialize-Dev"
+New-Alias -Name "Init-dev" -Value "Enter-Dev"
 
 # Init Starship prompt
 Invoke-Expression (&starship init powershell)
@@ -156,7 +156,7 @@ function Update-Starship
 
 # Utils
 
-function Initialize-Dev
+function Enter-Dev
 {
 	$installPath = &"C:/Program Files (x86)/Microsoft Visual Studio/Installer/vswhere.exe"  -prerelease -latest -property installationPath
 	Import-Module (Join-Path $installPath "Common7/Tools/Microsoft.VisualStudio.DevShell.dll")
