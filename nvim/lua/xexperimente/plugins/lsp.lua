@@ -38,13 +38,18 @@ function user.lspconfig(lsp)
 		-- root_dir = function() return vim.fn.getcwd() end,
 	})
 
-	lsp.store_config('powershell_es', user.powershell_opts())
-
+	-- lsp.store_config('powershell_es', user.powershell_opts())
+	--
 	require('mason-lspconfig').setup({
 		ensure_installed = { 'lua_ls', 'powershell_es' },
 		handlers = {
 			lsp.default_setup,
-			lua_ls = function() require('lspconfig').lua_ls.setup(user.lua_opts()) end,
+			powershell_es = function()
+				require("lspconfig").powershell_es.setup(user.powershell_opts())
+			end,
+			lua_ls = function() 
+				require('lspconfig').lua_ls.setup(user.lua_opts()) 
+			end,
 		},
 	})
 end
@@ -59,7 +64,7 @@ function user.lua_opts()
 					semicolon = 'Disable',
 				},
 				workspace = {
-					checkThirdParty = false,
+					checkThirdParty = "Disable",
 				},
 			},
 		},
