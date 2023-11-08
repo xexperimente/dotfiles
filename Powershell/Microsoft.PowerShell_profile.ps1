@@ -32,11 +32,11 @@ function New-SymLink ($link, $target)
 #region neovim
 
 # Run neovim classic
-function nvim
+function Invoke-Nvim
 {
 	param (
 		[Parameter()]
-		$AppName = "nvim-nightly"
+		$AppName = "nvim"
 	)
 
 	#$env:NVIM_APPNAME = 'nvim'
@@ -47,7 +47,7 @@ function nvim
 # Run neovim test
 function nv
 {
-	nvim -AppName 'nvim'
+	Invoke-Nvim -AppName 'nvim'
 }
 
 
