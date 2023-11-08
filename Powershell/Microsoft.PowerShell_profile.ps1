@@ -47,20 +47,9 @@ function nvim
 # Run neovim test
 function nv
 {
-	nvim -AppName 'nvim-test'
-}
-
-# Run neovim nightly
-function nvn
-{
-	nvim -AppName 'nvim-nightly'
-}
-
-# Run neovim old
-function vim
-{
 	nvim -AppName 'nvim'
 }
+
 
 #endregion Neovim
 
