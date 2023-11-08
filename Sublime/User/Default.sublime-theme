@@ -1,0 +1,13 @@
+// Documentation at https://www.sublimetext.com/docs/themes.html
+{
+	"variables":
+	{
+		"tabset_light_bg": "color(var(--background) blend(black 95%))",
+		"status_bar_bg": "color(var(--background) blend(black 95%))",
+		"base_hue":"hsl(33, 43%, 91%)",
+	},
+	"rules":
+	[
+		
+	]
+}
