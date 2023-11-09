@@ -1,4 +1,5 @@
 {
+  "auto-dark-mode.nvim": { "branch": "master", "commit": "76e8d40d1e1544bae430f739d827391cbcb42fcc" },
   "better-escape.nvim": { "branch": "master", "commit": "7031dc734add47bb71c010e0551829fa5799375f" },
   "circles.nvim": { "branch": "main", "commit": "01b9ac1dc6c181f6982eddd57deb1fc7f92d7a70" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
