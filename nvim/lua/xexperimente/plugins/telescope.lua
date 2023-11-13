@@ -1,4 +1,5 @@
 local Plugin = { 'nvim-telescope/telescope.nvim' }
+local user = {}
 
 Plugin.event = 'VeryLazy'
 
@@ -9,7 +10,7 @@ Plugin.dependencies = {
 	'nvim-telescope/telescope-ui-select.nvim',
 	{
 		'nvim-telescope/telescope-fzf-native.nvim',
-		build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+		build = function() user.build_fzf() end,
 	},
 }
 
@@ -100,6 +101,14 @@ function Plugin.config(_, opts)
 
 	telescope.load_extension('ui-select')
 	telescope.load_extension('fzf')
+end
+
+function user.build_fzf()
+	if vim.fn.has('win32') then
+		return 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+	end
+
+	return 'make'
 end
 
 return Plugin
