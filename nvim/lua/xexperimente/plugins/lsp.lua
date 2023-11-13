@@ -64,7 +64,7 @@ function user.lua_opts()
 					semicolon = 'Disable',
 				},
 				workspace = {
-					checkThirdParty = "Disable",
+					checkThirdParty = false,
 				},
 			},
 		},

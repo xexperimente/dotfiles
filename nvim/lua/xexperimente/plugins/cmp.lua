@@ -5,20 +5,18 @@ Plugin.dependencies = {
 	-- Sources
 	{ 'hrsh7th/cmp-buffer' },
 	{ 'hrsh7th/cmp-path' },
-	{ 'saadparwaiz1/cmp_luasnip' },
 	{ 'hrsh7th/cmp-nvim-lsp' },
 	{ 'hrsh7th/cmp-nvim-lua' },
+	{ 'dcampos/cmp-snippy' },
 
 	-- Snippets
-	{ 'L3MON4D3/LuaSnip' },
+	{ 'dcampos/nvim-snippy' },
 }
 
 Plugin.event = 'InsertEnter'
 
 function Plugin.config()
 	local cmp = require('cmp')
-	local luasnip = require('luasnip')
-
 	local select_opts = { behavior = cmp.SelectBehavior.Select }
 
 	local kind_icons = {
@@ -48,13 +46,17 @@ function Plugin.config()
 			return true
 		end,
 		snippet = {
-			expand = function(args) luasnip.lsp_expand(args.body) end,
+			expand = function(args) require('snippy').expand_snippet(args.body) end,
+		},
+		preselect = cmp.PreselectMode.Item,
+		completion = {
+			completeopt = 'menu,menuone,noinsert',
 		},
 		sources = {
 			{ name = 'path' },
 			{ name = 'nvim_lsp', keyword_length = 3 },
 			{ name = 'buffer', keyword_length = 3 },
-			{ name = 'luasnip', keyword_length = 2 },
+			{ name = 'snippy' },
 		},
 		view = {
 			docs = {
@@ -86,8 +88,10 @@ function Plugin.config()
 		mapping = {
 			['<Up>'] = cmp.mapping.select_prev_item(select_opts),
 			['<Down>'] = cmp.mapping.select_next_item(select_opts),
-			['<C-e>'] = cmp.mapping.abort(),
-			['<CR>'] = cmp.mapping.confirm({ select = false }),
+			['<CR>'] = cmp.mapping.confirm(),
+			-- ["<tab>"] = cmp.mapping.confirm(),
+			['<tab>'] = cmp.mapping.select_next_item(select_opts),
+			['<s-tab>'] = cmp.mapping.select_prev_item(select_opts),
 			['<C-k>'] = cmp.mapping.scroll_docs(-5),
 			['<C-j>'] = cmp.mapping.scroll_docs(5),
 			['<C-g>'] = cmp.mapping(function(fallback)
@@ -99,24 +103,6 @@ function Plugin.config()
 					fallback()
 				end
 			end),
-			['<Tab>'] = cmp.mapping(function(fallback)
-				if cmp.visible() then
-					cmp.confirm({ select = true })
-				elseif luasnip.jumpable(1) then
-					luasnip.jump(1)
-				else
-					fallback()
-				end
-			end, { 'i', 's' }),
-
-			['<S-Tab>'] = cmp.mapping(function(fallback)
-				if luasnip.jumpable(-1) then
-					luasnip.jump(-1)
-				else
-					fallback()
-					-- 	user.insert_tab()
-				end
-			end, { 'i', 's' }),
 		},
 	}
 
