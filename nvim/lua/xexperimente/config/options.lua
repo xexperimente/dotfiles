@@ -80,3 +80,19 @@ vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_python_provider = 0
 vim.g.loaded_python3_provider = 0
+
+-- Grep arguments
+if vim.fn.executable('rg') == 1 then
+	vim.opt.grepprg = 'rg --vimgrep --no-heading --smart-case --hidden'
+	vim.opt.grepformat = '%f:%l:%c:%m'
+end
+
+-- Terminal
+if vim.fn.has('win32') == 1 then
+	vim.opt.shell = 'pwsh.exe'
+	vim.opt.shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command '
+	vim.opt.shellxquote = ''
+	vim.opt.shellquote = ''
+	vim.opt.shellredir = '2>&1 | Out-File -Encoding UTF8 %s'
+	vim.opt.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s'
+end
