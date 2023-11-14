@@ -22,7 +22,7 @@ bind('n', '<S-F3>', 'N', { noremap = true, desc = 'Previous search result' })
 bind('n', ']b', ':bnext<cr>', { noremap = true, silent = true, desc = 'Next buffer' })
 bind('n', '[b', ':bprev<cr>', { noremap = true, silent = true, desc = 'Previous buffer' })
 
--- CLose buffer
+-- Close buffer
 bind('n', '<leader>bd', ':bd<cr>', { noremap = true, silent = true, desc = 'Close buffer' })
 
 -- Select all text in current buffer
