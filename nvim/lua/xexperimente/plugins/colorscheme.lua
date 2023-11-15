@@ -22,6 +22,7 @@ Plugin.opts = {
 		-- CmpItemKindEnum = { fg = 'base', bg = 'foam' },
 		CmpItemMenu = { fg = 'iris', italic = true },
 		NvimTreeSpecialFile = { fg = 'muted', link = 'NvimTreeLineNR' },
+		LspInfoBorder = { link = 'FloatBorder' },
 	},
 }
 

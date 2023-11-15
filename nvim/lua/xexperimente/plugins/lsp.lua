@@ -21,6 +21,7 @@ function Plugin.config()
 
 	local lz = require('lsp-zero')
 
+	user.ui()
 	user.lspconfig(lz)
 	user.diagnostics(lz)
 
@@ -141,6 +142,13 @@ function user.diagnostics(lsp)
 		desc = 'Enable diagnostics when leaving insert mode',
 		callback = function() vim.diagnostic.enable(0) end,
 	})
+end
+
+function user.ui()
+	-- Border and color for LspInfo
+	require('lspconfig.ui.windows').default_options = {
+		border = 'rounded',
+	}
 end
 
 return Plugin
