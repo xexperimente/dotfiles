@@ -92,6 +92,7 @@ function Plugin.init()
 	bind('n', '<leader>fo', '<cmd>Telescope oldfiles<cr>', { desc = 'Recent files' })
 	bind('n', '<leader>fG', '<cmd>Telescope grep_string<cr>', { desc = 'Grep string' })
 	bind('n', '<leader>fs', '<cmd>Telescope treesitter<cr>', { desc = 'Buffer symbols' })
+	bind('n', '<leader>fr', '<cmd>Telescope resume<cr>', { desc = 'Resume last search' })
 end
 
 function Plugin.config(_, opts)
