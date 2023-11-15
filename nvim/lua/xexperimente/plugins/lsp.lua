@@ -44,12 +44,8 @@ function user.lspconfig(lsp)
 		ensure_installed = { 'lua_ls', 'powershell_es' },
 		handlers = {
 			lsp.default_setup,
-			powershell_es = function()
-				require("lspconfig").powershell_es.setup(user.powershell_opts())
-			end,
-			lua_ls = function() 
-				require('lspconfig').lua_ls.setup(user.lua_opts()) 
-			end,
+			powershell_es = function() require('lspconfig').powershell_es.setup(user.powershell_opts()) end,
+			lua_ls = function() require('lspconfig').lua_ls.setup(user.lua_opts()) end,
 		},
 	})
 end
