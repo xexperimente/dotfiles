@@ -94,6 +94,7 @@ function Plugin.config()
 			['<s-tab>'] = cmp.mapping.select_prev_item(select_opts),
 			['<C-k>'] = cmp.mapping.scroll_docs(-5),
 			['<C-j>'] = cmp.mapping.scroll_docs(5),
+			['<C-e>'] = cmp.mapping.abort(),
 			['<C-g>'] = cmp.mapping(function(fallback)
 				if cmp.visible_docs() then
 					cmp.close_docs()
