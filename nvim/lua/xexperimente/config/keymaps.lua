@@ -28,6 +28,9 @@ bind('n', '<leader>bd', ':bd<cr>', { noremap = true, silent = true, desc = 'Clos
 -- Select all text in current buffer
 bind('n', '<leader>a', '<cmd>keepjumps normal! ggVG<cr>', { desc = 'Select all' })
 
+-- Redo
+bind('n', 'U', ':redo<cr>', { desc = 'Redo' })
+
 -- Terminal
 bind('t', '<esc>', [[<C-\><C-n>]], { desc = 'Escape terminal mode', noremap = true })
 bind('t', '<esc><esc>', [[<C-\><C-n><C-w>q]], { desc = 'Close terminal', noremap = true })
