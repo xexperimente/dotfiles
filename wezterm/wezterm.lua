@@ -22,12 +22,17 @@ config.win32_system_backdrop = 'Auto' --'Acrylic'
 config.window_background_opacity = 0.95
 
 config.font = wezterm.font('Delugia')
+config.font_size = 13
 
-config.initial_rows = 45
+config.initial_rows = 50
 config.initial_cols = 165
 
 config.default_prog = { 'pwsh' }
 config.window_decorations = 'RESIZE'
+
+config.window_padding = {
+	bottom = '0',
+}
 
 -- Windows default paste from clipboard
 config.keys = {
