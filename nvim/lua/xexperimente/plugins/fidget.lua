@@ -10,6 +10,12 @@ Plugin.opts = {
 	},
 }
 
-Plugin.config = true
+function Plugin.config(_, opts)
+	local fidget = require('fidget')
+
+	fidget.setup(opts)
+
+	vim.notify = fidget.notify
+end
 
 return Plugin
