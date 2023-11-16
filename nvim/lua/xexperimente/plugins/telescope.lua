@@ -1,7 +1,8 @@
 local Plugin = { 'nvim-telescope/telescope.nvim' }
 local user = {}
 
-Plugin.event = 'VeryLazy'
+-- Plugin.event = 'VeryLazy'
+Plugin.lazy = false
 
 Plugin.dependencies = {
 	'nvim-lua/plenary.nvim',
@@ -44,6 +45,8 @@ function Plugin.opts()
 				i = {
 					['<Esc>'] = actions.close,
 					['<C-p>'] = require('telescope.actions.layout').toggle_preview,
+					['<C-Right>'] = actions.select_vertical,
+					['<C-Down>'] = actions.select_horizontal,
 				},
 			},
 		},
