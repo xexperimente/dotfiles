@@ -4,7 +4,6 @@ Plugin.event = 'VeryLazy'
 
 Plugin.dependencies = {
 	'nvim-treesitter/nvim-treesitter-textobjects',
-	'JoosepAlviste/nvim-ts-context-commentstring',
 }
 
 Plugin.opts = {
@@ -65,10 +64,6 @@ Plugin.opts = {
 			},
 		},
 	},
-	context_commentstring = {
-		enable = true,
-		enable_autocmd = false,
-	},
 	ensure_installed = {
 		-- 'javascript',
 		'toml',
@@ -84,7 +79,6 @@ Plugin.opts = {
 
 Plugin.keys = {
 	{ '<c-space>', desc = 'Increment selection' },
-	-- { '<bs>', desc = 'Decrement selection', mode = 'x' },
 }
 
 Plugin.cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' }
@@ -94,4 +88,3 @@ function Plugin.build() pcall(vim.cmd, 'TSUpdate') end
 function Plugin.config(_, opts) require('nvim-treesitter.configs').setup(opts) end
 
 return Plugin
-
