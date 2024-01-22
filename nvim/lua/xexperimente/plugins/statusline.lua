@@ -9,7 +9,6 @@ function Plugin.opts()
 	local Component = require('sttusline.component')
 	local Lazy = user.create_lazy_component(Component)
 	local Filename = user.create_filename_component(Component)
-	local Codeium = user.create_codeium_component(Component)
 
 	return {
 		laststatus = 3,
@@ -32,7 +31,6 @@ function Plugin.opts()
 			-- 'copilot',
 			-- 'indent',
 			-- 'encoding',
-			Codeium,
 			Lazy,
 			'pos-cursor',
 			'pos-cursor-progress',
@@ -83,27 +81,6 @@ function user.create_lazy_component(component)
 	end)
 
 	return Lazy
-end
-
-function user.create_codeium_component(component)
-	local Codeium = component.new()
-
-	Codeium.set_config({
-		style = 'default',
-	})
-
-	Codeium.set_timing(true)
-
-	Codeium.set_update(function()
-		local text = vim.fn['codeium#GetStatusString']()
-
-		text = text:gsub('%s+', '')
-		if text == 'ON' and vim.g.codeium_manual then text = 'Manual' end
-
-		return 'AI:' .. text
-	end)
-
-	return Codeium
 end
 
 function user.update_colors()
