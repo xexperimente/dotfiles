@@ -102,13 +102,15 @@ function user.lsp_attach(client, bufnr)
 	bind('n', '<leader>lo', telescope.lsp_document_symbols, opts('Document symbols'))
 	bind('n', '<leader>lg', telescope.lsp_dynamic_workspace_symbols, opts('Workspace symbols'))
 
-	local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-	if inlay_hint then
-		if client.supports_method('textDocument/inlayHint') then
-			inlay_hint(bufnr, false)
+	if client.supports_method('textDocument/inlayHint') then
+		vim.lsp.inlay_hint.enable(bufnr, false)
 
-			bind('n', '<leader>lh', function() inlay_hint(0, nil) end, { desc = 'Toggle inlay hints' })
-		end
+		bind(
+			'n',
+			'<leader>lh',
+			function() vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(nil)) end,
+			{ desc = 'Toggle inlay hints' }
+		)
 	end
 end
 
