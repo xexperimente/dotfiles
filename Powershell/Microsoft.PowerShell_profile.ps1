@@ -98,6 +98,11 @@ function Backup-Homeoffice
 	& rclone sync C:\_Projects\KVP\src E:\_Projects_svn\KVP\src --exclude-from="$env:USERPROFILE\kovoprog.rclone.exclude" $args -P
 }
 
+function Backup-Sources
+{
+	& rclone sync %userprofile%/source/repos e:/Projects/sources -P
+}
+
 function Backup-Config
 {
 	Write-Output "Running nvim backup..." | Green
