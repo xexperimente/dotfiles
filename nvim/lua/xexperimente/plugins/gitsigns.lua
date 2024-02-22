@@ -1,6 +1,6 @@
 local Plugin = { 'lewis6991/gitsigns.nvim' }
 
-Plugin.event = 'VeryLazy'
+Plugin.event = { 'BufReadPre', 'BufNewFile' }
 
 Plugin.opts = {
 	current_line_blame = true,

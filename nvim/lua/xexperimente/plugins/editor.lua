@@ -3,7 +3,7 @@ return {
 	-- Colored brace pairs
 	{
 		'hiphish/rainbow-delimiters.nvim',
-		event = 'VeryLazy',
+		event = { 'BufRead', 'BufNewFile' },
 		config = function()
 			local rainbow_delimiters = require('rainbow-delimiters')
 
