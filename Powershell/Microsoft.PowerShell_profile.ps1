@@ -21,7 +21,7 @@ Invoke-Expression (&starship init powershell)
 # Custom functions
 function New-SymLink ($link, $target)
 {
-	if (test-path -pathtype container $link)
+	if (test-path -pathtype container $target)
 	{ 
 		$directory = "/d" 
 	}
