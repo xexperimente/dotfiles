@@ -32,7 +32,7 @@ return {
 	{
 		'max397574/better-escape.nvim',
 		event = 'InsertEnter',
-		opts = {},
+		config = true,
 	},
 
 	-- LSP lenses - show definitions and references of symbol

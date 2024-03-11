@@ -6,6 +6,7 @@ Plug({
 	'echasnovski/mini.comment',
 	version = false,
 	config = true,
+	event = { 'BufRead', 'BufNewFile' },
 })
 
 -- surround selections
@@ -19,6 +20,7 @@ Plug({
 			delete = '<leader>sd',
 		},
 	},
+	event = { 'BufRead', 'BufNewFile' },
 })
 
 -- Highlight all occurences of current word
@@ -26,18 +28,21 @@ Plug({
 	'echasnovski/mini.cursorword',
 	version = false,
 	config = true,
+	event = { 'BufRead', 'BufNewFile' },
 })
 
 Plug({
 	'echasnovski/mini.indentscope',
 	version = false,
 	config = true,
+	event = { 'BufRead', 'BufNewFile' },
 })
 
 Plug({
 	'echasnovski/mini.splitjoin',
 	version = false,
 	config = true,
+	event = { 'BufRead', 'BufNewFile' },
 })
 
 -- TODO: mini.sessions
