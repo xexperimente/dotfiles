@@ -1,5 +1,10 @@
 local Plugin = { 'j-hui/fidget.nvim' }
 
+Plugin.dependencies = {
+	'nvim-tree/nvim-web-devicons',
+	'projekt0n/circles.nvim',
+}
+
 Plugin.opts = {
 	progress = {
 		ignore_done_already = true,

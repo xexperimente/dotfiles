@@ -67,6 +67,4 @@ function Plugin.opts()
 	}
 end
 
-Plugin.config = true
-
 return Plugin

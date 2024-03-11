@@ -6,8 +6,6 @@ Plugin.lazy = false
 
 Plugin.priority = 1000
 
-Plugin.config = true
-
 Plugin.opts = {
 	highlight_groups = {
 		Whitespace = { bg = 'base', fg = 'overlay' },

@@ -46,6 +46,4 @@ function Plugin.init()
 	end, { desc = 'Format' })
 end
 
-Plugin.config = true
-
 return Plugin

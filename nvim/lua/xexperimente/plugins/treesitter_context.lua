@@ -17,6 +17,4 @@ function Plugin.init()
 	vim.api.nvim_set_hl(0, 'TreesitterContextSeparator', { link = 'LspFloatWinBorder' })
 end
 
-function Plugin.config(_, opts) require('treesitter-context').setup(opts) end
-
 return Plugin

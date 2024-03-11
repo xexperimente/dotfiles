@@ -2,8 +2,6 @@ local Plugin = { 'folke/flash.nvim' }
 
 Plugin.event = 'VeryLazy'
 
-Plugin.config = true
-
 Plugin.keys = {
 	{ 's', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end },
 	{ 'S', mode = { 'o', 'x' }, function() require('flash').treesitter() end },

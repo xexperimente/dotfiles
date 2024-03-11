@@ -1,6 +1,8 @@
 local Plugin = { 'nvim-tree/nvim-tree.lua' }
 
-Plugin.priority = 100
+-- Plugin.priority = 100
+
+Plugin.cmd = { 'NvimTreeToggle', 'NvimTreeOpen' }
 
 Plugin.dependencies = {
 	'nvim-tree/nvim-web-devicons',
@@ -47,8 +49,6 @@ function Plugin.opts()
 		},
 	}
 end
-
-Plugin.config = true
 
 function Plugin.init()
 	local bind = vim.keymap.set

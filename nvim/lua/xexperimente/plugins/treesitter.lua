@@ -83,8 +83,16 @@ Plugin.keys = {
 
 Plugin.cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' }
 
-function Plugin.build() pcall(vim.cmd, 'TSUpdate') end
+Plugin.build = ':TSUpdate'
 
-function Plugin.config(_, opts) require('nvim-treesitter.configs').setup(opts) end
+-- function Plugin.build()
+-- 	--pcall(vim.cmd, 'TSUpdate')
+-- 	vim.cmd('TSUpdate')
+-- end
+
+function Plugin.config(_, opts)
+	require('nvim-treesitter.install').compilers = { 'clang' }
+	require('nvim-treesitter.configs').setup(opts)
+end
 
 return Plugin

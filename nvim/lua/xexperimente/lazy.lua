@@ -26,12 +26,7 @@ function Lazy.init()
 	vim.opt.rtp:prepend(Lazy.path)
 
 	vim.keymap.set('n', '<leader>pl', ':Lazy<cr>', { desc = 'Open Lazy' })
-	vim.keymap.set(
-		'n',
-		'<leader>pp',
-		':Lazy profile<cr>',
-		{ noremap = true, desc = 'Profile Plugins' }
-	)
+	vim.keymap.set('n', '<leader>pp', ':Lazy profile<cr>', { desc = 'Profile Plugins' })
 	vim.keymap.set('n', '<leader>pi', ':Lazy install<cr>', { desc = 'Install plugins' })
 	vim.keymap.set('n', '<leader>pu', ':Lazy update<cr>', { desc = 'Update plugins' })
 end
@@ -64,24 +59,26 @@ Lazy.opts = {
 			-- Disable some builtin vim plugins
 			disabled_plugins = {
 				'2html_plugin',
+				'bugreport',
 				'getscript',
 				'getscriptPlugin',
 				'gzip',
 				'logipat',
 				'netrw',
-				'rplugin',
-				'man',
-				'matchit',
-				'matchparen',
 				'netrwPlugin',
 				'netrwSettings',
 				'netrwFileHandlers',
+				'man',
+				'matchit',
+				'matchparen',
+				'rplugin',
+				'rrhelper',
+				'spellfile',
+				'spellfile_plugin',
 				'tar',
 				'tarPlugin',
 				'tohtml',
 				'tutor',
-				'rrhelper',
-				'spellfile',
 				'vimball',
 				'vimballPlugin',
 				'zip',
