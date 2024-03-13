@@ -152,9 +152,13 @@ function Update-Starship
 
 function Enter-Dev
 {
-	$installPath = &"C:/Program Files (x86)/Microsoft Visual Studio/Installer/vswhere.exe"  -prerelease -latest -property installationPath
-	Import-Module (Join-Path $installPath "Common7/Tools/Microsoft.VisualStudio.DevShell.dll")
-	Enter-VsDevShell -VsInstallPath $installPath -SkipAutomaticLocation
+	$path = &"C:/Program Files (x86)/Microsoft Visual Studio/Installer/vswhere.exe"  -prerelease -latest -property installationPath
+	$id = &"C:/Program Files (x86)/Microsoft Visual Studio/Installer/vswhere.exe"  -prerelease -latest -property instanceid
+	$dev = Join-Path $path "Common7/Tools/Microsoft.VisualStudio.DevShell.dll"
+
+	&pwsh.exe -NoExit -Command "&{Import-Module ""$dev""; Enter-VsDevShell $id -SkipAutomaticLocation -DevCmdArguments ""-arch=x64 -host_arch=x64""}"
+
+	# &pwsh.exe -NoExit -Command "&{Import-Module ""C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\Tools\Microsoft.VisualStudio.DevShell.dll""; Enter-VsDevShell 368fdbdb -SkipAutomaticLocation -DevCmdArguments ""-arch=x64 -host_arch=x64""}"
 }
 
 function Stop-Git
