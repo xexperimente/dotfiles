@@ -29,12 +29,12 @@ function Plugin.opts()
 					folder = false,
 				},
 				-- glyphs = require('circles').get_nvimtree_glyphs(),
-				glyphs = {
-					folder = {
-						-- arrow_closed = '▸',
-						-- arrow_open = '▾',
-					},
-				},
+				-- glyphs = {
+				-- 	folder = {
+				-- arrow_closed = '▸',
+				-- arrow_open = '▾',
+				-- 	},
+				-- },
 			},
 			special_files = {
 				'Cargo.toml',

@@ -91,7 +91,7 @@ Plugin.build = ':TSUpdate'
 -- end
 
 function Plugin.config(_, opts)
-	require('nvim-treesitter.install').compilers = { 'clang' }
+	require('nvim-treesitter.install').compilers = { 'clang', 'gcc', 'cl' }
 	require('nvim-treesitter.configs').setup(opts)
 end
 
