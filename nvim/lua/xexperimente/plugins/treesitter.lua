@@ -67,13 +67,15 @@ Plugin.opts = {
 	ensure_installed = {
 		-- 'javascript',
 		'toml',
-		-- 'yaml',
+		'yaml',
 		'comment',
 		-- 'php',
 		-- 'html',
 		-- 'css',
 		'json',
 		'lua',
+		'vim',
+		'vimdoc',
 	},
 }
 
