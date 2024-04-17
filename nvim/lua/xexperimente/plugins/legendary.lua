@@ -8,8 +8,9 @@ Plugin.opts = {
 	extensions = {
 		lazy_nvim = true,
 	},
+	select_prompt = 'legendary.nvim',
 	keymaps = {
-		{ '<leader>P', '<cmd>Legendary<Cr>', description = 'Open command palette' },
+		{ '<M-p>', '<cmd>Legendary<Cr>', description = 'Open command palette' },
 	},
 }
 
