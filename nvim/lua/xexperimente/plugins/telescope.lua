@@ -8,6 +8,7 @@ Plugin.dependencies = {
 	'nvim-tree/nvim-web-devicons',
 	'nvim-telescope/telescope-ui-select.nvim',
 	'ghassan0/telescope-glyph.nvim',
+	'nvim-telescope/telescope-project.nvim',
 	{
 		'nvim-telescope/telescope-fzf-native.nvim',
 		build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
@@ -82,6 +83,14 @@ function Plugin.opts()
 					vim.api.nvim_put({ glyph.value }, 'c', false, true)
 				end,
 			},
+			['project'] = {
+				sync_with_nvim_tree = false,
+				on_project_selected = function(prompt_bufnr)
+					local project_actions = require('telescope._extensions.project.actions')
+
+					project_actions.change_working_directory(prompt_bufnr, false)
+				end,
+			},
 		},
 	}
 end
@@ -102,6 +111,12 @@ function Plugin.init()
 	bind('n', '<leader>fs', '<cmd>Telescope treesitter<cr>', { desc = 'Buffer symbols' })
 	bind('n', '<leader>fr', '<cmd>Telescope resume<cr>', { desc = 'Resume last search' })
 	bind('n', '<leader>fC', '<cmd>Telescope glyph<cr>', { desc = 'Find character/glyph' })
+	bind(
+		'n',
+		'<leader>fp',
+		'<cmd>Telescope project display_type=full<cr>',
+		{ desc = 'Manage Projects' }
+	)
 end
 
 function Plugin.config(_, opts)
@@ -112,6 +127,7 @@ function Plugin.config(_, opts)
 	telescope.load_extension('glyph')
 	telescope.load_extension('ui-select')
 	telescope.load_extension('fzf')
+	telescope.load_extension('project')
 end
 
 return Plugin
