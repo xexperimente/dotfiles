@@ -4,6 +4,7 @@ Set-PSReadLineOption -Colors @{ InlinePrediction = "DarkBlue" }
 
 # Aliases
 Remove-Item alias:nv -Force
+Remove-Item alias:cd -Force
 
 New-Alias -Name "touch" -Value "New-Item"
 
@@ -14,6 +15,8 @@ New-Alias -Name "mklink" -Value "New-SymLink"
 New-Alias -Name "Remove-SymLink" -Value "Remove-Item"
 
 New-Alias -Name "Init-dev" -Value "Enter-Dev"
+
+New-Alias -Name "cd" -Value "z"
 
 # Init Starship prompt
 Invoke-Expression (&starship init powershell)
@@ -186,9 +189,8 @@ function Red
 # Import-Module 'D:\Dev\vcpkg\scripts\posh-vcpkg' # Init vcpkg completion
 # rclone completion powershell | Out-String | Invoke-Expression # Init rclone completion
 
-
-
-
+# Zoxide init
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
 
 
