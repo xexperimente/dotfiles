@@ -4,17 +4,13 @@ Plugin.priority = 10000
 
 Plugin.lazy = false
 
-Plugin.keys = {
-	{ '<C-P>', '<cmd>Legendary<cr>' },
-}
-
 Plugin.opts = {
 	extensions = {
 		lazy_nvim = true,
 	},
+	keymaps = {
+		{ '<leader>P', '<cmd>Legendary<Cr>', description = 'Open command palette' },
+	},
 }
-
--- sqlite is only needed if you want to use frecency sorting
--- dependencies = { 'kkharji/sqlite.lua' }
 
 return Plugin
