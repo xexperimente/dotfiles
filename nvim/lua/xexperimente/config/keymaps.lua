@@ -1,5 +1,14 @@
 local bind = vim.keymap.set
 
+-- Allow misspellings
+local abbr = vim.cmd.cnoreabbrev
+abbr('qw', 'wq')
+abbr('Wq', 'wq')
+abbr('WQ', 'wq')
+abbr('Qa', 'qa')
+abbr('Bd', 'bd')
+abbr('bD', 'bd')
+
 -- Save with musle memory from windows
 bind('n', '<C-s>', ':w!<cr>', { noremap = true, silent = true, desc = 'Save file' })
 bind({ 'n', 'i' }, '<C-v>', '<C-R>+', { noremap = true, silent = true, desc = 'Paste' })
