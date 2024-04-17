@@ -1,12 +1,14 @@
 local Plugin = { 'nvim-tree/nvim-tree.lua' }
 
--- Plugin.priority = 100
-
 Plugin.cmd = { 'NvimTreeToggle', 'NvimTreeOpen' }
 
 Plugin.dependencies = {
 	'nvim-tree/nvim-web-devicons',
 	'projekt0n/circles.nvim',
+}
+
+Plugin.keys = {
+	{ '<leader>fe', '<cmd>NvimTreeToggle<cr>', desc = 'Open file explorer' },
 }
 
 function Plugin.opts()
@@ -48,12 +50,6 @@ function Plugin.opts()
 			},
 		},
 	}
-end
-
-function Plugin.init()
-	local bind = vim.keymap.set
-
-	bind('n', '<leader>fe', ':NvimTreeToggle<cr>', { silent = true, desc = 'Open tree' })
 end
 
 return Plugin

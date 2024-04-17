@@ -14,10 +14,10 @@ Plugin.opts = {
 	incremental_selection = {
 		enable = true,
 		keymaps = {
-			init_selection = '<C-space>',
-			node_incremental = '<C-space>',
+			init_selection = '<C-up>',
+			node_incremental = '<C-up>',
 			scope_incremental = false,
-			node_decremental = '<bs>',
+			node_decremental = '<C-down>',
 		},
 	},
 	textobjects = {
@@ -74,23 +74,19 @@ Plugin.opts = {
 		-- 'css',
 		'json',
 		'lua',
-		'vim',
 		'vimdoc',
+		'vim',
 	},
 }
 
 Plugin.keys = {
-	{ '<c-space>', desc = 'Increment selection' },
+	{ '<c-up>', desc = 'Increment selection' },
+	{ '<c-down>', desc = 'Decrement selection' },
 }
 
 Plugin.cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' }
 
 Plugin.build = ':TSUpdate'
-
--- function Plugin.build()
--- 	--pcall(vim.cmd, 'TSUpdate')
--- 	vim.cmd('TSUpdate')
--- end
 
 function Plugin.config(_, opts)
 	require('nvim-treesitter.install').compilers = { 'clang', 'gcc', 'cl' }
