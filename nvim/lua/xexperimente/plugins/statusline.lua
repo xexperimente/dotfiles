@@ -55,13 +55,6 @@ Plugin.opts = {
 		'%=',
 		'lsps-formatters',
 		{
-			'indent',
-			{
-				colors = { fg = colors.text() },
-			},
-		},
-		-- 'encoding',
-		{
 			name = 'Lazy',
 			update_group = 'group_name',
 			event = {}, -- The component will be update when the event is triggered
@@ -83,6 +76,13 @@ Plugin.opts = {
 			condition = function(_, _) return true end,
 			on_highlight = function(_, _) end,
 		},
+		{
+			'indent',
+			{
+				colors = { fg = colors.text() },
+			},
+		},
+		-- 'encoding',
 		{
 			'pos-cursor',
 			{
