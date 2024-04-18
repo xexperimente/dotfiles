@@ -5,6 +5,10 @@ Plugin.event = 'VeryLazy'
 function Plugin.config()
 	local bind = vim.keymap.set
 
+	bind('n', '<c-w>n', '<cmd>Detour<cr>', { noremap = true, desc = 'Open Detour window' })
+
+	bind('n', '<c-w>.', '<cmd>DetourCurrentWindow<cr>', { desc = 'Open Detour window over current' })
+
 	bind('n', '<leader>t', function()
 		require('detour').Detour()
 
