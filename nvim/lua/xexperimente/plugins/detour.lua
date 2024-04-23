@@ -1,6 +1,8 @@
 local Plugin = { 'carbon-steel/detour.nvim' }
 
-Plugin.event = 'VeryLazy'
+Plugin.lazy = true
+
+Plugin.cmd = { 'Detour', 'DetourCurrentWindow' }
 
 function Plugin.config()
 	local bind = vim.keymap.set
