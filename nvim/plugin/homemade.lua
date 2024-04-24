@@ -1,3 +1,3 @@
 -- Local Plugins
 
--- require('local.statusline').setup()
+-- require('local.statusline')
