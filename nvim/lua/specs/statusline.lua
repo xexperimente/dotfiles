@@ -1,5 +1,7 @@
 local Plugin = { 'sontungexpt/sttusline' }
 
+Plugin.cond = true
+
 Plugin.branch = 'table_version'
 
 Plugin.dependencies = { 'nvim-tree/nvim-web-devicons' }
@@ -77,12 +79,12 @@ Plugin.opts = {
 			condition = function(_, _) return true end,
 			on_highlight = function(_, _) end,
 		},
-		{
-			'indent',
-			{
-				colors = { fg = colors.text() },
-			},
-		},
+		-- {
+		-- 	'indent',
+		-- 	{
+		-- 		colors = { fg = colors.text() },
+		-- 	},
+		-- },
 		-- 'encoding',
 		{
 			'pos-cursor',

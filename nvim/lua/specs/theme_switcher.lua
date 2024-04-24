@@ -1,5 +1,9 @@
 local Plugin = { 'f-person/auto-dark-mode.nvim' }
 
+Plugin.lazy = true
+
+Plugin.event = 'VeryLazy'
+
 function Plugin.config()
 	local auto_dark_mode = require('auto-dark-mode')
 

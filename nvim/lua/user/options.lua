@@ -53,9 +53,9 @@ vim.opt.fillchars = {
 
 -- Statusline
 vim.opt.statuscolumn = vim.fn.join({
-	'%{%v:lua.require("xexperimente.util.columns").signcolumn()%}%=',
-	'%{v:lua.require("xexperimente.util.columns").number()}',
-	' %{%v:lua.require("xexperimente.util.columns").foldcolumn()%} ',
+	'%{%v:lua.require("user.columns").signcolumn()%}%=',
+	'%{v:lua.require("user.columns").number()}',
+	' %{%v:lua.require("user.columns").foldcolumn()%} ',
 }, '')
 
 -- Folding
