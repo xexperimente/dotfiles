@@ -1,117 +1,88 @@
+-- LSP support
 local Plugin = { 'neovim/nvim-lspconfig' }
 local user = {}
 
-Plugin.lazy = false
+Plugin.lazy = true
+
+Plugin.cmd = { 'LspInfo', 'LspInstall', 'LspStart' }
+
+Plugin.event = { 'BufReadPre', 'BufNewFile' }
+
+-- TODO: toggle inline hints
 
 Plugin.dependencies = {
 	{ 'hrsh7th/cmp-nvim-lsp' },
-	{ 'williamboman/mason.nvim' },
 	{ 'williamboman/mason-lspconfig.nvim' },
-	{ 'VonHeikemen/lsp-zero.nvim', branch = 'v3.x' },
-	{ 'folke/neodev.nvim', ft = 'lua', opts = {} },
+	-- { 'folke/neodev.nvim', ft = 'lua', opts = { library = { plugins = false } } },
 }
 
 function Plugin.init()
-	vim.g.lsp_zero_extend_cmp = 0
-	vim.g.lsp_zero_extend_lspconfig = 0
+	-- disable lsp semantic highlights
+	vim.api.nvim_create_autocmd('ColorScheme', {
+		desc = 'Clear LSP highlight groups',
+		callback = function()
+			local higroups = vim.fn.getcompletion('@lsp', 'highlight')
+			for _, name in ipairs(higroups) do
+				vim.api.nvim_set_hl(0, name, {})
+			end
+		end,
+	})
 end
 
 function Plugin.config()
-	require('neodev').setup()
+	-- require('neodev').setup()
 
-	local lz = require('lsp-zero')
+	local lsp = require('lsp-zero')
 
-	user.ui()
-	user.lspconfig(lz)
-	user.diagnostics(lz)
-
-	require('mason-lspconfig').setup()
-end
-
-function user.lspconfig(lsp)
 	lsp.extend_lspconfig()
-
 	lsp.on_attach(user.lsp_attach)
 
-	lsp.set_server_config({
-		single_file_support = false,
-		-- on_init = function(client) client.server_capabilities.semanticTokensProvider = nil end,
-		-- root_dir = function() return vim.fn.getcwd() end,
-	})
+	user.diagnostics(lsp)
+	user.ui()
 
-	-- lsp.store_config('powershell_es', user.powershell_opts())
-	--
 	require('mason-lspconfig').setup({
-		ensure_installed = { 'lua_ls', 'powershell_es' },
+		ensure_installed = {},
 		handlers = {
-			lsp.default_setup,
-			powershell_es = function() require('lspconfig').powershell_es.setup(user.powershell_opts()) end,
-			lua_ls = function() require('lspconfig').lua_ls.setup(user.lua_opts()) end,
+			function(server_name) require('lspconfig')[server_name].setup({}) end,
+
+			lua_ls = function()
+				-- (Optional) Configure lua language server for neovim
+				local lua_opts = lsp.nvim_lua_ls()
+				require('lspconfig').lua_ls.setup(lua_opts)
+			end,
 		},
 	})
 end
 
-function user.lua_opts()
-	return {
-		settings = {
-			Lua = {
-				hint = {
-					enable = true,
-					arrayIndex = 'Disable',
-					semicolon = 'Disable',
-				},
-				workspace = {
-					checkThirdParty = false,
-				},
-			},
-		},
-	}
-end
-
-function user.powershell_opts()
-	local mason_registry = require('mason-registry')
-
-	return {
-		bundle_path = mason_registry.get_package('powershell-editor-services'):get_install_path(),
-		init_options = {
-			enableProfileLoading = false,
-		},
-	}
-end
-
-function user.lsp_attach(client, bufnr)
+function user.lsp_attach(_, bufnr)
 	local telescope = require('telescope.builtin')
 	local lsp = vim.lsp.buf
 	local bind = vim.keymap.set
+	local command = vim.api.nvim_buf_create_user_command
 
-	-- local opts = { silent = true, buffer = bufnr }
-	local function opts(desc) return { silent = true, buffer = bufnr, desc = desc } end
+	command(0, 'LspFormat', function(input) vim.lsp.buf.format({ async = input.bang }) end, {})
 
-	bind('n', '<leader>lk', lsp.hover, opts('Hover'))
-	bind('n', '<leader>lK', lsp.signature_help, opts('Signature help'))
-	bind('n', '<leader>ld', telescope.lsp_definitions, opts('Go to Definitions')) --lsp.definition
-	bind('n', '<leader>lD', lsp.declaration, opts('Go to declaration'))
-	bind('n', '<leader>li', telescope.lsp_implementations, opts('Go to impl')) --lsp.implementations
-	bind('n', '<leader>lt', lsp.type_definition, opts('Type definition'))
-	bind('n', '<F2>', lsp.rename, opts('Rename'))
-	bind('n', '<F4>', lsp.code_action, opts('Code actions'))
-	bind('n', '<leader>la', lsp.code_action, opts('Code actions'))
-	bind('n', '<F12>', telescope.lsp_definitions, opts('Go to Definitions'))
-	bind('n', '<leader>lr', telescope.lsp_references, opts('Show References'))
-	bind('n', '<leader>lp', telescope.diagnostics, opts('Show diagnostics'))
-	bind('n', '<leader>lo', telescope.lsp_document_symbols, opts('Document symbols'))
-	bind('n', '<leader>lg', telescope.lsp_dynamic_workspace_symbols, opts('Workspace symbols'))
+	local opts = { silent = true, buffer = bufnr }
 
-	if client.supports_method('textDocument/inlayHint') then
-		vim.lsp.inlay_hint.enable(bufnr, false)
+	bind({ 'n', 'x' }, 'gq', '<cmd>LspFormat!<cr>', opts)
 
-		bind(
-			'n',
-			'<leader>lh',
-			function() vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(nil)) end,
-			{ desc = 'Toggle inlay hints' }
-		)
-	end
+	bind('n', 'K', lsp.hover, opts)
+	bind('n', 'gd', lsp.definition, opts)
+	bind('n', '<F12>', lsp.definition, opts)
+	bind('n', 'gD', lsp.declaration, opts)
+	bind('n', 'gi', lsp.implementation, opts)
+	bind('n', 'go', lsp.type_definition, opts)
+	bind('n', 'gr', lsp.references, opts)
+	bind('n', 'gs', lsp.signature_help, opts)
+	bind('n', '<F2>', lsp.rename, opts)
+	bind('n', '<F4>', lsp.code_action, opts)
+
+	bind('n', 'gl', vim.diagnostic.open_float, opts)
+	bind('n', '[d', vim.diagnostic.goto_prev, opts)
+	bind('n', ']d', vim.diagnostic.goto_next, opts)
+
+	bind('n', '<leader>fd', telescope.lsp_document_symbols, opts)
+	bind('n', '<leader>fq', telescope.lsp_workspace_symbols, opts)
 end
 
 function user.diagnostics(lsp)
@@ -135,21 +106,21 @@ function user.diagnostics(lsp)
 		group = group,
 		pattern = { 'n:i', 'v:s' },
 		desc = 'Disable diagnostics while typing',
-		callback = function() vim.diagnostic.disable(0) end,
+		callback = function(e) vim.diagnostic.disable(e.buf) end,
 	})
 
 	autocmd('ModeChanged', {
 		group = group,
 		pattern = 'i:n',
 		desc = 'Enable diagnostics when leaving insert mode',
-		callback = function() vim.diagnostic.enable(0) end,
+		callback = function(e) vim.diagnostic.enable(e.buf) end,
 	})
 end
 
 function user.ui()
 	-- Border and color for LspInfo
 	require('lspconfig.ui.windows').default_options = {
-		border = 'rounded',
+		border = 'single',
 	}
 end
 

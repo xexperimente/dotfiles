@@ -1,5 +1,7 @@
 local Plugin = { 'j-hui/fidget.nvim' }
 
+Plugin.cond = false
+
 Plugin.opts = {
 	progress = {
 		ignore_done_already = true,

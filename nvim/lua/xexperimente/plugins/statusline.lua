@@ -53,6 +53,7 @@ Plugin.opts = {
 		'git-branch',
 		'git-diff',
 		'%=',
+		'diagnostics',
 		'lsps-formatters',
 		{
 			name = 'Lazy',

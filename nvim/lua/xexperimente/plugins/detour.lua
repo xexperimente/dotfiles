@@ -4,6 +4,8 @@ Plugin.lazy = true
 
 Plugin.cmd = { 'Detour', 'DetourCurrentWindow' }
 
+Plugin.keys = { '<leader>t' }
+
 function Plugin.config()
 	local bind = vim.keymap.set
 
