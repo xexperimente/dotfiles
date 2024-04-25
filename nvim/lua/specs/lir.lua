@@ -52,7 +52,7 @@ function Plugin.config()
 			['o'] = actions.mkdir,
 			['d'] = actions.delete,
 			['Y'] = actions.yank_path,
-			['cl'] = actions.rename,
+			['<F2>'] = actions.rename,
 
 			['<Tab>'] = marks.toggle_mark,
 
