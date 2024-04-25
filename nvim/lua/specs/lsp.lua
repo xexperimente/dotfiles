@@ -81,6 +81,7 @@ function user.lsp_attach(_, bufnr)
 	bind('n', '[d', vim.diagnostic.goto_prev, opts)
 	bind('n', ']d', vim.diagnostic.goto_next, opts)
 
+	bind('n', '<leader>lp', telescope.diagnostics, opts)
 	bind('n', '<leader>fd', telescope.lsp_document_symbols, opts)
 	bind('n', '<leader>fq', telescope.lsp_workspace_symbols, opts)
 end

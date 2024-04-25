@@ -21,6 +21,18 @@ Plugin.opts = {
 		CmpItemMenu = { fg = 'iris', italic = true },
 		NvimTreeSpecialFile = { fg = 'muted', link = 'NvimTreeLineNR' },
 		LspInfoBorder = { link = 'FloatBorder' },
+
+		TelescopePromptNormal = { bg = 'overlay' },
+		TelescopePromptBorder = { bg = 'overlay', fg = 'overlay' },
+		TelescopeResultsNormal = { bg = 'surface' },
+		TelescopeResultsBorder = { bg = 'surface', fg = 'surface' },
+		TelescopePreviewNormal = { bg = 'surface' },
+		TelescopePreviewBorder = { bg = 'surface', fg = 'surface' },
+
+		TelescopePromptTitle = { fg = 'overlay', bg = 'rose' },
+		TelescopePreviewTitle = { fg = 'overlay', bg = 'rose' },
+		TelescopeResultsTitle = { fg = 'overlay', bg = 'rose' },
+		TelescopeSelection = { bg = 'base', fg = 'text' },
 	},
 }
 
