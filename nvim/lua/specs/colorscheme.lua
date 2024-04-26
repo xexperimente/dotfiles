@@ -33,6 +33,9 @@ Plugin.opts = {
 		TelescopePreviewTitle = { fg = 'overlay', bg = 'rose' },
 		TelescopeResultsTitle = { fg = 'overlay', bg = 'rose' },
 		TelescopeSelection = { bg = 'base', fg = 'text' },
+
+		LirFloatNormal = { bg = 'surface' },
+		LirFloatCurdirWindowNormal = { bg = 'surface' },
 	},
 }
 

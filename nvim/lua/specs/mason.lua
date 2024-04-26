@@ -1,6 +1,8 @@
 local Plugin = { 'williamboman/mason.nvim' }
 
-Plugin.lazy = false
+Plugin.lazy = true
+
+Plugin.cmd = { 'Mason', 'MasonUpdate' }
 
 Plugin.opts = {
 	ui = { border = 'rounded' },

@@ -2,6 +2,13 @@
 local Plugin = { 'tamago324/lir.nvim' }
 local user = {}
 
+Plugin.lazy = true
+
+Plugin.keys = {
+	'<leader>fe',
+	'<leader>fa',
+}
+
 Plugin.dependencies = {
 	{ 'nvim-lua/plenary.nvim' },
 }
@@ -10,18 +17,6 @@ function Plugin.init()
 	-- disable netrw
 	vim.g.loaded_netrw = 1
 	vim.g.loaded_netrwPlugin = 1
-	local bind = vim.keymap.set
-	local toggle = user.toggle
-
-	-- Open file manager
-	bind('n', '<leader>fe', '<cmd>FileExplorer<cr>')
-	bind('n', '<leader>fa', '<cmd>FileExplorer!<cr>')
-
-	vim.api.nvim_create_user_command(
-		'FileExplorer',
-		function(input) toggle(input.args, input.bang) end,
-		{ bang = true, nargs = '?' }
-	)
 end
 
 function Plugin.config()
@@ -30,6 +25,9 @@ function Plugin.config()
 	local actions = require('lir.actions')
 	local marks = require('lir.mark.actions')
 	local clipboard = require('lir.clipboard.actions')
+
+	local bind = vim.keymap.set
+	local toggle = user.toggle
 
 	lir.setup({
 		on_init = user.on_init,
@@ -67,16 +65,26 @@ function Plugin.config()
 			winblend = 0,
 			win_opts = function()
 				return {
-					border = 'rounded',
+					border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
 					zindex = 46,
 				}
 			end,
 			curdir_window = {
-				enable = false,
+				enable = true,
 				highlight_dirname = false,
 			},
 		},
 	})
+
+	-- Open file manager
+	bind('n', '<leader>fe', '<cmd>FileExplorer<cr>')
+	bind('n', '<leader>fa', '<cmd>FileExplorer!<cr>')
+
+	vim.api.nvim_create_user_command(
+		'FileExplorer',
+		function(input) toggle(input.args, input.bang) end,
+		{ bang = true, nargs = '?' }
+	)
 end
 
 function user.on_init()
