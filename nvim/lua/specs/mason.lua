@@ -5,7 +5,7 @@ Plugin.lazy = true
 Plugin.cmd = { 'Mason', 'MasonUpdate' }
 
 Plugin.opts = {
-	ui = { border = 'rounded' },
+	ui = { border = require('user.env').border },
 }
 
 return Plugin

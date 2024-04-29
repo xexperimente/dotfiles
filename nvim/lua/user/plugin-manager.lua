@@ -2,7 +2,7 @@ local Lazy = {}
 
 function Lazy.install(path)
 	if not vim.loop.fs_stat(path) then
-		vim.notify('Installing lazy.nvim...',vim.log.levels.INFO)
+		vim.notify('Installing lazy.nvim...', vim.log.levels.INFO)
 		vim.fn.system({
 			'git',
 			'clone',
@@ -49,7 +49,7 @@ Lazy.opts = {
 		colorscheme = { 'rose-pine-dawn' },
 	},
 	ui = {
-		border = 'single',
+		border = require('user.env').border,
 		icons = {
 			lazy = '',
 		},
@@ -89,5 +89,5 @@ Lazy.opts = {
 }
 
 Lazy.setup({
-	{import = 'specs'}
+	{ import = 'specs' },
 })

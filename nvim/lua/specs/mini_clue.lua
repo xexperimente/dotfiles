@@ -61,7 +61,7 @@ function Plugin.opts()
 		},
 		window = {
 			config = {
-				border = 'rounded',
+				border = require('user.env').border,
 			},
 		},
 	}

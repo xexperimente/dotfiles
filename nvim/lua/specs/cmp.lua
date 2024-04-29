@@ -63,7 +63,7 @@ function Plugin.config()
 		},
 		window = {
 			documentation = {
-				border = 'single',
+				border = require('user.env').border,
 				max_height = 15,
 				max_width = 50,
 				zindex = 50,

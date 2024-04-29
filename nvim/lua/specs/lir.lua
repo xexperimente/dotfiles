@@ -65,7 +65,7 @@ function Plugin.config()
 			winblend = 0,
 			win_opts = function()
 				return {
-					border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+					border = 'solid',
 					zindex = 46,
 				}
 			end,

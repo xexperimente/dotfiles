@@ -124,7 +124,7 @@ end
 function user.ui()
 	-- Border and color for LspInfo
 	require('lspconfig.ui.windows').default_options = {
-		border = 'single',
+		border = require('user.env').border,
 	}
 end
 
