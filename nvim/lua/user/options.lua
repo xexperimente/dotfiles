@@ -66,7 +66,8 @@ vim.opt.foldenable = true
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 -- https://www.reddit.com/r/neovim/comments/16xz3q9/comment/k36s1r4/?utm_source=share&utm_medium=web2x&context=3
-vim.o.foldtext = 'v:lua.vim.treesitter.foldtext()'
+--vim.o.foldtext = 'v:lua.vim.treesitter.foldtext()'
+vim.o.foldtext = 'v:lua.require("user.columns").foldtext()'
 
 -- Misc
 vim.opt.swapfile = false
