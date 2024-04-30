@@ -1,6 +1,8 @@
 local Plugin = { 'nvim-telescope/telescope.nvim' }
 
-Plugin.lazy = false
+Plugin.lazy = true
+
+Plugin.cmd = { 'Telescope' }
 
 Plugin.dependencies = {
 	'nvim-lua/plenary.nvim',
