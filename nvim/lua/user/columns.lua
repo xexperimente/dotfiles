@@ -129,7 +129,10 @@ function M.foldtext()
 		end
 	end
 
-	table.insert(result, { ' {  }', 'LspInfoBorder' })
+	table.insert(
+		result,
+		{ ' {  }  -- ' .. vim.v.foldend - vim.v.foldstart .. ' lines', 'Comment' }
+	)
 
 	return result
 end

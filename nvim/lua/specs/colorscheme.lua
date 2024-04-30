@@ -36,6 +36,9 @@ Plugin.opts = {
 
 		LirFloatNormal = { bg = 'surface' },
 		LirFloatCurdirWindowNormal = { bg = 'surface' },
+		['@keyword'] = { fg = 'love' },
+		RainbowDelimiterRed = { fg = 'love' },
+		Folded = { bg = 'base' },
 	},
 }
 
