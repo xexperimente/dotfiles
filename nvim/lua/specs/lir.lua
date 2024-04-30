@@ -37,26 +37,30 @@ function Plugin.config()
 			['ev'] = actions.vsplit,
 			['et'] = actions.tabedit,
 
-			['h'] = actions.up,
 			['q'] = actions.quit,
 
+			['<BS>'] = actions.up,
+			['h'] = actions.up,
 			['<left>'] = actions.up,
 			['<right>'] = actions.edit,
 			['<enter>'] = actions.edit,
 			['<esc>'] = actions.quit,
 
-			['za'] = actions.toggle_show_hidden,
-			['i'] = actions.newfile,
-			['o'] = actions.mkdir,
-			['d'] = actions.delete,
+			['.'] = actions.toggle_show_hidden,
+			['N'] = actions.newfile,
+			['K'] = actions.mkdir,
+			['D'] = actions.delete,
 			['Y'] = actions.yank_path,
 			['<F2>'] = actions.rename,
 
-			['<Tab>'] = marks.toggle_mark,
+			['J'] = function()
+				marks.toggle_mark()
+				vim.cmd('normal! j')
+			end,
 
-			['cc'] = clipboard.copy,
-			['cx'] = clipboard.cut,
-			['cv'] = clipboard.paste,
+			['C'] = clipboard.copy,
+			['X'] = clipboard.cut,
+			['P'] = clipboard.paste,
 		},
 		show_hidden_files = false,
 		ignore = {}, -- { ".DS_Store", "node_modules" } etc.
@@ -67,6 +71,7 @@ function Plugin.config()
 				return {
 					border = 'solid',
 					zindex = 46,
+					width = 54,
 				}
 			end,
 			curdir_window = {
