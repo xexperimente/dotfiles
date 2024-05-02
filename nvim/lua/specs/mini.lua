@@ -1,31 +1,33 @@
 local Plugins = {}
 local Plug = function(spec) table.insert(Plugins, spec) end
 
-Plug({
-	'JoosepAlviste/nvim-ts-context-commentstring',
-	main = 'ts_context_commentstring',
-	lazy = true,
-	opts = {
-		enable_autocmd = false,
-	},
-	init = function() vim.g.skip_ts_context_commentstring_module = true end,
-})
-
--- Toggle comment on line or block
-Plug({
-	'echasnovski/mini.comment',
-	version = false,
-	config = true,
-	event = { 'BufRead', 'BufNewFile' },
-	opts = {
-		options = {
-			custom_commentstring = function()
-				local cs = require('ts_context_commentstring').calculate_commentstring()
-				return cs or vim.bo.commentstring
-			end,
-		},
-	},
-})
+-- Plug({
+-- 	'JoosepAlviste/nvim-ts-context-commentstring',
+-- 	main = 'ts_context_commentstring',
+-- 	lazy = true,
+-- 	cond = false,
+-- 	opts = {
+-- 		enable_autocmd = false,
+-- 	},
+-- 	init = function() vim.g.skip_ts_context_commentstring_module = true end,
+-- })
+--
+-- -- Toggle comment on line or block
+-- Plug({
+-- 	'echasnovski/mini.comment',
+-- 	cond = false,
+-- 	version = false,
+-- 	config = true,
+-- 	event = { 'BufRead', 'BufNewFile' },
+-- 	opts = {
+-- 		options = {
+-- 			custom_commentstring = function()
+-- 				local cs = require('ts_context_commentstring').calculate_commentstring()
+-- 				return cs or vim.bo.commentstring
+-- 			end,
+-- 		},
+-- 	},
+-- })
 
 Plug({
 	'echasnovski/mini.bufremove',
