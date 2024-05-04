@@ -2,7 +2,7 @@
 local Plugin = {
 	'hiphish/rainbow-delimiters.nvim',
 }
-Plugin.cond = false
+
 Plugin.event = { 'BufRead', 'BufNewFile' }
 
 function Plugin.config()
