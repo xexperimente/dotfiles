@@ -130,6 +130,40 @@ Plug({
 	end,
 })
 
+-- local win_config = function()
+-- 	local height = math.floor(0.618 * vim.o.lines)
+-- 	local width = math.floor(0.618 * vim.o.columns)
+-- 	return {
+-- 		border = 'solid',
+-- 		anchor = 'NW',
+-- 		height = height,
+-- 		width = width,
+-- 		row = math.floor(0.5 * (vim.o.lines - height)),
+-- 		col = math.floor(0.5 * (vim.o.columns - width)),
+-- 	}
+-- end
+-- Plug({
+-- 	'echasnovski/mini.extra',
+-- 	version = false,
+-- 	main = 'mini.extra',
+-- 	lazy = false,
+-- 	config = true,
+-- })
+--
+-- Plug({
+-- 	'echasnovski/mini.pick',
+-- 	version = false,
+-- 	main = 'mini.pick',
+-- 	lazy = true,
+-- 	opts = {
+-- 		window = {
+-- 			config = win_config,
+-- 			prompt_prefix = ' ',
+-- 		},
+-- 	},
+-- 	keys = { { '<leader>ft', '<cmd>Pick files<cr>' } },
+-- })
+
 -- TODO: mini.sessions
 -- TODO: mini.starter
 

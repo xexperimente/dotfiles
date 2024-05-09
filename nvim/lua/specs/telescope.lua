@@ -31,6 +31,7 @@ function Plugin.init()
 	bind('n', '<leader>fG', '<cmd>Telescope grep_string<cr>', { desc = 'Grep string' })
 	bind('n', '<leader>fs', '<cmd>Telescope treesitter<cr>', { desc = 'Buffer symbols' })
 	bind('n', '<leader>fr', '<cmd>Telescope resume<cr>', { desc = 'Resume last search' })
+	bind('n', '<leader>fm', '<cmd>Telescope marks<cr>', { desc = 'Show marks' })
 	bind(
 		'n',
 		'<leader>fC',
@@ -67,6 +68,12 @@ function Plugin.config(_, _)
 					preview_width = 60,
 					mirror = false,
 				},
+			},
+			marks = {
+				attach_mappings = function(_, map)
+					map({ 'i', 'n' }, '<M-d>', require('telescope.actions').delete_mark)
+					return true
+				end,
 			},
 		},
 		defaults = {

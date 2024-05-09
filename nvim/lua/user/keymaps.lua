@@ -35,7 +35,7 @@ bind('n', '[b', ':bprev<cr>', { noremap = true, silent = true, desc = 'Previous 
 bind('n', '<leader>bd', ':bd<cr>', { noremap = true, silent = true, desc = 'Close buffer' })
 
 -- Select all text in current buffer
-bind('n', '<leader>a', '<cmd>keepjumps normal! ggVG<cr>', { desc = 'Select all' })
+bind('n', '<leader>va', '<cmd>keepjumps normal! ggVG<cr>', { desc = 'Select all' })
 
 -- Redo
 bind('n', 'U', ':redo<cr>', { desc = 'Redo' })

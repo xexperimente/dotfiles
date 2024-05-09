@@ -5,9 +5,9 @@ Plugin.lazy = true
 Plugin.cmd = { 'Detour', 'DetourCurrentWindow' }
 
 Plugin.keys = {
-	'<leader>t',
-	'<C-W>n',
-	'<C-W>.',
+	{ '<leader>t', desc = 'Open terminal' },
+	{ '<C-W>n', desc = 'Open Detour window' },
+	{ '<C-W>.', desc = 'Open Detour window over current' },
 }
 
 function Plugin.config()
@@ -33,9 +33,9 @@ function Plugin.config()
 			-- I need to update the plugin so it doesn't depend on users remembering to setting the nested attribute.
 			nested = true,
 		})
-	end, { noremap = true, desc = 'Open Detour window' })
+	end, { noremap = true })
 
-	bind('n', '<c-w>.', '<cmd>DetourCurrentWindow<cr>', { desc = 'Open Detour window over current' })
+	bind('n', '<c-w>.', '<cmd>DetourCurrentWindow<cr>', {})
 
 	bind('n', '<leader>t', function()
 		require('detour').Detour()
@@ -48,7 +48,7 @@ function Plugin.config()
 		vim.bo.bufhidden = 'delete' -- Close terminal when window closes
 		vim.wo.number = false
 		vim.wo.signcolumn = 'no'
-	end, { desc = 'Open terminal' })
+	end)
 end
 
 return Plugin
