@@ -4,5 +4,6 @@ local M = {}
 
 M.border = 'single'
 
-return M
+M.cmp_border = 'rounded'
 
+return M

@@ -13,4 +13,9 @@ require('user.keymaps')
 require('user.plugin-manager')
 
 -- Apply theme
-vim.cmd('colorscheme rose-pine-dawn')
+local time = os.date('*t')
+if time.hour > 19 or time.hour < 5 then
+	vim.cmd('colorscheme rose-pine-moon')
+else
+	vim.cmd('colorscheme rose-pine-dawn')
+end

@@ -10,7 +10,6 @@ Plugin.dependencies = {
 	{ 'hrsh7th/cmp-nvim-lsp' },
 	{ 'hrsh7th/cmp-nvim-lua' },
 	{ 'hrsh7th/cmp-omni' },
-	-- { 'quangnguyen30192/cmp-nvim-tags' },
 
 	-- Snippets
 	{ 'L3MON4D3/LuaSnip' },
@@ -30,12 +29,12 @@ function Plugin.config()
 
 	local icon = {
 		nvim_lsp = '',
-		luasnip = '',
-		buffer = '',
-		path = 'ﱮ',
+		luasnip = '',
+		buffer = ' ',
+		path = '',
 		nvim_lua = ' ',
-		omni = ' ',
-		tags = 't',
+		omni = '',
+		tags = '',
 	}
 
 	user.config = {
@@ -63,10 +62,13 @@ function Plugin.config()
 		},
 		window = {
 			documentation = {
-				border = require('user.env').border,
+				border = require('user.env').cmp_border,
 				max_height = 15,
 				max_width = 50,
 				zindex = 50,
+			},
+			completion = {
+				border = require('user.env').cmp_border,
 			},
 		},
 		formatting = {

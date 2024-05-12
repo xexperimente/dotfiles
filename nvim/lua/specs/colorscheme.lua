@@ -11,14 +11,28 @@ Plugin.opts = {
 		Whitespace = { bg = 'base', fg = 'overlay' },
 		StatusLine = { bg = 'base', fg = 'text' },
 		MiniCursorword = { bg = 'overlay' },
-		-- CmpItemKindFunction = { fg = 'base', bg = 'iris' },
-		-- CmpItemKindMethod = { fg = 'base', bg = 'iris' },
-		-- CmpItemKindKeyword = { fg = 'base', bg = 'subtle' },
-		-- CmpItemKindText = { fg = 'base', bg = 'subtle' },
-		-- CmpItemKindField = { fg = 'base', bg = 'love' },
-		-- CmpItemKindVariable = { fg = 'base', bg = 'love' },
-		-- CmpItemKindEnum = { fg = 'base', bg = 'foam' },
-		CmpItemMenu = { fg = 'iris', italic = true },
+
+		-- CmpItemKindFunction = { fg = 'rose', bg = 'base' },
+		-- CmpItemKindMethod = { link = 'CmpItemKindFunction' },
+		-- CmpItemKindKeyword = { link = 'CmpItemKindFunction' },
+		-- CmpItemKindText = { link = 'CmpItemKindFunction' },
+		-- CmpItemKindField = { link = 'CmpItemKindFunction' },
+		-- CmpItemKindVariable = { link = 'CmpItemKindFunction' },
+		-- CmpItemKindEnum = { link = 'CmpItemKindFunction' },
+		--
+		-- CmpItemAbbrMatch = { fg = 'rose', bg = 'base' },
+		--
+		-- Pmenu = { fg = 'overlay', bg = 'base' },
+		-- PmenuSel = { bg = 'surface', fg = 'NONE' },
+		PmenuSel = { bg = 'surface', fg = 'NONE' },
+		Pmenu = { fg = '#C5CDD9', bg = 'base' },
+
+		CmpItemAbbrDeprecated = { fg = '#7E8294', bg = 'NONE', strikethrough = true },
+		CmpItemAbbrMatch = { fg = 'rose', bg = 'NONE', bold = true },
+		CmpItemAbbrMatchFuzzy = { fg = 'rose', bg = 'NONE', bold = true },
+		CmpItemMenu = { fg = '#C792EA', bg = 'NONE', italic = true },
+		CmpItemKind = { fg = 'rose', bg = 'none' },
+
 		NvimTreeSpecialFile = { fg = 'muted', link = 'NvimTreeLineNR' },
 		LspInfoBorder = { link = 'FloatBorder' },
 
