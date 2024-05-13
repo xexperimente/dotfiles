@@ -60,7 +60,7 @@ function M.foldtext()
 	local foldstart = vim.v.foldstart
 	local bufnr = api.nvim_get_current_buf()
 
-	---@type boolean, LanguageTree
+	-- @type boolean, LanguageTree
 	local ok, parser = pcall(ts.get_parser, bufnr)
 	if not ok then return vim.fn.foldtext() end
 
