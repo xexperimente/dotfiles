@@ -32,9 +32,8 @@ function Plugin.config()
 	lir.setup({
 		on_init = user.on_init,
 		mappings = {
-			['l'] = actions.edit,
-			['es'] = actions.split,
-			['ev'] = actions.vsplit,
+			['<C-Down>'] = actions.split,
+			['<C-Right>'] = actions.vsplit,
 			['et'] = actions.tabedit,
 
 			['q'] = actions.quit,

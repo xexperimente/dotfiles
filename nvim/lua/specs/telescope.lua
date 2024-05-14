@@ -97,6 +97,7 @@ function Plugin.config(_, _)
 					['<C-p>'] = require('telescope.actions.layout').toggle_preview,
 					['<C-Right>'] = actions.select_vertical,
 					['<C-Down>'] = actions.select_horizontal,
+					['<C-h>'] = 'which_key',
 				},
 			},
 		},

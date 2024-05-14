@@ -45,15 +45,14 @@ bind('t', '<esc>', [[<C-\><C-n>]], { desc = 'Escape terminal mode', noremap = tr
 bind('t', '<esc><esc>', [[<C-\><C-n><C-w>q]], { desc = 'Close terminal', noremap = true })
 
 -- Window Movement
-bind('n', '<C-h>', '<C-w>h')
-bind('n', '<C-j>', '<C-w>j')
-bind('n', '<C-k>', '<C-w>k')
-bind('n', '<C-l>', '<C-w>l')
-
-bind('t', '<C-h>', '<cmd>wincmd h<CR>')
-bind('t', '<C-j>', '<cmd>wincmd j<CR>')
-bind('t', '<C-k>', '<cmd>wincmd k<CR>')
-bind('t', '<C-l>', '<cmd>wincmd l<CR>')
+-- bind('n', '<C-h>', '<C-w>h')
+-- bind('n', '<C-j>', '<C-w>j')
+-- bind('n', '<C-k>', '<C-w>k')
+-- bind('n', '<C-l>', '<C-w>l')
+-- bind('t', '<C-h>', '<cmd>wincmd h<CR>')
+-- bind('t', '<C-j>', '<cmd>wincmd j<CR>')
+-- bind('t', '<C-k>', '<cmd>wincmd k<CR>')
+-- bind('t', '<C-l>', '<cmd>wincmd l<CR>')
 
 -- Line move using 'Alt'
 bind('n', '<A-j>', ':m .+1<CR>==')
@@ -69,3 +68,7 @@ bind('v', '<A-Up>', ":m '<-2<CR>gv=gv")
 -- Keep selection after indent
 bind('v', '>', '>gv', { noremap = true, desc = 'Increase selection indentation' })
 bind('v', '<', '<gv', { noremap = true, desc = 'Decrease selection indentation' })
+
+-- Supermaven
+
+bind('n', '<leader>ai', '<cmd>Lazy load supermaven-nvim<cr>', { desc = 'Supermaven' })
