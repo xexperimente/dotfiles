@@ -25,13 +25,15 @@ Plugin.opts = {
 		-- Pmenu = { fg = 'overlay', bg = 'base' },
 		-- PmenuSel = { bg = 'surface', fg = 'NONE' },
 		PmenuSel = { bg = 'surface', fg = 'NONE' },
-		Pmenu = { fg = '#C5CDD9', bg = 'base' },
+		Pmenu = { fg = 'overlay', bg = 'base' }, -- #c5cdd9
 
 		CmpItemAbbrDeprecated = { fg = '#7E8294', bg = 'NONE', strikethrough = true },
 		CmpItemAbbrMatch = { fg = 'rose', bg = 'NONE', bold = true },
 		CmpItemAbbrMatchFuzzy = { fg = 'rose', bg = 'NONE', bold = true },
 		CmpItemMenu = { fg = '#C792EA', bg = 'NONE', italic = true },
 		CmpItemKind = { fg = 'rose', bg = 'none' },
+
+		FloatBorder = { fg = 'overlay', bg = 'surface' },
 
 		NvimTreeSpecialFile = { fg = 'muted', link = 'NvimTreeLineNR' },
 		LspInfoBorder = { link = 'FloatBorder' },
