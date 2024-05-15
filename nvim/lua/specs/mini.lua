@@ -126,6 +126,11 @@ Plug({
 			vim.cmd("echo ''")
 			require('mini.notify').clear()
 		end)
+
+		vim.keymap.set('n', '<leader>m', function()
+			vim.cmd("echo ''")
+			require('mini.notify').show_history()
+		end)
 	end,
 })
 

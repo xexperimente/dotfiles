@@ -10,7 +10,8 @@ abbr('Bd', 'bd')
 abbr('bD', 'bd')
 
 -- Save with musle memory from windows
-bind({ 'n', 'i' }, '<C-s>', ':w!<cr>', { noremap = true, silent = true, desc = 'Save file' })
+bind('n', '<C-s>', ':w!<cr>', { noremap = true, silent = true, desc = 'Save file' })
+bind('i', '<C-s>', '<esc>:w!<cr>i', { noremap = true, silent = true, desc = 'Save file' })
 bind({ 'n', 'i' }, '<C-v>', '<C-R>+', { noremap = true, silent = true, desc = 'Paste' })
 
 -- Visual Block Mode - since on windows cant do Ctrl-V
