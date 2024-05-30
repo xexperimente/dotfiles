@@ -44,7 +44,7 @@ function Invoke-Nvim
 
 	#$env:NVIM_APPNAME = 'nvim'
 	Set-Item -Path Env:NVIM_APPNAME -Value $AppName
-	& d:\Dev\Applications\nvim\0.10\bin\nvim.exe $args
+	& nvim.exe $args
 }
 
 # Run neovim test
