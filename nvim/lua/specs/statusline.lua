@@ -61,6 +61,39 @@ Plugin.opts = {
 			},
 		},
 		'git-diff',
+		{
+			name = 'LspProgress',
+			update_group = 'group_name',
+			event = { 'LspProgress' }, -- The component will be update when the event is triggered
+			user_event = { 'VeryLazy' },
+			-- timing = true, -- The component will be update every time interval
+			lazy = true,
+			space = nil,
+			configs = {},
+			padding = 1, -- { left = 1, right = 1 }
+			colors = {}, -- { fg = colors.black, bg = colors.white }
+			separator = nil,
+			init = function(_, _) end,
+			update = function(_, _)
+				local lsp = vim.lsp.status()
+
+				if string.len(lsp) > 0 then
+					local parts = vim.split(lsp, ',')
+
+					if #parts > 0 then
+						local function stl_escape(str)
+							if type(str) ~= 'string' then return str end
+							return str:gsub('%%', '%%%%')
+						end
+
+						return 'LSP ' .. stl_escape(parts[#parts])
+					end
+				end
+				return ''
+			end,
+			condition = function(_, _) return true end,
+			on_highlight = function(_, _) end,
+		},
 		'%=',
 		'diagnostics',
 		{
@@ -102,7 +135,7 @@ Plugin.opts = {
 			update_group = 'group_name',
 			event = {}, -- The component will be update when the event is triggered
 			user_event = { 'VeryLazy' },
-			timing = 5, -- The component will be update every time interval
+			timing = true, -- The component will be update every time interval
 			lazy = true,
 			space = nil,
 			configs = {},
@@ -116,7 +149,7 @@ Plugin.opts = {
 
 				return status.has_updates() and text or ''
 			end,
-			condition = function(_, _) return true end,
+			condition = function(_, _) return require('lazy.status').has_updates() end,
 			on_highlight = function(_, _) end,
 		},
 		-- {
