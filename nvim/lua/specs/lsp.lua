@@ -11,7 +11,7 @@ Plugin.event = { 'BufReadPre', 'BufNewFile' }
 Plugin.dependencies = {
 	{ 'hrsh7th/cmp-nvim-lsp' },
 	{ 'williamboman/mason-lspconfig.nvim' },
-	-- { 'folke/neodev.nvim', ft = 'lua', opts = { library = { plugins = false } } },
+	{ 'folke/neodev.nvim', ft = 'lua', opts = { library = { plugins = false } } },
 }
 
 Plugin.opts = {
@@ -39,7 +39,7 @@ function Plugin.init()
 end
 
 function Plugin.config(_, opts)
-	-- require('neodev').setup()
+	require('neodev').setup()
 
 	local lsp = require('lsp-zero')
 
