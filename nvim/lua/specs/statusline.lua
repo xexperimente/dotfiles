@@ -91,7 +91,7 @@ Plugin.opts = {
 				end
 				return ''
 			end,
-			condition = function(_, _) return true end,
+			condition = function(_, _) return false end,
 			on_highlight = function(_, _) end,
 		},
 		'%=',
