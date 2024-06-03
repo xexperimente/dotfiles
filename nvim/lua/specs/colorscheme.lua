@@ -8,7 +8,7 @@ Plugin.priority = 1000
 
 Plugin.opts = {
 	highlight_groups = {
-		Whitespace = { bg = 'base', fg = 'overlay' },
+		Whitespace = { bg = 'NONE', fg = 'overlay' },
 		StatusLine = { bg = 'base', fg = 'text' },
 		MiniCursorword = { bg = 'overlay' },
 
