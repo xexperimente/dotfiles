@@ -2,6 +2,8 @@ local Plugin = { 'nvim-telescope/telescope.nvim' }
 
 Plugin.lazy = true
 
+Plugin.cond = false
+
 Plugin.cmd = { 'Telescope' }
 
 Plugin.dependencies = {

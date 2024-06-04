@@ -1,33 +1,6 @@
 local Plugins = {}
 local Plug = function(spec) table.insert(Plugins, spec) end
 
--- Not necessary in newer nightly builds
--- Plug({
--- 	'JoosepAlviste/nvim-ts-context-commentstring',
--- 	main = 'ts_context_commentstring',
--- 	lazy = true,
--- 	opts = {
--- 		enable_autocmd = false,
--- 	},
--- 	init = function() vim.g.skip_ts_context_commentstring_module = true end,
--- })
---
--- -- Toggle comment on line or block
--- Plug({
--- 	'echasnovski/mini.comment',
--- 	version = false,
--- 	config = true,
--- 	event = { 'BufRead', 'BufNewFile' },
--- 	opts = {
--- 		options = {
--- 			custom_commentstring = function()
--- 				local cs = require('ts_context_commentstring').calculate_commentstring()
--- 				return cs or vim.bo.commentstring
--- 			end,
--- 		},
--- 	},
--- })
-
 Plug({
 	'echasnovski/mini.bufremove',
 	version = false,
@@ -72,14 +45,16 @@ Plug({
 	lazy = true,
 	config = true,
 	opts = {
-		mappings = {
-			add = '<leader>sa',
-			delete = '<leader>sd',
-		},
+		-- mappings = {
+		-- 	add = '<leader>sa',
+		-- 	delete = '<leader>sd',
+		-- },
 	},
 	keys = {
-		'<leader>sa',
-		'<leader>sd',
+		'sa',
+		'sd',
+		-- '<leader>sa',
+		-- '<leader>sd',
 	},
 })
 
@@ -127,46 +102,68 @@ Plug({
 			require('mini.notify').clear()
 		end)
 
-		vim.keymap.set('n', '<leader>m', function()
+		vim.keymap.set('n', '<leader>o', function()
 			vim.cmd("echo ''")
 			require('mini.notify').show_history()
 		end)
 	end,
 })
 
--- local win_config = function()
--- 	local height = math.floor(0.618 * vim.o.lines)
--- 	local width = math.floor(0.618 * vim.o.columns)
--- 	return {
--- 		border = 'solid',
--- 		anchor = 'NW',
--- 		height = height,
--- 		width = width,
--- 		row = math.floor(0.5 * (vim.o.lines - height)),
--- 		col = math.floor(0.5 * (vim.o.columns - width)),
--- 	}
--- end
--- Plug({
--- 	'echasnovski/mini.extra',
--- 	version = false,
--- 	main = 'mini.extra',
--- 	lazy = false,
--- 	config = true,
--- })
---
--- Plug({
--- 	'echasnovski/mini.pick',
--- 	version = false,
--- 	main = 'mini.pick',
--- 	lazy = true,
--- 	opts = {
--- 		window = {
--- 			config = win_config,
--- 			prompt_prefix = ' ',
--- 		},
--- 	},
--- 	keys = { { '<leader>ft', '<cmd>Pick files<cr>' } },
--- })
+local win_config = function()
+	local height = math.floor(0.618 * vim.o.lines)
+	local width = math.floor(0.618 * vim.o.columns)
+	return {
+		border = require('user.env').border,
+		anchor = 'NW',
+		height = height,
+		width = width,
+		row = math.floor(0.5 * (vim.o.lines - height)),
+		col = math.floor(0.5 * (vim.o.columns - width)),
+	}
+end
+
+Plug({
+	'echasnovski/mini.extra',
+	version = false,
+	main = 'mini.extra',
+	lazy = false,
+	config = true,
+})
+
+Plug({
+	'echasnovski/mini.pick',
+	version = false,
+	main = 'mini.pick',
+	lazy = true,
+	opts = {
+		window = {
+			config = win_config,
+			-- prompt_prefix = '> ',
+		},
+	},
+	keys = {
+		{ '<leader>fb', '<cmd>Pick buffers<cr>', { desc = 'Open buffers' } },
+		{ '<leader>ff', '<cmd>Pick files<cr>', { desc = 'Find files' } },
+		{ '<leader>fg', '<cmd>Pick grep_live<cr>', { desc = 'Live grep' } },
+		{ '<leader>fc', '<cmd>Pick hl_groups<cr>', { desc = 'Find colors' } },
+		{ '<leader>fh', '<cmd>Pick help<cr>', { desc = 'Find in help' } },
+		{ '<leader>fk', '<cmd>lua MiniExtra.pickers.keymaps()<cr>', { desc = 'Keymap' } },
+		{ '<leader>fo', '<cmd>Pick oldfiles<cr>', { desc = 'Recent files' } },
+		{ '<leader>fG', '<cmd>Pick grep<cr>', { desc = 'Grep string' } },
+		{ '<leader>fs', '<cmd>Pick treesitter<cr>', { desc = 'Buffer symbols' } },
+		{ '<leader>fr', '<cmd>Pick resume<cr>', { desc = 'Resume last search' } },
+		{ '<leader>fm', '<cmd>Pick marks<cr>', { desc = 'Show marks' } },
+
+		{ '<leader>fH', '<cmd>lua MiniExtra.pickers.history()<cr>', { desc = 'History' } },
+
+		{ '<leader>gl', '<cmd>lua MiniExtra.pickers.git_commits()<cr>', { desc = 'Git commits' } },
+		{
+			'<leader>gb',
+			'<cmd>lua MiniExtra.pickers.git_branches()<cr>',
+			{ desc = 'Git branches' },
+		},
+	},
+})
 
 -- TODO: mini.sessions
 -- TODO: mini.starter

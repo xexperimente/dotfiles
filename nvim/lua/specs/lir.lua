@@ -68,13 +68,13 @@ function Plugin.config()
 			winblend = 0,
 			win_opts = function()
 				return {
-					border = 'solid',
+					border = 'single', --'solid',
 					zindex = 46,
 					width = 54,
 				}
 			end,
 			curdir_window = {
-				enable = true,
+				enable = false,
 				highlight_dirname = false,
 			},
 		},

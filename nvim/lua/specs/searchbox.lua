@@ -1,19 +1,16 @@
 local Plugin = { 'VonHeikemen/searchbox.nvim' }
 
 Plugin.lazy = true
+Plugin.dependencies = { 'MunifTanjim/nui.nvim' }
 
-Plugin.dependencies = {
-	'MunifTanjim/nui.nvim',
+Plugin.cmd = {
+	'SearchBoxIncSearch',
+	'SearchBoxMatchAll',
+	'SearchBoxReplace',
 }
 
-Plugin.cmd = { 'SearchBoxIncSearch', 'SearchBoxMatchAll', 'SearchBoxSimple', 'SearchBoxReplace' }
-
 Plugin.keys = {
-	{
-		'<leader>S',
-		':SearchBoxIncSearch<CR>',
-		{ noremap = true, desc = 'SearchBox' },
-	},
+	{ '<leader>S', ':SearchBoxIncSearch<CR>', { noremap = true, desc = 'SearchBox' } },
 }
 
 Plugin.opts = {
@@ -23,15 +20,15 @@ Plugin.opts = {
 			col = '50%',
 		},
 		border = {
-			style = 'solid',
+			style = require('user.env').border,
 			text = {
 				top = { { 'Search', 'TelescopeResultsTitle' } },
 				top_align = 'center',
 			},
-			padding = { 1, 1 },
+			padding = { 0, 1 },
 		},
 		win_options = {
-			winhighlight = 'Normal:NormalFloat,FloatBorder:NormalFloat',
+			winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder',
 		},
 	},
 }

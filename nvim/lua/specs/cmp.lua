@@ -10,12 +10,14 @@ Plugin.dependencies = {
 	{ 'hrsh7th/cmp-nvim-lsp' },
 	{ 'hrsh7th/cmp-nvim-lua' },
 	{ 'hrsh7th/cmp-omni' },
+	{ 'hrsh7th/cmp-cmdline' },
 
 	-- Snippets
 	{ 'L3MON4D3/LuaSnip' },
 }
 
 Plugin.event = 'InsertEnter'
+Plugin.lazy = false
 
 function Plugin.config()
 	user.augroup = vim.api.nvim_create_augroup('compe_cmds', { clear = true })
@@ -150,6 +152,55 @@ function Plugin.config()
 	}
 
 	cmp.setup(user.config)
+
+	cmp.setup.cmdline('/', {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = {
+			{ name = 'buffer' },
+		},
+	})
+
+	cmp.setup.cmdline(':', {
+		mapping = cmp.mapping.preset.cmdline({
+			['<Down>'] = {
+				c = function(fallback)
+					if cmp.visible() then
+						cmp.select_next_item()
+					else
+						fallback()
+					end
+				end,
+			},
+			['<Up>'] = {
+				c = function(fallback)
+					if cmp.visible() then
+						cmp.select_prev_item()
+					else
+						fallback()
+					end
+				end,
+			},
+			['<Tab>'] = {
+				c = function()
+					if cmp.visible() then
+						cmp.confirm({ select = false })
+					else
+						cmp.complete()
+					end
+				end,
+			},
+		}),
+		sources = cmp.config.sources({
+			{ name = 'path' },
+		}, {
+			{
+				name = 'cmdline',
+				option = {
+					ignore_cmds = { 'Man', '!' },
+				},
+			},
+		}),
+	})
 end
 
 function user.set_autocomplete(new_value)

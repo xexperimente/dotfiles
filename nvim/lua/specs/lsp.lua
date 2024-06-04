@@ -11,7 +11,7 @@ Plugin.event = { 'BufReadPre', 'BufNewFile' }
 Plugin.dependencies = {
 	{ 'hrsh7th/cmp-nvim-lsp' },
 	{ 'williamboman/mason-lspconfig.nvim' },
-	-- { 'folke/neodev.nvim', ft = 'lua', opts = { library = { plugins = false } } },
+	{ 'echasnovski/mini.extra' },
 }
 
 Plugin.opts = {
@@ -64,7 +64,6 @@ function Plugin.config(_, opts)
 end
 
 function user.lsp_attach(_, bufnr)
-	local telescope = require('telescope.builtin')
 	local lsp = vim.lsp.buf
 	local bind = vim.keymap.set
 	local command = vim.api.nvim_buf_create_user_command
@@ -77,11 +76,11 @@ function user.lsp_attach(_, bufnr)
 	bind({ 'n', 'i' }, '<C-h>', lsp.signature_help, opts)
 
 	bind('n', 'K', lsp.hover, opts)
-	bind('n', 'gd', telescope.lsp_definitions, opts) --lsp.definition, opts)
+	bind('n', 'gd', '<cmd>lua MiniExtra.pickers.lsp({scope="declaration"})<cr>', opts)
 	bind('n', 'gD', lsp.declaration, opts)
-	bind('n', 'gi', telescope.lsp_implementations, opts)
-	bind('n', 'go', telescope.lsp_type_definitions, opts)
-	bind('n', 'gr', telescope.lsp_references, opts) --lsp.references, opts)
+	bind('n', 'gi', '<cmd>lua MiniExtra.pickers.lsp({ scope="implementation"})<cr>', opts)
+	bind('n', 'go', '<cmd>lua MiniExtra.pickers.lsp({ scope="type_definition"})<cr>', opts)
+	bind('n', 'gr', '<cmd>lua MiniExtra.pickers.lsp({ scope="references"})<cr>', opts)
 	bind('n', 'gs', lsp.signature_help, opts)
 	bind('n', 'gh', user.toggle_inlay_hints, opts)
 	bind('n', 'crn', lsp.rename, opts)
@@ -89,15 +88,16 @@ function user.lsp_attach(_, bufnr)
 
 	bind('n', '<F2>', lsp.rename, opts)
 	bind('n', '<F4>', lsp.code_action, opts)
-	bind('n', '<F12>', telescope.lsp_definitions, opts)
+	bind('n', '<F12>', '<cmd>lua MiniExtra.pickers.lsp({ scope="definition"})<cr>', opts)
 
 	bind('n', '<C-W>d', vim.diagnostic.open_float, opts)
 	bind('n', '[d', vim.diagnostic.goto_prev, opts)
 	bind('n', ']d', vim.diagnostic.goto_next, opts)
 
-	bind('n', '<leader>lp', telescope.diagnostics, opts)
-	bind('n', '<leader>fd', telescope.lsp_document_symbols, opts)
-	bind('n', '<leader>fq', telescope.lsp_workspace_symbols, opts)
+	bind('n', '<leader>lp', '<cmd>lua MiniExtra.pickers.diagnostic({scope=current})<cr>', opts)
+	bind('n', '<leader>lP', '<cmd>lua MiniExtra.pickers.diagnostic({scope=all})<cr>', opts)
+	bind('n', '<leader>ld', '<cmd>lua MiniExtra.pickers.lsp({scope="document_symbol"})<cr>', opts)
+	bind('n', '<leader>lD', '<cmd>lua MiniExtra.pickers.lsp({scope="workspace_symbol"})<cr>', opts)
 end
 
 function user.toggle_inlay_hints() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(0)) end

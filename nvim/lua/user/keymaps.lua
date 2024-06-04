@@ -23,6 +23,9 @@ bind('n', '<esc>', ':nohl<cr><esc>', { noremap = true, silent = true, desc = 'Cl
 -- Hlsearch next/prev in cmdline
 bind('c', '<F3>', '<c-g>', { noremap = true, desc = 'Next search result' })
 bind('c', '<S-F3>', '<c-t>', { noremap = true, desc = 'Previos search result' })
+bind('n', 'S', '/', { desc = 'Search' })
+bind('n', '<c-f>', '/<c-r><c-w>', { desc = 'Search' })
+bind('n', '<c-b>', '<nop>')
 
 -- Hlsearch next/prev
 bind('n', '<F3>', 'n', { noremap = true, desc = 'Next search result' })

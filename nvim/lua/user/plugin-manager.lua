@@ -90,4 +90,5 @@ Lazy.opts = {
 
 Lazy.setup({
 	{ import = 'specs' },
+	{ import = 'specs.local' },
 })
