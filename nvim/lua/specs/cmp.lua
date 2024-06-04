@@ -11,6 +11,7 @@ Plugin.dependencies = {
 	{ 'hrsh7th/cmp-nvim-lua' },
 	{ 'hrsh7th/cmp-omni' },
 	{ 'hrsh7th/cmp-cmdline' },
+	{ 'dmitmel/cmp-cmdline-history' },
 
 	-- Snippets
 	{ 'L3MON4D3/LuaSnip' },
@@ -199,6 +200,7 @@ function Plugin.config()
 					ignore_cmds = { 'Man', '!' },
 				},
 			},
+			{ name = 'cmdline_history' },
 		}),
 	})
 end

@@ -90,6 +90,7 @@ Plug({
 			enable = false,
 		},
 	},
+	dependencies = { 'carbon-steel/detour.nvim' },
 	init = function()
 		vim.notify = function(...)
 			local notify = require('mini.notify').make_notify()
@@ -100,12 +101,39 @@ Plug({
 		vim.keymap.set('n', '<leader><space>', function()
 			vim.cmd("echo ''")
 			require('mini.notify').clear()
-		end)
+		end, { desc = 'Clear notifications' })
 
 		vim.keymap.set('n', '<leader>o', function()
-			vim.cmd("echo ''")
+			require('detour').Detour()
+
 			require('mini.notify').show_history()
-		end)
+
+			vim.keymap.set(
+				'n',
+				'<esc>',
+				function()
+					vim.api.nvim_feedkeys(
+						vim.api.nvim_replace_termcodes('<c-w><c-q>', true, true, true),
+						'n',
+						true
+					)
+				end,
+				{ desc = 'Close notify history', buffer = true }
+			)
+
+			vim.keymap.set(
+				'n',
+				'q',
+				function()
+					vim.api.nvim_feedkeys(
+						vim.api.nvim_replace_termcodes('<c-w><c-q>', true, true, true),
+						'n',
+						true
+					)
+				end,
+				{ desc = 'Close notify history', buffer = true }
+			)
+		end, { desc = 'Show notification history' })
 	end,
 })
 
