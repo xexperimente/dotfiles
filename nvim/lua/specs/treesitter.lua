@@ -14,10 +14,10 @@ Plugin.opts = {
 	incremental_selection = {
 		enable = true,
 		keymaps = {
-			init_selection = '<C-up>',
-			node_incremental = '<C-up>',
+			init_selection = '<C-Right>',
+			node_incremental = '<C-Right>',
 			scope_incremental = false,
-			node_decremental = '<C-down>',
+			node_decremental = '<C-Left>',
 		},
 	},
 	textobjects = {

@@ -11,49 +11,41 @@ Plugin.opts = {
 		Whitespace = { bg = 'NONE', fg = 'overlay' },
 		StatusLine = { bg = 'base', fg = 'text' },
 		MiniCursorword = { bg = 'overlay' },
+		Search = { bg = 'rose', blend = 50 },
 
-		-- CmpItemKindFunction = { fg = 'rose', bg = 'base' },
-		-- CmpItemKindMethod = { link = 'CmpItemKindFunction' },
-		-- CmpItemKindKeyword = { link = 'CmpItemKindFunction' },
-		-- CmpItemKindText = { link = 'CmpItemKindFunction' },
-		-- CmpItemKindField = { link = 'CmpItemKindFunction' },
-		-- CmpItemKindVariable = { link = 'CmpItemKindFunction' },
-		-- CmpItemKindEnum = { link = 'CmpItemKindFunction' },
-		--
-		-- CmpItemAbbrMatch = { fg = 'rose', bg = 'base' },
-		--
-		-- Pmenu = { fg = 'overlay', bg = 'base' },
-		-- PmenuSel = { bg = 'surface', fg = 'NONE' },
+		-- Visual Multi
+		VM_Mono = { link = 'DiffText' },
+		VM_Extend = { bg = 'rose', blend = 70 },
+		VM_Cursor = { bg = 'love', blend = 90 },
+		VM_Insert = { link = 'DiffText' },
+
 		PmenuSel = { bg = 'surface', fg = 'NONE' },
 		Pmenu = { fg = 'overlay', bg = 'base' }, -- #c5cdd9
 
+		-- Cmp
 		CmpItemAbbrDeprecated = { fg = '#7E8294', bg = 'NONE', strikethrough = true },
 		CmpItemAbbrMatch = { fg = 'rose', bg = 'NONE', bold = true },
 		CmpItemAbbrMatchFuzzy = { fg = 'rose', bg = 'NONE', bold = true },
 		CmpItemMenu = { fg = '#C792EA', bg = 'NONE', italic = true },
 		CmpItemKind = { fg = 'rose', bg = 'none' },
 
+		-- Floats
 		FloatBorder = { fg = 'overlay', bg = 'surface' },
-
-		NvimTreeSpecialFile = { fg = 'muted', link = 'NvimTreeLineNR' },
 		LspInfoBorder = { link = 'FloatBorder' },
 
-		TelescopePromptNormal = { bg = 'overlay' },
-		TelescopePromptBorder = { bg = 'overlay', fg = 'overlay' },
-		TelescopeResultsNormal = { bg = 'surface' },
-		TelescopeResultsBorder = { bg = 'surface', fg = 'surface' },
-		TelescopePreviewNormal = { bg = 'surface' },
-		TelescopePreviewBorder = { bg = 'surface', fg = 'surface' },
-
 		TelescopePromptTitle = { fg = 'overlay', bg = 'rose' },
-		TelescopePreviewTitle = { fg = 'overlay', bg = 'rose' },
-		TelescopeResultsTitle = { fg = 'overlay', bg = 'rose' },
 		TelescopeSelection = { bg = 'base', fg = 'text' },
 
+		-- NvimTreeSpecialFile = { fg = 'muted', link = 'NvimTreeLineNR' },
+
+		-- Lir
 		LirFloatNormal = { bg = 'surface' },
 		LirFloatCurdirWindowNormal = { bg = 'surface' },
-		Keyword = { fg = 'love' },
+
+		Keyword = { fg = 'rose' },
+
 		RainbowDelimiterRed = { fg = 'love' },
+
 		Folded = { bg = 'base' },
 	},
 }

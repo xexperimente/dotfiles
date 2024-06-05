@@ -42,8 +42,8 @@ function Plugin.opts()
 			{ mode = 'x', keys = 'z' },
 
 			-- Customs
-			{ mode = 'n', keys = ']' },
-			{ mode = 'n', keys = '[' },
+			-- { mode = 'n', keys = ']' },
+			-- { mode = 'n', keys = '[' },
 		},
 
 		clues = {
@@ -54,7 +54,7 @@ function Plugin.opts()
 			miniclue.gen_clues.windows(),
 			miniclue.gen_clues.z(),
 			-- Custom clues
-			{ mode = 'n', keys = '<leader>f', desc = '+Telescope' },
+			{ mode = 'n', keys = '<leader>f', desc = '+Pick' },
 			{ mode = 'n', keys = '<Leader>l', desc = '+LSP' },
 			{ mode = 'n', keys = '<Leader>b', desc = '+Buffers' },
 			{ mode = 'n', keys = '<Leader>p', desc = '+Plugins' },
