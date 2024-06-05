@@ -9,16 +9,17 @@ Plugin.dependencies = {
 	{ 'saadparwaiz1/cmp_luasnip' },
 	{ 'hrsh7th/cmp-nvim-lsp' },
 	{ 'hrsh7th/cmp-nvim-lua' },
-	{ 'hrsh7th/cmp-omni' },
 	{ 'hrsh7th/cmp-cmdline' },
 	{ 'dmitmel/cmp-cmdline-history' },
 
 	-- Snippets
 	{ 'L3MON4D3/LuaSnip' },
+
+	-- Icons
+	{ 'onsails/lspkind.nvim' },
 }
 
-Plugin.event = 'InsertEnter'
-Plugin.lazy = false
+Plugin.event = { 'InsertEnter', 'VeryLazy' }
 
 function Plugin.config()
 	user.augroup = vim.api.nvim_create_augroup('compe_cmds', { clear = true })
@@ -26,19 +27,10 @@ function Plugin.config()
 
 	local cmp = require('cmp')
 	local luasnip = require('luasnip')
+	local lspkind = require('lspkind')
 
-	local select_opts = { behavior = cmp.SelectBehavior.Select }
 	local cmp_enable = cmp.get_config().enabled
-
-	local icon = {
-		nvim_lsp = '',
-		luasnip = '',
-		buffer = ' ',
-		path = '',
-		nvim_lua = ' ',
-		omni = '',
-		tags = '',
-	}
+	local select_opts = { behavior = cmp.SelectBehavior.Select }
 
 	user.config = {
 		enabled = function()
@@ -49,9 +41,7 @@ function Plugin.config()
 		completion = {
 			completeopt = 'menu,menuone',
 		},
-		snippet = {
-			expand = function(args) luasnip.lsp_expand(args.body) end,
-		},
+		snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
 		sources = {
 			{ name = 'path' },
 			{ name = 'nvim_lsp', keyword_length = 3 },
@@ -76,11 +66,12 @@ function Plugin.config()
 			},
 		},
 		formatting = {
-			fields = { 'menu', 'abbr', 'kind' },
-			format = function(entry, item)
-				item.menu = icon[entry.source.name]
-				return item
-			end,
+			format = lspkind.cmp_format({
+				mode = 'symbol',
+				maxwidth = 50,
+				ellipsis_char = '...',
+				symbol_map = { Text = '' },
+			}),
 		},
 		mapping = {
 			['<C-k>'] = cmp.mapping.scroll_docs(-5),
@@ -97,7 +88,6 @@ function Plugin.config()
 
 			['<Up>'] = cmp.mapping.select_prev_item(select_opts),
 			['<Down>'] = cmp.mapping.select_next_item(select_opts),
-
 			['<M-k>'] = cmp.mapping.select_prev_item(select_opts),
 			['<M-j>'] = cmp.mapping.select_next_item(select_opts),
 			['<C-p>'] = cmp.mapping.select_prev_item(select_opts),
@@ -154,13 +144,6 @@ function Plugin.config()
 
 	cmp.setup(user.config)
 
-	-- cmp.setup.cmdline('/', {
-	-- 	mapping = cmp.mapping.preset.cmdline(),
-	-- 	sources = {
-	-- 		{ name = 'buffer' },
-	-- 	},
-	-- })
-
 	cmp.setup.cmdline(':', {
 		mapping = cmp.mapping.preset.cmdline({
 			['<Down>'] = {
@@ -193,13 +176,7 @@ function Plugin.config()
 		}),
 		sources = cmp.config.sources({
 			{ name = 'path' },
-		}, {
-			{
-				name = 'cmdline',
-				option = {
-					ignore_cmds = { 'Man', '!' },
-				},
-			},
+			{ name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } },
 			{ name = 'cmdline_history' },
 		}),
 	})

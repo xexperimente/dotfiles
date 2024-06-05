@@ -12,10 +12,15 @@ abbr('bD', 'bd')
 -- Save with musle memory from windows
 bind('n', '<C-s>', ':w!<cr>', { noremap = true, silent = true, desc = 'Save file' })
 bind('i', '<C-s>', '<esc>:w!<cr>i', { noremap = true, silent = true, desc = 'Save file' })
+
+-- Paste
 bind({ 'n', 'i' }, '<C-v>', '<C-R>+', { noremap = true, silent = true, desc = 'Paste' })
 
 -- Visual Block Mode - since on windows cant do Ctrl-V
 bind('n', '<leader>vb', '<C-v>', { noremap = true, desc = 'Start Visual Block Mode' })
+
+-- Select all text in current buffer
+bind('n', '<leader>va', '<cmd>keepjumps normal! ggVG<cr>', { desc = 'Select all' })
 
 -- Cancel search highlight
 bind('n', '<esc>', ':nohl<cr><esc>', { noremap = true, silent = true, desc = 'Clear search' })
@@ -31,15 +36,8 @@ bind('n', '<c-b>', '<nop>')
 bind('n', '<F3>', 'n', { noremap = true, desc = 'Next search result' })
 bind('n', '<S-F3>', 'N', { noremap = true, desc = 'Previous search result' })
 
--- Cycle buffers
-bind('n', ']b', ':bnext<cr>', { noremap = true, silent = true, desc = 'Next buffer' })
-bind('n', '[b', ':bprev<cr>', { noremap = true, silent = true, desc = 'Previous buffer' })
-
 -- Close buffer
 bind('n', '<leader>bd', ':bd<cr>', { noremap = true, silent = true, desc = 'Close buffer' })
-
--- Select all text in current buffer
-bind('n', '<leader>va', '<cmd>keepjumps normal! ggVG<cr>', { desc = 'Select all' })
 
 -- Redo
 bind('n', 'U', ':redo<cr>', { desc = 'Redo' })
@@ -47,16 +45,6 @@ bind('n', 'U', ':redo<cr>', { desc = 'Redo' })
 -- Terminal
 bind('t', '<esc>', [[<C-\><C-n>]], { desc = 'Escape terminal mode', noremap = true })
 bind('t', '<esc><esc>', [[<C-\><C-n><C-w>q]], { desc = 'Close terminal', noremap = true })
-
--- Window Movement
--- bind('n', '<C-h>', '<C-w>h')
--- bind('n', '<C-j>', '<C-w>j')
--- bind('n', '<C-k>', '<C-w>k')
--- bind('n', '<C-l>', '<C-w>l')
--- bind('t', '<C-h>', '<cmd>wincmd h<CR>')
--- bind('t', '<C-j>', '<cmd>wincmd j<CR>')
--- bind('t', '<C-k>', '<cmd>wincmd k<CR>')
--- bind('t', '<C-l>', '<cmd>wincmd l<CR>')
 
 -- Line move using 'Alt'
 bind('n', '<A-j>', ':m .+1<CR>==')
@@ -73,6 +61,11 @@ bind('v', '<A-Up>', ":m '<-2<CR>gv=gv")
 bind('v', '>', '>gv', { noremap = true, desc = 'Increase selection indentation' })
 bind('v', '<', '<gv', { noremap = true, desc = 'Decrease selection indentation' })
 
--- Supermaven
+-- Selection like in Windows
+bind('n', '<S-Up>', 'V')
+bind('n', '<S-Down>', 'V')
+bind('v', '<S-Up>', 'k')
+bind('v', '<S-Down>', 'j')
 
+-- Supermaven
 bind('n', '<leader>ai', '<cmd>Lazy load supermaven-nvim<cr>', { desc = 'Supermaven' })

@@ -5,6 +5,8 @@ Plug({
 	'echasnovski/mini.bufremove',
 	version = false,
 	main = 'mini.bufremove',
+	lazy = true,
+	event = 'VeryLazy',
 	config = true,
 	keys = { { '<leader>bd', '<cmd>lua pcall(MiniBufremove.delete)<cr>' } },
 })
@@ -13,29 +15,9 @@ Plug({
 	'echasnovski/mini.bracketed',
 	version = false,
 	main = 'mini.bracketed',
-	keys = {
-		{ '[g', "<cmd>lua MiniBracketed.conflict('backward')<cr>", mode = { 'n', 'x' } },
-		{ ']g', "<cmd>lua MiniBracketed.conflict('forward')<cr>", mode = { 'n', 'x' } },
-
-		{ '[q', "<cmd>lua MiniBracketed.quickfix('backward')<cr>" },
-		{ ']q', "<cmd>lua MiniBracketed.quickfix('forward')<cr>" },
-	},
-	opts = {
-		buffer = { suffix = '' },
-		comment = { suffix = '' },
-		conflict = { suffix = '' },
-		diagnostic = { suffix = '' },
-		file = { suffix = '' },
-		indent = { suffix = '' },
-		jump = { suffix = '' },
-		location = { suffix = '' },
-		oldfile = { suffix = '' },
-		quickfix = { suffix = '' },
-		treesitter = { suffix = '' },
-		undo = { suffix = '' },
-		window = { suffix = '' },
-		yank = { suffix = '' },
-	},
+	lazy = true,
+	event = 'VeryLazy',
+	config = true,
 })
 
 -- surround selections
@@ -44,17 +26,9 @@ Plug({
 	version = false,
 	lazy = true,
 	config = true,
-	opts = {
-		-- mappings = {
-		-- 	add = '<leader>sa',
-		-- 	delete = '<leader>sd',
-		-- },
-	},
 	keys = {
 		'sa',
 		'sd',
-		-- '<leader>sa',
-		-- '<leader>sd',
 	},
 })
 
