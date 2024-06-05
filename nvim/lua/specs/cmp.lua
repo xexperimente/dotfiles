@@ -1,10 +1,11 @@
 -- Autocompletion
+
 local Plugin = { 'hrsh7th/nvim-cmp' }
 local user = { autocomplete = true }
 
 Plugin.dependencies = {
 	-- Sources
-	{ 'hrsh7th/cmp-buffer' },
+	-- { 'hrsh7th/cmp-buffer' },
 	{ 'hrsh7th/cmp-path' },
 	{ 'saadparwaiz1/cmp_luasnip' },
 	{ 'hrsh7th/cmp-nvim-lsp' },
@@ -17,6 +18,17 @@ Plugin.dependencies = {
 
 	-- Icons
 	{ 'onsails/lspkind.nvim' },
+
+	-- fzf paths
+	{
+		'tzachar/cmp-fuzzy-path',
+		dependencies = {
+			{
+				'tzachar/fuzzy.nvim',
+				dependencies = { 'natecraddock/telescope-zf-native.nvim' },
+			},
+		},
+	},
 }
 
 Plugin.event = { 'InsertEnter', 'VeryLazy' }
@@ -43,9 +55,9 @@ function Plugin.config()
 		},
 		snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
 		sources = {
-			{ name = 'path' },
+			{ name = 'fuzzy_path' },
 			{ name = 'nvim_lsp', keyword_length = 3 },
-			{ name = 'buffer', keyword_length = 3 },
+			-- { name = 'buffer', keyword_length = 3 },
 			{ name = 'luasnip', keyword_length = 2 },
 			{ name = 'lazydev' },
 		},
@@ -145,6 +157,11 @@ function Plugin.config()
 	cmp.setup(user.config)
 
 	cmp.setup.cmdline(':', {
+		sources = cmp.config.sources({
+			{ name = 'fuzzy_path' },
+			{ name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } },
+			{ name = 'cmdline_history' },
+		}),
 		mapping = cmp.mapping.preset.cmdline({
 			['<Down>'] = {
 				c = function(fallback)
@@ -173,11 +190,6 @@ function Plugin.config()
 					end
 				end,
 			},
-		}),
-		sources = cmp.config.sources({
-			{ name = 'path' },
-			{ name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } },
-			{ name = 'cmdline_history' },
 		}),
 	})
 end
