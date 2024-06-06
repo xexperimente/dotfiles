@@ -13,6 +13,15 @@ Plugin.opts = {
 		MiniCursorword = { bg = 'overlay' },
 		Search = { bg = 'rose', blend = 50 },
 
+		-- Statusline
+		STTUSLINE_NORMAL_MODE = { fg = 'base', bg = '#5FB0FC' },
+		STTUSLINE_INSERT_MODE = { fg = 'base', bg = '#98bb6c' },
+		STTUSLINE_REPLACE_MODE = { fg = 'base', bg = '#e46846' },
+		STTUSLINE_VISUAL_MODE = { fg = 'base', bg = '#ffa066' },
+		STTUSLINE_TERMINAL_MODE = { fg = 'base', bg = '#e6c384' },
+
+		STTUSLINE_DEFAULT = { fg = 'text', bg = 'none' },
+
 		-- Visual Multi
 		VM_Mono = { link = 'DiffText' },
 		VM_Extend = { bg = 'rose', blend = 70 },

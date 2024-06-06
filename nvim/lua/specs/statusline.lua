@@ -1,6 +1,6 @@
 local Plugin = { 'sontungexpt/sttusline' }
 
-Plugin.cond = true
+Plugin.cond = false
 
 Plugin.branch = 'table_version'
 

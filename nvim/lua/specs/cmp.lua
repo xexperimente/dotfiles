@@ -23,10 +23,8 @@ Plugin.dependencies = {
 	{
 		'tzachar/cmp-fuzzy-path',
 		dependencies = {
-			{
-				'tzachar/fuzzy.nvim',
-				dependencies = { 'natecraddock/telescope-zf-native.nvim' },
-			},
+			{ 'tzachar/fuzzy.nvim' },
+			{ 'natecraddock/telescope-zf-native.nvim' },
 		},
 	},
 }

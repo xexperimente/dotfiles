@@ -17,7 +17,9 @@ function Plugin.config()
 		require('detour').Detour() -- Open a detour popup
 		local current_bufnr = vim.api.nvim_get_current_buf()
 		local current_winid = vim.api.nvim_get_current_win()
+
 		vim.bo.bufhidden = 'delete' -- close the terminal when window closes
+
 		-- I am not entirely sure if there is any benefit to having this augroup
 		local detour_au = vim.api.nvim_create_augroup('detour_auto', { clear = true })
 
@@ -42,6 +44,8 @@ function Plugin.config()
 
 		vim.cmd.terminal()
 		vim.cmd.startinsert()
+
+		vim.wo.statusline = '%#STTUSLINE_TERMINAL_MODE# TERMINAL %#Normal# '
 
 		bind('n', '<esc>', [[<C-w><C-q>]], { desc = 'Close terminal', noremap = true, buffer = true })
 

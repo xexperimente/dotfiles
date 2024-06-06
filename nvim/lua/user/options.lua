@@ -10,6 +10,7 @@ vim.opt.wrap = false
 vim.opt.background = 'light' -- (vim.g.nvy and 'light' or 'dark')
 vim.opt.termguicolors = true
 vim.opt.signcolumn = 'yes' -- Always show signcolumn
+vim.g.showcmd = false
 
 -- Search
 vim.opt.ignorecase = true
