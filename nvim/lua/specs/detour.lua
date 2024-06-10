@@ -52,6 +52,14 @@ function Plugin.config()
 		vim.bo.bufhidden = 'delete' -- Close terminal when window closes
 		vim.wo.number = false
 		vim.wo.signcolumn = 'no'
+		vim.api.nvim_create_autocmd({ 'TermClose' }, {
+			buffer = vim.api.nvim_get_current_buf(),
+			callback = function()
+				-- This automated keypress skips for you the "[Process exited 0]" message
+				-- that the embedded terminal shows.
+				vim.api.nvim_feedkeys('i', 'n', false)
+			end,
+		})
 	end)
 end
 

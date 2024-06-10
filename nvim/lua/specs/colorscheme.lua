@@ -9,18 +9,21 @@ Plugin.priority = 1000
 Plugin.opts = {
 	highlight_groups = {
 		Whitespace = { bg = 'NONE', fg = 'overlay' },
-		StatusLine = { bg = 'base', fg = 'text' },
+		StatusLine = { bg = 'NONE', fg = 'text' },
 		MiniCursorword = { bg = 'overlay' },
 		Search = { bg = 'rose', blend = 50 },
 
 		-- Statusline
-		STTUSLINE_NORMAL_MODE = { fg = 'base', bg = '#5FB0FC' },
-		STTUSLINE_INSERT_MODE = { fg = 'base', bg = '#98bb6c' },
-		STTUSLINE_REPLACE_MODE = { fg = 'base', bg = '#e46846' },
-		STTUSLINE_VISUAL_MODE = { fg = 'base', bg = '#ffa066' },
-		STTUSLINE_TERMINAL_MODE = { fg = 'base', bg = '#e6c384' },
-
-		STTUSLINE_DEFAULT = { fg = 'text', bg = 'none' },
+		UserStatuslineNormalMode = { fg = 'base', bg = '#5FB0FC' },
+		UserStatuslineInsertMode = { fg = 'base', bg = '#98bb6c' },
+		UserStatuslineReplaceMode = { fg = 'base', bg = '#e46846' },
+		UserStatuslineVisualMode = { fg = 'base', bg = '#ffa066' },
+		UserStatuslineTerminal = { fg = 'base', bg = '#e6c384' },
+		UserStatuslineDefault = { fg = 'text', bg = 'NONE' },
+		UserStatuslineBlock = { link = 'Statusline' },
+		UserStatuslineHighlight1 = { link = 'WarningMsg' },
+		UserStatuslineHighlight2 = { link = 'ErrorMsg' },
+		-- UserStatuslineNotice = { link = 'IncSearch' },
 
 		-- Visual Multi
 		VM_Mono = { link = 'DiffText' },
