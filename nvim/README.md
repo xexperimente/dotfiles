@@ -1,7 +1,5 @@
-# TODO:
+# xexperimente dotfiles
 
-- cmp coloring
-- cmp border rounded
 
 
 
