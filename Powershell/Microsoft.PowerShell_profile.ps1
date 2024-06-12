@@ -19,7 +19,20 @@ New-Alias -Name "Init-dev" -Value "Enter-Dev"
 New-Alias -Name "cd" -Value "z"
 
 # Init Starship prompt
-Invoke-Expression (&starship init powershell)
+
+#function Invoke-Starship-TransientFunction
+#{
+#	&starship module character
+#}
+#
+#Invoke-Expression (&starship init powershell)
+#
+#Enable-TransientPrompt
+
+# Oh my posh
+$env:Path += ";C:\Users\user\AppData\Local\Programs\oh-my-posh\bin"
+
+oh-my-posh init pwsh --config "~\Dotfiles\oh-my-posh\zen.toml" | Invoke-Expression
 
 # Custom functions
 function New-SymLink ($link, $target)
