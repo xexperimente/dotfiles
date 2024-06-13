@@ -1,7 +1,6 @@
 local Plugin = { 'carbon-steel/detour.nvim' }
 
 Plugin.lazy = true
-
 Plugin.cmd = { 'Detour', 'DetourCurrentWindow' }
 
 Plugin.keys = {
@@ -14,14 +13,14 @@ function Plugin.config()
 	local bind = vim.keymap.set
 
 	bind('n', '<c-w>n', function()
-		require('detour').Detour() -- Open a detour popup
 		local current_bufnr = vim.api.nvim_get_current_buf()
 		local current_winid = vim.api.nvim_get_current_win()
 
+		require('detour').Detour()
+
 		vim.bo.bufhidden = 'delete' -- close the terminal when window closes
 
-		-- I am not entirely sure if there is any benefit to having this augroup
-		local detour_au = vim.api.nvim_create_augroup('detour_auto', { clear = true })
+		local augroup = vim.api.nvim_create_augroup('UserDetourCmds', { clear = true })
 
 		vim.api.nvim_create_autocmd({ 'WinLeave' }, {
 			buffer = current_bufnr,
@@ -30,7 +29,7 @@ function Plugin.config()
 				-- this autocmd only needs to return once so make sure you return true so it deletes itself after running.
 				return true
 			end,
-			group = detour_au,
+			group = augroup,
 			-- this nested attribute is actually needed at the moment or breaks the plugin's assumptions.
 			-- I need to update the plugin so it doesn't depend on users remembering to setting the nested attribute.
 			nested = true,
@@ -47,7 +46,7 @@ function Plugin.config()
 
 		vim.wo.statusline = '%#STTUSLINE_TERMINAL_MODE# TERMINAL %#Normal# '
 
-		bind('n', '<esc>', [[<C-w><C-q>]], { desc = 'Close terminal', noremap = true, buffer = true })
+		-- bind('n', '<esc>', [[<C-w><C-q>]], { desc = 'Close terminal', noremap = true, buffer = true })
 
 		vim.bo.bufhidden = 'delete' -- Close terminal when window closes
 		vim.wo.number = false

@@ -23,23 +23,25 @@ Plugin.opts = {
 	notify_on_error = false,
 }
 
+Plugin.keys = {
+	{ 'gq', ':Format!<cr>', mode = { 'n', 'x' }, desc = 'Format' },
+}
+
 function Plugin.init()
 	vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
-	vim.keymap.set({ 'n', 'v' }, '<leader>lf', function()
+	local command = vim.api.nvim_create_user_command
+
+	command('Format', function(input)
 		vim.notify('Formatting ... ', vim.log.levels.INFO)
 
 		require('conform').format(
-			{ lsp_fallback = true, async = false, timeout_ms = 500 },
+			{ lsp_fallback = true, async = input.bang, timeout_ms = 700 },
 			function(err)
-				if err == nil then
-					vim.notify('done', vim.log.levels.INFO)
-				else
-					vim.notify(err, vim.log.levels.ERROR)
-				end
+				if err ~= nil then vim.notify(err, vim.log.levels.ERROR) end
 			end
 		)
-	end, { desc = 'Format' })
+	end, { bang = true, range = true })
 end
 
 return Plugin

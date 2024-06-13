@@ -19,7 +19,7 @@ function Plugin.config(_, opts)
 	lint.try_lint()
 
 	vim.api.nvim_create_autocmd(opts.events, {
-		group = vim.api.nvim_create_augroup('nvim-lint', { clear = true }),
+		group = vim.api.nvim_create_augroup('UserLintCmds', { clear = true }),
 		callback = user.debounce(100, user.lint), --function() lint.try_lint() end,
 	})
 end
@@ -28,7 +28,6 @@ function Plugin.init()
 	vim.keymap.set('n', '<leader>ll', function()
 		vim.notify('Linting ... ', vim.log.levels.INFO)
 		user.lint()
-		vim.notify('done', vim.log.levels.INFO)
 	end, { desc = 'Lint' })
 end
 

@@ -32,7 +32,6 @@ Plugin.dependencies = {
 Plugin.event = { 'InsertEnter', 'VeryLazy' }
 
 function Plugin.config()
-	user.augroup = vim.api.nvim_create_augroup('compe_cmds', { clear = true })
 	vim.api.nvim_create_user_command('UserCmpEnable', user.enable_cmd, {})
 
 	local cmp = require('cmp')
@@ -193,6 +192,8 @@ function Plugin.config()
 end
 
 function user.set_autocomplete(new_value)
+	local augroup = vim.api.nvim_create_augroup('UserCmpCmds', { clear = true })
+	local autocmd = vim.api.nvim_create_autocmd
 	local old_value = user.autocomplete
 
 	if new_value == old_value then return end
@@ -208,8 +209,8 @@ function user.set_autocomplete(new_value)
 		)
 
 		-- restore when leaving insert mode
-		vim.api.nvim_create_autocmd('InsertLeave', {
-			group = user.augroup,
+		autocmd('InsertLeave', {
+			group = augroup,
 			command = 'UserCmpEnable',
 			once = true,
 		})

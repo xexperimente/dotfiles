@@ -209,11 +209,13 @@ function state.git_changes()
 end
 
 function state.lsp_diagnostic()
-	local get_option = vim.api.nvim_buf_get_option
+	local get_option = vim.api.nvim_get_option_value
 	local get_name = vim.api.nvim_buf_get_name
 	local diagnostic = vim.diagnostic
 
-	if get_option(0, 'filetype') == 'lazy' and get_name(0):match('%.env$') then return '' end
+	if get_option('filetype', { scope = 'local' }) == 'lazy' and get_name(0):match('%.env$') then
+		return ''
+	end
 
 	local result = {}
 
@@ -274,7 +276,7 @@ state.inactive_status = {
 }
 
 function M.setup()
-	local augroup = vim.api.nvim_create_augroup('statusline_cmds', { clear = true })
+	local augroup = vim.api.nvim_create_augroup('UserStatuslineCmds', { clear = true })
 	local autocmd = vim.api.nvim_create_autocmd
 
 	vim.opt.showmode = false
