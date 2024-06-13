@@ -5,9 +5,7 @@ Plugin.dependencies = {
 }
 
 Plugin.lazy = true
-
 Plugin.event = { 'BufReadPre', 'BufNewFile' } --'BufWritePre'
-
 Plugin.cmd = 'ConformInfo'
 
 Plugin.opts = {

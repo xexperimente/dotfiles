@@ -25,7 +25,7 @@ function Plugin.config(_, opts)
 end
 
 function Plugin.init()
-	vim.keymap.set('n', '<leader>ll', function()
+	vim.keymap.set('n', 'gl', function()
 		vim.notify('Linting ... ', vim.log.levels.INFO)
 		user.lint()
 	end, { desc = 'Lint' })

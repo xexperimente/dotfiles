@@ -2,21 +2,26 @@
 local Plugin = { 'tamago324/lir.nvim' }
 local user = {}
 
-Plugin.lazy = true
-
-Plugin.keys = {
-	'<leader>fe',
-	'<leader>fa',
-}
-
 Plugin.dependencies = {
 	{ 'nvim-lua/plenary.nvim' },
+}
+
+Plugin.lazy = true
+Plugin.keys = {
+	{ '<leader>fe', ':FileExplorer<cr>', desc = 'Show explorer' },
+	{ '<leader>fa', ':FileExplorer!<cr>', desc = 'Show explorer on root' },
 }
 
 function Plugin.init()
 	-- disable netrw
 	vim.g.loaded_netrw = 1
 	vim.g.loaded_netrwPlugin = 1
+
+	vim.api.nvim_create_user_command(
+		'FileExplorer',
+		function(input) user.toggle(input.args, input.bang) end,
+		{ bang = true, nargs = '?' }
+	)
 end
 
 function Plugin.config()
@@ -26,14 +31,13 @@ function Plugin.config()
 	local marks = require('lir.mark.actions')
 	local clipboard = require('lir.clipboard.actions')
 
-	local bind = vim.keymap.set
-	local toggle = user.toggle
-
 	lir.setup({
 		on_init = user.on_init,
 		mappings = {
 			['<C-Down>'] = actions.split,
 			['<C-Right>'] = actions.vsplit,
+			['<C-s>'] = actions.split,
+			['<C-v>'] = actions.vsplit,
 			['et'] = actions.tabedit,
 
 			['q'] = actions.quit,
@@ -79,16 +83,6 @@ function Plugin.config()
 			},
 		},
 	})
-
-	-- Open file manager
-	bind('n', '<leader>fe', '<cmd>FileExplorer<cr>')
-	bind('n', '<leader>fa', '<cmd>FileExplorer!<cr>')
-
-	vim.api.nvim_create_user_command(
-		'FileExplorer',
-		function(input) toggle(input.args, input.bang) end,
-		{ bang = true, nargs = '?' }
-	)
 end
 
 function user.on_init()
@@ -100,18 +94,13 @@ function user.on_init()
 
 	bind('n', 'v', 'V', noremap)
 	bind('x', 'q', '<esc>', noremap)
-
 	bind('x', '<Tab>', mark, noremap)
 	bind('x', 'cc', mark .. 'cc', remap)
 	bind('x', 'cx', mark .. 'cx', remap)
-
 	bind('n', '<S-Tab>', 'gv<Tab>', remap)
-
-	--vim.wo.statusline = require('local.statusline').get_status('short')    -- custom folder icon
 end
 
 function user.toggle(cwd, root)
-	--local env = require('user.env')
 	local path = ''
 
 	if root then
@@ -122,11 +111,7 @@ function user.toggle(cwd, root)
 		path = cwd
 	end
 
-	--if vim.o.lines > env.small_screen_lines then
 	require('lir.float').toggle(path)
-	--else
-	--	vim.cmd({ cmd = 'edit', args = { path } })
-	--end
 end
 
 return Plugin

@@ -4,7 +4,7 @@ local uv = vim.uv
 
 M.window = nil
 s.mounted = false
-s.augroup = 'buffernav_cmds'
+s.augroup = 'UserBuffernavCmds'
 
 function M.after_mount(event)
 	if M.window == nil then return end

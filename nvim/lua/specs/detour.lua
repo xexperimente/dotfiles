@@ -34,9 +34,9 @@ function Plugin.config()
 			-- I need to update the plugin so it doesn't depend on users remembering to setting the nested attribute.
 			nested = true,
 		})
-	end, { noremap = true })
+	end, { noremap = true, desc = 'Open Detour' })
 
-	bind('n', '<c-w>.', '<cmd>DetourCurrentWindow<cr>', {})
+	bind('n', '<c-w>.', '<cmd>DetourCurrentWindow<cr>', { desc = 'Open current detour' })
 
 	bind('n', '<leader>t', function()
 		require('detour').Detour()
@@ -59,7 +59,7 @@ function Plugin.config()
 				vim.api.nvim_feedkeys('i', 'n', false)
 			end,
 		})
-	end)
+	end, { desc = 'Open terminal' })
 end
 
 return Plugin
