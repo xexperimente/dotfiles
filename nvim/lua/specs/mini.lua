@@ -111,6 +111,8 @@ function Plugin.config()
 			},
 		},
 	})
+
+	require('mini.diff').setup()
 end
 
 Plugin.keys = {
@@ -140,6 +142,9 @@ Plugin.keys = {
 	-- Mini.Notify
 	{ '<leader>o', function() user.show_history() end, desc = 'Show history' },
 	{ '<leader><space>', function() user.cls() end, desc = 'Clear' },
+
+	-- Mini.Diff
+	{ '<leader>gc', ':lua MiniDiff.toggle_overlay()<cr>', desc = 'Toogle git changes overlay' },
 }
 
 function user.show_history()
