@@ -31,11 +31,19 @@ function Plugin.config()
 
 	require('mini.extra').setup()
 
+	require('mini.comment').setup()
+
 	require('mini.notify').setup({
 		lsp_progress = {
 			enable = false,
 		},
 	})
+
+	vim.notify = function(...)
+		local notify = require('mini.notify').make_notify()
+		vim.notify = notify
+		return notify(...)
+	end
 
 	require('mini.pick').setup({
 		window = {
@@ -165,13 +173,13 @@ function user.cls()
 	require('mini.notify').clear()
 end
 
--- function Plugin.init()
--- vim.notify = function(...)
--- 	local notify = require('mini.notify').make_notify()
--- 	vim.notify = notify
--- 	return notify(...)
--- end
--- end
+function Plugin.init()
+	-- vim.notify = function(...)
+	-- 	local notify = require('mini.notify').make_notify()
+	-- 	vim.notify = notify
+	-- 	return notify(...)
+	-- end
+end
 
 return Plugin
 

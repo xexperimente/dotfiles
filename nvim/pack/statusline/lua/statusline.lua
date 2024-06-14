@@ -1,22 +1,6 @@
 local M = {}
 local state = {}
 
--- local function default_hl(name, style, opts)
--- 	opts = opts or {}
--- 	local ok, hl = pcall(vim.api.nvim_get_hl_by_name, name, 1)
--- 	if ok and (hl.background or hl.foreground) then return end
---
--- 	if opts.link then
--- 		vim.api.nvim_set_hl(0, name, { link = style })
--- 		return
--- 	end
---
--- 	local normal = vim.api.nvim_get_hl_by_name('Normal', 1)
--- 	local fallback = vim.api.nvim_get_hl_by_name(style, 1)
---
--- 	vim.api.nvim_set_hl(0, name, { fg = normal.background, bg = fallback.foreground })
--- end
-
 function vim.g.statusline_component(name) return state[name]() end
 
 local mode_higroups = {
@@ -29,18 +13,6 @@ local mode_higroups = {
 	['COMMAND'] = 'UserStatuslineCommandMode',
 	['TERMINAL'] = 'UserStatuslineTerminalMode',
 }
-
-local function apply_hl()
-	-- default_hl('UserStatusBlock', 'StatusLine', { link = true })
-	-- default_hl('UserStatusMode_DEFAULT', 'Comment')
-
-	-- default_hl(mode_higroups['NORMAL'], 'Directory')
-	-- default_hl(mode_higroups['VISUAL'], 'Number')
-	-- default_hl(mode_higroups['V-BLOCK'], 'Number')
-	-- default_hl(mode_higroups['V-LINE'], 'Number')
-	-- default_hl(mode_higroups['INSERT'], 'String')
-	-- default_hl(mode_higroups['COMMAND'], 'Special')
-end
 
 -- mode_map copied from:
 -- https://github.com/nvim-lualine/lualine.nvim/blob/5113cdb32f9d9588a2b56de6d1df6e33b06a554a/lua/lualine/utils/mode.lua
@@ -123,6 +95,16 @@ function state.formatters()
 				server_names,
 				vim.tbl_map(function(formatter) return formatter.name end, conform.list_formatters(0))
 			)
+		end
+	end
+
+	if package.loaded['lint'] then
+		local has_lint, lint = pcall(require, 'lint')
+		if has_lint then
+			local linters = lint.linters_by_ft[vim.bo.filetype]
+			if linters ~= nil and #linters > 0 then
+				table.insert(server_names, table.concat(linters, ','))
+			end
 		end
 	end
 
@@ -281,7 +263,6 @@ function M.setup()
 
 	vim.opt.showmode = false
 
-	-- apply_hl()
 	local pattern = M.get_status('full')
 	if pattern then vim.o.statusline = pattern end
 
@@ -360,7 +341,5 @@ end
 function M.get_status(name) return table.concat(state[fmt('%s_status', name)], '') end
 
 function M.apply(name) vim.o.statusline = M.get_status(name) end
-
-M.default_hl = apply_hl
 
 return M

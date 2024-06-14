@@ -5,7 +5,7 @@ Plugin.lazy = true
 Plugin.event = { 'BufReadPre', 'BufNewFile' } --'VeryLazy'
 
 Plugin.opts = {
-	events = { 'BufWritePost', 'BufEnter', 'InsertLeave' },
+	events = { 'BufWritePost', 'BufEnter', 'InsertLeave', 'TextChanged' },
 	linters_by_ft = {
 		lua = { 'selene' },
 	},

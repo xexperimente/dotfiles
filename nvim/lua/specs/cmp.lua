@@ -6,25 +6,26 @@ local user = { autocomplete = true }
 Plugin.dependencies = {
 	-- Sources
 	-- { 'hrsh7th/cmp-buffer' },
-	{ 'hrsh7th/cmp-path' },
-	{ 'saadparwaiz1/cmp_luasnip' },
-	{ 'hrsh7th/cmp-nvim-lsp' },
-	{ 'hrsh7th/cmp-nvim-lua' },
-	{ 'hrsh7th/cmp-cmdline' },
-	{ 'dmitmel/cmp-cmdline-history' },
+	-- { 'hrsh7th/cmp-path' },
+	{ 'saadparwaiz1/cmp_luasnip', lazy = true },
+	{ 'hrsh7th/cmp-nvim-lsp', lazy = true },
+	{ 'hrsh7th/cmp-nvim-lua', lazy = true },
+	{ 'hrsh7th/cmp-cmdline', lazy = true },
+	{ 'dmitmel/cmp-cmdline-history', lazy = true },
 
 	-- Snippets
-	{ 'L3MON4D3/LuaSnip' },
+	{ 'L3MON4D3/LuaSnip', lazy = true },
 
 	-- Icons
-	{ 'onsails/lspkind.nvim' },
+	{ 'onsails/lspkind.nvim', lazy = true },
 
 	-- fzf paths
 	{
 		'tzachar/cmp-fuzzy-path',
+		lazy = true,
 		dependencies = {
-			{ 'tzachar/fuzzy.nvim' },
-			{ 'natecraddock/telescope-zf-native.nvim' },
+			{ 'tzachar/fuzzy.nvim', lazy = true },
+			{ 'natecraddock/telescope-zf-native.nvim', lazy = true },
 		},
 	},
 }
@@ -52,11 +53,11 @@ function Plugin.config()
 		},
 		snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
 		sources = {
-			{ name = 'fuzzy_path' },
 			{ name = 'nvim_lsp', keyword_length = 3 },
 			-- { name = 'buffer', keyword_length = 3 },
 			{ name = 'luasnip', keyword_length = 2 },
 			{ name = 'lazydev' },
+			{ name = 'fuzzy_path' },
 		},
 		view = {
 			docs = {
@@ -155,8 +156,8 @@ function Plugin.config()
 
 	cmp.setup.cmdline(':', {
 		sources = cmp.config.sources({
-			{ name = 'fuzzy_path' },
 			{ name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } },
+			{ name = 'fuzzy_path' },
 			{ name = 'cmdline_history' },
 		}),
 		mapping = cmp.mapping.preset.cmdline({

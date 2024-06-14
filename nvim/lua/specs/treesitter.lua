@@ -3,7 +3,7 @@ local Plugin = { 'nvim-treesitter/nvim-treesitter' }
 Plugin.event = 'VeryLazy'
 
 Plugin.dependencies = {
-	'nvim-treesitter/nvim-treesitter-textobjects',
+	{ 'nvim-treesitter/nvim-treesitter-textobjects', lazy = true },
 }
 
 Plugin.opts = {
@@ -65,10 +65,7 @@ Plugin.opts = {
 		},
 	},
 	ensure_installed = {
-		'toml',
-		'yaml',
 		'comment',
-		'json',
 		'lua',
 		'vimdoc',
 		'vim',

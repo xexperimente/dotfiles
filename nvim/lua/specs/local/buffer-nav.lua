@@ -4,7 +4,18 @@ local Plugin = {}
 
 Plugin.name = 'buffer-nav'
 Plugin.dir = vim.fs.joinpath(path, 'pack', Plugin.name)
-Plugin.dependencies = { { 'MunifTanjim/nui.nvim' } }
+Plugin.dependencies = { { 'MunifTanjim/nui.nvim', lazy = true } }
+Plugin.lazy = true
+
+Plugin.keys = {
+	{ 'M' },
+	{ '<leader>m' },
+	{ '<leader>M' },
+	{ '<M-1>' },
+	{ '<M-2>' },
+	{ '<M-3>' },
+	{ '<M-4>' },
+}
 
 function Plugin.init() vim.g.buffer_nav_save = '<leader>w' end
 

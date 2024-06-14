@@ -4,7 +4,7 @@
 local Plugin = { 'mg979/vim-visual-multi' }
 
 Plugin.branch = 'master'
-Plugin.lazy = false
+Plugin.lazy = true
 
 -- Plugin.event = { 'BufEnter', 'VeryLazy' }
 
