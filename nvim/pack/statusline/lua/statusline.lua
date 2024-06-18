@@ -161,17 +161,16 @@ function state.git_branch()
 end
 
 function state.git_changes()
-	if vim.b.gitsigns_status_dict == nil or vim.o.columns < 70 then return '' end
+	local git_status = vim.b.minidiff_summary
+	if git_status == nil or vim.o.columns < 70 then return '' end
 
-	local git_status = vim.b.gitsigns_status_dict
-
-	local order = { 'added', 'changed', 'removed' }
+	local order = { 'add', 'change', 'delete' }
 	local icons = {
-		added = '',
-		changed = '',
-		removed = '',
+		add = '',
+		change = '',
+		delete = '',
 	}
-	local colors = { 'DiagnosticSignInfo', 'DiagnosticSignWarn', 'DiagnosticSignError' }
+	local colors = { 'MiniDiffSignAdd', 'MiniDiffSignChange', 'MiniDiffSignDelete' }
 
 	local should_add_spacing = false
 	local result = {}

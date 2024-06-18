@@ -10,9 +10,11 @@ Plugin.opts = {
 	highlight_groups = {
 		Whitespace = { bg = 'NONE', fg = 'overlay' },
 		StatusLine = { bg = 'NONE', fg = 'text' },
-		MiniCursorword = { bg = 'overlay' },
 		Search = { bg = 'rose', blend = 50 },
 
+		-- Mini
+		MiniCursorword = { bg = 'overlay' },
+		MiniDiffSignChange = { bg = 'none', fg = 'Gold' },
 		-- Statusline
 		UserStatuslineNormalMode = { fg = 'base', bg = '#5FB0FC' },
 		UserStatuslineInsertMode = { fg = 'base', bg = '#98bb6c' },
