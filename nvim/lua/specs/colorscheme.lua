@@ -15,6 +15,8 @@ Plugin.opts = {
 		-- Mini
 		MiniCursorword = { bg = 'overlay' },
 		MiniDiffSignChange = { bg = 'none', fg = 'Gold' },
+		MiniPickBorderText = { bg = 'rose', fg = 'overlay' },
+
 		-- Statusline
 		UserStatuslineNormalMode = { fg = 'base', bg = '#5FB0FC' },
 		UserStatuslineInsertMode = { fg = 'base', bg = '#98bb6c' },
