@@ -14,7 +14,7 @@ require('user.plugin-manager')
 
 -- Apply theme
 local time = os.date('*t')
-if time.hour > 19 or time.hour < 5 then
+if time.hour >= 19 or time.hour < 5 then
 	vim.cmd('colorscheme rose-pine-moon')
 else
 	vim.cmd('colorscheme rose-pine-dawn')
