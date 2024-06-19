@@ -108,7 +108,9 @@ end
 
 function user.diagnostics()
 	vim.diagnostic.config({
-		virtual_text = true,
+		virtual_text = {
+			source = 'if_many',
+		},
 		signs = {
 			text = {
 				[vim.diagnostic.severity.ERROR] = '',
