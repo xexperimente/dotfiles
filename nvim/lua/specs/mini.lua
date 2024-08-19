@@ -33,6 +33,11 @@ function Plugin.config()
 
 	require('mini.comment').setup()
 
+	-- local MiniIcons = require('mini.icons')
+	--
+	-- MiniIcons.setup()
+	-- MiniIcons.mock_nvim_web_devicons()
+
 	require('mini.notify').setup({
 		lsp_progress = {
 			enable = false,

@@ -4,6 +4,7 @@ local user = {}
 
 Plugin.dependencies = {
 	{ 'nvim-lua/plenary.nvim' },
+	{ 'echasnovski/mini.nvim' },
 }
 
 Plugin.lazy = true
