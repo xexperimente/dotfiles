@@ -11,7 +11,8 @@ Plugin.event = { 'BufReadPre', 'BufNewFile' }
 Plugin.dependencies = {
 	{ 'hrsh7th/cmp-nvim-lsp' },
 	{ 'williamboman/mason-lspconfig.nvim' },
-	{ 'echasnovski/mini.extra' },
+	-- { 'echasnovski/mini.extra' },
+	{ 'echasnovski/mini.nvim' },
 }
 
 function Plugin.config()
