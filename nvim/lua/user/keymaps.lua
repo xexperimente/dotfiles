@@ -27,7 +27,7 @@ bind('t', '<esc>', [[<C-\><C-n>]], { desc = 'Escape terminal mode', noremap = tr
 bind('t', '<esc><esc>', [[<C-\><C-n><C-w>q]], { desc = 'Close terminal', noremap = true })
 
 -- Cancel search highlight
-bind('n', '<esc>', ':nohl<cr><esc>', { noremap = true, silent = true, desc = 'Clear search' })
+-- bind('n', '<esc>', ':nohl<cr><esc>', { noremap = true, silent = true, desc = 'Clear search' })
 
 -- Hlsearch next/prev in cmdline
 bind('c', '<F3>', '<c-g>', { noremap = true, desc = 'Next search result' })
