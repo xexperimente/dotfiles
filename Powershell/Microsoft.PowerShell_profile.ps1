@@ -82,23 +82,7 @@ function Update-Vcpkg
 	& vcpkg upgrade
 }
 
-# Backup .config files to Mega
-
-function Backup-Nvim-Nightly
-{
-	& rclone sync %localappdata%/nvim-nightly Mega:dotfiles/nvim-nightly $args
-}
-
-function Backup-Nvim-Test
-{
-	& rclone sync %localappdata%/nvim-test Mega:dotfiles/nvim-test $args
-}
-
-function Backup-Nvim
-{
-	& rclone sync %localappdata%/nvim Mega:dotfiles/nvim $args
-}
-
+# Misc Backups
 function Backup-Powershell
 {
 	& rclone copyto "$PROFILE" Mega:dotfiles\Powershell\Microsoft.PowerShell_profile.ps1 $args
@@ -116,20 +100,11 @@ function Backup-Homeoffice
 
 function Backup-Sources
 {
-	& rclone sync %userprofile%/source/repos e:/Projects/sources -P
+	& rclone sync %userprofile%/Sources e:/Projects/sources -P -v
 }
 
 function Backup-Config
 {
-	Write-Output "Running nvim backup..." | Green
-	Backup-Nvim -P -L --human-readable $args
-
-	Write-Output "Running nvim-test backup..." | Green
-	Backup-Nvim-Test -P -L --human-readable $args
-
-	Write-Output "Running nvim-nightly backup..." | Green
-	Backup-Nvim-Nightly -P -L --human-readable $args
-
 	Write-Output "Running PowerShell profile backup..." | Green
 	Backup-Powershell -P -L --human-readable $args
 
@@ -138,21 +113,6 @@ function Backup-Config
 }
 
 # Download scripts from Mega backup
-
-function Update-Nvim-Test
-{
-	& rclone sync Mega:dotfiles/nvim-test %localappdata%/nvim-test -P
-}
-
-function Update-Nvim
-{
-	& rclone sync Mega:dotfiles/nvim %localappdata%/nvim -P
-}
-
-function Update-Nvim-Nightly
-{
-	& rclone sync Mega:dotfiles/nvim-nightly %localappdata%/nvim-nightly -P
-}
 
 function Update-Powershell
 {
