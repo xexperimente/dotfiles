@@ -1,9 +1,17 @@
-#:schema https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
-
-version = 2
-final_space = true
 console_title_template = '{{ .Shell }} in {{ .Folder }}'
+version = 3
 shell_integration = true
+final_space = true
+
+[secondary_prompt]
+  template = '❯❯ '
+  foreground = 'cyan'
+  background = 'transparent'
+
+[transient_prompt]
+  template = '❯ '
+  background = 'transparent'
+  foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}black{{end}}']
 
 [[blocks]]
   type = 'prompt'
@@ -11,21 +19,21 @@ shell_integration = true
   newline = true
 
   [[blocks.segments]]
-    type = 'path'
     style = 'plain'
-    background = 'transparent'
-    foreground = 'blue'
     template = '{{ .Path }}'
+    foreground = 'blue'
+    background = 'transparent'
+    type = 'path'
 
     [blocks.segments.properties]
       style = 'full'
 
   [[blocks.segments]]
-    type = 'git'
     style = 'plain'
+    template = ' <yellow>{{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} <cyan>{{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
     foreground = 'blue'
     background = 'transparent'
-    template = ' <yellow>{{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} <cyan>{{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
+    type = 'git'
 
     [blocks.segments.properties]
       branch_icon = ''
@@ -37,11 +45,11 @@ shell_integration = true
   overflow = 'hidden'
 
   [[blocks.segments]]
-    type = 'executiontime'
     style = 'plain'
+    template = '{{ .FormattedMs }}'
     foreground = 'yellow'
     background = 'transparent'
-    template = '{{ .FormattedMs }}'
+    type = 'executiontime'
 
     [blocks.segments.properties]
       threshold = 5000
@@ -52,24 +60,8 @@ shell_integration = true
   newline = true
 
   [[blocks.segments]]
-    type = 'text'
     style = 'plain'
-    foreground_templates = [
-      "{{if gt .Code 0}}red{{end}}",
-      "{{if eq .Code 0}}cyan{{end}}",
-    ]
-    background = 'transparent'
     template = '❯'
-
-[transient_prompt]
-  foreground_templates = [
-    "{{if gt .Code 0}}red{{end}}",
-    "{{if eq .Code 0}}black{{end}}",
-  ]
-  background = 'transparent'
-  template = '❯ '
-
-[secondary_prompt]
-  foreground = 'cyan'
-  background = 'transparent'
-  template = '❯❯ '
+    background = 'transparent'
+    type = 'text'
+    foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}cyan{{end}}']
