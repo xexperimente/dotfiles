@@ -53,6 +53,8 @@ function Plugin.config()
 			end,
 		},
 	})
+
+	require('lspconfig').rust_analyzer.setup({})
 end
 
 function user.lsp_attach()
