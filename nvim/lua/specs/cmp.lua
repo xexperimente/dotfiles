@@ -81,7 +81,9 @@ function Plugin.config()
 				mode = 'symbol',
 				maxwidth = 50,
 				ellipsis_char = '...',
-				symbol_map = { Text = '' },
+				-- symbol_map = { Text = '' },
+				symbol_map = { Snippet = '' },
+				preset = vim.g.nvy == 1 and 'codicons' or 'default',
 			}),
 		},
 		mapping = {
