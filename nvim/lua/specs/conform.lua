@@ -31,12 +31,12 @@ function Plugin.init()
 	local command = vim.api.nvim_create_user_command
 
 	command('Format', function(input)
-		vim.notify('Formatting ... ', vim.log.levels.INFO)
+		vim.notify('Formatting ... ', vim.log.levels.INFO, { title = 'Conform' })
 
 		require('conform').format(
 			{ lsp_fallback = true, async = input.bang, timeout_ms = 700 },
 			function(err)
-				if err ~= nil then vim.notify(err, vim.log.levels.ERROR) end
+				if err ~= nil then vim.notify(err, vim.log.levels.ERROR, { title = 'Conform' }) end
 			end
 		)
 	end, { bang = true, range = true })

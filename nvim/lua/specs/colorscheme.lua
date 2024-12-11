@@ -12,7 +12,10 @@ Plugin.opts = {
 		StatusLine = { bg = 'NONE', fg = 'text' },
 		Search = { bg = 'rose', blend = 50 },
 
-		-- Mini
+		-- Snacks.nvim
+		SnacksNotifierHistory = { bg = 'surface' },
+
+		-- Mini.nvim
 		MiniCursorword = { bg = 'overlay' },
 		MiniDiffSignChange = { bg = 'none', fg = 'Gold' },
 		MiniPickBorderText = { bg = 'rose', fg = 'overlay' },

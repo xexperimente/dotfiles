@@ -38,17 +38,17 @@ function Plugin.config()
 	-- MiniIcons.setup()
 	-- MiniIcons.mock_nvim_web_devicons()
 
-	require('mini.notify').setup({
-		lsp_progress = {
-			enable = false,
-		},
-	})
-
-	vim.notify = function(...)
-		local notify = require('mini.notify').make_notify()
-		vim.notify = notify
-		return notify(...)
-	end
+	-- require('mini.notify').setup({
+	-- 	lsp_progress = {
+	-- 		enable = false,
+	-- 	},
+	-- })
+	--
+	-- vim.notify = function(...)
+	-- 	local notify = require('mini.notify').make_notify()
+	-- 	vim.notify = notify
+	-- 	return notify(...)
+	-- end
 
 	require('mini.pick').setup({
 		window = {
@@ -117,9 +117,12 @@ function Plugin.config()
 			{ mode = 'n', keys = '<Leader>g', desc = '+Git' },
 			{ mode = 'n', keys = '<Leader>b', desc = '+Buffers' },
 			{ mode = 'n', keys = '<Leader>p', desc = '+Plugins' },
+			{ mode = 'n', keys = '<Leader>u', desc = '+Options' },
+			{ mode = 'n', keys = '<Leader>v', desc = '+Visual' },
 		},
 		window = {
 			config = {
+				width = 'auto',
 				border = require('user.env').border,
 			},
 		},

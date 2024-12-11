@@ -1,4 +1,4 @@
-std="lua51+vim"
+std="lua51+vim+Snacks"
 
 [lints]
 one_line_if = "allow"

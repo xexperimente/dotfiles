@@ -11,7 +11,6 @@ Plugin.event = { 'BufReadPre', 'BufNewFile' }
 Plugin.dependencies = {
 	{ 'hrsh7th/cmp-nvim-lsp' },
 	{ 'williamboman/mason-lspconfig.nvim' },
-	-- { 'echasnovski/mini.extra' },
 	{ 'echasnovski/mini.nvim' },
 }
 
@@ -101,6 +100,18 @@ function user.lsp_attach()
 			if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
 				bind('n', 'gh', user.toggle_inlay_hints, opts)
 			end
+
+			MiniClue.set_mapping_desc('n', '<leader>lp', 'Show diagnostics[current]')
+			MiniClue.set_mapping_desc('n', '<leader>lP', 'Show diagnostics[all]')
+			MiniClue.set_mapping_desc('n', '<leader>ld', 'Show symbols')
+			MiniClue.set_mapping_desc('n', '<leader>lD', 'Show workspace symbols')
+			MiniClue.set_mapping_desc('n', 'gh', 'Toggle inlay hints')
+			MiniClue.set_mapping_desc('n', 'gd', 'Go definition')
+			MiniClue.set_mapping_desc('n', 'gD', 'Go declaration')
+			MiniClue.set_mapping_desc('n', 'gi', 'Go implementation')
+			MiniClue.set_mapping_desc('n', 'go', 'Show type definition')
+			MiniClue.set_mapping_desc('n', 'gr', 'Show references')
+			MiniClue.set_mapping_desc('n', 'gs', 'Signature help')
 		end,
 	})
 end

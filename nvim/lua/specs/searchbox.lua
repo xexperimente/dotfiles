@@ -10,7 +10,7 @@ Plugin.cmd = {
 }
 
 Plugin.keys = {
-	{ '<leader>S', ':SearchBoxIncSearch<CR>', noremap = true, desc = 'SearchBox' },
+	{ '<leader>s', ':SearchBoxIncSearch<CR>', noremap = true, desc = 'SearchBox' },
 }
 
 Plugin.opts = {
