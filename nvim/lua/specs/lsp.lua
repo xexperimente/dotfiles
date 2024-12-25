@@ -9,7 +9,7 @@ Plugin.cmd = { 'LspInfo', 'LspInstall', 'LspStart' }
 Plugin.event = { 'BufReadPre', 'BufNewFile' }
 
 Plugin.dependencies = {
-	{ 'hrsh7th/cmp-nvim-lsp' },
+	{ 'saghen/blink.cmp' },
 	{ 'williamboman/mason-lspconfig.nvim' },
 	{ 'echasnovski/mini.nvim' },
 }
@@ -17,12 +17,7 @@ Plugin.dependencies = {
 function Plugin.config()
 	user.ui()
 	user.diagnostics()
-
 	user.lsp_attach()
-
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities =
-		vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
 	local servers = {
 		lua_ls = {
@@ -45,9 +40,7 @@ function Plugin.config()
 			function(server_name)
 				local server = servers[server_name] or {}
 
-				server.capabilities =
-					vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-
+				server.capabilities = require('blink.cmp').get_lsp_capabilities(server.capabilities)
 				require('lspconfig')[server_name].setup(server)
 			end,
 		},

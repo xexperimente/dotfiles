@@ -38,7 +38,7 @@ Plugin.opts = {
 		VM_Cursor = { bg = 'love', blend = 90 },
 		VM_Insert = { link = 'DiffText' },
 
-		PmenuSel = { bg = 'surface', fg = 'NONE' },
+		PmenuSel = { bg = 'highlight_med', fg = 'NONE' }, -- bg surface / highlight_med
 		Pmenu = { fg = 'overlay', bg = 'base' }, -- #c5cdd9
 
 		-- Cmp
