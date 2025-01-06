@@ -33,23 +33,6 @@ function Plugin.config()
 
 	require('mini.comment').setup()
 
-	-- local MiniIcons = require('mini.icons')
-	--
-	-- MiniIcons.setup()
-	-- MiniIcons.mock_nvim_web_devicons()
-
-	-- require('mini.notify').setup({
-	-- 	lsp_progress = {
-	-- 		enable = false,
-	-- 	},
-	-- })
-	--
-	-- vim.notify = function(...)
-	-- 	local notify = require('mini.notify').make_notify()
-	-- 	vim.notify = notify
-	-- 	return notify(...)
-	-- end
-
 	require('mini.pick').setup({
 		window = {
 			config = {
@@ -162,13 +145,13 @@ Plugin.keys = {
 	{ '<leader>fg', ':Pick grep_live<cr>', desc = 'Live grep' },
 	{ '<leader>fc', ':Pick hl_groups<cr>', desc = 'Find colors' },
 	{ '<leader>fh', ':Pick help<cr>', desc = 'Find in help' },
-	{ '<leader>fk', ':lua MiniExtra.pickers.keymaps()<cr>', desc = 'Keymap' },
+	{ '<leader>fk', ':Pick keymaps<cr>', desc = 'Keymap' },
 	{ '<leader>fo', ':Pick oldfiles<cr>', desc = 'Recent files' },
 	{ '<leader>fG', ':Pick grep<cr>', desc = 'Grep string' },
 	{ '<leader>fs', ':Pick treesitter<cr>', desc = 'Buffer symbols' },
 	{ '<leader>fr', ':Pick resume<cr>', desc = 'Resume last search' },
 	{ '<leader>fm', ':Pick marks<cr>', desc = 'Show marks' },
-	{ '<leader>fH', ':lua MiniExtra.pickers.history()<cr>', desc = 'History' },
+	{ '<leader>fH', ':Pick history<cr>', desc = 'History' },
 	{ '<leader>gl', ':lua MiniExtra.pickers.git_commits()<cr>', desc = 'Git commits' },
 	{ '<leader>gb', ':lua MiniExtra.pickers.git_branches()<cr>', desc = 'Git branches' },
 

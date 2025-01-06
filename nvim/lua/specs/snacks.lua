@@ -18,19 +18,15 @@ Plugin.opts = {
 					desc = 'Config',
 					action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
 				},
-				-- {
-				-- 	key = 'L',
-				-- 	desc = 'Lazy',
-				-- 	action = ':Lazy',
-				-- 	enabled = package.loaded.lazy ~= nil,
-				-- },
 				{ key = 'q', desc = 'Quit', action = ':qa' },
 			},
 		},
 		sections = {
 			{
 				section = 'terminal',
-				cmd = 'chafa c:/Users/xexpe/Pictures/rats2.png --format symbols --symbols vhalf --size 60x60 --bg=faf4ed --colors=full; sleep .1',
+				cmd = 'chafa '
+					.. vim.env.USERPROFILE
+					.. '/Dotfiles/rats2.png --format symbols --symbols vhalf --size 60x60 --bg=faf4ed --colors=full; sleep .1',
 				height = 32,
 				padding = 1,
 			},
