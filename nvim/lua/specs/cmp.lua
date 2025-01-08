@@ -5,16 +5,28 @@ Plugin.version = 'v0.*'
 
 Plugin.opts = {
 	completion = {
-		-- list = { selection = 'auto_insert' },
-		list = { selection = 'preselect' },
-		accept = { auto_brackets = { enabled = false } },
+		list = {
+			selection = {
+				preselect = true,
+				auto_insert = false,
+			},
+		},
+		accept = {
+			auto_brackets = {
+				enabled = false,
+			},
+		},
 		-- documentation = {
 		-- 	auto_show = true,
 		-- 	auto_show_delay_ms = 0,
 		-- },
 		menu = {
 			draw = {
-				columns = { { 'label', 'label_description', gap = 1 }, { 'kind' }, { 'kind_icon' } },
+				columns = {
+					{ 'label', 'label_description', gap = 1 },
+					{ 'kind' },
+					{ 'kind_icon' },
+				},
 			},
 			border = require('user.env').cmp_border,
 		},
