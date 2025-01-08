@@ -1,5 +1,5 @@
 -- Try to load "env" file
-local ok, _ = pcall(require, 'user.env')
+local ok, env = pcall(require, 'user.env')
 
 if not ok then
 	local msg = 'lua/user/env.lua not found. You should probably rename env.sample'
@@ -13,8 +13,8 @@ require('user.keymaps')
 require('user.plugin-manager')
 
 -- Apply theme
-local time = os.date('*t')
-if time.hour >= 19 or time.hour < 5 then
+
+if env.use_dark_theme() then
 	vim.cmd('colorscheme rose-pine-moon')
 else
 	vim.cmd('colorscheme rose-pine-dawn')

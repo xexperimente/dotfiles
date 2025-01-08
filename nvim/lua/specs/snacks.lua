@@ -1,4 +1,5 @@
 local Plugin = { 'folke/snacks.nvim' }
+local env = require('user.env')
 
 Plugin.priority = 1000
 
@@ -24,11 +25,16 @@ Plugin.opts = {
 		sections = {
 			{
 				section = 'terminal',
-				cmd = 'chafa '
-					.. vim.env.USERPROFILE
-					.. '/Dotfiles/rats2.png --format symbols --symbols vhalf --size 60x60 --bg=faf4ed --colors=full; sleep .1',
-				height = 32,
+				--stylua: ignore
+				cmd = 'chafa ' 
+						.. vim.env.USERPROFILE 
+						.. '/Dotfiles/Logo/logo' .. (env.use_dark_theme() and  '-dark.png' or '-light.png')
+						.. ' --format symbols --symbols vhalf --size 86x25'
+						.. ' --colors=full; sleep .1',
+				height = 25,
+				width = 86,
 				padding = 1,
+				indent = -12,
 			},
 			{
 				-- pane = 2,
