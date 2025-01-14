@@ -102,6 +102,7 @@ function Plugin.config()
 			{ mode = 'n', keys = '<Leader>p', desc = '+Plugins' },
 			{ mode = 'n', keys = '<Leader>u', desc = '+Options' },
 			{ mode = 'n', keys = '<Leader>v', desc = '+Visual' },
+			{ mode = 'n', keys = '<Leader>l', desc = '+LSP' },
 		},
 		window = {
 			config = {
