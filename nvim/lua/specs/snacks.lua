@@ -61,7 +61,7 @@ Plugin.keys = {
 		desc = 'Neovim News',
 		function()
 			Snacks.win({
-				file = vim.api.nvim_get_runtime_file('doc/news.txt', false)[1],
+				file = vim.api.nvim_get_runtime_file('doc/news.txt', true)[1],
 				width = 0.6,
 				height = 0.6,
 				border = 'single',
