@@ -26,11 +26,11 @@ Plugin.opts = {
 			{
 				section = 'terminal',
 				--stylua: ignore
-				cmd = 'chafa ' 
-						.. vim.env.USERPROFILE 
-						.. '/Dotfiles/Logo/logo' .. (env.use_dark_theme() and  '-dark.png' or '-light.png')
-						.. ' --format symbols --symbols vhalf --size 86x25'
-						.. ' --colors=full; sleep .1',
+				cmd = 'chafa '
+					.. (vim.env.USERPROFILE and vim.env.USERPROFILE or vim.env.HOME)
+					.. '/Dotfiles/Logo/logo' .. (env.use_dark_theme() and '-dark.png' or '-light.png')
+					.. ' --format symbols --symbols vhalf --size 86x25'
+					.. ' --colors=full; sleep .1',
 				height = 25,
 				width = 86,
 				padding = 1,
