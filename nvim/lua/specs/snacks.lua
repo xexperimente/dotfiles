@@ -47,6 +47,20 @@ Plugin.opts = {
 	input = { enabled = true },
 	notifier = { enabled = true },
 	quickfile = { enabled = true },
+	statuscolumn = {
+		left = { 'mark', 'sign' }, -- priority of signs on the left (high to low)
+		right = { 'fold', 'git' }, -- priority of signs on the right (high to low
+		folds = {
+			open = true, -- show open fold icons
+			git_hl = true, -- use Git Signs hl for fold icons
+		},
+		git = {
+			-- patterns to match Git signs
+			patterns = { 'GitSign', 'MiniDiffSign' },
+		},
+		refresh = 50, -- refresh at most every 50ms
+	},
+	scroll = { enable = true },
 }
 
 Plugin.keys = {
@@ -75,7 +89,32 @@ Plugin.keys = {
 			})
 		end,
 	},
+	{
+		'<leader>o',
+		desc = 'Messages history',
+		function()
+			local lines = {}
+			for s in vim.fn.execute('messages'):gmatch('[^\n]+') do
+				table.insert(lines, s)
+			end
+
+			Snacks.win({
+				text = lines,
+				width = 0.6,
+				height = 0.6,
+				border = 'single',
+				wo = {
+					spell = false,
+					wrap = false,
+					signcolumn = 'yes',
+					statuscolumn = ' ',
+					conceallevel = 3,
+				},
+			})
+		end,
+	},
 }
+
 Plugin.init = function()
 	vim.api.nvim_create_autocmd('User', {
 		pattern = 'VeryLazy',

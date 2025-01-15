@@ -153,37 +153,15 @@ Plugin.keys = {
 	{ '<leader>fr', ':Pick resume<cr>', desc = 'Resume last search' },
 	{ '<leader>fm', ':Pick marks<cr>', desc = 'Show marks' },
 	{ '<leader>fH', ':Pick history<cr>', desc = 'History' },
-	{ '<leader>gl', ':lua MiniExtra.pickers.git_commits()<cr>', desc = 'Git commits' },
-	{ '<leader>gb', ':lua MiniExtra.pickers.git_branches()<cr>', desc = 'Git branches' },
+	{ '<leader>gl', ':Pick git_commits<cr>', desc = 'Git commits' },
+	{ '<leader>gb', ':Pick git_branches<cr>', desc = 'Git branches' },
 
 	-- Mini.Surround
 	{ 'sa' },
 	{ 'sd' },
 
-	-- Mini.Notify
-	{ '<leader>o', function() user.show_history() end, desc = 'Show history' },
-	{ '<leader><space>', function() user.cls() end, desc = 'Clear' },
-
 	-- Mini.Diff
 	{ '<leader>gc', ':lua MiniDiff.toggle_overlay()<cr>', desc = 'Toogle git changes overlay' },
 }
-
-function user.show_history()
-	local bind = vim.keymap.set
-	local feedkeys = vim.api.nvim_feedkeys
-	local rtc = vim.api.nvim_replace_termcodes('<c-w><c-q>', true, true, true)
-
-	require('detour').Detour()
-
-	require('mini.notify').show_history()
-
-	bind('n', '<esc>', function() feedkeys(rtc, 'n', true) end, { buffer = true })
-	bind('n', 'q', function() feedkeys(rtc, 'n', true) end, { buffer = true })
-end
-
-function user.cls()
-	vim.cmd("echo ''")
-	require('mini.notify').clear()
-end
 
 return Plugin
