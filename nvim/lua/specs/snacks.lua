@@ -1,5 +1,4 @@
 local Plugin = { 'folke/snacks.nvim' }
-local env = require('user.env')
 
 Plugin.priority = 1000
 
@@ -11,36 +10,64 @@ Plugin.opts = {
 		enabled = true,
 		preset = {
 			keys = {
-				{ key = 'n', desc = 'New File', action = ':ene | startinsert' },
-				{ key = 'r', desc = 'Recent Files', action = ':Pick oldfiles' },
-				{ key = 'f', desc = 'Find File', action = ':Pick files' },
+				{ icon = ' ', key = 'n', desc = 'New File', action = ':ene | startinsert' },
+				{ icon = ' ', key = 'r', desc = 'Recent Files', action = ':Pick oldfiles' },
+				{ icon = ' ', key = 'f', desc = 'Find File', action = ':Pick files' },
+				{ icon = ' ', key = 'l', desc = 'Git log', action = ':Pick git_commits' },
+				{ icon = ' ', key = 'c', desc = 'Git changes', action = ':Pick git_files' },
 				{
-					key = 'c',
+					key = 'x',
+					icon = ' ',
 					desc = 'Config',
 					action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
 				},
-				{ key = 'q', desc = 'Quit', action = ':qa' },
+				{ icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
 			},
+			header = [[
+█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
+█ █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ █▀▀▀▀▀▀█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█▀▀▀▀▀▀▀▀▀█ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█▀▀▀▀▀█ █
+█ █ ▀█ █▀ █▀▀▀▀ ▀█ █▀ █ █▀▀█ █▀▀▀▀ █▀▀▀█ █▀▀▀▀█ █▀█ █▀█ █▀▀▀▀ █▀█ █▀█ █▀▀▀▀▀█ █▀▀▀▀ █ █
+█ █▄▄▄▄▄▄▄█ ▀▀▀█▄▄▄▄▄▄█ ▄▄▄█ █ ▀▀▀ █ █▄█ ▀▀ █▀▀ █  ▀  █ █ ▀▀▀ █ ▀█▄ █ ▀▀  █▀▀ █ ▀▀▀▀█ █
+█ █  ▄ ▄  █ ▀▀▀▀ ▄ ▄  █ █ ▄▄ █ ▀▀▀ █ ▄ █▄█▀ ▀ ▄ █ █▄█ █ █ ▀▀▀ █ ▄ ▀ █ █▀█ █ █ █ ▀▀▀▀█ █
+█ █ ▀▀ ▀▀ ▀▀▀▀▀ ▀▀ ▀▀ ▀▀▀ █  ▀▀▀▀▀ ▀▀▀ █ ▀▀▀▀▀▀ █ █ ▀ ▀ ▀▀▀▀█ ▀▀▀ ▀▀█ █ ▀▀▀ █ ▀▀▀▀▀ █ █
+█ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█▀▀▀▀▀█▀▀▀ █▀▀▀▀▀█▀ ▀▀▀▀▀▀▀▀█▀▀█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ █▀▀▀▀▀▀ █
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█▀█ ▀▀▀▀█▀▀▀▀▀▀▀▀▀▀█▀▀▀▀▀▀▀▀▀▀▀▀ █ █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+                            █ █ █▀▀▀█ █▀▀▀█ █▀▀▀▄█▀▀▀▀ █▀▀▀█ █ █                       
+                            █ █ █ █▄█▄█ █ █ █ █▄ █ ▀▀▀ █ ▀▀█ █ █                       
+                            █ █ █ ▀ █ █ ▀ █ █ ▀ ▄█ ▀▀▀ ▀▀▀ █ █ █                       
+                            █ █ █▀▀▀▀ ▀▀▀▀█ ▀▀▀▀▀ ▀▀▀█ █▀▀▀█ █ █                       
+                            █ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ █ █                       
+                            ▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀                       
+]],
+		},
+		formats = {
+			header = { '%s', align = 'center', hl = 'ErrorMsg' },
 		},
 		sections = {
+			{ section = 'header' },
 			{
-				section = 'terminal',
-				--stylua: ignore
-				cmd = 'chafa '
-					.. (vim.env.USERPROFILE and vim.env.USERPROFILE or vim.env.HOME)
-					.. '/Dotfiles/Logo/logo' .. (env.use_dark_theme() and '-dark.png' or '-light.png')
-					.. ' --format symbols --symbols vhalf --size 86x25'
-					.. ' --colors=full; sleep .1',
-				height = 25,
-				width = 86,
+				icon = '★',
+				section = 'keys',
+				title = 'Keys',
+				indent = 3,
+				gap = 0,
 				padding = 1,
-				indent = -12,
 			},
 			{
-				-- pane = 2,
-				{ section = 'keys', gap = 1, padding = 1 },
-				{ section = 'startup' },
+				icon = '',
+				section = 'recent_files',
+				title = 'Recent files:',
+				indent = 3,
+				padding = 1,
 			},
+			{
+				icon = '',
+				section = 'projects',
+				title = 'Projects:',
+				indent = 3,
+				padding = 1,
+			},
+			{ section = 'startup' },
 		},
 	},
 	indent = { enabled = false },
@@ -139,6 +166,10 @@ Plugin.init = function()
 			Snacks.toggle.treesitter():map('<leader>uT')
 			Snacks.toggle.indent():map('<leader>ug')
 		end,
+	})
+	vim.api.nvim_create_autocmd('User', {
+		pattern = 'SnacksDashboardOpened',
+		callback = function(data) vim.b[data.buf].miniindentscope_disable = true end,
 	})
 
 	---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
