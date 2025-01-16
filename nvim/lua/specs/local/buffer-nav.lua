@@ -8,33 +8,19 @@ Plugin.dependencies = { { 'MunifTanjim/nui.nvim', lazy = true } }
 Plugin.lazy = true
 
 Plugin.event = { 'VeryLazy' }
--- Plugin.keys = {
--- 	{ 'M' },
--- 	{ '<leader>M' },
--- 	{ '<leader>m' },
--- 	{ '<M-1>' },
--- 	{ '<M-2>' },
--- 	{ '<M-3>' },
--- 	{ '<M-4>' },
--- }
-
--- function Plugin.init() vim.g.buffer_nav_save = '<leader>w' end
 
 function Plugin.init()
+	local bind = vim.keymap.set
+
 	vim.g.buffer_nav_save = '<leader>w'
 
-	vim.keymap.set('n', 'M', '<cmd>BufferNavMenu<cr>', { desc = 'Open buffer marks' })
-	vim.keymap.set('n', '<leader>m', '<cmd>BufferNavMark<cr>', { desc = 'Mark buffer' })
-	vim.keymap.set(
-		'n',
-		'<leader>M',
-		'<cmd>BufferNavMark!<cr>',
-		{ desc = 'Mark buffer and show marks' }
-	)
-	vim.keymap.set('n', '<M-1>', '<cmd>BufferNav 1<cr>', { desc = 'Jump to marked buffer 1' })
-	vim.keymap.set('n', '<M-2>', '<cmd>BufferNav 2<cr>', { desc = 'Jump to marked buffer 2' })
-	vim.keymap.set('n', '<M-3>', '<cmd>BufferNav 3<cr>', { desc = 'Jump to marked buffer 3' })
-	vim.keymap.set('n', '<M-4>', '<cmd>BufferNav 4<cr>', { desc = 'Jump to marked buffer 4' })
+	bind('n', 'M', '<cmd>BufferNavMenu<cr>', { desc = 'Open buffer marks' })
+	bind('n', '<leader>m', '<cmd>BufferNavMark<cr>', { desc = 'Mark buffer' })
+	bind('n', '<leader>M', '<cmd>BufferNavMark!<cr>', { desc = 'Mark buffer and show marks' })
+	bind('n', '<M-1>', '<cmd>BufferNav 1<cr>', { desc = 'Jump to marked buffer 1' })
+	bind('n', '<M-2>', '<cmd>BufferNav 2<cr>', { desc = 'Jump to marked buffer 2' })
+	bind('n', '<M-3>', '<cmd>BufferNav 3<cr>', { desc = 'Jump to marked buffer 3' })
+	bind('n', '<M-4>', '<cmd>BufferNav 4<cr>', { desc = 'Jump to marked buffer 4' })
 end
 
 return Plugin

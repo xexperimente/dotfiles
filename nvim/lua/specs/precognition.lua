@@ -8,7 +8,7 @@ Plugin.opts = {
 }
 
 Plugin.keys = {
-	{ '<leader>h', function() user.toggle() end, desc = 'Toggle Precognition' },
+	{ '<leader>up', function() user.toggle() end, desc = 'Toggle Precognition' },
 }
 
 function user.toggle()

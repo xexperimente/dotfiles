@@ -1,6 +1,5 @@
 local M = {}
 local s = {}
-local uv = vim.uv
 
 M.window = nil
 s.mounted = false
@@ -19,23 +18,17 @@ function M.after_mount(event)
 		M.go_to_file(index)
 	end
 
-	-- local resize = function(e)
-	-- 	if M.window and M.window.bufnr == e.buf then close() end
-	--
-	-- 	M.window:update_layout({ position = position, size = size })
-	-- end
-
+	local bind = vim.keymap.set
 	local opts = { buffer = event.buf }
-	vim.keymap.set('n', '<esc>', close, opts)
-	vim.keymap.set('n', 'q', close, opts)
-	vim.keymap.set('n', '<C-c>', close, opts)
 
-	if vim.g.buffer_nav_save then
-		vim.keymap.set('n', vim.g.buffer_nav_save, '<cmd>BufferNavSave<cr>', opts)
-	end
+	bind('n', '<esc>', close, opts)
+	bind('n', 'q', close, opts)
+	bind('n', '<C-c>', close, opts)
 
-	vim.keymap.set('n', '<cr>', accept, opts)
-	vim.keymap.set('n', '<M-b>', accept, opts)
+	if vim.g.buffer_nav_save then bind('n', vim.g.buffer_nav_save, '<cmd>BufferNavSave<cr>', opts) end
+
+	bind('n', '<cr>', accept, opts)
+	bind('n', '<M-b>', accept, opts)
 
 	vim.api.nvim_create_autocmd('BufLeave', {
 		group = s.augroup,
@@ -43,16 +36,14 @@ function M.after_mount(event)
 		once = true,
 		callback = close,
 	})
-
-	-- vim.api.nvim_create_autocmd('VimResized', {
-	-- 	group = s.augroup,
-	-- 	buffer = event.buf,
-	-- 	callback = resize,
-	-- })
 end
 
 function M.show_menu()
-	if M.window == nil then M.window = s.create_window() end
+	if M.window == nil then
+		M.window = s.create_window()
+	elseif M.window.bufnr == nil and s.filepath then
+		M.load_content(s.filepath)
+	end
 
 	if s.mounted then
 		M.window:show()
@@ -65,10 +56,13 @@ end
 function M.add_file(opts)
 	opts = opts or {}
 	local name = vim.fn.bufname('%')
-	local should_mount = M.window == nil
 	local show_buffers = opts.show_buffers == true
 
-	if should_mount then M.window = s.create_window() end
+	if M.window == nil then
+		M.window = s.create_window()
+	elseif M.window.bufnr == nil then
+		if s.filepath then M.load_content(s.filepath) end
+	end
 
 	local start_row = vim.api.nvim_buf_line_count(M.window.bufnr)
 	local end_row = start_row
@@ -112,7 +106,7 @@ function M.go_to_file(index)
 		return
 	end
 
-	if uv.fs_stat(path) then vim.cmd.edit(path) end
+	if vim.uv.fs_stat(path) then vim.cmd.edit(path) end
 end
 
 function M.load_content(path)
@@ -151,7 +145,9 @@ function s.create_window()
 		border = {
 			style = require('user.env').border,
 			text = {
-				top = { { 'Buffers', 'TelescopeResultsTitle' } },
+				top = {
+					{ 'Buffers', 'MiniPickBorderText' },
+				},
 			},
 		},
 		buf_options = {

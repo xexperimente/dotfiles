@@ -5,7 +5,28 @@ Plugin.priority = 1000
 Plugin.lazy = false
 
 Plugin.opts = {
+	indent = { enabled = false },
+	picker = { enable = false },
+	words = { enable = false },
 	bigfile = { enabled = true },
+	input = { enabled = true },
+	notifier = { enabled = true },
+	quickfile = { enabled = true },
+	scroll = { enable = true },
+	picker = { enable = true },
+	statuscolumn = {
+		left = { 'mark', 'sign' },
+		right = { 'fold', 'git' },
+		folds = {
+			open = true, -- show open fold icons
+			git_hl = true, -- use Git Signs hl for fold icons
+		},
+		git = {
+			-- patterns to match Git signs
+			patterns = { 'GitSign', 'MiniDiffSign' },
+		},
+		refresh = 50, -- refresh at most every 50ms
+	},
 	dashboard = {
 		enabled = true,
 		preset = {
@@ -14,7 +35,12 @@ Plugin.opts = {
 				{ icon = ' ', key = 'r', desc = 'Recent Files', action = ':Pick oldfiles' },
 				{ icon = ' ', key = 'f', desc = 'Find File', action = ':Pick files' },
 				{ icon = ' ', key = 'l', desc = 'Git log', action = ':Pick git_commits' },
-				{ icon = ' ', key = 'c', desc = 'Git changes', action = ':Pick git_files' },
+				{
+					icon = ' ',
+					key = 'c',
+					desc = 'Changed files',
+					action = ':Pick git_files scope="modified"',
+				},
 				{
 					key = 'x',
 					icon = ' ',
@@ -70,24 +96,6 @@ Plugin.opts = {
 			{ section = 'startup' },
 		},
 	},
-	indent = { enabled = false },
-	input = { enabled = true },
-	notifier = { enabled = true },
-	quickfile = { enabled = true },
-	statuscolumn = {
-		left = { 'mark', 'sign' }, -- priority of signs on the left (high to low)
-		right = { 'fold', 'git' }, -- priority of signs on the right (high to low
-		folds = {
-			open = true, -- show open fold icons
-			git_hl = true, -- use Git Signs hl for fold icons
-		},
-		git = {
-			-- patterns to match Git signs
-			patterns = { 'GitSign', 'MiniDiffSign' },
-		},
-		refresh = 50, -- refresh at most every 50ms
-	},
-	scroll = { enable = true },
 }
 
 Plugin.keys = {
@@ -167,6 +175,7 @@ Plugin.init = function()
 			Snacks.toggle.indent():map('<leader>ug')
 		end,
 	})
+
 	vim.api.nvim_create_autocmd('User', {
 		pattern = 'SnacksDashboardOpened',
 		callback = function(data) vim.b[data.buf].miniindentscope_disable = true end,

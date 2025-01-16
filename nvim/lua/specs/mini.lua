@@ -44,6 +44,7 @@ function Plugin.config()
 				col = math.floor(0.5 * (vim.o.columns - 80)),
 			},
 			max_width_share = 0.7,
+			prompt_prefix = ' ',
 		},
 	})
 
@@ -155,6 +156,7 @@ Plugin.keys = {
 	{ '<leader>fH', ':Pick history<cr>', desc = 'History' },
 	{ '<leader>gl', ':Pick git_commits<cr>', desc = 'Git commits' },
 	{ '<leader>gb', ':Pick git_branches<cr>', desc = 'Git branches' },
+	{ '<leader>uj', ':lua MiniSplitjoin.toggle()<cr>', desc = 'Split/join block' },
 
 	-- Mini.Surround
 	{ 'sa' },
