@@ -4,7 +4,6 @@ local user = {}
 
 Plugin.dependencies = {
 	{ 'nvim-lua/plenary.nvim' },
-	{ 'echasnovski/mini.nvim' },
 }
 
 Plugin.lazy = true
@@ -35,10 +34,8 @@ function Plugin.config()
 	lir.setup({
 		on_init = user.on_init,
 		mappings = {
-			['<C-Down>'] = actions.split,
-			['<C-Right>'] = actions.vsplit,
-			['<C-s>'] = actions.split,
-			['<C-v>'] = actions.vsplit,
+			['<c-s>'] = actions.split,
+			['<c-v>'] = actions.vsplit,
 			['et'] = actions.tabedit,
 
 			['q'] = actions.quit,
