@@ -2,10 +2,6 @@ local Plugin = { 'echasnovski/mini.nvim' }
 
 local user = {}
 
-Plugin.dependencies = {
-	{ 'carbon-steel/detour.nvim' },
-}
-
 Plugin.lazy = true
 Plugin.version = false
 Plugin.event = 'VeryLazy'
@@ -25,30 +21,15 @@ function Plugin.config()
 	-- Highlight word under cursor
 	require('mini.cursorword').setup()
 
+	-- Highlight current block scope
 	require('mini.indentscope').setup()
 
+	-- Split/Join
 	require('mini.splitjoin').setup()
 
 	require('mini.extra').setup()
 
 	require('mini.comment').setup()
-
-	require('mini.pick').setup({
-		window = {
-			config = {
-				border = require('user.env').border,
-				anchor = 'NW',
-				height = 30,
-				width = 80,
-				row = math.floor(0.5 * (vim.o.lines - 30)),
-				col = math.floor(0.5 * (vim.o.columns - 80)),
-			},
-			max_width_share = 0.7,
-			prompt_prefix = ' ',
-		},
-	})
-
-	vim.ui.select = require('mini.pick').ui_select
 
 	local clue = require('mini.clue')
 
@@ -141,21 +122,7 @@ Plugin.keys = {
 	-- Mini.Bufremove
 	{ '<leader>bd', ':lua MiniBufremove.delete()<cr>', desc = 'Delete Buffer' },
 
-	-- Mini.Pick
-	{ '<leader>fb', ':Pick buffers<cr>', desc = 'Open buffers' },
-	{ '<leader>ff', ':Pick files<cr>', desc = 'Find files' },
-	{ '<leader>fg', ':Pick grep_live<cr>', desc = 'Live grep' },
-	{ '<leader>fc', ':Pick hl_groups<cr>', desc = 'Find colors' },
-	{ '<leader>fh', ':Pick help<cr>', desc = 'Find in help' },
-	{ '<leader>fk', ':Pick keymaps<cr>', desc = 'Keymap' },
-	{ '<leader>fo', ':Pick oldfiles<cr>', desc = 'Recent files' },
-	{ '<leader>fG', ':Pick grep<cr>', desc = 'Grep string' },
-	{ '<leader>fs', ':Pick treesitter<cr>', desc = 'Buffer symbols' },
-	{ '<leader>fr', ':Pick resume<cr>', desc = 'Resume last search' },
-	{ '<leader>fm', ':Pick marks<cr>', desc = 'Show marks' },
-	{ '<leader>fH', ':Pick history<cr>', desc = 'History' },
-	{ '<leader>gl', ':Pick git_commits<cr>', desc = 'Git commits' },
-	{ '<leader>gb', ':Pick git_branches<cr>', desc = 'Git branches' },
+	-- Mini.Splitjoin
 	{ '<leader>uj', ':lua MiniSplitjoin.toggle()<cr>', desc = 'Split/join block' },
 
 	-- Mini.Surround

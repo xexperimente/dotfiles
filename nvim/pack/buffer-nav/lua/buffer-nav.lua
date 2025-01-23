@@ -56,6 +56,7 @@ end
 function M.add_file(opts)
 	opts = opts or {}
 	local name = vim.fn.bufname('%')
+	local should_mount = M.window == nil
 	local show_buffers = opts.show_buffers == true
 
 	if M.window == nil then

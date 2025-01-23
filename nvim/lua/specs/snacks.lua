@@ -6,14 +6,49 @@ Plugin.lazy = false
 
 Plugin.opts = {
 	indent = { enabled = false },
-	picker = { enable = false },
 	words = { enable = false },
 	input = { enabled = false },
 	bigfile = { enabled = true },
 	notifier = { enabled = true },
 	quickfile = { enabled = true },
 	scroll = { enable = true },
-	picker = { enable = true },
+	picker = {
+		enable = true,
+		sources = {
+			files = {
+				layout = {
+					preview = false,
+					layout = {
+						backdrop = false,
+						width = 0.5,
+						min_width = 80,
+						height = 0.7,
+						min_height = 10,
+						box = 'vertical',
+						border = require('user.env').border,
+						title = ' Files ',
+						title_pos = 'center',
+						{ win = 'input', height = 1, border = 'bottom' },
+						{ win = 'list', border = 'none' },
+						{ win = 'preview', title = '{preview}', height = 0.4, border = 'top' },
+					},
+				},
+			},
+			icons = {
+				layout = 'select',
+			},
+			recent = {
+				layout = 'select',
+				filter = {
+					paths = {
+						[vim.fn.stdpath('data')] = false,
+						[vim.fn.stdpath('cache')] = false,
+						[vim.fn.stdpath('state')] = false,
+					},
+				},
+			},
+		},
+	},
 	statuscolumn = {
 		left = { 'mark', 'sign' },
 		right = { 'fold', 'git' },
@@ -27,44 +62,39 @@ Plugin.opts = {
 		},
 		refresh = 50, -- refresh at most every 50ms
 	},
+	terminal = {
+		win = {
+			position = 'float',
+			border = require('user.env').border,
+			keys = {
+				term_hide = {
+					'<c-t>',
+					function() Snacks.terminal.toggle(nil, {}) end,
+					mode = 't',
+					expr = true,
+				},
+			},
+		},
+		interactive = true,
+	},
 	dashboard = {
 		enabled = true,
 		preset = {
 			keys = {
 				{ icon = ' ', key = 'n', desc = 'New File', action = ':ene | startinsert' },
-				{ icon = ' ', key = 'r', desc = 'Recent Files', action = ':Pick oldfiles' },
-				{ icon = ' ', key = 'f', desc = 'Find File', action = ':Pick files' },
-				{ icon = ' ', key = 'l', desc = 'Git log', action = ':Pick git_commits' },
-				{
-					icon = ' ',
-					key = 'c',
-					desc = 'Changed files',
-					action = ':Pick git_files scope="modified"',
-				},
+				{ icon = ' ', key = 'r', desc = 'Recent Files', action = ':lua Snacks.picker.recent()' },
+				{ icon = ' ', key = 'f', desc = 'Find File', action = ':lua Snacks.picker.files()' },
+				{ icon = ' ', key = 'l', desc = 'Git log', action = ':lua Snacks.picker.git_log()' },
+				{ icon = ' ', key = 'c', desc = 'Git Changes', action = ':lua Snacks.picker.git_status()' },
 				{
 					key = 'x',
 					icon = ' ',
 					desc = 'Config',
-					action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+					action = ":lua Snacks.picker.files({cwd = vim.fn.stdpath('config')})",
 				},
 				{ icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
 			},
-			header = [[
-█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
-█ █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ █▀▀▀▀▀▀█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█▀▀▀▀▀▀▀▀▀█ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█▀▀▀▀▀█ █
-█ █ ▀█ █▀ █▀▀▀▀ ▀█ █▀ █ █▀▀█ █▀▀▀▀ █▀▀▀█ █▀▀▀▀█ █▀█ █▀█ █▀▀▀▀ █▀█ █▀█ █▀▀▀▀▀█ █▀▀▀▀ █ █
-█ █▄▄▄▄▄▄▄█ ▀▀▀█▄▄▄▄▄▄█ ▄▄▄█ █ ▀▀▀ █ █▄█ ▀▀ █▀▀ █  ▀  █ █ ▀▀▀ █ ▀█▄ █ ▀▀  █▀▀ █ ▀▀▀▀█ █
-█ █  ▄ ▄  █ ▀▀▀▀ ▄ ▄  █ █ ▄▄ █ ▀▀▀ █ ▄ █▄█▀ ▀ ▄ █ █▄█ █ █ ▀▀▀ █ ▄ ▀ █ █▀█ █ █ █ ▀▀▀▀█ █
-█ █ ▀▀ ▀▀ ▀▀▀▀▀ ▀▀ ▀▀ ▀▀▀ █  ▀▀▀▀▀ ▀▀▀ █ ▀▀▀▀▀▀ █ █ ▀ ▀ ▀▀▀▀█ ▀▀▀ ▀▀█ █ ▀▀▀ █ ▀▀▀▀▀ █ █
-█ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█▀▀▀▀▀█▀▀▀ █▀▀▀▀▀█▀ ▀▀▀▀▀▀▀▀█▀▀█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ █▀▀▀▀▀▀ █
-▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█▀█ ▀▀▀▀█▀▀▀▀▀▀▀▀▀▀█▀▀▀▀▀▀▀▀▀▀▀▀ █ █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
-                            █ █ █▀▀▀█ █▀▀▀█ █▀▀▀▄█▀▀▀▀ █▀▀▀█ █ █                       
-                            █ █ █ █▄█▄█ █ █ █ █▄ █ ▀▀▀ █ ▀▀█ █ █                       
-                            █ █ █ ▀ █ █ ▀ █ █ ▀ ▄█ ▀▀▀ ▀▀▀ █ █ █                       
-                            █ █ █▀▀▀▀ ▀▀▀▀█ ▀▀▀▀▀ ▀▀▀█ █▀▀▀█ █ █                       
-                            █ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ █ █                       
-                            ▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀                       
-]],
+			header = require('user.env').header_art(),
 		},
 		formats = {
 			header = { '%s', align = 'center', hl = 'ErrorMsg' },
@@ -99,12 +129,28 @@ Plugin.opts = {
 }
 
 Plugin.keys = {
+	{ '<C-t>', function() Snacks.terminal.toggle(nil, {}) end, desc = 'Toggle terminal' },
+	{ '<leader>t', function() Snacks.terminal.toggle(nil, {}) end, desc = 'Toggle terminal' },
 	{ '<leader>z', function() Snacks.zen() end, desc = 'Toggle Zen Mode' },
 	{ '<leader>Z', function() Snacks.zen.zoom() end, desc = 'Toggle Zoom' },
 	{ '<leader>n', function() Snacks.notifier.show_history() end, desc = 'Notification History' },
 	{ '<leader>gB', function() Snacks.git.blame_line() end, desc = 'Git Blame Line' },
 	{ '<leader>.', function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer' },
 	{ '<leader>S', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer' },
+	{ '<leader>fb', function() Snacks.picker.buffers() end, desc = 'Open buffers' },
+	{ '<leader>ff', function() Snacks.picker.files() end, desc = 'Fnd files' },
+	{ '<leader>fg', function() Snacks.picker.grep() end, desc = 'Live grep' },
+	{ '<leader>fc', function() Snacks.picker.highlights() end, desc = 'Find colors' },
+	{ '<leader>fh', function() Snacks.picker.help() end, desc = 'Find in help' },
+	{ '<leader>fk', function() Snacks.picker.keymaps() end, desc = 'Keymap' },
+	{ '<leader>fr', function() Snacks.picker.resume() end, desc = 'Resume last search' },
+	{ '<leader>fm', function() Snacks.picker.marks() end, desc = 'Show marks' },
+	{ '<leader>fi', function() Snacks.picker.icons() end, desc = 'Find icons' },
+	{ '<leader>fH', function() Snacks.picker.command_history() end, desc = 'History' },
+	{ '<leader>gl', function() Snacks.picker.git_log() end, desc = 'Git commits' },
+	{ '<leader>gb', function() Snacks.picker.git_branches() end, desc = 'Git branches' },
+	{ '<leader>fG', function() Snacks.picker.grep_word() end, desc = 'Grep word' },
+	{ '<leader>fo', function() Snacks.picker.recent() end, desc = 'Recent files' },
 	{
 		'<leader>N',
 		desc = 'Neovim News',
@@ -135,7 +181,7 @@ Plugin.keys = {
 
 			Snacks.win({
 				text = lines,
-				width = 0.6,
+				width = 0.8,
 				height = 0.6,
 				border = 'single',
 				wo = {
@@ -207,10 +253,7 @@ Plugin.init = function()
 			end
 
 			local msg = {} ---@type string[]
-			progress[client.id] = vim.tbl_filter(
-				function(v) return table.insert(msg, v.msg) or not v.done end,
-				p
-			)
+			progress[client.id] = vim.tbl_filter(function(v) return table.insert(msg, v.msg) or not v.done end, p)
 
 			local spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
 			vim.notify(table.concat(msg, '\n'), 'info', {
