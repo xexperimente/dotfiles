@@ -47,6 +47,10 @@ Plugin.opts = {
 					},
 				},
 			},
+			pickers = {
+				preview = false,
+				layout = 'select',
+			},
 		},
 	},
 	statuscolumn = {
@@ -137,7 +141,7 @@ Plugin.keys = {
 	{ '<leader>.', function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer' },
 	{ '<leader>S', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer' },
 	{ '<leader>fb', function() Snacks.picker.buffers() end, desc = 'Open buffers' },
-	{ '<leader>ff', function() Snacks.picker.files() end, desc = 'Fnd files' },
+	{ '<leader>ff', function() Snacks.picker.files() end, desc = 'Find files' },
 	{ '<leader>fo', function() Snacks.picker.recent() end, desc = 'Recent files' },
 	{ '<leader>fg', function() Snacks.picker.grep() end, desc = 'Live grep' },
 	{ '<leader>fG', function() Snacks.picker.grep_word() end, desc = 'Grep word' },
@@ -148,6 +152,7 @@ Plugin.keys = {
 	{ '<leader>fm', function() Snacks.picker.marks() end, desc = 'Show marks' },
 	{ '<leader>fi', function() Snacks.picker.icons() end, desc = 'Find icons' },
 	{ '<leader>fH', function() Snacks.picker.command_history() end, desc = 'History' },
+	{ '<leader>fu', function() Snacks.picker.undo() end, desc = 'Undo' },
 	{ '<leader>gl', function() Snacks.picker.git_log() end, desc = 'Git commits' },
 	{ '<leader>gb', function() Snacks.picker.git_branches() end, desc = 'Git branches' },
 	{ '<leader>gs', function() Snacks.picker.git_status() end, desc = 'Git status' },
