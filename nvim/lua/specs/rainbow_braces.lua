@@ -2,7 +2,6 @@
 local Plugin = {
 	'hiphish/rainbow-delimiters.nvim',
 }
-
 Plugin.event = { 'BufRead', 'BufNewFile' }
 
 function Plugin.config()
@@ -14,7 +13,7 @@ function Plugin.config()
 		},
 		query = {
 			[''] = 'rainbow-delimiters',
-			lua = 'rainbow-blocks',
+			lua = 'rainbow-delimiters',
 		},
 		highlight = {
 			'RainbowDelimiterRed',
