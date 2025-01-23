@@ -123,7 +123,7 @@ Plugin.keys = {
 	{ '<leader>bd', ':lua MiniBufremove.delete()<cr>', desc = 'Delete Buffer' },
 
 	-- Mini.Splitjoin
-	{ '<leader>uj', ':lua MiniSplitjoin.toggle()<cr>', desc = 'Split/join block' },
+	{ '<leader>uj', ':lua MiniSplitjoin.toggle()<cr>', desc = 'Toggle MiniSplitjoin' },
 
 	-- Mini.Surround
 	{ 'sa' },

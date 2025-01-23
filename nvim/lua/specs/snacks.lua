@@ -225,6 +225,10 @@ Plugin.init = function()
 			Snacks.toggle.dim():map('<leader>uD')
 			Snacks.toggle.treesitter():map('<leader>uT')
 			Snacks.toggle.indent():map('<leader>ug')
+			-- Toggle the profiler
+			Snacks.toggle.profiler():map('<leader>pP')
+			-- Toggle the profiler highlights
+			Snacks.toggle.profiler_highlights():map('<leader>ph')
 		end,
 	})
 
