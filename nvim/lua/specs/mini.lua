@@ -1,5 +1,4 @@
 local Plugin = { 'echasnovski/mini.nvim' }
-
 local user = {}
 
 Plugin.lazy = true
@@ -30,6 +29,8 @@ function Plugin.config()
 	require('mini.extra').setup()
 
 	require('mini.comment').setup()
+
+	require('mini.icons').setup()
 
 	local clue = require('mini.clue')
 
@@ -66,8 +67,8 @@ function Plugin.config()
 			{ mode = 'x', keys = 'z' },
 
 			-- Customs
-			-- { mode = 'n', keys = ']' },
-			-- { mode = 'n', keys = '[' },
+			{ mode = 'n', keys = ']' },
+			{ mode = 'n', keys = '[' },
 		},
 
 		clues = {
@@ -78,13 +79,14 @@ function Plugin.config()
 			clue.gen_clues.windows(),
 			clue.gen_clues.z(),
 			-- Custom clues
-			{ mode = 'n', keys = '<leader>f', desc = '+Pick' },
-			{ mode = 'n', keys = '<Leader>g', desc = '+Git' },
-			{ mode = 'n', keys = '<Leader>b', desc = '+Buffers' },
-			{ mode = 'n', keys = '<Leader>p', desc = '+Plugins' },
-			{ mode = 'n', keys = '<Leader>u', desc = '+Options' },
-			{ mode = 'n', keys = '<Leader>v', desc = '+Visual' },
-			{ mode = 'n', keys = '<Leader>l', desc = '+LSP' },
+			{ mode = 'n', keys = '<leader>f', desc = 'Pick ' },
+			{ mode = 'n', keys = '<Leader>g', desc = 'Git ' },
+			{ mode = 'n', keys = '<Leader>b', desc = 'Buffers ' },
+			{ mode = 'n', keys = '<Leader>p', desc = 'Plugins ' },
+			{ mode = 'n', keys = '<Leader>u', desc = 'Options ' },
+			{ mode = 'n', keys = '<Leader>v', desc = 'Visual ' },
+			{ mode = 'n', keys = '<Leader>l', desc = 'LSP ' },
+			{ mode = 'n', keys = 'zu', desc = 'Undo spelling command ' },
 		},
 		window = {
 			config = {

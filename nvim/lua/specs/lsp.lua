@@ -11,7 +11,6 @@ Plugin.event = { 'BufReadPre', 'BufNewFile' }
 Plugin.dependencies = {
 	{ 'saghen/blink.cmp' },
 	{ 'williamboman/mason-lspconfig.nvim' },
-	{ 'echasnovski/mini.nvim' },
 }
 
 function Plugin.config()
@@ -58,14 +57,10 @@ function user.lsp_attach()
 		callback = function(event)
 			local lsp = vim.lsp.buf
 			local bind = vim.keymap.set
-			local client = vim.lsp.get_client_by_id(event.data.client_id)
-			-- local command = vim.api.nvim_buf_create_user_command
-
-			-- command(0, 'LspFormat', function(input) vim.lsp.buf.format({ async = input.bang }) end, {})
+			-- local client = vim.lsp.get_client_by_id(event.data.client_id)
 
 			local opts = { silent = true, buffer = event.buf }
 
-			-- bind({ 'n', 'x' }, 'gq', ':LspFormat!<cr>', opts)
 			bind({ 'n', 'i' }, '<C-h>', lsp.signature_help, opts)
 
 			bind('n', 'K', lsp.hover, opts)
@@ -90,10 +85,6 @@ function user.lsp_attach()
 			bind('n', '<leader>ld', ':lua Snacks.picker.lsp_symbols()<cr>', opts)
 			bind('n', '<leader>lD', ':lua Snacks.picker.lsp_workspace_symbols()<cr>', opts)
 
-			if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-				bind('n', 'gh', user.toggle_inlay_hints, opts)
-			end
-
 			MiniClue.set_mapping_desc('n', '<leader>lp', 'Show diagnostics[current]')
 			MiniClue.set_mapping_desc('n', '<leader>lP', 'Show diagnostics[all]')
 			MiniClue.set_mapping_desc('n', '<leader>ld', 'Show symbols')
@@ -107,10 +98,6 @@ function user.lsp_attach()
 			MiniClue.set_mapping_desc('n', 'gs', 'Signature help')
 		end,
 	})
-end
-
-function user.toggle_inlay_hints()
-	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }))
 end
 
 function user.diagnostics()

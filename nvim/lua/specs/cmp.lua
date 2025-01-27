@@ -2,7 +2,7 @@
 local Plugin = { 'saghen/blink.cmp' }
 
 Plugin.version = 'v0.*'
-
+Plugin.event = { 'InsertEnter', 'CmdlineEnter' }
 Plugin.opts = {
 	completion = {
 		list = {
