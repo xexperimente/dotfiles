@@ -20,6 +20,14 @@ Plugin.opts = {
 		MiniDiffSignChange = { bg = 'none', fg = 'Gold' },
 		MiniPickBorderText = { bg = 'rose', fg = 'overlay' },
 		MiniPickPrompt = { bg = 'NONE', fg = 'rose' },
+		MiniStatuslineFilename = { bg = 'none', fg = 'text' },
+		MiniStatuslineDevinfo = { bg = 'none', fg = 'text' },
+		MiniStatuslineModeNormal = { link = 'UserStatuslineNormalMode' },
+		MiniStatuslineModeInsert = { link = 'UserStatuslineInsertMode' },
+		MiniStatuslineModeReplace = { link = 'UserStatuslineReplaceMode' },
+		MiniStatuslineModeVisual = { link = 'UserStatuslineVisualMode' },
+		MiniStatuslineModeCommand = { link = 'UserStatuslineNormalMode' },
+		MiniStatuslineModeOther = { link = 'UserStatuslineTerminalMode' },
 
 		-- Statusline
 		UserStatuslineNormalMode = { fg = 'base', bg = '#5FB0FC' },

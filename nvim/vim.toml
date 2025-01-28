@@ -10,3 +10,6 @@ any = true
 
 [MiniClue]
 any=true
+
+[MiniStatusline]
+any=true

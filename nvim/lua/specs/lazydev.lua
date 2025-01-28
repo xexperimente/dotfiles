@@ -6,6 +6,7 @@ Plugin.opts = {
 	library = {
 		'luvit-meta/library',
 		{ path = 'snacks.nvim', words = { 'Snacks' } },
+		{ path = 'mini.nvim', words = { 'MiniStatusline', 'MiniClue' } },
 		{ path = '${3rd}/luv/library', words = { 'vim%.uv' } },
 
 		-- You can also add plugins you always want to have loaded.
