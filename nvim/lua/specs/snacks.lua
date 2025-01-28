@@ -83,6 +83,7 @@ Plugin.opts = {
 	},
 	dashboard = {
 		enabled = true,
+
 		preset = {
 			keys = {
 				{ icon = ' ', key = 'n', desc = 'New File', action = ':ene | startinsert' },
@@ -234,7 +235,10 @@ Plugin.init = function()
 
 	vim.api.nvim_create_autocmd('User', {
 		pattern = 'SnacksDashboardOpened',
-		callback = function(data) vim.b[data.buf].miniindentscope_disable = true end,
+		callback = function(data)
+			vim.b[data.buf].miniindentscope_disable = true
+			vim.b[data.buf].ministatusline_disable = true
+		end,
 	})
 
 	---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
