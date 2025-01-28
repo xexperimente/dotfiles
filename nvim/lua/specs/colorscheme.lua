@@ -14,6 +14,7 @@ Plugin.opts = {
 
 		-- Snacks.nvim
 		SnacksNotifierHistory = { bg = 'surface' },
+		SnacksPickerTitle = { link = 'MiniPickBorderText' },
 
 		-- Mini.nvim
 		MiniCursorword = { bg = 'overlay' },
@@ -39,7 +40,6 @@ Plugin.opts = {
 		UserStatuslineBlock = { link = 'Statusline' },
 		UserStatuslineHighlight1 = { link = 'WarningMsg' },
 		UserStatuslineHighlight2 = { link = 'ErrorMsg' },
-		-- UserStatuslineNotice = { link = 'IncSearch' },
 
 		-- Visual Multi
 		VM_Mono = { link = 'DiffText' },
@@ -47,34 +47,24 @@ Plugin.opts = {
 		VM_Cursor = { bg = 'love', blend = 90 },
 		VM_Insert = { link = 'DiffText' },
 
+		-- Menus
 		PmenuSel = { bg = 'highlight_med', fg = 'NONE' }, -- bg surface / highlight_med
 		Pmenu = { fg = 'overlay', bg = 'base' }, -- #c5cdd9
-
-		-- Cmp
-		CmpItemAbbrDeprecated = { fg = '#7E8294', bg = 'NONE', strikethrough = true },
-		CmpItemAbbrMatch = { fg = 'rose', bg = 'NONE', bold = true },
-		CmpItemAbbrMatchFuzzy = { fg = 'rose', bg = 'NONE', bold = true },
-		CmpItemMenu = { fg = '#C792EA', bg = 'NONE', italic = true },
-		CmpItemKind = { fg = 'rose', bg = 'none' },
 
 		-- Floats
 		FloatBorder = { fg = 'overlay', bg = 'surface' },
 		LspInfoBorder = { link = 'FloatBorder' },
 
-		TelescopePromptTitle = { fg = 'overlay', bg = 'rose' },
-		TelescopeSelection = { bg = 'base', fg = 'text' },
-
-		-- NvimTreeSpecialFile = { fg = 'muted', link = 'NvimTreeLineNR' },
-
 		-- Lir
 		LirFloatNormal = { bg = 'surface' },
 		LirFloatCurdirWindowNormal = { bg = 'surface' },
 
+		-- Basic
 		Keyword = { fg = 'rose' },
-
-		RainbowDelimiterRed = { fg = 'love' },
-
 		Folded = { bg = 'base' },
+
+		-- Rainbow braces
+		RainbowDelimiterRed = { fg = 'love' },
 	},
 }
 

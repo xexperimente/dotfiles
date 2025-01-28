@@ -13,14 +13,18 @@ Plugin.keys = {
 	{ '<leader>uj', ':lua MiniSplitjoin.toggle()<cr>', desc = 'Toggle MiniSplitjoin' },
 
 	-- Mini.Surround
-	{ 'sa' },
-	{ 'sd' },
+	{ 'sa' }, -- add
+	{ 'sd' }, -- delete
+	{ 'sf' }, -- find
+	{ 'sr' }, -- replace
+	{ 'sh' }, -- highlight
 
 	-- Mini.Diff
 	{ '<leader>gc', ':lua MiniDiff.toggle_overlay()<cr>', desc = 'Toogle git changes overlay' },
 }
 
 function Plugin.config()
+	-- Better textobjects
 	require('mini.ai').setup({})
 
 	-- Cycle various locations (diagnostics, buffers, etc.)
@@ -41,17 +45,28 @@ function Plugin.config()
 	-- Split/Join
 	require('mini.splitjoin').setup()
 
+	-- More textobjects
 	require('mini.extra').setup()
 
+	-- Enhanced and repeatable comments
 	require('mini.comment').setup()
 
+	-- General icons provider
 	require('mini.icons').setup()
 
+	-- Git branch/etc in statusline
 	require('mini.git').setup()
+
+	-- Show git changes
 	require('mini.diff').setup({ view = { style = 'sign', signs = { add = '┃', change = '┃', delete = '┃' } } })
 
+	-- Custom statusline
 	user.setup_statusline()
+
+	-- Keybind helper
 	user.setup_clue()
+
+	-- Git changes in statusline
 	user.setup_diff_summary()
 end
 
@@ -61,8 +76,8 @@ function user.setup_clue()
 	clue.setup({
 		triggers = {
 			-- Leader triggers
-			{ mode = 'n', keys = '<Leader>' },
-			{ mode = 'x', keys = '<Leader>' },
+			{ mode = 'n', keys = '<leader>' },
+			{ mode = 'x', keys = '<leader>' },
 
 			-- Built-in completion
 			{ mode = 'i', keys = '<C-x>' },
@@ -104,12 +119,12 @@ function user.setup_clue()
 			clue.gen_clues.z(),
 			-- Custom clues
 			{ mode = 'n', keys = '<leader>f', desc = 'Pick ' },
-			{ mode = 'n', keys = '<Leader>g', desc = 'Git ' },
-			{ mode = 'n', keys = '<Leader>b', desc = 'Buffers ' },
-			{ mode = 'n', keys = '<Leader>p', desc = 'Plugins ' },
-			{ mode = 'n', keys = '<Leader>u', desc = 'Options ' },
-			{ mode = 'n', keys = '<Leader>v', desc = 'Visual ' },
-			{ mode = 'n', keys = '<Leader>l', desc = 'LSP ' },
+			{ mode = 'n', keys = '<leader>g', desc = 'Git ' },
+			{ mode = 'n', keys = '<leader>b', desc = 'Buffers ' },
+			{ mode = 'n', keys = '<leader>p', desc = 'Plugins ' },
+			{ mode = 'n', keys = '<leader>u', desc = 'Options ' },
+			{ mode = 'n', keys = '<leader>v', desc = 'Visual ' },
+			{ mode = 'n', keys = '<leader>l', desc = 'LSP ' },
 			{ mode = 'n', keys = 'zu', desc = 'Undo spelling command ' },
 		},
 		window = {
@@ -176,7 +191,7 @@ function user.setup_statusline()
 				local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 
 				local tab = {
-					{ hl = mode_hl, strings = { ' ' .. mode .. ' ' } },
+					{ hl = mode_hl, strings = { ' ' .. mode:upper() .. ' ' } },
 					{ hl = 'MiniStatuslineFilename', strings = { ' ' } },
 					{ hl = 'MiniStatuslineFilename', strings = { filename } },
 					' ',

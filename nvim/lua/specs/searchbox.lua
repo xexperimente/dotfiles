@@ -22,7 +22,7 @@ Plugin.opts = {
 		border = {
 			style = require('user.env').border,
 			text = {
-				top = { { 'Search', 'TelescopeResultsTitle' } },
+				top = { { ' Search ', 'MiniPickBorderText' } },
 				top_align = 'center',
 			},
 			padding = { 0, 1 },
