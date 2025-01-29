@@ -73,8 +73,8 @@ Plugin.opts = {
 }
 
 Plugin.keys = {
-	{ '<c-up>', desc = 'Increment selection' },
-	{ '<c-down>', desc = 'Decrement selection' },
+	{ '<c-right>', desc = 'Increment selection' },
+	{ '<c-left>', desc = 'Decrement selection' },
 }
 
 Plugin.cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' }
