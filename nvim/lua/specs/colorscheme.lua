@@ -54,6 +54,7 @@ Plugin.opts = {
 		-- Floats
 		FloatBorder = { fg = 'overlay', bg = 'surface' },
 		LspInfoBorder = { link = 'FloatBorder' },
+		FloatTitle = { link = 'MiniPickBorderText' },
 
 		-- Lir
 		LirFloatNormal = { bg = 'surface' },

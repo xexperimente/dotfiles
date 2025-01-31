@@ -7,7 +7,7 @@ Plugin.lazy = false
 Plugin.opts = {
 	indent = { enabled = false },
 	words = { enable = false },
-	input = { enabled = false },
+	input = { enabled = true },
 	bigfile = { enabled = true },
 	notifier = { enabled = true },
 	quickfile = { enabled = true },
@@ -50,6 +50,14 @@ Plugin.opts = {
 			pickers = {
 				preview = false,
 				layout = 'select',
+			},
+			help = {
+				preview = false,
+				layout = 'select',
+			},
+			explorer = {
+				tree = true,
+				layout = { preset = 'vertical', preview = false },
 			},
 		},
 	},

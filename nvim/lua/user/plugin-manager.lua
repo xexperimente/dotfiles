@@ -38,6 +38,7 @@ Lazy.opts = {
 		-- automatically check for plugin updates
 		enabled = true,
 		notify = false,
+		concurency = 1,
 	},
 	change_detection = {
 		-- automatically check for config file changes and reload the ui
@@ -48,13 +49,18 @@ Lazy.opts = {
 		missing = true,
 		colorscheme = { 'rose-pine-dawn' },
 	},
+	rocks = { enabled = false },
 	ui = {
 		border = require('user.env').border,
+		title = ' lazy.nvim ',
 		icons = {
 			lazy = '',
 		},
 	},
 	performance = {
+		readme = {
+			enabled = false,
+		},
 		rtp = {
 			-- Disable some builtin vim plugins
 			disabled_plugins = {
@@ -94,16 +100,12 @@ Lazy.setup({
 })
 
 local user_grp = vim.api.nvim_create_augroup('LazyUserGroup', { clear = true })
+
 vim.api.nvim_create_autocmd('FileType', {
 	pattern = 'lazy',
 	desc = 'Quit lazy with <esc>',
 	callback = function()
-		vim.keymap.set(
-			'n',
-			'<esc>',
-			function() vim.api.nvim_win_close(0, false) end,
-			{ buffer = true, nowait = true }
-		)
+		vim.keymap.set('n', '<esc>', function() vim.api.nvim_win_close(0, false) end, { buffer = true, nowait = true })
 	end,
 	group = user_grp,
 })
