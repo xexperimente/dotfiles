@@ -57,6 +57,7 @@ Plugin.opts = {
 			},
 			explorer = {
 				tree = true,
+				auto_close = true,
 				layout = { preset = 'vertical', preview = false },
 			},
 		},
