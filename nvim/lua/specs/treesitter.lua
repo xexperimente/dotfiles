@@ -8,7 +8,7 @@ Plugin.dependencies = {
 
 Plugin.opts = {
 	highlight = {
-		enable = false,
+		enable = true,
 		additional_vim_regex_highlighting = { 'html', 'vimdoc' },
 	},
 	incremental_selection = {
