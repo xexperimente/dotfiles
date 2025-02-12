@@ -200,18 +200,19 @@ function user.setup_statusline()
 
 				if table.concat({ git, diff }):len() > 0 then
 					table.insert(tab, { hl = '@comment.todo', strings = { ' ' .. git .. ' ' } })
-					table.insert(tab, { hl = 'MiniStatuslineDevinfo', strings = { ' ' .. diff } })
-					table.insert(tab, '%<') -- Mark general truncate point
+					table.insert(tab, { hl = 'StatusLine', strings = { ' ' } })
+					table.insert(tab, { hl = 'MiniStatuslineDevinfo', strings = { diff } })
+					table.insert(tab, { hl = 'StatusLine', strings = { '%<' } }) -- Mark general truncate point
 				end
 				table.insert(tab, '%=')
 
 				if table.concat({ diagnostics, lsp }):len() > 0 then
 					table.insert(tab, { hl = 'MiniStatuslineDevinfo', strings = { diagnostics, lsp } })
-					table.insert(tab, { hl = 'MiniStatuslineDevinfo', strings = { ' ' } })
+					table.insert(tab, { hl = 'StatusLine', strings = { ' ' } })
 				end
 
 				table.insert(tab, { hl = mode_hl, strings = { user.statusline_lazystatus() } })
-				table.insert(tab, { hl = 'MiniStatuslineDevinfo', strings = { ' ' } })
+				table.insert(tab, { hl = 'StatusLine', strings = { ' ' } })
 
 				table.insert(tab, { hl = mode_hl, strings = { search } })
 				table.insert(tab, { hl = 'MiniStatuslineDevinfo', strings = { user.statusline_position() } })
