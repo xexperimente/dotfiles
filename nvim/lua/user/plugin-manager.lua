@@ -53,6 +53,9 @@ Lazy.opts = {
 	ui = {
 		border = require('user.env').border,
 		title = ' lazy.nvim ',
+		size = {
+			width = 0.85,
+		},
 		icons = {
 			lazy = '',
 		},
