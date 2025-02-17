@@ -80,12 +80,11 @@ Plugin.opts = {
 			position = 'float',
 			border = require('user.env').border,
 			keys = {
-				term_hide = {
-					'<c-t>',
-					function() Snacks.terminal.toggle(nil, {}) end,
-					mode = 't',
-					expr = true,
-				},
+				term_hide = { '<c-t>', function(self) self:hide() end, mode = 't', expr = true },
+			},
+			wo = {
+				winbar = '',
+				statusline = '',
 			},
 		},
 		interactive = true,
@@ -144,7 +143,16 @@ Plugin.opts = {
 
 Plugin.keys = {
 	{ '<C-t>', function() Snacks.terminal.toggle(nil, {}) end, desc = 'Toggle terminal' },
-	{ '<leader>t', function() Snacks.terminal.toggle(nil, {}) end, desc = 'Toggle terminal' },
+	{
+		'<leader>t',
+		function() Snacks.terminal.toggle(nil, { win = { position = 'float' } }) end,
+		desc = 'Toggle terminal',
+	},
+	{
+		'<leader>T',
+		function() Snacks.terminal.toggle(nil, { win = { position = 'right' } }) end,
+		desc = 'Split terminal',
+	},
 	{ '<leader>z', function() Snacks.zen() end, desc = 'Toggle Zen Mode' },
 	{ '<leader>Z', function() Snacks.zen.zoom() end, desc = 'Toggle Zoom' },
 	{ '<leader>n', function() Snacks.notifier.show_history() end, desc = 'Notification History' },

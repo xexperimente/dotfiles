@@ -35,7 +35,7 @@ Plugin.opts = {
 		UserStatuslineInsertMode = { fg = 'base', bg = '#98bb6c' },
 		UserStatuslineReplaceMode = { fg = 'base', bg = '#e46846' },
 		UserStatuslineVisualMode = { fg = 'base', bg = '#ffa066' },
-		UserStatuslineTerminal = { fg = 'base', bg = '#e6c384' },
+		UserStatuslineTerminalMode = { fg = 'base', bg = '#e6c384' },
 		UserStatuslineDefault = { fg = 'text', bg = 'NONE' },
 		UserStatuslineBlock = { link = 'Statusline' },
 		UserStatuslineHighlight1 = { link = 'WarningMsg' },

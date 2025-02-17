@@ -180,6 +180,7 @@ function user.setup_statusline()
 	end
 
 	statusline.setup({
+		set_vim_settings = false,
 		content = {
 			active = function()
 				local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 50 })
@@ -189,6 +190,15 @@ function user.setup_statusline()
 				local lsp = user.statusline_formatters()
 				local filename = MiniStatusline.section_filename({ trunc_width = 140 })
 				local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
+
+				if mode == 'Terminal' then
+					return combine_groups({
+						{ hl = mode_hl, strings = { ' ' .. mode:upper() .. ' ' } },
+						{ hl = 'UserStatusLineDefault', strings = { ' ' } },
+						{ hl = '@comment.todo', strings = { ' ' .. vim.opt.shell:get() .. ' ' } },
+						{ hl = 'UserStatusLineDefault', strings = { '' } },
+					})
+				end
 
 				local tab = {
 					{ hl = mode_hl, strings = { ' ' .. mode:upper() .. ' ' } },
