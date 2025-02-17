@@ -29,6 +29,9 @@ function Plugin.config()
 				},
 			},
 		},
+		zls = {
+			enable_build_on_save = true,
+		},
 	}
 
 	require('mason').setup()
@@ -44,7 +47,8 @@ function Plugin.config()
 		},
 	})
 
-	require('lspconfig').rust_analyzer.setup({})
+	-- require('lspconfig').rust_analyzer.setup({})
+	require('lspconfig').zls.setup({})
 end
 
 function user.lsp_attach()
