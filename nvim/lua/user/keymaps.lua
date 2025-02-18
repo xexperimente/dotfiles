@@ -15,6 +15,7 @@ bind('i', '<C-s>', '<esc>:w!<cr>i', { noremap = true, silent = true, desc = 'Sav
 
 -- Paste
 bind({ 'n', 'i' }, '<C-v>', '<C-R>+', { noremap = true, silent = true, desc = 'Paste' })
+bind('c', '<C-v>', '<C-R>+', { noremap = true, desc = 'Paste(cmdline)' })
 
 -- Visual Block Mode - since on windows cant do Ctrl-V
 bind('n', '<leader>vb', '<C-v>', { noremap = true, desc = 'Start Visual Block Mode' })
