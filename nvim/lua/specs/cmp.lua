@@ -31,6 +31,37 @@ Plugin.opts = {
 			border = require('user.env').cmp_border,
 		},
 	},
+	signature = { enabled = true },
+	cmdline = {
+		enabled = true,
+		sources = function()
+			local type = vim.fn.getcmdtype()
+			-- Search forward and backward
+			if type == '/' or type == '?' then return { 'buffer' } end
+			-- Commands
+			if type == ':' or type == '@' then return { 'cmdline', 'path' } end
+			return {}
+		end,
+		keymap = {
+			preset = 'enter',
+			['<cr>'] = { 'accept_and_enter', 'fallback' },
+			['<C-y>'] = { 'accept', 'fallback' },
+		},
+	},
+	sources = {
+		providers = {
+			path = {
+				opts = {
+					get_cwd = function(_) return vim.fn.getcwd() end,
+				},
+			},
+		},
+		min_keyword_length = function(ctx)
+			-- only applies when typing a command, doesn't apply to arguments
+			if ctx.mode == 'cmdline' and string.find(ctx.line, ' ') == nil then return 2 end
+			return 0
+		end,
+	},
 }
 
 return Plugin
