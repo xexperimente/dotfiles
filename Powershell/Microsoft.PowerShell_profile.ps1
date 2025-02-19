@@ -16,23 +16,29 @@ New-Alias -Name "Remove-SymLink" -Value "Remove-Item"
 
 New-Alias -Name "Init-dev" -Value "Enter-Dev"
 
+New-Alias -Name "subl" -Value "C:/Program files/Sublime Text/sublime_text.exe"
+
 New-Alias -Name "cd" -Value "z"
 
 # Init Starship prompt
 
-#function Invoke-Starship-TransientFunction
-#{
-#	&starship module character
-#}
-#
-#Invoke-Expression (&starship init powershell)
-#
-#Enable-TransientPrompt
+function Invoke-Starship-TransientFunction
+{
+	&starship module character
+}
+
+Invoke-Expression (&starship init powershell)
+
+Enable-TransientPrompt
 
 # Oh my posh
 $env:Path += ";C:\Users\user\AppData\Local\Programs\oh-my-posh\bin"
 
-oh-my-posh init pwsh --config "~\Dotfiles\oh-my-posh\zen.toml" | Invoke-Expression
+# OMP init
+#oh-my-posh init pwsh --config "~\Dotfiles\oh-my-posh\zen.toml" | Invoke-Expression
+
+# Zoxide init
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
 # Custom functions
 function New-SymLink ($link, $target)
@@ -163,8 +169,6 @@ function Red
 # Import-Module 'D:\Dev\vcpkg\scripts\posh-vcpkg' # Init vcpkg completion
 # rclone completion powershell | Out-String | Invoke-Expression # Init rclone completion
 
-# Zoxide init
-Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
 
 
