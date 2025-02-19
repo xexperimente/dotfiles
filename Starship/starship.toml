@@ -26,6 +26,9 @@ powershell_indicator = "PS"
 bash_indicator = "BS"
 format = "[$indicator]($style)"
 
+[git_branch]
+symbol = ' '
+
 [php]
 disabled = true
 
