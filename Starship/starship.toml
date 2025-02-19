@@ -1,7 +1,7 @@
 # Don't print a new line at the start of the prompt
 add_newline = false
 format = "$shell $all"
-command_timeout = 5500
+#command_timeout = 5500
 
 # Replace the "❯" symbol in the prompt with "➜"
 [character] # The name of the module we are configuring is "character"
@@ -10,7 +10,7 @@ error_symbol = "[×](bold red)"
 
 [directory]
 truncation_length = 8
-truncation_symbol = "..."
+truncation_symbol = "…/"
 use_os_path_sep = false
 
 [cmake]
@@ -24,9 +24,19 @@ disabled = false
 nu_indicator = "NU"
 powershell_indicator = "PS"
 bash_indicator = "BS"
+format = "[$indicator]($style)"
 
 [php]
 disabled = true
 
 [nodejs]
+disabled = true
+
+[zig]
+disabled = true
+
+[rust]
+disabled = true
+
+[package]
 disabled = true
