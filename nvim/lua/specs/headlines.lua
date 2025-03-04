@@ -12,6 +12,7 @@ Plugin.opts = {
 	heading = {
 		icons = function() return '' end,
 	},
+	latex = { enabled = false },
 }
 
 return Plugin
