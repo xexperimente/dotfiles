@@ -221,10 +221,16 @@ function user.setup_statusline()
 					table.insert(tab, { hl = 'StatusLine', strings = { ' ' } })
 				end
 
-				table.insert(tab, { hl = mode_hl, strings = { user.statusline_lazystatus() } })
-				table.insert(tab, { hl = 'StatusLine', strings = { ' ' } })
+				if user.statusline_lazystatus():len() > 0 then
+					table.insert(tab, { hl = mode_hl, strings = { user.statusline_lazystatus() } })
+					table.insert(tab, { hl = 'StatusLine', strings = { ' ' } })
+				end
 
-				table.insert(tab, { hl = mode_hl, strings = { search } })
+				if search:len() > 0 then
+					search = '[' .. search .. ']'
+					table.insert(tab, { hl = mode_hl, strings = { search } })
+					table.insert(tab, { hl = 'StatusLine', strings = { ' ' } })
+				end
 				table.insert(tab, { hl = 'MiniStatuslineDevinfo', strings = { user.statusline_position() } })
 				table.insert(tab, { hl = 'MiniStarterItemPrefix', strings = { user.statusline_percent() } })
 

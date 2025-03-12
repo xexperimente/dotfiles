@@ -34,7 +34,10 @@ Plugin.opts = {
 	signature = { enabled = true },
 	cmdline = {
 		enabled = true,
-		completion = { menu = { auto_show = true } },
+		completion = {
+			menu = { auto_show = true },
+			ghost_text = { enabled = true },
+		},
 		sources = function()
 			local type = vim.fn.getcmdtype()
 			-- Search forward and backward

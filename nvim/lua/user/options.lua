@@ -15,6 +15,7 @@ vim.g.showcmd = false
 -- Search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.shortmess:append('S')
 
 -- Indentation & tabs
 vim.opt.smartindent = true
