@@ -15,6 +15,8 @@ Plugin.opts = {
 		-- Snacks.nvim
 		SnacksNotifierHistory = { bg = 'surface' },
 		SnacksPickerTitle = { link = 'MiniPickBorderText' },
+		SnacksScratchKey = { bg = 'rose', fg = 'surface' }, --link = 'SnacksPickerTitle' },
+		SnacksScratchDesc = { link = 'SnacksPickerTitle' },
 
 		-- Mini.nvim
 		MiniCursorword = { bg = 'overlay' },

@@ -12,6 +12,15 @@ Plugin.opts = {
 	notifier = { enabled = true },
 	quickfile = { enabled = true },
 	scroll = { enable = true },
+	scratch = {
+		icon = '',
+		win = {
+			border = 'single',
+			wo = {
+				winhighlight = 'NormalFloat:NormalFloat',
+			},
+		},
+	},
 	picker = {
 		enable = true,
 		sources = {
@@ -157,8 +166,8 @@ Plugin.keys = {
 	{ '<leader>z', function() Snacks.zen() end, desc = 'Toggle Zen Mode' },
 	{ '<leader>Z', function() Snacks.zen.zoom() end, desc = 'Toggle Zoom' },
 	{ '<leader>n', function() Snacks.notifier.show_history() end, desc = 'Notification History' },
-	{ '<leader>.', function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer' },
-	{ '<leader>S', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer' },
+	{ '<leader>.', function() Snacks.scratch({ icon = '' }) end, desc = 'Toggle Scratch Buffer' },
+	{ '<leader>;', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer' },
 	{ '<leader>fb', function() Snacks.picker.buffers() end, desc = 'Open buffers' },
 	{ '<leader>ff', function() Snacks.picker.files() end, desc = 'Find files' },
 	{ '<leader>fo', function() Snacks.picker.recent() end, desc = 'Recent files' },
