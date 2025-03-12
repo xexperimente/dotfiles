@@ -10,12 +10,13 @@ vim.opt.wrap = false
 vim.opt.background = 'light' -- (vim.g.nvy and 'light' or 'dark')
 vim.opt.termguicolors = true
 vim.opt.signcolumn = 'yes' -- Always show signcolumn
+vim.opt.showmode = false -- Don't show mode in message area
 vim.g.showcmd = false
 
 -- Search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.shortmess:append('S')
+vim.opt.shortmess:append('S') -- Don't show searchcount in message area
 
 -- Indentation & tabs
 vim.opt.smartindent = true
