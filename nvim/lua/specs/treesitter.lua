@@ -65,7 +65,6 @@ Plugin.opts = {
 		},
 	},
 	ensure_installed = {
-		'comment',
 		'lua',
 		'vimdoc',
 		'vim',

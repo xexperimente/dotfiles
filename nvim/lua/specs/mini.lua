@@ -15,8 +15,8 @@ Plugin.keys = {
 	-- Mini.Surround
 	{ 'sa' }, -- add
 	{ 'sd' }, -- delete
-	{ 'sf' }, -- find
 	{ 'sr' }, -- replace
+	{ 'sf' }, -- find
 	{ 'sh' }, -- highlight
 
 	-- Mini.Diff
@@ -48,9 +48,6 @@ function Plugin.config()
 	-- More textobjects
 	require('mini.extra').setup()
 
-	-- Enhanced and repeatable comments
-	require('mini.comment').setup()
-
 	-- General icons provider
 	require('mini.icons').setup()
 
@@ -59,6 +56,18 @@ function Plugin.config()
 
 	-- Show git changes
 	require('mini.diff').setup({ view = { style = 'sign', signs = { add = '┃', change = '┃', delete = '┃' } } })
+
+	local hipatterns = require('mini.hipatterns')
+
+	hipatterns.setup({
+		highlighters = {
+			fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+			hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+			todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+			note = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
+			hex_color = hipatterns.gen_highlighter.hex_color(),
+		},
+	})
 
 	-- Custom statusline
 	user.setup_statusline()

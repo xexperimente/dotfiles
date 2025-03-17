@@ -15,7 +15,7 @@ Plugin.opts = {
 		-- Snacks.nvim
 		SnacksNotifierHistory = { bg = 'surface' },
 		SnacksPickerTitle = { link = 'MiniPickBorderText' },
-		SnacksScratchKey = { bg = 'rose', fg = 'surface' }, --link = 'SnacksPickerTitle' },
+		SnacksScratchKey = { bg = 'rose', fg = 'surface' },
 		SnacksScratchDesc = { link = 'SnacksPickerTitle' },
 
 		-- Mini.nvim
@@ -50,8 +50,8 @@ Plugin.opts = {
 		VM_Insert = { link = 'DiffText' },
 
 		-- Menus
-		PmenuSel = { bg = 'highlight_med', fg = 'NONE' }, -- bg surface / highlight_med
-		Pmenu = { fg = 'overlay', bg = 'base' }, -- #c5cdd9
+		PmenuSel = { bg = 'highlight_med', fg = 'NONE' },
+		Pmenu = { fg = 'overlay', bg = 'base' },
 
 		-- Floats
 		FloatBorder = { fg = 'overlay', bg = 'surface' },
@@ -64,9 +64,6 @@ Plugin.opts = {
 		-- Basic
 		Keyword = { fg = 'rose' },
 		Folded = { bg = 'base' },
-
-		-- Rainbow braces
-		RainbowDelimiterRed = { fg = 'love' },
 	},
 }
 
