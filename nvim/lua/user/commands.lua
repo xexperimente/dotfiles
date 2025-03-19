@@ -20,3 +20,35 @@ autocmd('FileType', {
 	group = augroup,
 	command = 'nnoremap <buffer> q <cmd>quit<cr>',
 })
+
+-- Disable MiniIndentScope and MiniCursorword in symbols.nvim window
+autocmd('FileType', {
+	pattern = 'SymbolsSidebar',
+	group = augroup,
+	callback = function(ev)
+		vim.b.miniindentscope_config = { draw = { predicate = function() return false end } }
+		vim.b.minicursorword_disable = true
+
+		vim.keymap.set('n', '<left>', function() require('symbols').api.action('toggle-fold') end, { buffer = ev.buf })
+		vim.keymap.set('n', '<right>', function() require('symbols').api.action('toggle-fold') end, { buffer = ev.buf })
+	end,
+})
+
+-- Disable MiniCursorword in for specific keywords
+autocmd('CursorMoved', {
+	group = augroup,
+	callback = function()
+		if vim.b.minicursorword_disable then return end
+
+		local curword = vim.fn.expand('<cword>')
+		local filetype = vim.bo.filetype
+
+		-- Add any disabling global or filetype-specific logic here
+		local blocklist = {}
+
+		if filetype == 'lua' then
+			blocklist = { 'local', 'require', 'function' }
+			vim.b.minicursorword_disable = vim.tbl_contains(blocklist, curword)
+		end
+	end,
+})
