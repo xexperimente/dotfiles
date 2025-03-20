@@ -47,6 +47,9 @@ function Plugin.config()
 			['<enter>'] = actions.edit,
 			['<esc>'] = actions.quit,
 
+			['<S-enter>'] = actions.cd,
+			['<C-enter>'] = actions.cd,
+
 			['.'] = actions.toggle_show_hidden,
 			['N'] = actions.newfile,
 			['K'] = actions.mkdir,
