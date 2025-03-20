@@ -49,17 +49,10 @@ vim.opt.listchars = {
 vim.opt.fillchars = {
 	eob = ' ',
 	fold = ' ',
-	foldopen = '▾', -- "",
-	foldclose = '▸', -- "",
+	foldopen = '▾',
+	foldclose = '▸',
 	foldsep = ' ',
 }
-
--- Statusline
--- vim.opt.statuscolumn = vim.fn.join({
--- 	'%{%v:lua.require("user.columns").signcolumn()%}%=',
--- 	'%{v:lua.require("user.columns").number()}',
--- 	' %{%v:lua.require("user.columns").foldcolumn()%} ',
--- }, '')
 
 -- Folding
 vim.opt.foldcolumn = '1'
@@ -68,15 +61,14 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
--- https://www.reddit.com/r/neovim/comments/16xz3q9/comment/k36s1r4/?utm_source=share&utm_medium=web2x&context=3
---vim.o.foldtext = 'v:lua.vim.treesitter.foldtext()'
-vim.o.foldtext = 'v:lua.require("user.columns").foldtext()'
+vim.o.foldtext = 'v:lua.require("user.foldtext").custom_foldtext()'
 
 -- Misc
 vim.opt.swapfile = false
 vim.opt.hidden = true
 vim.opt.splitright = true
 vim.opt.scrolloff = 5
+vim.opt.confirm = true
 
 -- Disable unused providers
 vim.g.loaded_ruby_provider = 0
