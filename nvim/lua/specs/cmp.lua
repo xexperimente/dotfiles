@@ -2,7 +2,9 @@
 local Plugin = { 'saghen/blink.cmp' }
 
 Plugin.version = 'v0.*'
+
 Plugin.event = { 'InsertEnter', 'CmdlineEnter' }
+
 Plugin.opts = {
 	completion = {
 		list = {
@@ -29,6 +31,9 @@ Plugin.opts = {
 				},
 			},
 			border = require('user.env').cmp_border,
+		},
+		trigger = {
+			show_in_snippet = false,
 		},
 	},
 	signature = { enabled = true },

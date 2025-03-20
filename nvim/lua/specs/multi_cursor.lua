@@ -25,7 +25,7 @@ Plugin.config = function()
 	vim.keymap.set({ 'n', 'v' }, '<c-n>', function() mc.addCursor('*') end)
 
 	-- Jump to the next word under cursor but do not add a cursor.
-	vim.keymap.set({ 'n', 'v' }, '<c-s>', function() mc.skipCursor('*') end)
+	vim.keymap.set({ 'n', 'v' }, '<c-m>', function() mc.skipCursor('*') end)
 
 	-- Rotate the main cursor.
 	-- vim.keymap.set({ 'n', 'v' }, '<left>', mc.nextCursor)
