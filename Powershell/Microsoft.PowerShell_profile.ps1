@@ -1,44 +1,27 @@
 # Colors
-$psstyle.FileInfo.Directory = "`e[34m"
+$psstyle.FileInfo.Directory = "`e[31m"
 Set-PSReadLineOption -Colors @{ InlinePrediction = "DarkBlue" }
+
+$env:POWERSHELL_TELEMETRY_OPTOUT = "true"
 
 # Aliases
 Remove-Item alias:nv -Force
 Remove-Item alias:cd -Force
 
-New-Alias -Name "touch" -Value "New-Item"
-
-New-Alias -Name "which" -Value "Get-Command"
-
-New-Alias -Name "mklink" -Value "New-SymLink"
-
-New-Alias -Name "Remove-SymLink" -Value "Remove-Item"
-
-New-Alias -Name "Init-dev" -Value "Enter-Dev"
-
-New-Alias -Name "subl" -Value "C:/Program files/Sublime Text/sublime_text.exe"
-
-New-Alias -Name "cd" -Value "z"
+New-Alias -Force -Name "touch" -Value "New-Item"
+New-Alias -Force -Name "which" -Value "Get-Command"
+New-Alias -Force -Name "mklink" -Value "New-SymLink"
+New-Alias -Force -Name "Remove-SymLink" -Value "Remove-Item"
+New-Alias -Force -Name "Init-dev" -Value "Enter-Dev"
+New-Alias -Force -Name "subl" -Value "C:/Program files/Sublime Text/sublime_text.exe"
+New-Alias -Force -Name "nv" -Value "nvim.exe"
+New-Alias -Force -Name "cd" -Value "z"
 
 # Init Starship prompt
-
-function Invoke-Starship-TransientFunction
-{
-	&starship module character
-}
-
-Invoke-Expression (&starship init powershell)
-
-Enable-TransientPrompt
-
-# Oh my posh
-$env:Path += ";C:\Users\user\AppData\Local\Programs\oh-my-posh\bin"
-
-# OMP init
-#oh-my-posh init pwsh --config "~\Dotfiles\oh-my-posh\zen.toml" | Invoke-Expression
+starship init powershell | Out-String | Invoke-Expression
 
 # Zoxide init
-Invoke-Expression (& { (zoxide init powershell | Out-String) })
+zoxide init powershell | Out-String | Invoke-Expression
 
 # Custom functions
 function New-SymLink ($link, $target)
@@ -50,30 +33,6 @@ function New-SymLink ($link, $target)
 	
 	Invoke-Expression "cmd /c mklink $directory $link $target"
 }
-
-#region neovim
-
-# Run neovim classic
-function Invoke-Nvim
-{
-	param (
-		[Parameter()]
-		$AppName = "nvim"
-	)
-
-	#$env:NVIM_APPNAME = 'nvim'
-	Set-Item -Path Env:NVIM_APPNAME -Value $AppName
-	& nvim.exe $args
-}
-
-# Run neovim test
-function nv
-{
-	Invoke-Nvim -AppName 'nvim'
-}
-
-
-#endregion Neovim
 
 # Update vcpkg manager
 function Update-Vcpkg
@@ -88,17 +47,6 @@ function Update-Vcpkg
 	& vcpkg upgrade
 }
 
-# Misc Backups
-function Backup-Powershell
-{
-	& rclone copyto "$PROFILE" Mega:dotfiles\Powershell\Microsoft.PowerShell_profile.ps1 $args
-}
-
-function Backup-Starship
-{
-	& rclone copyto "$env:USERPROFILE/.config/starship.toml" Mega:dotfiles\starship.toml $args
-}
-
 function Backup-Homeoffice
 {
 	& rclone sync C:\_Projects\KVP\src E:\_Projects_svn\KVP\src --exclude-from="$env:USERPROFILE\kovoprog.rclone.exclude" $args -P
@@ -110,27 +58,6 @@ function Backup-Sources
 	& rclone sync %userprofile%/Sources e:/Projects/sources -P -v
 }
 
-function Backup-Config
-{
-	Write-Output "Running PowerShell profile backup..." | Green
-	Backup-Powershell -P -L --human-readable $args
-
-	Write-Output "Running Starship profile backup..." | Green
-	Backup-Starship -P -L --human-readable $args
-}
-
-# Download scripts from Mega backup
-
-function Update-Powershell
-{
-	& rclone copyto Mega:dotfiles\profile.ps1 "$PROFILE" -P
-}
-
-function Update-Starship
-{
-	& rclone copyto Mega:dotfiles\starship.toml "$env:USERPROFILE/.config/starship.toml" -v
-}
-
 # Utils
 
 function Enter-Dev
@@ -140,8 +67,6 @@ function Enter-Dev
 	$dev = Join-Path $path "Common7/Tools/Microsoft.VisualStudio.DevShell.dll"
 
 	&pwsh.exe -NoExit -Command "&{Import-Module ""$dev""; Enter-VsDevShell $id -SkipAutomaticLocation -DevCmdArguments ""-arch=x64 -host_arch=x64""}"
-
-	# &pwsh.exe -NoExit -Command "&{Import-Module ""C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\Tools\Microsoft.VisualStudio.DevShell.dll""; Enter-VsDevShell 368fdbdb -SkipAutomaticLocation -DevCmdArguments ""-arch=x64 -host_arch=x64""}"
 }
 
 function Stop-Git
@@ -163,19 +88,54 @@ function Red
 	}
 }
 
+function grep
+{
+	$input | out-string -stream | select-string $args 
+}
 
 # Completions
 
-# Import-Module 'D:\Dev\vcpkg\scripts\posh-vcpkg' # Init vcpkg completion
-# rclone completion powershell | Out-String | Invoke-Expression # Init rclone completion
+function Register-LazyCompleter($CommandName, $CompletionScript)
+{
+	$Context = $script:Context
+	$NativeProp = $script:NativeProp
 
+	Register-ArgumentCompleter -CommandName $CommandName -ScriptBlock {
+		try
+		{
+			. $CompletionScript
+		} catch
+		{
+			throw "Failed to run the autocompleter for '$CommandName'"
+		}
+		$Completer = $NativeProp.GetValue($Context)[$CommandName]
+		return & $Completer @Args
+	}.GetNewClosure()
+}
 
+# Init Rclone completion
+Register-LazyCompleter rclone {
+	rclone completion powershell | Out-String | Invoke-Expression
+}
 
+# rust completer
+Register-LazyCompleter rustup {
+	rustup completions powershell rustup | Out-String | Invoke-Expression
+}
 
+Register-LazyCompleter winget {
+	Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
+		param($wordToComplete, $commandAst, $cursorPosition)
 
+		[Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
+		$Local:word = $wordToComplete.Replace('"', '""')
+		$Local:ast = $commandAst.ToString().Replace('"', '""')
 
+		winget complete --word="$Local:word" --commandline "$Local:ast" --position $cursorPosition | ForEach-Object {
+			[System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+		}
+	}
+}
 
-
-
-
+Import-Module 'D:\Dev\Applications\vcpkg\scripts\posh-vcpkg' # Init vcpkg completion
 
