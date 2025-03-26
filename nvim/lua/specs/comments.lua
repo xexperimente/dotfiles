@@ -1,6 +1,10 @@
 local Plugin = { 'folke/ts-comments.nvim' }
 
-Plugin.opts = {}
+Plugin.opts = {
+	lang = {
+		nu = '# %s',
+	},
+}
 
 Plugin.event = 'VeryLazy'
 
