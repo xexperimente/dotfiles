@@ -12,17 +12,15 @@ Plugin.opts = {
 		StatusLine = { bg = 'NONE', fg = 'text' },
 		Search = { bg = 'rose', blend = 50 },
 
-		-- Snacks.nvim
-		SnacksNotifierHistory = { bg = 'surface' },
-		SnacksPickerTitle = { link = 'MiniPickBorderText' },
-		SnacksScratchKey = { bg = 'rose', fg = 'surface' },
-		SnacksScratchDesc = { link = 'SnacksPickerTitle' },
+		-- Floats
+		FloatBorder = { fg = 'overlay', bg = 'surface' },
+		FloatTitle = { bg = 'rose', fg = 'overlay' },
 
 		-- Mini.nvim
 		MiniCursorword = { bg = 'overlay' },
 		MiniDiffSignChange = { bg = 'none', fg = 'Gold' },
-		MiniPickBorderText = { bg = 'rose', fg = 'overlay' },
-		MiniPickPrompt = { bg = 'NONE', fg = 'rose' },
+		MiniPickBorderText = { link = 'FloatTitle' },
+		-- MiniPickPrompt = { bg = 'NONE', fg = 'rose' },
 		MiniStatuslineFilename = { bg = 'none', fg = 'text' },
 		MiniStatuslineDevinfo = { bg = 'none', fg = 'text' },
 		MiniStatuslineModeNormal = { link = 'UserStatuslineNormalMode' },
@@ -31,6 +29,23 @@ Plugin.opts = {
 		MiniStatuslineModeVisual = { link = 'UserStatuslineVisualMode' },
 		MiniStatuslineModeCommand = { link = 'UserStatuslineNormalMode' },
 		MiniStatuslineModeOther = { link = 'UserStatuslineTerminalMode' },
+
+		-- Snacks.nvim
+		SnacksNotifierHistory = { bg = 'surface' },
+		SnacksPickerTitle = { link = 'MiniPickBorderText' },
+		SnacksScratchKey = { bg = 'rose', fg = 'surface' },
+		SnacksScratchDesc = { link = 'SnacksPickerTitle' },
+
+		--Noice
+		NoiceCmdlineIconSearch = { fg = 'rose' },
+		NoiceCmdlineIconCmdline = { fg = 'rose' },
+		NoiceCmdlineIconHelp = { fg = 'rose' },
+		NoiceCmdlinePopup = { link = 'NormalFloat' },
+		NoiceCmdlinePopupBorder = { link = 'FloatBorder' },
+		NoiceCmdlinePopupBorderSearch = { link = 'FloatBorder' },
+		NoiceCmdlinePopupTitleCmdline = { link = 'FloatTitle' },
+		NoiceCmdlinePopupTitleSearch = { link = 'FloatTitle' },
+		NoiceCmdlinePrompt = { link = 'NormalFloat' },
 
 		-- Statusline
 		UserStatuslineNormalMode = { fg = 'base', bg = '#5FB0FC' },
@@ -52,10 +67,6 @@ Plugin.opts = {
 		-- Menus
 		PmenuSel = { bg = 'highlight_med', fg = 'NONE' },
 		Pmenu = { fg = 'overlay', bg = 'base' },
-
-		-- Floats
-		FloatBorder = { fg = 'overlay', bg = 'surface' },
-		FloatTitle = { link = 'MiniPickBorderText' },
 
 		-- Lir
 		LirFloatNormal = { bg = 'surface' },
