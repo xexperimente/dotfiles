@@ -26,6 +26,13 @@ function Plugin.config()
 					completion = {
 						callSnippet = 'Replace',
 					},
+					typeDefinition = {
+						dynamicRegistration = true,
+						linkSupport = true,
+					},
+					typeHierarchy = {
+						dynamicRegistration = true,
+					},
 				},
 			},
 		},
@@ -69,19 +76,19 @@ function user.lsp_attach()
 			bind('n', 'K', lsp.hover, opts)
 			bind('n', 'gd', ':lua Snacks.picker.lsp_definitions()<cr>', opts)
 			bind('n', 'gD', ':lua Snacks.picker.lsp_declarations()<cr>', opts)
-			bind('n', 'gi', ':lua Snacks.picker.lsp_implementations()<cr>', opts)
-			bind('n', 'go', ':lua Snacks.picker.lsp_type_definitions()<cr>', opts)
-			bind('n', 'gr', ':lua Snacks.picker.lsp_references()<cr>', opts)
+			bind('n', 'gy', ':lua Snacks.picker.lsp_type_definitions()<cr>', opts)
+			bind('n', 'gY', lsp.typehierarchy, opts)
+			bind('n', 'grr', ':lua Snacks.picker.lsp_references()<cr>', opts)
+			bind('n', 'gri', ':lua Snacks.picker.lsp_implementations()<cr>', opts)
+			bind('n', 'grn', lsp.rename, opts)
+			bind('n', 'gra', lsp.code_action, opts)
+			bind('n', 'gO', lsp.document_symbol, opts)
 			bind('n', 'gs', lsp.signature_help, opts)
-			bind('n', 'crn', lsp.rename, opts)
-			bind('n', 'crr', lsp.code_action, opts)
 			bind('n', '<F2>', lsp.rename, opts)
 			bind('n', '<F4>', lsp.code_action, opts)
 			bind('n', '<F12>', ':lua Snacks.picker.lsp_definitions()<cr>', opts)
 
 			bind('n', '<C-W>d', vim.diagnostic.open_float, opts)
-			bind('n', '[d', vim.diagnostic.goto_prev, opts)
-			bind('n', ']d', vim.diagnostic.goto_next, opts)
 
 			bind('n', '<leader>lp', ':lua Snacks.picker.diagnostics_buffer()<cr>', opts)
 			bind('n', '<leader>lP', ':lua Snacks.picker.diagnostics()<cr>', opts)
@@ -92,13 +99,15 @@ function user.lsp_attach()
 			MiniClue.set_mapping_desc('n', '<leader>lP', 'Show diagnostics[all]')
 			MiniClue.set_mapping_desc('n', '<leader>ld', 'Show symbols')
 			MiniClue.set_mapping_desc('n', '<leader>lD', 'Show workspace symbols')
-			MiniClue.set_mapping_desc('n', 'gh', 'Toggle inlay hints')
 			MiniClue.set_mapping_desc('n', 'gd', 'Go definition')
 			MiniClue.set_mapping_desc('n', 'gD', 'Go declaration')
-			MiniClue.set_mapping_desc('n', 'gi', 'Go implementation')
-			MiniClue.set_mapping_desc('n', 'go', 'Show type definition')
-			MiniClue.set_mapping_desc('n', 'gr', 'Show references')
+			MiniClue.set_mapping_desc('n', 'gri', 'Go implementation')
+			MiniClue.set_mapping_desc('n', 'grn', 'Rename symbol')
+			MiniClue.set_mapping_desc('n', 'grr', 'Show references')
+			MiniClue.set_mapping_desc('n', 'gra', 'Code action')
+			MiniClue.set_mapping_desc('n', 'gy', 'Show type definition')
 			MiniClue.set_mapping_desc('n', 'gs', 'Signature help')
+			MiniClue.set_mapping_desc('n', 'gO', 'Document symbol')
 		end,
 	})
 end
