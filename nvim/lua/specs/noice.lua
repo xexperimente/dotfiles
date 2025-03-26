@@ -5,7 +5,10 @@ Plugin.opts = {
 		bottom_search = false,
 		lsp_doc_border = false,
 	},
-	lsp = { progress = { enabled = false } },
+	lsp = {
+		progress = { enabled = false },
+		signature = { enabled = false },
+	},
 	views = {
 		cmdline_popup = {
 			border = {

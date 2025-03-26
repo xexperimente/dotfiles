@@ -18,11 +18,13 @@ Plugin.opts = {
 				enabled = false,
 			},
 		},
-		-- documentation = {
-		-- 	auto_show = true,
-		-- 	auto_show_delay_ms = 0,
-		-- },
+		documentation = {
+			auto_show = false,
+			auto_show_delay_ms = 0,
+		},
 		menu = {
+			enabled = true,
+			auto_show = true,
 			draw = {
 				columns = {
 					{ 'label', 'label_description', gap = 1 },
@@ -36,7 +38,12 @@ Plugin.opts = {
 			show_in_snippet = false,
 		},
 	},
-	signature = { enabled = true },
+	signature = {
+		enabled = true,
+		window = {
+			show_documentation = false,
+		},
+	},
 	cmdline = {
 		enabled = true,
 		completion = {

@@ -89,6 +89,7 @@ function user.lsp_attach()
 			bind('n', '<F12>', ':lua Snacks.picker.lsp_definitions()<cr>', opts)
 
 			bind('n', '<C-W>d', vim.diagnostic.open_float, opts)
+			bind('n', '<leader>lf', vim.diagnostic.open_float, opts)
 
 			bind('n', '<leader>lp', ':lua Snacks.picker.diagnostics_buffer()<cr>', opts)
 			bind('n', '<leader>lP', ':lua Snacks.picker.diagnostics()<cr>', opts)
