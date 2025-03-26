@@ -24,6 +24,7 @@ disabled = false
 nu_indicator = "NU"
 powershell_indicator = "PS"
 bash_indicator = "BS"
+zsh_indicator = "ZSH"
 format = "[$indicator]($style)"
 
 [git_branch]
