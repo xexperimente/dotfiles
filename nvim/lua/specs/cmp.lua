@@ -1,7 +1,7 @@
 -- Autocompletion
 local Plugin = { 'saghen/blink.cmp' }
 
-Plugin.version = 'v0.*'
+Plugin.version = 'v1.*'
 
 Plugin.event = { 'InsertEnter', 'CmdlineEnter' }
 
@@ -40,7 +40,7 @@ Plugin.opts = {
 	cmdline = {
 		enabled = true,
 		completion = {
-			menu = { auto_show = true },
+			menu = { auto_show = false },
 			ghost_text = { enabled = true },
 		},
 		sources = function()
@@ -55,6 +55,7 @@ Plugin.opts = {
 			preset = 'enter',
 			['<cr>'] = { 'accept_and_enter', 'fallback' },
 			['<C-y>'] = { 'accept', 'fallback' },
+			['<Tab>'] = { 'show', 'accept' },
 		},
 	},
 	sources = {
