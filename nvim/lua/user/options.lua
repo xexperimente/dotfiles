@@ -12,6 +12,7 @@ vim.opt.termguicolors = true
 vim.opt.signcolumn = 'yes' -- Always show signcolumn
 vim.opt.showmode = false -- Don't show mode in message area
 vim.g.showcmd = false
+vim.g.winborder = 'single'
 
 -- Search
 vim.opt.ignorecase = true
