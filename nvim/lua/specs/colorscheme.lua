@@ -75,6 +75,11 @@ Plugin.opts = {
 		-- Basic
 		Keyword = { fg = 'rose' },
 		Folded = { bg = 'base' },
+
+		-- vimdoc
+		['@markup.link.vimdoc'] = { bg = 'gold', fg = 'base' },
+		['@markup.heading.1.vimdoc'] = { bg = 'none', fg = 'love' },
+		['@label.vimdoc'] = { bg = 'none', fg = 'gold' },
 	},
 }
 
