@@ -1,77 +1,15 @@
-local Plugin = { 'folke/snacks.nvim' }
-
-Plugin.priority = 1000
+local Plugin = { "folke/snacks.nvim" }
 
 Plugin.lazy = false
 
+Plugin.priority = 1000
+
 Plugin.opts = {
-	indent = { enabled = false },
-	words = { enable = false },
 	input = { enabled = true },
 	bigfile = { enabled = true },
 	notifier = { enabled = true },
 	quickfile = { enabled = true },
 	scroll = { enable = true },
-	scratch = {
-		icon = '',
-		win = {
-			border = 'single',
-			wo = {
-				winhighlight = 'NormalFloat:NormalFloat',
-			},
-		},
-	},
-	picker = {
-		enable = true,
-		sources = {
-			files = {
-				layout = {
-					preview = false,
-					layout = {
-						backdrop = false,
-						width = 0.5,
-						min_width = 80,
-						height = 0.7,
-						min_height = 10,
-						box = 'vertical',
-						border = require('user.env').border,
-						title = ' Files ',
-						title_pos = 'center',
-						{ win = 'input', height = 1, border = 'bottom' },
-						{ win = 'list', border = 'none' },
-						{ win = 'preview', title = '{preview}', height = 0.4, border = 'top' },
-					},
-				},
-				exclude = { 'zig-out/' },
-			},
-			icons = {
-				layout = 'select',
-			},
-			recent = {
-				layout = 'select',
-				filter = {
-					paths = {
-						[vim.fn.stdpath('data')] = false,
-						[vim.fn.stdpath('cache')] = false,
-						[vim.fn.stdpath('state')] = false,
-					},
-				},
-			},
-			pickers = {
-				preview = false,
-				layout = 'select',
-			},
-			help = {
-				preview = false,
-				layout = 'select',
-			},
-			explorer = {
-				tree = true,
-				auto_close = true,
-				layout = { preset = 'vertical', preview = false },
-			},
-		},
-	},
 	statuscolumn = {
 		left = { 'mark', 'sign' },
 		right = { 'fold', 'git' },
@@ -88,7 +26,7 @@ Plugin.opts = {
 	terminal = {
 		win = {
 			position = 'float',
-			border = require('user.env').border,
+			border = "single",
 			keys = {
 				term_hide = { '<c-t>', function(self) self:hide() end, mode = 't', expr = true },
 			},
@@ -99,70 +37,13 @@ Plugin.opts = {
 		},
 		interactive = true,
 	},
-	dashboard = {
-		enabled = true,
-
-		preset = {
-			keys = {
-				{ icon = ' ', key = 'n', desc = 'New File', action = ':ene | startinsert' },
-				{ icon = ' ', key = 'r', desc = 'Recent Files', action = ':lua Snacks.picker.recent()' },
-				{ icon = ' ', key = 'f', desc = 'Find File', action = ':lua Snacks.picker.files()' },
-				{ icon = ' ', key = 'l', desc = 'Git log', action = ':lua Snacks.picker.git_log()' },
-				{ icon = ' ', key = 'c', desc = 'Git Changes', action = ':lua Snacks.picker.git_status()' },
-				{
-					key = 'x',
-					icon = ' ',
-					desc = 'Config',
-					action = ":lua Snacks.picker.files({cwd = vim.fn.stdpath('config')})",
-				},
-				{ icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
-			},
-			header = require('user.env').header_art(),
-		},
-		formats = {
-			header = { '%s', align = 'center', hl = 'ErrorMsg' },
-		},
-		sections = {
-			{ section = 'header' },
-			{
-				icon = '★',
-				section = 'keys',
-				title = 'Keys',
-				indent = 3,
-				gap = 0,
-				padding = 1,
-			},
-			{
-				icon = '',
-				section = 'recent_files',
-				title = 'Recent files:',
-				indent = 3,
-				padding = 1,
-			},
-			{
-				icon = '',
-				section = 'projects',
-				title = 'Projects:',
-				indent = 3,
-				padding = 1,
-			},
-			{ section = 'startup' },
-		},
-	},
 }
 
 Plugin.keys = {
+	{ "<leader>bd", function() Snacks.bufdelete() end, desc = "Close buffer"},
 	{ '<C-t>', function() Snacks.terminal.toggle(nil, {}) end, desc = 'Toggle terminal' },
-	{
-		'<leader>t',
-		function() Snacks.terminal.toggle(nil, { win = { position = 'float' } }) end,
-		desc = 'Toggle terminal',
-	},
-	{
-		'<leader>T',
-		function() Snacks.terminal.toggle(nil, { win = { position = 'right' } }) end,
-		desc = 'Split terminal',
-	},
+	{ '<leader>t', function() Snacks.terminal.toggle(nil, { win = { position = 'float' } }) end, desc = 'Toggle terminal' },
+	{ '<leader>T', function() Snacks.terminal.toggle(nil, { win = { position = 'right' } }) end, desc = 'Split terminal' },
 	{ '<leader>z', function() Snacks.zen() end, desc = 'Toggle Zen Mode' },
 	{ '<leader>Z', function() Snacks.zen.zoom() end, desc = 'Toggle Zoom' },
 	{ '<leader>n', function() Snacks.notifier.show_history() end, desc = 'Notification History' },
@@ -244,9 +125,7 @@ Plugin.init = function()
 			Snacks.toggle.option('wrap', { name = 'Wrap' }):map('<leader>uw')
 			Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map('<leader>uL')
 			-- Snacks.toggle.option('background', { off = 'light', on = 'dark', name = 'Dark Background' }):map('<leader>ub')
-			Snacks.toggle
-				.option('conceallevel', { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
-				:map('<leader>uc')
+			Snacks.toggle.option('conceallevel', { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map('<leader>uc')
 			Snacks.toggle.diagnostics():map('<leader>ud')
 			Snacks.toggle.line_number():map('<leader>ul')
 			Snacks.toggle.inlay_hints():map('<leader>uh')
@@ -260,13 +139,13 @@ Plugin.init = function()
 		end,
 	})
 
-	vim.api.nvim_create_autocmd('User', {
-		pattern = 'SnacksDashboardOpened',
-		callback = function(data)
-			vim.b[data.buf].miniindentscope_disable = true
-			vim.b[data.buf].ministatusline_disable = true
-		end,
-	})
+	-- vim.api.nvim_create_autocmd('User', {
+	-- 	pattern = 'SnacksDashboardOpened',
+	-- 	callback = function(data)
+	-- 		vim.b[data.buf].miniindentscope_disable = true
+	-- 		vim.b[data.buf].ministatusline_disable = true
+	-- 	end,
+	-- })
 
 	---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
 	local progress = vim.defaulttable()
@@ -308,5 +187,5 @@ Plugin.init = function()
 		end,
 	})
 end
-
 return Plugin
+

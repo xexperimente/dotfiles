@@ -1,4 +1,4 @@
-local Plugin = { 'rose-pine/neovim' }
+local Plugin = {"rose-pine/neovim"}
 
 Plugin.name = 'rose-pine'
 
@@ -80,7 +80,7 @@ Plugin.opts = {
 		['@markup.link.vimdoc'] = { bg = 'gold', fg = 'base' },
 		['@markup.heading.1.vimdoc'] = { bg = 'none', fg = 'love' },
 		['@label.vimdoc'] = { bg = 'none', fg = 'gold' },
-	},
+	},	
 }
 
 return Plugin

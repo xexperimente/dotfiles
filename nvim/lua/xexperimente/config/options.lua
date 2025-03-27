@@ -1,9 +1,9 @@
 vim.cmd.language('en_US.UTF-8')
 
 -- Leader key
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
 
--- Appearance
+-- Visuals
 vim.opt.guifont = 'Cascadia Code NF:h14'
 vim.opt.number = true
 vim.opt.wrap = false
@@ -13,6 +13,9 @@ vim.opt.signcolumn = 'yes' -- Always show signcolumn
 vim.opt.showmode = false -- Don't show mode in message area
 vim.g.showcmd = false
 vim.g.winborder = 'single'
+
+-- Clipboard
+vim.opt.clipboard = "unnamedplus"
 
 -- Search
 vim.opt.ignorecase = true
@@ -25,12 +28,6 @@ vim.opt.autoindent = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
-
--- Clipboard
-vim.opt.clipboard = 'unnamedplus'
-
--- Completion
-vim.opt.completeopt = 'menu,menuone'
 
 -- UI
 vim.opt.laststatus = 3 -- 2
@@ -62,7 +59,7 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-vim.o.foldtext = 'v:lua.require("user.foldtext").custom_foldtext()'
+-- vim.o.foldtext = 'v:lua.require("user.foldtext").custom_foldtext()'
 
 -- Misc
 vim.opt.swapfile = false
@@ -85,12 +82,8 @@ if vim.fn.executable('rg') == 1 then
 end
 
 -- Terminal
-if vim.fn.has('win32') == 1 then
-	vim.opt.shell = vim.fn.executable('pwsh') == 1 and 'pwsh' or 'powershell'
-	vim.opt.shellcmdflag =
-		'-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
-	vim.opt.shellredir = '-RedirectStandardOutput %s -NoNewWindow -Wait'
-	vim.opt.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+if vim.fn.executable('nu') == 1 then
+	vim.opt.shell = 'nu'
 	vim.opt.shellxquote = ''
 	vim.opt.shellquote = ''
 end
