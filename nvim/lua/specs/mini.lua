@@ -28,7 +28,13 @@ function Plugin.config()
 	require('mini.ai').setup({})
 
 	-- Cycle various locations (diagnostics, buffers, etc.)
-	require('mini.bracketed').setup({ n_lines = 500 })
+	require('mini.bracketed').setup({
+		n_lines = 500,
+		buffer = { suffix = '' },
+		location = { suffix = '' },
+		quickfix = { suffix = '' },
+		diagnostic = { suffix = '' },
+	})
 
 	-- Add/Delete/Replace surroundings (brackets, quotes, etc.)
 	require('mini.surround').setup()
