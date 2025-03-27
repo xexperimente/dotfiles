@@ -1,5 +1,8 @@
 local Plugin = { 'milanglacier/minuet-ai.nvim' }
 
+Plugin.cmd = 'Minuet'
+Plugin.keys = { '<leader>ua' }
+
 Plugin.opts = {
 	virtualtext = {
 		keymap = {

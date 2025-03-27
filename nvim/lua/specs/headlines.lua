@@ -1,5 +1,7 @@
 local Plugin = { 'MeanderingProgrammer/render-markdown.nvim' }
 
+Plugin.ft = 'markdown'
+
 Plugin.opts = {
 	code = {
 		width = 'block',
