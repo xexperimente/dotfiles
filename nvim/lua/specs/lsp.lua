@@ -67,7 +67,13 @@ function user.lsp_attach()
 		callback = function(event)
 			local lsp = vim.lsp.buf
 			local bind = vim.keymap.set
-			-- local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+			local client = vim.lsp.get_client_by_id(event.data.client_id)
+			if client:supports_method('textDocument/foldingRange') then
+				local win = vim.api.nvim_get_current_win()
+				vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+				vim.wo[win][0].foldtext = 'v:lua.vim.lsp.foldtext()'
+			end
 
 			local opts = { silent = true, buffer = event.buf }
 
@@ -100,6 +106,7 @@ function user.lsp_attach()
 			MiniClue.set_mapping_desc('n', '<leader>lP', 'Show diagnostics[all]')
 			MiniClue.set_mapping_desc('n', '<leader>ld', 'Show symbols')
 			MiniClue.set_mapping_desc('n', '<leader>lD', 'Show workspace symbols')
+			MiniClue.set_mapping_desc('n', '<leader>lf', 'Open diagnostic window')
 			MiniClue.set_mapping_desc('n', 'gd', 'Go definition')
 			MiniClue.set_mapping_desc('n', 'gD', 'Go declaration')
 			MiniClue.set_mapping_desc('n', 'gri', 'Go implementation')
@@ -126,6 +133,9 @@ function user.diagnostics()
 				[vim.diagnostic.severity.INFO] = '',
 			},
 		},
+		float = {
+			border = 'single',
+		},
 	})
 
 	local augroup = vim.api.nvim_create_augroup
@@ -137,14 +147,14 @@ function user.diagnostics()
 		group = group,
 		pattern = { 'n:i', 'v:s' },
 		desc = 'Disable diagnostics while typing',
-		callback = function(e) vim.diagnostic.disable(e.bufnr) end,
+		callback = function(e) vim.diagnostic.enable(false, e.bufnr) end,
 	})
 
 	autocmd('ModeChanged', {
 		group = group,
 		pattern = 'i:n',
 		desc = 'Enable diagnostics when leaving insert mode',
-		callback = function(e) vim.diagnostic.enable(e.bufnr) end,
+		callback = function(e) vim.diagnostic.enable(true, e.bufnr) end,
 	})
 end
 
