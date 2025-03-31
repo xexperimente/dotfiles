@@ -1,13 +1,13 @@
 vim.cmd.language('en_US.UTF-8')
 
 -- Leader key
-vim.g.mapleader = " "
+vim.g.mapleader = ' '
 
 -- Visuals
 vim.opt.guifont = 'Cascadia Code NF:h14'
 vim.opt.number = true
 vim.opt.wrap = false
-vim.opt.background = 'light' -- (vim.g.nvy and 'light' or 'dark')
+-- vim.opt.background = 'dark' -- (vim.g.nvy and 'light' or 'dark')
 vim.opt.termguicolors = true
 vim.opt.signcolumn = 'yes' -- Always show signcolumn
 vim.opt.showmode = false -- Don't show mode in message area
@@ -15,7 +15,7 @@ vim.g.showcmd = false
 vim.g.winborder = 'single'
 
 -- Clipboard
-vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard = 'unnamedplus'
 
 -- Search
 vim.opt.ignorecase = true

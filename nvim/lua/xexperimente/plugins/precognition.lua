@@ -1,8 +1,7 @@
-
 local Plugin = { 'tris203/precognition.nvim' }
 local user = {}
 
-Plugin.event = {'BufEnter', 'BufNew'}
+Plugin.event = { 'VeryLazy' }
 
 Plugin.opts = {
 	startVisible = false,
