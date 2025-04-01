@@ -13,6 +13,8 @@ vim.opt.signcolumn = 'yes' -- Always show signcolumn
 vim.opt.showmode = false -- Don't show mode in message area
 vim.g.showcmd = false
 vim.g.winborder = 'single'
+vim.o.cursorline = true
+vim.opt.cursorlineopt = 'number'
 
 -- Clipboard
 vim.opt.clipboard = 'unnamedplus'

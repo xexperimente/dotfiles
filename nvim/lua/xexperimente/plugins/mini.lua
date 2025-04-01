@@ -214,7 +214,7 @@ function user.setup_statusline()
 				}
 
 				if table.concat({ git, diff }):len() > 0 then
-					table.insert(tab, { hl = '@comment.todo', strings = { ' ' .. git .. ' ' } })
+					table.insert(tab, { hl = 'ErrorMsg', strings = { git } })
 					table.insert(tab, { hl = 'StatusLine', strings = { ' ' } })
 					table.insert(tab, { hl = 'MiniStatuslineDevinfo', strings = { diff } })
 					table.insert(tab, { hl = 'MiniStarterFooter', strings = { ' %t' } })
