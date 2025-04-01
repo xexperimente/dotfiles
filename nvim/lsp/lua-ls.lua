@@ -19,7 +19,7 @@ return {
 			},
 			diagnostics = {
 				enable = false,
-				-- disable = { "lowercase-global" },
+				disable = { 'lowercase-global' },
 			},
 			hint = {
 				enable = true,

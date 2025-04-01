@@ -12,15 +12,8 @@ Plugin.opts = {
 				auto_insert = false,
 			},
 		},
-		accept = {
-			auto_brackets = {
-				enabled = false,
-			},
-		},
-		documentation = {
-			auto_show = false,
-			auto_show_delay_ms = 0,
-		},
+		accept = { auto_brackets = { enabled = false } },
+		documentation = { auto_show = false },
 		menu = {
 			enabled = true,
 			auto_show = true,
@@ -31,22 +24,19 @@ Plugin.opts = {
 					{ 'kind_icon' },
 				},
 			},
-			border = "rounded",
+			border = 'rounded',
 		},
-		trigger = {
-			show_in_snippet = false,
-		},
+		trigger = { show_in_snippet = false },
 	},
-	signature = {
-		enabled = true,
-		window = {
-			show_documentation = false,
-		},
-	},
+	signature = { enabled = true, window = { show_documentation = false } },
 	cmdline = {
 		enabled = true,
 		completion = {
-			menu = { auto_show = false },
+			menu = {
+				auto_show = function(_)
+					return vim.fn.getcmdtype() == ':' -- or '@' for inputs
+				end,
+			},
 			ghost_text = { enabled = true },
 		},
 		keymap = {

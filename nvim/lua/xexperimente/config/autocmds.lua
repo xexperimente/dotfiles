@@ -8,11 +8,11 @@ autocmd('LspAttach', {
 		local bind = vim.keymap.set
 
 		local client = vim.lsp.get_client_by_id(event.data.client_id)
-		if client and client:supports_method('textDocument/foldingRange') then
-			local win = vim.api.nvim_get_current_win()
-			vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
-			vim.wo[win][0].foldtext = 'v:lua.vim.lsp.foldtext()'
-		end
+		-- if client and client:supports_method('textDocument/foldingRange') then
+		-- 	local win = vim.api.nvim_get_current_win()
+		-- 	vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+		-- 	vim.wo[win][0].foldtext = 'v:lua.vim.lsp.foldtext()'
+		-- end
 
 		local opts = { silent = true, buffer = event.buf }
 
@@ -88,7 +88,7 @@ autocmd('LspAttach', {
 	end,
 })
 
-group = augroup('user-commands', {})
+local group = augroup('user-commands', {})
 
 -- Switch theme when vim.opt.background change
 autocmd('OptionSet', {

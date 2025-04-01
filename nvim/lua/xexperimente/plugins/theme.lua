@@ -1,4 +1,4 @@
-local Plugin = {"rose-pine/neovim"}
+local Plugin = { 'rose-pine/neovim' }
 
 Plugin.name = 'rose-pine'
 
@@ -17,7 +17,7 @@ Plugin.opts = {
 		FloatTitle = { bg = 'rose', fg = 'overlay' },
 
 		-- Mini.nvim
-		MiniCursorword = { bg = 'overlay' },
+		-- MiniCursorword = { bg = 'overlay' },
 		MiniDiffSignChange = { bg = 'none', fg = 'Gold' },
 		MiniPickBorderText = { link = 'FloatTitle' },
 		-- MiniPickPrompt = { bg = 'NONE', fg = 'rose' },
@@ -35,6 +35,15 @@ Plugin.opts = {
 		SnacksPickerTitle = { link = 'MiniPickBorderText' },
 		SnacksScratchKey = { bg = 'rose', fg = 'surface' },
 		SnacksScratchDesc = { link = 'SnacksPickerTitle' },
+		SnacksDashboardIcon = { fg = 'iris' },
+		SnacksDashboardFile = { fg = 'rose' },
+		SnacksDashboardSpecial = { fg = 'rose' },
+		SnacksDashboardDesc = { fg = 'rose' },
+		SnacksDashboardTitle = { fg = 'love' },
+		SnacksDashboardHeader = { fg = 'rose' },
+		SnacksDashboardFooter = { fg = 'iris' },
+		SnacksNotifierBorderInfo = { fg = 'overlay', bg = 'none' },
+		SnacksNotifierTitleInfo = { fg = 'iris', bg = 'none' },
 
 		--Noice
 		NoiceCmdlineIconSearch = { fg = 'rose' },
@@ -75,12 +84,16 @@ Plugin.opts = {
 		-- Basic
 		Keyword = { fg = 'rose' },
 		Folded = { bg = 'base' },
+		Comment = { fg = 'muted' },
 
 		-- vimdoc
 		['@markup.link.vimdoc'] = { bg = 'gold', fg = 'base' },
 		['@markup.heading.1.vimdoc'] = { bg = 'none', fg = 'love' },
 		['@label.vimdoc'] = { bg = 'none', fg = 'gold' },
-	},	
+		['@property'] = { fg = 'iris', italic = false },
+		['@lsp.type.variable'] = { fg = 'text', italic = false },
+		['@lsp.type.property'] = { fg = 'iris', italic = false },
+	},
 }
 
 return Plugin

@@ -9,7 +9,7 @@ Plugin.opts = {
 	words = { enable = false },
 	input = { enabled = true },
 	bigfile = { enabled = true },
-	notifier = { enabled = true },
+	notifier = { enabled = true, style = 'compact' },
 	quickfile = { enabled = true },
 	scroll = { enable = true },
 	scratch = {
@@ -101,49 +101,65 @@ Plugin.opts = {
 	},
 	dashboard = {
 		enabled = true,
-
 		preset = {
 			keys = {
-				{ icon = ' ', key = 'n', desc = 'New File', action = ':ene | startinsert' },
-				{ icon = ' ', key = 'r', desc = 'Recent Files', action = ':lua Snacks.picker.recent()' },
-				{ icon = ' ', key = 'f', desc = 'Find File', action = ':lua Snacks.picker.files()' },
-				{ icon = ' ', key = 'l', desc = 'Git log', action = ':lua Snacks.picker.git_log()' },
-				{ icon = ' ', key = 'c', desc = 'Git Changes', action = ':lua Snacks.picker.git_status()' },
+				{ icon = '', key = 'n', desc = 'New File', action = ':ene | startinsert' },
+				{ icon = '', key = 'r', desc = 'Recent Files', action = ':lua Snacks.picker.recent()' },
+				{ icon = '', key = 'f', desc = 'Find File', action = ':lua Snacks.picker.files()' },
+				{ icon = '', key = 'l', desc = 'Git log', action = ':lua Snacks.picker.git_log()' },
+				{ icon = '', key = 'c', desc = 'Git Changes', action = ':lua Snacks.picker.git_status()' },
 				{
 					key = 'x',
-					icon = ' ',
+					icon = '',
 					desc = 'Config',
 					action = ":lua Snacks.picker.files({cwd = vim.fn.stdpath('config')})",
 				},
-				{ icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
+				{ icon = '', key = 'q', desc = 'Quit', action = ':qa' },
 			},
 			header = require('xexperimente.config.env').header_art(),
 		},
 		formats = {
 			header = { '%s', align = 'center', hl = 'ErrorMsg' },
+			file = function(item, ctx)
+				local fname = vim.fn.fnamemodify(item.file, ':~')
+				fname = ctx.width and #fname > ctx.width and vim.fn.pathshorten(fname) or fname
+				if #fname > ctx.width then
+					local dir = vim.fn.fnamemodify(fname, ':h')
+					local file = vim.fn.fnamemodify(fname, ':t')
+					if dir and file then
+						file = file:sub(-(ctx.width - #dir - 2))
+						fname = dir .. '\\…' .. file
+					end
+				end
+				local dir, file = fname:match('^(.*)\\(.+)$')
+				return dir and { { dir .. '\\', hl = 'SnacksPickerDir' }, { file, hl = 'SnacksDashboardFile' } }
+					or { { fname, hl = 'SnacksDashboardFile' } }
+			end,
+			-- desc = { '%s', hl = 'ErrorMsg' },
+			-- title = { '%s', hl = 'ErrorMsg' },
 		},
 		sections = {
 			{ section = 'header' },
 			{
-				icon = '★',
+				-- icon = '★',
 				section = 'keys',
 				title = 'Keys',
-				indent = 3,
+				indent = 2,
 				gap = 0,
 				padding = 1,
 			},
 			{
-				icon = '',
+				-- icon = '',
 				section = 'recent_files',
 				title = 'Recent files:',
-				indent = 3,
+				indent = 2,
 				padding = 1,
 			},
 			{
-				icon = '',
+				-- icon = '',
 				section = 'projects',
 				title = 'Projects:',
-				indent = 3,
+				indent = 2,
 				padding = 1,
 			},
 			{ section = 'startup' },
