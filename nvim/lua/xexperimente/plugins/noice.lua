@@ -18,6 +18,8 @@ Plugin.opts = {
 			},
 		},
 	},
+	popupmenu = { enabled = false },
+	notify = { enabled = false },
 }
 
 Plugin.dependencies = {

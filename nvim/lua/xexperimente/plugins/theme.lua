@@ -7,10 +7,19 @@ Plugin.lazy = false
 Plugin.priority = 1000
 
 Plugin.opts = {
+	variant = 'auto',
+	dark_variant = 'moon',
+	styles = {
+		transparency = false,
+	},
 	highlight_groups = {
 		Whitespace = { bg = 'NONE', fg = 'overlay' },
-		StatusLine = { bg = 'NONE', fg = 'text' },
-		Search = { bg = 'rose', blend = 50 },
+		StatusLine = { bg = 'NONE', fg = 'highlight_high' },
+		CurSearch = { fg = 'base', bg = 'rose', inherit = false },
+		Search = { fg = 'text', bg = 'rose', blend = 20, inherit = false },
+		Keyword = { fg = 'rose' },
+		Folded = { bg = 'base' },
+		Comment = { fg = 'muted' },
 
 		-- Floats
 		FloatBorder = { fg = 'overlay', bg = 'surface' },
@@ -18,9 +27,9 @@ Plugin.opts = {
 
 		-- Mini.nvim
 		-- MiniCursorword = { bg = 'overlay' },
+		-- MiniPickPrompt = { bg = 'NONE', fg = 'rose' },
 		MiniDiffSignChange = { bg = 'none', fg = 'Gold' },
 		MiniPickBorderText = { link = 'FloatTitle' },
-		-- MiniPickPrompt = { bg = 'NONE', fg = 'rose' },
 		MiniStatuslineFilename = { bg = 'none', fg = 'text' },
 		MiniStatuslineDevinfo = { bg = 'none', fg = 'text' },
 		MiniStatuslineModeNormal = { link = 'UserStatuslineNormalMode' },
@@ -80,11 +89,6 @@ Plugin.opts = {
 		-- Lir
 		LirFloatNormal = { bg = 'surface' },
 		LirFloatCurdirWindowNormal = { bg = 'surface' },
-
-		-- Basic
-		Keyword = { fg = 'rose' },
-		Folded = { bg = 'base' },
-		Comment = { fg = 'muted' },
 
 		-- vimdoc
 		['@markup.link.vimdoc'] = { bg = 'gold', fg = 'base' },

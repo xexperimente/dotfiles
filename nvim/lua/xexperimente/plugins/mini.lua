@@ -209,35 +209,37 @@ function user.setup_statusline()
 					{ hl = 'Error', strings = { mode:upper() } },
 					-- { hl = 'MiniStatuslineFilename', strings = { ' ' } },
 					-- { hl = 'MiniStarterFooter', strings = { '%t' } }, -- 'MiniStatuslineFilename'
-					' ',
+					{ hl = 'Statusline', strings = { ' | ' } },
 					'%<', -- Mark general truncate point
 				}
 
 				if table.concat({ git, diff }):len() > 0 then
 					table.insert(tab, { hl = 'ErrorMsg', strings = { git } })
-					table.insert(tab, { hl = 'StatusLine', strings = { ' ' } })
+					table.insert(tab, { hl = 'StatusLine', strings = { ' | ' } })
 					table.insert(tab, { hl = 'MiniStatuslineDevinfo', strings = { diff } })
-					table.insert(tab, { hl = 'MiniStarterFooter', strings = { ' %t' } })
+					table.insert(tab, { hl = 'StatusLine', strings = { ' | ' } })
+					table.insert(tab, { hl = 'MiniStarterFooter', strings = { '%t' } })
 					table.insert(tab, { hl = 'StatusLine', strings = { '%<' } }) -- Mark general truncate point
 				end
 				table.insert(tab, '%=')
 
 				if table.concat({ diagnostics, lsp }):len() > 0 then
 					table.insert(tab, { hl = 'MiniStatuslineDevinfo', strings = { diagnostics, lsp } })
-					table.insert(tab, { hl = 'StatusLine', strings = { ' ' } })
+					table.insert(tab, { hl = 'StatusLine', strings = { ' | ' } })
 				end
 
 				if user.statusline_lazystatus():len() > 0 then
 					table.insert(tab, { hl = mode_hl, strings = { user.statusline_lazystatus() } })
-					table.insert(tab, { hl = 'StatusLine', strings = { ' ' } })
+					table.insert(tab, { hl = 'StatusLine', strings = { ' | ' } })
 				end
 
 				if search:len() > 0 then
 					search = '[' .. search .. ']'
 					table.insert(tab, { hl = mode_hl, strings = { search } })
-					table.insert(tab, { hl = 'StatusLine', strings = { ' ' } })
+					table.insert(tab, { hl = 'StatusLine', strings = { ' | ' } })
 				end
 				table.insert(tab, { hl = 'MiniStarterFooter', strings = { user.statusline_position() } })
+				table.insert(tab, { hl = 'StatusLine', strings = { ' | ' } })
 				table.insert(tab, { hl = 'MiniStarterItemPrefix', strings = { user.statusline_percent() } })
 
 				return combine_groups(tab)
@@ -357,6 +359,6 @@ function user.statusline_lazystatus()
 	return ''
 end
 
-function user.statusline_percent() return user.fmt(user.hi_pattern, 'UserStatuslineHighlight1', ' %p%%') end
+function user.statusline_percent() return user.fmt(user.hi_pattern, 'UserStatuslineHighlight1', '%p%%') end
 
 return Plugin
