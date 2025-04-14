@@ -134,3 +134,13 @@ autocmd('FileType', {
 		vim.keymap.set('n', '<right>', function() require('symbols').api.action('toggle-fold') end, { buffer = ev.buf })
 	end,
 })
+
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+	pattern = { 'lir' },
+	callback = function()
+		vim.opt.cursorlineopt = 'screenline'
+
+		-- echo cwd
+		vim.api.nvim_echo({ { vim.fn.expand('%:p'), 'Normal' } }, false, {})
+	end,
+})
