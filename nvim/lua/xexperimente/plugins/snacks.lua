@@ -42,7 +42,7 @@ Plugin.opts = {
 						{ win = 'preview', title = '{preview}', height = 0.4, border = 'top' },
 					},
 				},
-				exclude = { 'zig-out/' },
+				exclude = { 'zig-out/', 'node_modules', 'vendor' },
 			},
 			icons = {
 				layout = 'select',
