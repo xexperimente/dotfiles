@@ -65,6 +65,10 @@ Plugin.opts = {
 		NoiceCmdlinePopupTitleSearch = { link = 'FloatTitle' },
 		NoiceCmdlinePrompt = { link = 'NormalFloat' },
 
+		-- Trouble
+		TroubleNormal = { link = 'Normal' },
+		TroubleNormalNC = { link = 'Normal' },
+
 		-- Statusline
 		UserStatuslineNormalMode = { fg = 'base', bg = '#5FB0FC' },
 		UserStatuslineInsertMode = { fg = 'base', bg = '#98bb6c' },
