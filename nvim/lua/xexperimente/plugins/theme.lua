@@ -20,6 +20,7 @@ Plugin.opts = {
 		Keyword = { fg = 'rose' },
 		Folded = { bg = 'base' },
 		Comment = { fg = 'muted' },
+		WinSeparator = { fg = 'overlay', bg = 'none' },
 
 		-- Floats
 		FloatBorder = { fg = 'overlay', bg = 'surface' },

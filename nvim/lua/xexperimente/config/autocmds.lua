@@ -124,13 +124,13 @@ autocmd('FileType', {
 
 -- Disable MiniIndentScope and MiniCursorword in symbols.nvim window
 autocmd('FileType', {
-	pattern = 'SymbolsSidebar',
+	pattern = { 'SymbolsSidebar', 'trouble' },
 	group = group,
 	callback = function(_)
 		vim.b.miniindentscope_config = { draw = { predicate = function() return false end } }
 		vim.b.minicursorword_disable = true
 
-		vim.schedule(function() vim.wo.cursorlineopt = 'line' end)
+		vim.schedule(function() vim.wo.cursorlineopt = 'both' end)
 	end,
 })
 
