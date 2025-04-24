@@ -126,12 +126,11 @@ autocmd('FileType', {
 autocmd('FileType', {
 	pattern = 'SymbolsSidebar',
 	group = group,
-	callback = function(ev)
+	callback = function(_)
 		vim.b.miniindentscope_config = { draw = { predicate = function() return false end } }
 		vim.b.minicursorword_disable = true
 
-		vim.keymap.set('n', '<left>', function() require('symbols').api.action('toggle-fold') end, { buffer = ev.buf })
-		vim.keymap.set('n', '<right>', function() require('symbols').api.action('toggle-fold') end, { buffer = ev.buf })
+		vim.schedule(function() vim.wo.cursorlineopt = 'line' end)
 	end,
 })
 

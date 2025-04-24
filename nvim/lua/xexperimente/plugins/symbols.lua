@@ -26,6 +26,13 @@ function Plugin.config()
 				min_width = 30,
 				max_width = 60,
 			},
+			keymaps = {
+				['<right>'] = 'toggle-fold',
+				['<left>'] = 'toggle-fold',
+				['+'] = 'toggle-fold',
+				['-'] = 'toggle-fold',
+				['<space>'] = 'toggle-fold',
+			},
 		},
 	})
 	vim.keymap.set('n', '<leader>ls', '<cmd> SymbolsToggle<CR>', { desc = 'Toggle Symbols(focus)' })
