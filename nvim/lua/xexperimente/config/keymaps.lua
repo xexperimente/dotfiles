@@ -25,7 +25,6 @@ bind('n', '<leader>vb', '<C-v>', { noremap = true, desc = 'Start Visual Block Mo
 
 -- Select all text in current buffer
 bind('n', '<leader>va', '<cmd>keepjumps normal! ggVG<cr>', { desc = 'Select all' })
-bind('n', '<C-a>', '<cmd>keepjumps normal! ggVG<cr>', { desc = 'Select all' })
 
 -- Terminal
 bind('t', '<esc>', [[<C-\><C-n>]], { desc = 'Escape terminal mode', noremap = true })

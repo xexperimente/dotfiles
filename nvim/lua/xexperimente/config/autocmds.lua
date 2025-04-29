@@ -134,12 +134,12 @@ autocmd('FileType', {
 	end,
 })
 
-vim.api.nvim_create_autocmd({ 'FileType' }, {
-	pattern = { 'lir' },
-	callback = function()
-		vim.opt.cursorlineopt = 'screenline'
-
-		-- echo cwd
-		vim.api.nvim_echo({ { vim.fn.expand('%:p'), 'Normal' } }, false, {})
-	end,
-})
+-- autocmd({ 'FileType' }, {
+-- 	pattern = { 'lir' },
+-- 	callback = function()
+-- 		vim.opt.cursorlineopt = 'screenline'
+--
+-- 		-- echo cwd
+-- 		vim.api.nvim_echo({ { vim.fn.expand('%:p'), 'Normal' } }, false, {})
+-- 	end,
+-- })

@@ -2,6 +2,8 @@
 local Plugin = { 'tamago324/lir.nvim' }
 local user = {}
 
+Plugin.cond = false
+
 Plugin.dependencies = {
 	{ 'nvim-lua/plenary.nvim' },
 }
