@@ -49,8 +49,8 @@ function Update-Vcpkg
 
 function Backup-Homeoffice
 {
-	& rclone sync C:\_Projects\KVP\src E:\_Projects_svn\KVP\src --exclude-from="$env:USERPROFILE\kovoprog.rclone.exclude" $args -P
-	& rclone sync C:\_Projects\KVP\data E:\_Projects_svn\KVP\data $args -P
+	& rclone sync C:\_Projects\KVP\src E:\_Projects_svn\KVP\src --exclude-from="$env:USERPROFILE\kovoprog.rclone.exclude" $args --stats-one-line -v
+	& rclone sync C:\_Projects\KVP\data E:\_Projects_svn\KVP\data $args --stats-one-line -v
 }
 
 function Backup-Sources
