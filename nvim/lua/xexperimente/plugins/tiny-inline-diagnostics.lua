@@ -12,6 +12,9 @@ Plugin.opts = {
 			always_show = false, -- show only current line diagnostics
 		},
 	},
+	hi = {
+		background = 'Norma',
+	},
 }
 
 return Plugin
