@@ -183,6 +183,7 @@ Plugin.keys = {
 	{ '<leader>;', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer' },
 	{ '<leader>fb', function() Snacks.picker.buffers() end, desc = 'Open buffers' },
 	{ '<leader>ff', function() Snacks.picker.files() end, desc = 'Find files' },
+	{ '<leader>fe', function() Snacks.picker.explorer() end, desc = 'Find files' },
 	{ '<leader>fo', function() Snacks.picker.recent() end, desc = 'Recent files' },
 	{ '<leader>fg', function() Snacks.picker.grep() end, desc = 'Live grep' },
 	{ '<leader>fG', function() Snacks.picker.grep_word() end, desc = 'Grep word' },
