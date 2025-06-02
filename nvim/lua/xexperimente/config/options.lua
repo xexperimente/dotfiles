@@ -96,4 +96,8 @@ if vim.g.neovide then
 	vim.g.neovide_floating_shadow = false
 	vim.g.neovide_title_background_color = string.format('%x', bg)
 	vim.g.neovide_cursor_animation_length = 0.05
+	vim.g.neovide_padding_top = 0
+	vim.g.neovide_padding_bottom = 0
+	vim.g.neovide_padding_right = 8
+	vim.g.neovide_padding_left = 8
 end

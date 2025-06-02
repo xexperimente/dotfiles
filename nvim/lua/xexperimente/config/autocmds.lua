@@ -96,7 +96,7 @@ autocmd('OptionSet', {
 	pattern = 'background',
 	callback = function()
 		if vim.opt.background:get() == 'dark' then
-			vim.cmd('colorscheme rose-pine-moon')
+			vim.cmd('colorscheme rose-pine-main')
 		else
 			vim.cmd('colorscheme rose-pine-dawn')
 		end

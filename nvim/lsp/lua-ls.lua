@@ -30,6 +30,9 @@ return {
 					vim.env.VIMRUNTIME,
 				},
 			},
+			telemetry = {
+				enable = false,
+			},
 		},
 	},
 }
