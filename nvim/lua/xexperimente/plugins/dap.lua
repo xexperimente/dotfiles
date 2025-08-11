@@ -1,3 +1,5 @@
+---@diagnostic disable:undefined-field
+
 local Plugin = { 'rcarriga/nvim-dap-ui' }
 
 Plugin.dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' }

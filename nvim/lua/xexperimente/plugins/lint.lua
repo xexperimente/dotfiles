@@ -1,3 +1,5 @@
+---@diagnostic disable:undefined-field
+
 local Plugin = { 'mfussenegger/nvim-lint' }
 local user = {}
 

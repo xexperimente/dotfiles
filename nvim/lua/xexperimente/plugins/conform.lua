@@ -1,3 +1,5 @@
+---@diagnostic disable:undefined-field
+
 local Plugin = { 'stevearc/conform.nvim' }
 
 Plugin.dependencies = {
@@ -33,12 +35,9 @@ function Plugin.init()
 	command('Format', function(input)
 		vim.notify('Formatting ... ', vim.log.levels.INFO, { title = 'Conform' })
 
-		require('conform').format(
-			{ lsp_fallback = true, async = input.bang, timeout_ms = 700 },
-			function(err)
-				if err ~= nil then vim.notify(err, vim.log.levels.ERROR, { title = 'Conform' }) end
-			end
-		)
+		require('conform').format({ lsp_fallback = true, async = input.bang, timeout_ms = 700 }, function(err)
+			if err ~= nil then vim.notify(err, vim.log.levels.ERROR, { title = 'Conform' }) end
+		end)
 	end, { bang = true, range = true })
 end
 

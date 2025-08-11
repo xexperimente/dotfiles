@@ -21,6 +21,7 @@ Plugin.opts = {
 		Folded = { bg = 'base' },
 		Comment = { fg = 'muted' },
 		WinSeparator = { fg = 'overlay', bg = 'none' },
+		Directory = { fg = 'rose', bg = 'none' },
 
 		-- Floats
 		FloatBorder = { fg = 'overlay', bg = 'surface' },

@@ -1,3 +1,5 @@
+---@diagnostic disable:undefined-field
+
 local Plugin = { 'folke/flash.nvim' }
 
 Plugin.event = 'VeryLazy'

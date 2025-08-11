@@ -1,3 +1,5 @@
+---@diagnostic disable:undefined-field
+
 local Plugin = { 'oskarrrrrrr/symbols.nvim' }
 
 Plugin.keys = {

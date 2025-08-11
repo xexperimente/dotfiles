@@ -13,6 +13,10 @@ Plugin.opts = {
 	},
 	views = {
 		cmdline_popup = {
+			position = {
+				row = '70%',
+				col = '50%',
+			},
 			border = {
 				style = 'single',
 			},

@@ -1,3 +1,5 @@
+---@diagnostic disable:undefined-field
+
 local Plugin = { 'nvim-treesitter/nvim-treesitter' }
 
 Plugin.event = 'VeryLazy'

@@ -1,5 +1,6 @@
 vim.lsp.enable({
-	'lua-ls',
+	-- 'lua-ls',
+	'emmylua_ls',
 	'zls',
 })
 

@@ -221,9 +221,9 @@ Plugin.keys = {
 		desc = 'Messages history',
 		function()
 			local lines = {}
-			local messages = vim.api.nvim_exec('messages', true)
+			local messages = vim.api.nvim_exec2('messages', { output = true })
 
-			for script in messages:gmatch('[\r\n]+') do
+			for script in messages.output:gmatch('[\r\n]+') do
 				table.insert(lines, script)
 			end
 
@@ -282,10 +282,10 @@ Plugin.init = function()
 
 	-- https://github.com/folke/snacks.nvim/blob/main/docs/notifier.md
 	vim.api.nvim_create_autocmd('LspProgress', {
-		---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
 		callback = function(ev)
 			local spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
-			vim.notify(vim.lsp.status(), 'info', {
+
+			vim.notify(vim.lsp.status(), vim.log.levels.INFO, {
 				id = 'lsp_progress',
 				title = 'LSP Progress',
 				opts = function(notif)

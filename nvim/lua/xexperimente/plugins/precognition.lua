@@ -1,5 +1,4 @@
 local Plugin = { 'tris203/precognition.nvim' }
-local user = {}
 
 Plugin.event = { 'VeryLazy' }
 
@@ -8,15 +7,7 @@ Plugin.opts = {
 }
 
 Plugin.keys = {
-	{ '<leader>up', function() user.toggle() end, desc = 'Toggle Precognition' },
+	{ '<leader>up', '<cmd>Precognition toggle<cr>', desc = 'Toggle Precognition' },
 }
-
-function user.toggle()
-	if require('precognition').toggle() then
-		vim.notify('Precognition on')
-	else
-		vim.notify('Precognition off')
-	end
-end
 
 return Plugin

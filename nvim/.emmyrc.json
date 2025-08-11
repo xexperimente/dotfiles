@@ -1,0 +1,27 @@
+{
+  "runtime": {
+    "version": "LuaJIT", 
+    "requirePattern": [
+      "lua/?.lua",
+      "lua/?/init.lua",
+      "?/lua/?.lua",    
+      "?/lua/?/init.lua"
+    ]
+  },
+  "workspace": {
+    "library": [
+      "$VIMRUNTIME",
+      "$LLS_Addons/luvit",
+	  "c:/Users/petr/AppData/Local/nvim-data/lazy"
+    ],
+    "ignoreGlobs": ["**/*_spec.lua"]
+  },
+  "diagnostics" : {
+    "disable" : [
+      "unnecessary-if"
+    ],
+	"globals": [
+		"vim"
+	]
+  }
+}
