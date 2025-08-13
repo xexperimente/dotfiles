@@ -11,19 +11,19 @@ autocmd("TextYankPost", {
 })
 
 -- Do not add comment when adding new line
-autocmd('BufEnter', {
-	pattern = '',
-	command = 'set fo-=c fo-=r fo-=o',
+autocmd("BufEnter", {
+	pattern = "",
+	command = "set fo-=c fo-=r fo-=o",
 })
 
 -- Reload message on file change
-autocmd('FileChangedShellPost', {
-	pattern = '*',
+autocmd("FileChangedShellPost", {
+	pattern = "*",
 	command = "echohl WarningMsg | echo 'File changed on disk. Buffer reloaded.' | echohl None",
 })
 
 -- Allow closing the following buffer file types by pressing 'q'
-autocmd('FileType', {
-	pattern = { 'help', 'man', 'qf' },
-	command = 'nnoremap <buffer> q <cmd>quit<cr>',
+autocmd("FileType", {
+	pattern = { "help", "man", "qf" },
+	command = "nnoremap <buffer> q <cmd>quit<cr>",
 })

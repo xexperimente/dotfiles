@@ -9,28 +9,35 @@ require("snacks").setup({
 		style = "compact",
 	},
 	statuscolumn = {
-		left = { 'mark', 'sign' },
-		right = { 'fold', 'git' },
+		left = { "mark", "sign" },
+		right = { "fold", "git" },
 		folds = {
 			open = true, -- show open fold icons
 			git_hl = true, -- use Git Signs hl for fold icons
 		},
 		git = {
 			-- patterns to match Git signs
-			patterns = { 'GitSign', 'MiniDiffSign' },
+			patterns = { "GitSign", "MiniDiffSign" },
 		},
 		refresh = 50, -- refresh at most every 50ms
 	},
 	terminal = {
 		win = {
-			position = 'float',
-			border = 'single',
+			position = "float",
+			border = "single",
 			keys = {
-				term_hide = { '<c-t>', function(self) self:hide() end, mode = 't', expr = true },
+				term_hide = {
+					"<c-t>",
+					function(self)
+						self:hide()
+					end,
+					mode = "t",
+					expr = true,
+				},
 			},
 			wo = {
-				winbar = '',
-				statusline = '',
+				winbar = "",
+				statusline = "",
 			},
 		},
 		interactive = true,

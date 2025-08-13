@@ -1,5 +1,5 @@
 vim.pack.add({
-	{ src = "https://github.com/saghen/blink.cmp", version = "main"	},
+	{ src = "https://github.com/saghen/blink.cmp", version = "main" },
 })
 
 require("blink.cmp").setup({
@@ -36,7 +36,7 @@ require("blink.cmp").setup({
 					{ "kind_icon" },
 				},
 			},
-			border = "rounded"
+			border = "rounded",
 		},
 		documentation = {
 			auto_show = false,

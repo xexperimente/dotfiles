@@ -3,7 +3,7 @@ vim.g.mapleader = " "
 vim.opt.number = true
 vim.opt.laststatus = 3
 vim.opt.showtabline = 0
-vim.opt.tabline = '%t'
+vim.opt.tabline = "%t"
 vim.opt.ruler = false
 
 vim.opt.clipboard = "unnamedplus"
@@ -44,14 +44,14 @@ vim.g.loaded_python_provider = 0
 vim.g.loaded_python3_provider = 0
 
 -- Grep arguments
-if vim.fn.executable('rg') == 1 then
-	vim.opt.grepprg = 'rg --vimgrep --no-heading --smart-case --hidden'
-	vim.opt.grepformat = '%f:%l:%c:%m'
+if vim.fn.executable("rg") == 1 then
+	vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case --hidden"
+	vim.opt.grepformat = "%f:%l:%c:%m"
 end
 
 -- Terminal
-if vim.fn.executable('nu') == 1 then
-	vim.opt.shell = 'nu'
-	vim.opt.shellxquote = ''
-	vim.opt.shellquote = ''
+if vim.fn.executable("nu") == 1 then
+	vim.opt.shell = "nu"
+	vim.opt.shellxquote = ""
+	vim.opt.shellquote = ""
 end

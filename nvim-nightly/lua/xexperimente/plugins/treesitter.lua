@@ -10,7 +10,7 @@ require("nvim-treesitter.configs").setup({
 		"lua",
 		"regex",
 		"vim",
-		"vimdoc"
+		"vimdoc",
 	},
 	auto_install = false,
 	highlight = {
