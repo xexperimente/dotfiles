@@ -1,12 +1,23 @@
 vim.g.mapleader = " "
 
+-- Appearance
 vim.opt.number = true
 vim.opt.laststatus = 3
 vim.opt.showtabline = 0
 vim.opt.tabline = "%t"
 vim.opt.ruler = false
+vim.opt.wrap = false
+vim.opt.termguicolors = true
+vim.opt.signcolumn = 'yes' -- Always show signcolumn
+vim.opt.showmode = false
+vim.g.showcmd = false
+vim.g.winborder = 'single'
+vim.o.cursorline = true
+vim.opt.cursorlineopt = 'number'
 
 vim.opt.clipboard = "unnamedplus"
+
+vim.opt.list = true
 
 vim.opt.listchars = {
 	tab = "——▸",

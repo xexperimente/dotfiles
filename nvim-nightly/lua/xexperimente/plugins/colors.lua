@@ -22,6 +22,17 @@ require("rose-pine").setup({
 		MiniDiffSignChange = { bg = "none", fg = "Gold" },
 		MiniPickBorderText = { link = "FloatTitle" },
 
+		--Noice
+		NoiceCmdlineIconSearch = { fg = 'rose' },
+		NoiceCmdlineIconCmdline = { fg = 'rose' },
+		NoiceCmdlineIconHelp = { fg = 'rose' },
+		NoiceCmdlinePopup = { link = 'NormalFloat' },
+		NoiceCmdlinePopupBorder = { link = 'FloatBorder' },
+		NoiceCmdlinePopupBorderSearch = { link = 'FloatBorder' },
+		NoiceCmdlinePopupTitleCmdline = { link = 'FloatTitle' },
+		NoiceCmdlinePopupTitleSearch = { link = 'FloatTitle' },
+		NoiceCmdlinePrompt = { link = 'NormalFloat' },
+
 		-- Snacks.nvim
 		SnacksNotifierHistory = { bg = "surface" },
 		SnacksPickerTitle = { link = "MiniPickBorderText" },
