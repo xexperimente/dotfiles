@@ -59,7 +59,7 @@ local opts = {
 				'netrwPlugin',
 				'netrwSettings',
 				'netrwFileHandlers',
-				'man',
+				-- 'man',
 				'matchit',
 				'matchparen',
 				'rplugin',

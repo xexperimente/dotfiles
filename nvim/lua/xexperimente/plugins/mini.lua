@@ -220,9 +220,9 @@ function user.setup_statusline()
 					table.insert(tab, { hl = 'StatusLine', strings = { ' | ' } })
 					table.insert(tab, { hl = 'MiniStatuslineDevinfo', strings = { diff } })
 					if diff:len() > 0 then table.insert(tab, { hl = 'StatusLine', strings = { ' | ' } }) end
-					table.insert(tab, { hl = 'MiniStarterFooter', strings = { '%t' } })
-					table.insert(tab, { hl = 'StatusLine', strings = { '%<' } }) -- Mark general truncate point
 				end
+				table.insert(tab, { hl = 'MiniStarterFooter', strings = { '%t' } })
+				table.insert(tab, { hl = 'StatusLine', strings = { '%<' } }) -- Mark general truncate point
 				table.insert(tab, '%=')
 
 				if table.concat({ diagnostics, lsp }):len() > 0 then
