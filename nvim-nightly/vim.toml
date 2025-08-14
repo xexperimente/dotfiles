@@ -1,0 +1,15 @@
+[selene]
+base = "lua51"
+name = "vim"
+
+[vim]
+any = true
+
+[Snacks]
+any = true
+
+[MiniClue]
+any=true
+
+[MiniStatusline]
+any=true

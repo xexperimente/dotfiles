@@ -1,24 +1,24 @@
 return {
-	cmd = { "emmylua_ls" },
-	filetypes = { "lua" },
+	cmd = { 'emmylua_ls' },
+	filetypes = { 'lua' },
 	root_markers = {
-		".luarc.json",
-		".emmyrc.json",
-		"stylua.toml",
-		"selene.toml",
-		".git",
+		'.luarc.json',
+		'.emmyrc.json',
+		'stylua.toml',
+		'selene.toml',
+		'.git',
 	},
 	settings = {
 		Lua = {
 			diagnostics = {
 				globals = {
-					"vim",
-					"Snacks",
-					"MiniStatusline",
-					"MiniClue",
+					'vim',
+					'Snacks',
+					'MiniStatusline',
+					'MiniClue',
 				},
 				disable = {
-					"inject-field",
+					'inject-field',
 					-- 'undefined-field',
 				},
 			},

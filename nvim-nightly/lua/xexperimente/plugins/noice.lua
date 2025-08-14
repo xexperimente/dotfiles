@@ -1,14 +1,11 @@
-
-local function gh(pkg)
-	return { src = "https://github.com/" .. pkg, version = vim.version.range("*") }
-end
+local function gh(pkg) return { src = 'https://github.com/' .. pkg, version = vim.version.range('*') } end
 
 vim.pack.add({
-	gh("folke/noice.nvim"),
-	gh("MunifTanjim/nui.nvim"),
+	gh('folke/noice.nvim'),
+	gh('MunifTanjim/nui.nvim'),
 })
 
-require("noice").setup({
+require('noice').setup({
 	presets = {
 		bottom_search = false,
 		lsp_doc_border = false,

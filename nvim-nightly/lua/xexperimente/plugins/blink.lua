@@ -1,17 +1,17 @@
 vim.pack.add({
-	{ src = "https://github.com/saghen/blink.cmp", version = "main" },
+	{ src = 'https://github.com/saghen/blink.cmp', version = 'main' },
 })
 
-require("blink.cmp").setup({
+require('blink.cmp').setup({
 	fuzzy = {
-		implementation = "prefer_rust",
+		implementation = 'prefer_rust',
 	},
 	keymap = {
-		preset = "super-tab",
-		["<C-n>"] = { "show", "select_next" },
+		preset = 'super-tab',
+		['<C-n>'] = { 'show', 'select_next' },
 	},
 	sources = {
-		default = { "lsp", "path", "snippets" },
+		default = { 'lsp', 'path', 'snippets' },
 	},
 	cmdline = {
 		enabled = true,
@@ -29,14 +29,14 @@ require("blink.cmp").setup({
 		menu = {
 			auto_show = true,
 			draw = {
-				treesitter = { "lsp" },
+				treesitter = { 'lsp' },
 				columns = {
-					{ "label", "label_description", gap = 1 },
-					{ "kind" },
-					{ "kind_icon" },
+					{ 'label', 'label_description', gap = 1 },
+					{ 'kind' },
+					{ 'kind_icon' },
 				},
 			},
-			border = "rounded",
+			border = 'rounded',
 		},
 		documentation = {
 			auto_show = false,

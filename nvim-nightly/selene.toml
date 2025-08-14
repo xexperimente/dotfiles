@@ -1,0 +1,9 @@
+std="vim"
+
+[lints]
+# one_line_if = "allow"
+# shadowing = "allow"
+# unused_variables = "allow"
+global_usage = "allow"
+mixed_table = "allow"
+multiple_statements = "allow"

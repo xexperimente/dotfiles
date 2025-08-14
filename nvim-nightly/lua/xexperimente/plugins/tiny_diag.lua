@@ -1,7 +1,7 @@
-vim.pack.add({ "https://github.com/rachartier/tiny-inline-diagnostic.nvim" })
+vim.pack.add({ 'https://github.com/rachartier/tiny-inline-diagnostic.nvim' })
 
-require("tiny-inline-diagnostic").setup({
-	preset = "powerline",
+require('tiny-inline-diagnostic').setup({
+	preset = 'powerline',
 	options = {
 		show_source = true,
 		show_all_diags_on_cursorline = true,
@@ -11,6 +11,6 @@ require("tiny-inline-diagnostic").setup({
 		},
 	},
 	hi = {
-		background = "Normal",
+		background = 'Normal',
 	},
 })
