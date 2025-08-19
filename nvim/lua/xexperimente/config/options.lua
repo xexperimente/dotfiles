@@ -4,7 +4,17 @@ vim.cmd.language('en_US.UTF-8')
 vim.g.mapleader = ' '
 
 -- Visuals
-vim.opt.guifont = 'CaskaydiaCove NF:h14'
+if vim.fn.has('windows') then
+	vim.opt.guifont = 'Cascadia Code NF:h14'
+else
+	vim.opt.guifont = 'CaskaydiaCove NF:h14'
+	if vim.g.neovide then
+		vim.opt.background = 'light'
+	else
+		vim.opt.background = 'dark'
+	end
+end
+
 vim.opt.number = true
 vim.opt.wrap = false
 -- vim.opt.background = 'dark' -- (vim.g.nvy and 'light' or 'dark')
