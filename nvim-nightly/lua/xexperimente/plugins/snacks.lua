@@ -118,6 +118,13 @@ bind('n', '<leader>fu', '<cmd>lua Snacks.picker.undo()<cr>', {})
 bind('n', '<leader>fg', '<cmd>lua Snacks.picker.grep()<cr>', {})
 bind('n', '<leader>fG', '<cmd>lua Snacks.picker.grep_word()<cr>', {})
 bind('n', '<leader>fm', '<cmd>lua Snacks.picker.marks()<cr>', {})
+bind('n', '<leader>fi', '<cmd>lua Snacks.picker.icons()<cr>', {})
+
+-- Git
+bind('n', '<leader>gl', '<cmd>lua Snacks.picker.git_log()<cr>', { desc = 'Git commits' })
+bind('n', '<leader>gb', '<cmd>lua Snacks.picker.git_branches()<cr>', { desc = 'Git branches' })
+bind('n', '<leader>gs', '<cmd>lua Snacks.picker.git_status()<cr>', { desc = 'Git status' })
+bind('n', '<leader>gB', '<cmd>lua Snacks.git.blame_line()<cr>', { desc = 'Git Blame Line' })
 
 -- Diagnostics
 bind('n', '<leader>lp', '<cmd>lua Snacks.picker.diagnostics_buffer()<cr>', {})

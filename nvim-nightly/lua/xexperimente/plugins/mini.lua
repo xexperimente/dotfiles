@@ -1,13 +1,7 @@
 local function gh(pkg) return { src = 'https://github.com/' .. pkg, version = vim.version.range('*') } end
 
 vim.pack.add({
-	gh('echasnovski/mini.ai'),
-	gh('echasnovski/mini.diff'),
-	gh('echasnovski/mini.hipatterns'),
-	gh('echasnovski/mini.icons'),
-	gh('echasnovski/mini.indentscope'),
-	gh('echasnovski/mini.splitjoin'),
-	gh('echasnovski/mini.surround'),
+	gh('echasnovski/mini.nvim'),
 })
 
 local opts = {
@@ -25,6 +19,7 @@ local opts = {
 	},
 }
 
+local bind = vim.keymap.set
 local lazy_load = vim.api.nvim_create_augroup('Plugins', { clear = true })
 
 vim.api.nvim_create_autocmd('BufReadPost', {
@@ -32,6 +27,7 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 	pattern = '*',
 	callback = function()
 		require('mini.ai').setup()
+		require('mini.git').setup()
 		require('mini.icons').setup()
 		require('mini.indentscope').setup()
 		require('mini.splitjoin').setup()
@@ -39,6 +35,24 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 		require('mini.hipatterns').setup(opts.patterns)
 		require('mini.diff').setup(opts.diff)
 
+		bind('n', '<leader>uj', '<cmd>lua MiniSplitjoin.toggle()<cr>', {})
+		bind('n', '<leader>gc', '<cmd>lua MiniDiff.toggle_overlay()<cr>', {})
+
 		vim.api.nvim_clear_autocmds({ group = 'Plugins', event = 'BufReadPost' })
 	end,
 })
+
+-- Setup Diff summary string
+local format_summary = function(data)
+	local summary = vim.b[data.buf].minidiff_summary
+
+	if summary == nil then return end
+
+	local t = {}
+	if summary.add > 0 then table.insert(t, ' ' .. summary.add) end
+	if summary.change > 0 then table.insert(t, ' ' .. summary.change) end -- 
+	if summary.delete > 0 then table.insert(t, ' ' .. summary.delete) end
+	vim.b[data.buf].minidiff_summary_string = table.concat(t, ' ')
+end
+
+vim.api.nvim_create_autocmd('User', { pattern = 'MiniDiffUpdated', callback = format_summary })
