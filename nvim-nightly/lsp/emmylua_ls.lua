@@ -13,9 +13,9 @@ return {
 			diagnostics = {
 				globals = {
 					'vim',
-					'Snacks',
-					'MiniStatusline',
-					'MiniClue',
+					-- 'Snacks',
+					-- 'MiniStatusline',
+					-- 'MiniClue',
 				},
 				disable = {
 					'inject-field',
@@ -30,6 +30,7 @@ return {
 					-- vim.fn.stdpath('data') .. '/lazy/snacks.nvim',
 					-- vim.fn.stdpath('data') .. '/lazy',
 					-- 'luvit-meta/library',
+					vim.fn.stdpath('data') .. '/site/pack/core/opt',
 				},
 			},
 		},

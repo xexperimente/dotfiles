@@ -77,25 +77,63 @@ require('snacks').setup({
 	},
 })
 
+-- Debug print
+_G.dd = function(...) Snacks.debug.inspect(...) end
+_G.bt = function() Snacks.debug.backtrace() end
+vim.print = _G.dd -- Override print to use snacks for `:=` command
+
+-- Keymaps
+local bind = vim.keymap.set
+
+-- Toggle options
+bind(
+	'n',
+	'<leader>ub',
+	function() Snacks.toggle.option('background', { off = 'light', on = 'dark', name = 'Dark Background' }) end,
+	{}
+)
+bind('n', '<leader>uL', function() Snacks.toggle.option('relativenumber', { name = 'Relative Number' }) end, {})
+bind('n', '<leader>us', function() Snacks.toggle.option('spell', { name = 'Spelling' }) end, {})
+bind('n', '<leader>uw', function() Snacks.toggle.option('wrap', { name = 'Wrap' }) end, {})
+bind('n', '<leader>ud', '<cmd>lua Snacks.toggle.diagnostics()<cr>', {})
+bind('n', '<leader>ul', '<cmd>lua Snacks.toggle.line_number()<cr>', {})
+bind('n', '<leader>uh', '<cmd>lua Snacks.toggle.inlay_hints()<cr>', {})
+bind('n', '<leader>uD', '<cmd>lua Snacks.toggle.dim()<cr>', {})
+bind('n', '<leader>uT', '<cmd>lua Snacks.toggle.treesitter()<cr>', {})
+bind('n', '<leader>ug', '<cmd>lua Snacks.toggle.indent()<cr>', {})
+bind('n', '<leader>pP', '<cmd>lua Snacks.toggle.profiler()<cr>', {})
+bind('n', '<leader>ph', '<cmd> lua Snacks.toggle.profiler_highlights()<cr>', {})
+
 -- Utils
-vim.keymap.set('n', '<leader>bd', '<cmd>lua Snacks.bufdelete()<cr>', {})
+bind('n', '<leader>bd', '<cmd>lua Snacks.bufdelete()<cr>', {})
 
 -- Pickers
-vim.keymap.set('n', '<leader>ff', '<cmd>lua Snacks.picker.files()<cr>', {})
-vim.keymap.set('n', '<leader>fe', '<cmd>lua Snacks.explorer()<cr>', {})
-vim.keymap.set('n', '<leader>fc', '<cmd>lua Snacks.picker.highlights()<cr>', {})
-vim.keymap.set('n', '<leader>fh', '<cmd>lua Snacks.picker.help()<cr>', {})
-vim.keymap.set('n', '<leader>fk', '<cmd>lua Snacks.picker.keymaps()<cr>', {})
-vim.keymap.set('n', '<leader>fk', '<cmd>lua Snacks.picker.keymaps()<cr>', {})
-vim.keymap.set('n', '<leader>fu', '<cmd>lua Snacks.picker.undo()<cr>', {})
-vim.keymap.set('n', '<leader>fg', '<cmd>lua Snacks.picker.grep()<cr>', {})
-vim.keymap.set('n', '<leader>fG', '<cmd>lua Snacks.picker.grep_word()<cr>', {})
-vim.keymap.set('n', '<leader>fm', '<cmd>lua Snacks.picker.marks()<cr>', {})
+bind('n', '<leader>ff', '<cmd>lua Snacks.picker.files()<cr>', {})
+bind('n', '<leader>fe', '<cmd>lua Snacks.explorer()<cr>', {})
+bind('n', '<leader>fc', '<cmd>lua Snacks.picker.highlights()<cr>', {})
+bind('n', '<leader>fh', '<cmd>lua Snacks.picker.help()<cr>', {})
+bind('n', '<leader>fk', '<cmd>lua Snacks.picker.keymaps()<cr>', {})
+bind('n', '<leader>fk', '<cmd>lua Snacks.picker.keymaps()<cr>', {})
+bind('n', '<leader>fu', '<cmd>lua Snacks.picker.undo()<cr>', {})
+bind('n', '<leader>fg', '<cmd>lua Snacks.picker.grep()<cr>', {})
+bind('n', '<leader>fG', '<cmd>lua Snacks.picker.grep_word()<cr>', {})
+bind('n', '<leader>fm', '<cmd>lua Snacks.picker.marks()<cr>', {})
 
 -- Diagnostics
-vim.keymap.set('n', '<leader>lp', '<cmd>lua Snacks.picker.diagnostics_buffer()<cr>', {})
-vim.keymap.set('n', '<leader>lP', '<cmd>lua Snacks.picker.diagnostics()<cr>', {})
+bind('n', '<leader>lp', '<cmd>lua Snacks.picker.diagnostics_buffer()<cr>', {})
+bind('n', '<leader>lP', '<cmd>lua Snacks.picker.diagnostics()<cr>', {})
 
 -- Terminal
-vim.keymap.set('n', '<leader>t', '<cmd>lua Snacks.terminal.toggle()<cr>', {})
-vim.keymap.set('n', '<c-t>', '<cmd>lua Snacks.terminal.toggle()<cr>', {})
+bind('n', '<leader>t', '<cmd>lua Snacks.terminal.toggle()<cr>', {})
+bind('n', '<c-t>', '<cmd>lua Snacks.terminal.toggle()<cr>', {})
+
+-- Zen mode
+bind('n', '<leader>z', '<cmd>lua Snacks.zen()<cr>', { desc = 'Toggle Zen Mode' })
+bind('n', '<leader>Z', '<cmd>lua Snacks.zen.zoom()<cr>', { desc = 'Toggle Zoom' })
+
+-- Notification history
+bind('n', '<leader>n', '<cmd>lua Snacks.notifier.show_history()<cr>', { desc = 'Notification History' })
+
+-- Scratch buffer
+bind('n', '<leader>.', '<cmd>lua Snacks.scratch({ icon = "" })<cr>', { desc = 'Toggle Scratch Buffer' })
+bind('n', '<leader>;', '<cmd>lua Snacks.scratch.select()<cr>', { desc = 'Select Scratch Buffer' })

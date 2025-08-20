@@ -48,11 +48,11 @@ bind('v', '<S-Up>', 'k')
 bind('v', '<S-Down>', 'j')
 
 -- PackUpdate
-vim.api.nvim_create_user_command("PackUpdate", function() 
+vim.api.nvim_create_user_command('PackUpdate', function()
 	vim.pack.update()
-	bind("n","q","<c-w>q",{ buffer=0})
-	bind("n","w","<cmd>wq<cr>",{ buffer=0})
+	bind('n', 'q', '<c-w>q', { buffer = 0 })
+	bind('n', 'w', '<cmd>wq<cr>', { buffer = 0 })
 end, {})
 
-bind("n","<leader>pl","<cmd>PackUpdate<cr>")
-bind("n","<leader>pu","<cmd>PackUpdate<cr>")
+bind('n', '<leader>pl', '<cmd>PackUpdate<cr>')
+bind('n', '<leader>pu', '<cmd>PackUpdate<cr>')
