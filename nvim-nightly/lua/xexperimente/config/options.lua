@@ -1,5 +1,17 @@
 vim.g.mapleader = ' '
 
+-- Visuals
+if vim.fn.has('windows') then
+	vim.opt.guifont = 'Cascadia Code NF:h14'
+else
+	vim.opt.guifont = 'CaskaydiaCove NF:h14'
+	if vim.g.neovide then
+		vim.opt.background = 'light'
+	else
+		vim.opt.background = 'dark'
+	end
+end
+
 -- Appearance
 vim.opt.number = true
 vim.opt.laststatus = 3

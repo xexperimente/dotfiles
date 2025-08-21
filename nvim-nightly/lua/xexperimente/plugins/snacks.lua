@@ -51,6 +51,26 @@ require('snacks').setup({
 	},
 	picker = {
 		sources = {
+			files = {
+				layout = {
+					preview = false,
+					layout = {
+						backdrop = false,
+						width = 0.5,
+						min_width = 80,
+						height = 0.7,
+						min_height = 10,
+						box = 'vertical',
+						border = 'single',
+						title = ' Files ',
+						title_pos = 'center',
+						{ win = 'input', height = 1, border = 'bottom' },
+						{ win = 'list', border = 'none' },
+						{ win = 'preview', title = '{preview}', height = 0.4, border = 'top' },
+					},
+				},
+				exclude = { 'zig-out/', 'node_modules', 'vendor' },
+			},
 			explorer = {
 				tree = true,
 				auto_close = true,

@@ -69,4 +69,8 @@ require('rose-pine').setup({
 	},
 })
 
-vim.cmd('colorscheme rose-pine-dawn')
+if vim.opt.background:get() == 'light' then
+	vim.cmd('colorscheme rose-pine-dawn')
+else
+	vim.cmd('colorscheme rose-pine')
+end
