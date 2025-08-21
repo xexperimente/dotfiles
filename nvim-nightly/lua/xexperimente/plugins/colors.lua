@@ -6,6 +6,8 @@ require('rose-pine').setup({
 	highlight_groups = {
 		Whitespace = { bg = 'NONE', fg = 'overlay' },
 		StatusLine = { bg = 'NONE', fg = 'highlight_high' },
+		StatusLineTerm = { bg = 'NONE', fg = 'highlight_high' },
+		StatusLineTermNC = { bg = 'NONE', fg = 'highlight_high' },
 		CurSearch = { fg = 'base', bg = 'rose', inherit = false },
 		Search = { fg = 'text', bg = 'rose', blend = 20, inherit = false },
 		Keyword = { fg = 'rose' },

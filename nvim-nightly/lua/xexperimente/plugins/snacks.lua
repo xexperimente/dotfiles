@@ -140,7 +140,46 @@ bind('n', '<leader>Z', '<cmd>lua Snacks.zen.zoom()<cr>', { desc = 'Toggle Zoom' 
 
 -- Notification history
 bind('n', '<leader>n', '<cmd>lua Snacks.notifier.show_history()<cr>', { desc = 'Notification History' })
+bind('n', '<leader>N', function()
+	local lines = {}
+	local messages = vim.api.nvim_exec2('messages', { output = true })
+
+	for script in messages.output:gmatch('[\r\n]+') do
+		table.insert(lines, script)
+	end
+
+	Snacks.win({
+		text = lines,
+		width = 0.8,
+		height = 0.6,
+		border = 'single',
+		-- title = 'Messages',
+		wo = {
+			spell = false,
+			wrap = false,
+			signcolumn = 'yes',
+			statuscolumn = ' ',
+			conceallevel = 3,
+		},
+	}):set_title('Messages', 'center')
+end, { desc = 'Show Messages' })
 
 -- Scratch buffer
 bind('n', '<leader>.', '<cmd>lua Snacks.scratch({ icon = "" })<cr>', { desc = 'Toggle Scratch Buffer' })
 bind('n', '<leader>;', '<cmd>lua Snacks.scratch.select()<cr>', { desc = 'Select Scratch Buffer' })
+
+-- https://github.com/folke/snacks.nvim/blob/main/docs/notifier.md
+vim.api.nvim_create_autocmd('LspProgress', {
+	callback = function(ev)
+		local spinner = { '󰪞', '󰪟', '󰪠', '󰪡', '󰪢', '󰪣', '󰪤', '󰪥' }
+
+		vim.notify(vim.lsp.status(), vim.log.levels.INFO, {
+			id = 'lsp_progress',
+			title = 'LSP Progress',
+			opts = function(notif)
+				notif.icon = ev.data.params.value.kind == 'end' and ' '
+					or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+			end,
+		})
+	end,
+})

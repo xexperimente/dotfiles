@@ -25,12 +25,7 @@ return {
 			workspace = {
 				library = {
 					vim.env.VIMRUNTIME,
-					-- vim.fn.stdpath('data') .. '/lazy/lazy.nvim',
-					-- vim.fn.stdpath('data') .. '/lazy/mini.nvim',
-					-- vim.fn.stdpath('data') .. '/lazy/snacks.nvim',
-					-- vim.fn.stdpath('data') .. '/lazy',
-					-- 'luvit-meta/library',
-					vim.fn.stdpath('data') .. '/site/pack/core/opt',
+					vim.fn.stdpath('data') .. '/site/pack/core/opt/',
 					vim.env.HOME .. '/AppData/Local/nvim-data/mason/packages/lua-language-server/meta/3rd/luv',
 				},
 			},

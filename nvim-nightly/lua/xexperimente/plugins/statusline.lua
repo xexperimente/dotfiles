@@ -1,5 +1,4 @@
 local function highlight(text, group) return string.format('%%#%s#%s%%*', group, text) end
-
 local function filename() return highlight('%t', 'StatuslineDim') end
 local function position() return highlight('%l:%c', 'StatuslineDim') end
 local function percent() return highlight('%p%%', 'StatuslineHighlight') end
