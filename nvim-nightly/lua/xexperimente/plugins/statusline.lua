@@ -86,7 +86,12 @@ local function loaded_lsp()
 	return highlight(text, 'StatuslineActive')
 end
 
-local function branch() return '' end
+local function branch()
+	local summary = vim.b.minigit_summary_string or vim.b.gitsigns_head
+	if summary == nil then return '' end
+
+	return highlight(' ' .. (summary == '' and '-' or summary), 'StatuslineActive') .. ' | '
+end
 
 local function changes()
 	local git_status = vim.b.minidiff_summary
