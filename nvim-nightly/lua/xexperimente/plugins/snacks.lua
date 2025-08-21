@@ -133,7 +133,7 @@ bind('n', '<leader>fi', '<cmd>lua Snacks.picker.icons()<cr>', {})
 bind('n', '<leader>gl', '<cmd>lua Snacks.picker.git_log()<cr>', { desc = 'Git commits' })
 bind('n', '<leader>gb', '<cmd>lua Snacks.picker.git_branches()<cr>', { desc = 'Git branches' })
 bind('n', '<leader>gs', '<cmd>lua Snacks.picker.git_status()<cr>', { desc = 'Git status' })
-bind('n', '<leader>gB', '<cmd>lua Snacks.git.blame_line()<cr>', { desc = 'Git Blame Line' })
+bind('n', '<leader>gB', '<cmd>lua Snacks.git.blame_line({count=1})<cr>', { desc = 'Git Blame Line' })
 
 -- Diagnostics
 bind('n', '<leader>lp', '<cmd>lua Snacks.picker.diagnostics_buffer()<cr>', {})

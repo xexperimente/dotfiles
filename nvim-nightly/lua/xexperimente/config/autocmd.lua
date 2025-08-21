@@ -25,3 +25,8 @@ autocmd('FileType', {
 	pattern = { 'help', 'man', 'qf' },
 	command = 'nnoremap <buffer> q <cmd>quit<cr>',
 })
+
+-- Clear search register on start
+autocmd('UIEnter', {
+	command = 'let @/=""',
+})
