@@ -10,7 +10,7 @@ abbr('Qa', 'qa')
 abbr('Bd', 'bd')
 abbr('bD', 'bd')
 
-bind('n', '<leader>r', '<cmd>restart<cr>', {})
+bind('n', '<leader>r', '<cmd>restart<cr>', { desc = 'Restart' })
 
 -- Cancel search highlight
 bind('n', '<esc>', ':nohl<cr>:redraws!<cr><esc>', { noremap = true, silent = true, desc = 'Hide search' })
@@ -54,5 +54,5 @@ vim.api.nvim_create_user_command('PackUpdate', function()
 	bind('n', 'w', '<cmd>wq<cr>', { buffer = 0 })
 end, {})
 
-bind('n', '<leader>pl', '<cmd>PackUpdate<cr>')
-bind('n', '<leader>pu', '<cmd>PackUpdate<cr>')
+bind('n', '<leader>pl', '<cmd>PackUpdate<cr>', { desc = 'Update plugins' })
+bind('n', '<leader>pu', '<cmd>PackUpdate<cr>', { desc = 'Update plugins' })

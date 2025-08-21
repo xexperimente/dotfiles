@@ -27,6 +27,7 @@ require('rose-pine').setup({
 		-- Mini
 		MiniDiffSignChange = { bg = 'none', fg = 'Gold' },
 		MiniPickBorderText = { link = 'FloatTitle' },
+		MiniClueTitle = { link = 'FloatTitle' },
 
 		--Noice
 		NoiceCmdlineIconSearch = { fg = 'rose' },

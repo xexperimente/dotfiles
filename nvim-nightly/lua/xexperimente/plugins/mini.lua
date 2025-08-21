@@ -30,8 +30,8 @@ require('mini.splitjoin').setup()
 require('mini.surround').setup()
 require('mini.hipatterns').setup(opts.patterns)
 
-bind('n', '<leader>uj', '<cmd>lua MiniSplitjoin.toggle()<cr>', {})
-bind('n', '<leader>gc', '<cmd>lua MiniDiff.toggle_overlay()<cr>', {})
+bind('n', '<leader>uj', '<cmd>lua MiniSplitjoin.toggle()<cr>', { desc = 'Toggle splitjoin' })
+bind('n', '<leader>gc', '<cmd>lua MiniDiff.toggle_overlay()<cr>', { desc = 'Show diff overlay' })
 
 -- local lazy_load = vim.api.nvim_create_augroup('Plugins', { clear = true })
 --

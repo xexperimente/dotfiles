@@ -110,24 +110,23 @@ bind('n', '<leader>uh', '<cmd>lua Snacks.toggle.inlay_hints()<cr>', {})
 bind('n', '<leader>uD', '<cmd>lua Snacks.toggle.dim()<cr>', {})
 bind('n', '<leader>uT', '<cmd>lua Snacks.toggle.treesitter()<cr>', {})
 bind('n', '<leader>ug', '<cmd>lua Snacks.toggle.indent()<cr>', {})
-bind('n', '<leader>pP', '<cmd>lua Snacks.toggle.profiler()<cr>', {})
-bind('n', '<leader>ph', '<cmd> lua Snacks.toggle.profiler_highlights()<cr>', {})
+bind('n', '<leader>pP', '<cmd>lua Snacks.toggle.profiler()<cr>', { desc = 'Open profiler' })
+bind('n', '<leader>ph', '<cmd> lua Snacks.toggle.profiler_highlights()<cr>', { desc = 'Profiler highlights' })
 
 -- Utils
-bind('n', '<leader>bd', '<cmd>lua Snacks.bufdelete()<cr>', {})
+bind('n', '<leader>bd', '<cmd>lua Snacks.bufdelete()<cr>', { desc = 'Delete buffer' })
 
 -- Pickers
-bind('n', '<leader>ff', '<cmd>lua Snacks.picker.files()<cr>', {})
-bind('n', '<leader>fe', '<cmd>lua Snacks.explorer()<cr>', {})
-bind('n', '<leader>fc', '<cmd>lua Snacks.picker.highlights()<cr>', {})
-bind('n', '<leader>fh', '<cmd>lua Snacks.picker.help()<cr>', {})
-bind('n', '<leader>fk', '<cmd>lua Snacks.picker.keymaps()<cr>', {})
-bind('n', '<leader>fk', '<cmd>lua Snacks.picker.keymaps()<cr>', {})
-bind('n', '<leader>fu', '<cmd>lua Snacks.picker.undo()<cr>', {})
-bind('n', '<leader>fg', '<cmd>lua Snacks.picker.grep()<cr>', {})
-bind('n', '<leader>fG', '<cmd>lua Snacks.picker.grep_word()<cr>', {})
-bind('n', '<leader>fm', '<cmd>lua Snacks.picker.marks()<cr>', {})
-bind('n', '<leader>fi', '<cmd>lua Snacks.picker.icons()<cr>', {})
+bind('n', '<leader>ff', '<cmd>lua Snacks.picker.files()<cr>', { desc = 'Files' })
+bind('n', '<leader>fe', '<cmd>lua Snacks.explorer()<cr>', { desc = 'Explorer' })
+bind('n', '<leader>fc', '<cmd>lua Snacks.picker.highlights()<cr>', { desc = 'Highlight groups' })
+bind('n', '<leader>fh', '<cmd>lua Snacks.picker.help()<cr>', { desc = 'Help' })
+bind('n', '<leader>fk', '<cmd>lua Snacks.picker.keymaps()<cr>', { desc = 'Keymaps' })
+bind('n', '<leader>fu', '<cmd>lua Snacks.picker.undo()<cr>', { desc = 'Undo' })
+bind('n', '<leader>fg', '<cmd>lua Snacks.picker.grep()<cr>', { desc = 'Grep' })
+bind('n', '<leader>fG', '<cmd>lua Snacks.picker.grep_word()<cr>', { desc = 'Grep word' })
+bind('n', '<leader>fm', '<cmd>lua Snacks.picker.marks()<cr>', { desc = 'Marks' })
+bind('n', '<leader>fi', '<cmd>lua Snacks.picker.icons()<cr>', { desc = 'Icons' })
 
 -- Git
 bind('n', '<leader>gl', '<cmd>lua Snacks.picker.git_log()<cr>', { desc = 'Git commits' })
@@ -136,12 +135,12 @@ bind('n', '<leader>gs', '<cmd>lua Snacks.picker.git_status()<cr>', { desc = 'Git
 bind('n', '<leader>gB', '<cmd>lua Snacks.git.blame_line({count=1})<cr>', { desc = 'Git Blame Line' })
 
 -- Diagnostics
-bind('n', '<leader>lp', '<cmd>lua Snacks.picker.diagnostics_buffer()<cr>', {})
-bind('n', '<leader>lP', '<cmd>lua Snacks.picker.diagnostics()<cr>', {})
+bind('n', '<leader>lp', '<cmd>lua Snacks.picker.diagnostics_buffer()<cr>', { desc = 'Show buffer diagnostics' })
+bind('n', '<leader>lP', '<cmd>lua Snacks.picker.diagnostics()<cr>', { desc = 'Show all diagnostics' })
 
 -- Terminal
-bind('n', '<leader>t', '<cmd>lua Snacks.terminal.toggle()<cr>', {})
-bind('n', '<c-t>', '<cmd>lua Snacks.terminal.toggle()<cr>', {})
+bind('n', '<leader>t', '<cmd>lua Snacks.terminal.toggle()<cr>', { desc = 'Toggle terminal' })
+bind('n', '<c-t>', '<cmd>lua Snacks.terminal.toggle()<cr>', { desc = 'Toggle terminal' })
 
 -- Zen mode
 bind('n', '<leader>z', '<cmd>lua Snacks.zen()<cr>', { desc = 'Toggle Zen Mode' })

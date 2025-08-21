@@ -26,5 +26,6 @@ autocmd('LspAttach', {
 		bind('n', '<f2>', 'grn', { desc = 'Rename symbol' })
 		bind('n', '<f4>', 'gra', { desc = 'Code Action' })
 		bind('n', '<f12>', 'gD', { desc = 'Go to declaration' })
+		bind('n', '<leader>lf', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 	end,
 })
