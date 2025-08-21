@@ -40,6 +40,15 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 
+-- Folding
+vim.opt.foldcolumn = '1'
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.opt.foldtext = 'v:lua.require("xexperimente.utils.foldtext").custom_foldtext()' --'v:lua.vim.lsp.foldtext()'
+
 -- Misc
 vim.opt.swapfile = false
 vim.opt.hidden = true
