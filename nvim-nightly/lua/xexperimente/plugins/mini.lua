@@ -20,27 +20,39 @@ local opts = {
 }
 
 local bind = vim.keymap.set
-local lazy_load = vim.api.nvim_create_augroup('Plugins', { clear = true })
 
-vim.api.nvim_create_autocmd('BufReadPost', {
-	group = lazy_load,
-	pattern = '*',
-	callback = function()
-		require('mini.ai').setup()
-		require('mini.git').setup()
-		require('mini.icons').setup()
-		require('mini.indentscope').setup()
-		require('mini.splitjoin').setup()
-		require('mini.surround').setup()
-		require('mini.hipatterns').setup(opts.patterns)
-		require('mini.diff').setup(opts.diff)
+require('mini.ai').setup()
+require('mini.diff').setup(opts.diff)
+require('mini.git').setup()
+require('mini.icons').setup()
+require('mini.indentscope').setup()
+require('mini.splitjoin').setup()
+require('mini.surround').setup()
+require('mini.hipatterns').setup(opts.patterns)
 
-		bind('n', '<leader>uj', '<cmd>lua MiniSplitjoin.toggle()<cr>', {})
-		bind('n', '<leader>gc', '<cmd>lua MiniDiff.toggle_overlay()<cr>', {})
+bind('n', '<leader>uj', '<cmd>lua MiniSplitjoin.toggle()<cr>', {})
+bind('n', '<leader>gc', '<cmd>lua MiniDiff.toggle_overlay()<cr>', {})
 
-		vim.api.nvim_clear_autocmds({ group = 'Plugins', event = 'BufReadPost' })
-	end,
-})
+-- local lazy_load = vim.api.nvim_create_augroup('Plugins', { clear = true })
+--
+-- vim.api.nvim_create_autocmd('BufReadPost', {
+-- 	group = lazy_load,
+-- 	pattern = '*',
+-- 	callback = function()
+-- 		require('mini.ai').setup()
+-- 		require('mini.icons').setup()
+-- 		require('mini.indentscope').setup()
+-- 		require('mini.splitjoin').setup()
+-- 		require('mini.surround').setup()
+-- 		require('mini.hipatterns').setup(opts.patterns)
+-- 		-- require('mini.diff').setup(opts.diff)
+--
+-- 		bind('n', '<leader>uj', '<cmd>lua MiniSplitjoin.toggle()<cr>', {})
+-- 		bind('n', '<leader>gc', '<cmd>lua MiniDiff.toggle_overlay()<cr>', {})
+--
+-- 		vim.api.nvim_clear_autocmds({ group = 'Plugins', event = 'BufReadPost' })
+-- 	end,
+-- })
 
 -- Setup Diff summary string
 local format_summary = function(data)

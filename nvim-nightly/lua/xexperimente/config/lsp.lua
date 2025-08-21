@@ -1,5 +1,6 @@
 vim.lsp.enable({
 	'emmylua_ls',
+	-- 'lua-ls',
 })
 
 vim.diagnostic.config({
@@ -15,4 +16,15 @@ vim.diagnostic.config({
 	float = {
 		border = 'single',
 	},
+})
+
+local autocmd = vim.api.nvim_create_autocmd
+local bind = vim.keymap.set
+
+autocmd('LspAttach', {
+	callback = function()
+		bind('n', '<f2>', 'grn', { desc = 'Rename symbol' })
+		bind('n', '<f4>', 'gra', { desc = 'Code Action' })
+		bind('n', '<f12>', 'gD', { desc = 'Go to declaration' })
+	end,
 })

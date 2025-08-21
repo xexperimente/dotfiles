@@ -31,6 +31,7 @@ return {
 					-- vim.fn.stdpath('data') .. '/lazy',
 					-- 'luvit-meta/library',
 					vim.fn.stdpath('data') .. '/site/pack/core/opt',
+					vim.env.HOME .. '/AppData/Local/nvim-data/mason/packages/lua-language-server/meta/3rd/luv',
 				},
 			},
 		},

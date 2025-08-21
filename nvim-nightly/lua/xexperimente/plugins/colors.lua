@@ -14,6 +14,10 @@ require('rose-pine').setup({
 		WinSeparator = { fg = 'overlay', bg = 'none' },
 		Directory = { fg = 'rose', bg = 'none' },
 
+		StatuslineActive = { fg = 'rose', bg = 'none' },
+		StatuslineDim = { fg = 'muted', bg = 'none' },
+		StatuslineHighlight = { fg = 'gold', bg = 'none' },
+
 		-- Floats
 		FloatBorder = { fg = 'overlay', bg = 'surface' },
 		FloatTitle = { bg = 'rose', fg = 'overlay' },
