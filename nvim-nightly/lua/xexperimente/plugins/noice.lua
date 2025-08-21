@@ -25,6 +25,9 @@ require('noice').setup({
 			},
 		},
 	},
+	messages = {
+		view_search = false,
+	},
 	popupmenu = { enabled = false },
 	notify = { enabled = false },
 })

@@ -149,6 +149,22 @@ function diagnostics()
 	return table.concat(result, '') .. ' | '
 end
 
+local function search_count()
+	-- `searchcount()` can return errors because it is evaluated very often in
+	-- statusline. For example, when typing `/` followed by `\(`, it gives E54.
+	local ok, s_count = pcall(vim.fn.searchcount, { recompute = true })
+	if not ok or s_count.current == nil or s_count.total == 0 then return '' end
+
+	if s_count.incomplete == 1 then return '?/?' end
+
+	local too_many = '>' .. s_count.maxcount
+	local current = s_count.current > s_count.maxcount and too_many or s_count.current
+	local total = s_count.total > s_count.maxcount and too_many or s_count.total
+	return highlight('Search: ', 'StatuslineDim')
+		.. highlight(' ' .. current .. '/' .. total .. ' ', 'FloatTitle')
+		.. ' | '
+end
+
 _G.Statusline = {}
 
 function _G.Statusline.active()
@@ -162,6 +178,7 @@ function _G.Statusline.active()
 		diagnostics(),
 		loaded_lsp(),
 		' | ',
+		search_count(),
 		position(),
 		' | ',
 		percent(),

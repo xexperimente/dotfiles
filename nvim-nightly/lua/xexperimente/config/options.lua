@@ -15,6 +15,11 @@ vim.g.winborder = 'single'
 vim.o.cursorline = true
 vim.opt.cursorlineopt = 'number'
 
+-- Search
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.shortmess:append('S') -- Don't show searchcount in message area
+
 vim.opt.clipboard = 'unnamedplus'
 
 vim.opt.list = true
