@@ -21,6 +21,15 @@ require('snacks').setup({
 		},
 		refresh = 50, -- refresh at most every 50ms
 	},
+	scratch = {
+		icon = '',
+		win = {
+			border = 'single',
+			wo = {
+				winhighlight = 'NormalFloat:NormalFloat',
+			},
+		},
+	},
 	terminal = {
 		win = {
 			position = 'float',
@@ -141,19 +150,13 @@ bind('n', '<leader>Z', '<cmd>lua Snacks.zen.zoom()<cr>', { desc = 'Toggle Zoom' 
 -- Notification history
 bind('n', '<leader>n', '<cmd>lua Snacks.notifier.show_history()<cr>', { desc = 'Notification History' })
 bind('n', '<leader>N', function()
-	local lines = {}
 	local messages = vim.api.nvim_exec2('messages', { output = true })
 
-	for script in messages.output:gmatch('[\r\n]+') do
-		table.insert(lines, script)
-	end
-
 	Snacks.win({
-		text = lines,
+		text = messages.output,
 		width = 0.8,
 		height = 0.6,
 		border = 'single',
-		-- title = 'Messages',
 		wo = {
 			spell = false,
 			wrap = false,
@@ -164,8 +167,29 @@ bind('n', '<leader>N', function()
 	}):set_title('Messages', 'center')
 end, { desc = 'Show Messages' })
 
+bind(
+	'n',
+	'<leader>d',
+	function()
+		Snacks.win({
+			file = vim.api.nvim_get_runtime_file('doc/news.txt', true)[1],
+			width = 0.6,
+			height = 0.6,
+			border = 'single',
+			wo = {
+				spell = false,
+				wrap = false,
+				signcolumn = 'yes',
+				statuscolumn = ' ',
+				conceallevel = 3,
+			},
+		})
+	end,
+	{ desc = 'Neovim Docs' }
+)
+
 -- Scratch buffer
-bind('n', '<leader>.', '<cmd>lua Snacks.scratch({ icon = "" })<cr>', { desc = 'Toggle Scratch Buffer' })
+bind('n', '<leader>.', '<cmd>lua Snacks.scratch()<cr>', { desc = 'Toggle Scratch Buffer' })
 bind('n', '<leader>;', '<cmd>lua Snacks.scratch.select()<cr>', { desc = 'Select Scratch Buffer' })
 
 -- https://github.com/folke/snacks.nvim/blob/main/docs/notifier.md

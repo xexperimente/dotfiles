@@ -22,6 +22,9 @@ return {
 					-- 'undefined-field',
 				},
 			},
+			runtime = {
+				version = 'LuaJIT',
+			},
 			workspace = {
 				library = {
 					vim.env.VIMRUNTIME,
