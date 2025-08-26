@@ -17,6 +17,11 @@ local opts = {
 	diff = {
 		view = { style = 'sign', signs = { add = '┃', change = '┃', delete = '┃' } },
 	},
+	surround = {
+		-- mappings = {
+		-- update_n_lines = nil,
+		-- },
+	},
 }
 
 local bind = vim.keymap.set
@@ -27,32 +32,11 @@ require('mini.git').setup()
 require('mini.icons').setup()
 require('mini.indentscope').setup()
 require('mini.splitjoin').setup()
-require('mini.surround').setup()
+require('mini.surround').setup(opts.surround)
 require('mini.hipatterns').setup(opts.patterns)
 
 bind('n', '<leader>uj', '<cmd>lua MiniSplitjoin.toggle()<cr>', { desc = 'Toggle splitjoin' })
 bind('n', '<leader>gc', '<cmd>lua MiniDiff.toggle_overlay()<cr>', { desc = 'Show diff overlay' })
-
--- local lazy_load = vim.api.nvim_create_augroup('Plugins', { clear = true })
---
--- vim.api.nvim_create_autocmd('BufReadPost', {
--- 	group = lazy_load,
--- 	pattern = '*',
--- 	callback = function()
--- 		require('mini.ai').setup()
--- 		require('mini.icons').setup()
--- 		require('mini.indentscope').setup()
--- 		require('mini.splitjoin').setup()
--- 		require('mini.surround').setup()
--- 		require('mini.hipatterns').setup(opts.patterns)
--- 		-- require('mini.diff').setup(opts.diff)
---
--- 		bind('n', '<leader>uj', '<cmd>lua MiniSplitjoin.toggle()<cr>', {})
--- 		bind('n', '<leader>gc', '<cmd>lua MiniDiff.toggle_overlay()<cr>', {})
---
--- 		vim.api.nvim_clear_autocmds({ group = 'Plugins', event = 'BufReadPost' })
--- 	end,
--- })
 
 -- Setup Diff summary string
 local format_summary = function(data)

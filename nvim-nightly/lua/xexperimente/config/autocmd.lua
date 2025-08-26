@@ -23,7 +23,11 @@ autocmd('FileChangedShellPost', {
 -- Allow closing the following buffer file types by pressing 'q'
 autocmd('FileType', {
 	pattern = { 'help', 'man', 'qf' },
-	command = 'nnoremap <buffer> q <cmd>quit<cr>',
+	-- command = 'nnoremap <buffer> q <cmd>quit<cr>',
+	callback = function()
+		vim.keymap.set('n', 'q', '<cmd>quit<cr>', { buffer = true })
+		vim.keymap.set('n', '<esc>', '<cmd>quit<cr>', { buffer = true })
+	end,
 })
 
 -- Clear search register on start

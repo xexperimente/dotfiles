@@ -53,8 +53,15 @@ local opts = {
 		{ mode = 'n', keys = '<leader>u', desc = 'Options ' },
 		{ mode = 'n', keys = '<leader>v', desc = 'Visual ' },
 		{ mode = 'n', keys = '<leader>l', desc = 'LSP ' },
+		{ mode = 'n', keys = '<leader>s', desc = 'Show ' },
 		{ mode = 'n', keys = '<leader>lf', desc = 'Open floating diagnostic window' },
 		{ mode = 'n', keys = 'zu', desc = 'Undo spelling command ' },
+	},
+	window = {
+		config = {
+			width = 'auto',
+			border = 'single',
+		},
 	},
 }
 

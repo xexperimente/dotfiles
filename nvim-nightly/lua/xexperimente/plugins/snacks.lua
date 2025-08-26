@@ -1,13 +1,9 @@
 vim.pack.add({ 'https://github.com/folke/snacks.nvim' })
 
 require('snacks').setup({
-	explorer = {
-		replace_netrw = true,
-	},
-	notifier = {
-		enabled = true,
-		style = 'compact',
-	},
+	styles = { notification_history = { border = 'single' } },
+	explorer = { replace_netrw = true },
+	notifier = { enabled = true, style = 'compact' },
 	statuscolumn = {
 		left = { 'mark', 'sign' },
 		right = { 'fold', 'git' },
@@ -25,9 +21,13 @@ require('snacks').setup({
 		icon = '',
 		win = {
 			border = 'single',
-			wo = {
-				winhighlight = 'NormalFloat:NormalFloat',
-			},
+			wo = { winhighlight = 'NormalFloat:NormalFloat' },
+		},
+	},
+	win = {
+		border = 'single',
+		keys = {
+			['<Esc>'] = 'close',
 		},
 	},
 	terminal = {
@@ -115,23 +115,18 @@ vim.print = _G.dd -- Override print to use snacks for `:=` command
 local bind = vim.keymap.set
 
 -- Toggle options
-bind(
-	'n',
-	'<leader>ub',
-	function() Snacks.toggle.option('background', { off = 'light', on = 'dark', name = 'Dark Background' }) end,
-	{}
-)
-bind('n', '<leader>uL', function() Snacks.toggle.option('relativenumber', { name = 'Relative Number' }) end, {})
-bind('n', '<leader>us', function() Snacks.toggle.option('spell', { name = 'Spelling' }) end, {})
-bind('n', '<leader>uw', function() Snacks.toggle.option('wrap', { name = 'Wrap' }) end, {})
-bind('n', '<leader>ud', '<cmd>lua Snacks.toggle.diagnostics()<cr>', {})
-bind('n', '<leader>ul', '<cmd>lua Snacks.toggle.line_number()<cr>', {})
-bind('n', '<leader>uh', '<cmd>lua Snacks.toggle.inlay_hints()<cr>', {})
-bind('n', '<leader>uD', '<cmd>lua Snacks.toggle.dim()<cr>', {})
-bind('n', '<leader>uT', '<cmd>lua Snacks.toggle.treesitter()<cr>', {})
-bind('n', '<leader>ug', '<cmd>lua Snacks.toggle.indent()<cr>', {})
-bind('n', '<leader>pP', '<cmd>lua Snacks.toggle.profiler()<cr>', { desc = 'Open profiler' })
-bind('n', '<leader>ph', '<cmd> lua Snacks.toggle.profiler_highlights()<cr>', { desc = 'Profiler highlights' })
+Snacks.toggle.option('background', { off = 'light', on = 'dark', name = 'Dark Background' }):map('<leader>ub')
+Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map('<leader>uL')
+Snacks.toggle.option('spell', { name = 'Spelling' }):map('<leader>us')
+Snacks.toggle.option('wrap', { name = 'Wrap' }):map('<leader>uw')
+Snacks.toggle.diagnostics():map('<leader>ud')
+Snacks.toggle.line_number():map('<leader>ul')
+Snacks.toggle.inlay_hints():map('<leader>uh')
+Snacks.toggle.dim():map('<leader>uD')
+Snacks.toggle.treesitter():map('<leader>uT')
+-- Snacks.toggle.indent():map('<leader>ug')
+-- Snacks.toggle.profiler():map('<leader>up')
+-- Snacks.toggle.profiler_highlights():map('<leader>uP')
 
 -- Utils
 bind('n', '<leader>bd', '<cmd>lua Snacks.bufdelete()<cr>', { desc = 'Delete buffer' })
@@ -167,8 +162,8 @@ bind('n', '<leader>z', '<cmd>lua Snacks.zen()<cr>', { desc = 'Toggle Zen Mode' }
 bind('n', '<leader>Z', '<cmd>lua Snacks.zen.zoom()<cr>', { desc = 'Toggle Zoom' })
 
 -- Notification history
-bind('n', '<leader>n', '<cmd>lua Snacks.notifier.show_history()<cr>', { desc = 'Notification History' })
-bind('n', '<leader>N', function()
+bind('n', '<leader>sn', '<cmd>lua Snacks.notifier.show_history()<cr>', { desc = 'Show Notification History' })
+bind('n', '<leader>sm', function()
 	local messages = vim.api.nvim_exec2('messages', { output = true })
 
 	Snacks.win({
@@ -188,7 +183,7 @@ end, { desc = 'Show Messages' })
 
 bind(
 	'n',
-	'<leader>d',
+	'<leader>sd',
 	function()
 		Snacks.win({
 			file = vim.api.nvim_get_runtime_file('doc/news.txt', true)[1],
@@ -204,7 +199,7 @@ bind(
 			},
 		})
 	end,
-	{ desc = 'Neovim Docs' }
+	{ desc = 'Show Neovim News' }
 )
 
 -- Scratch buffer
