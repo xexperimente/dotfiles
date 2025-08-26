@@ -1,7 +1,7 @@
 vim.pack.add({ 'https://github.com/folke/snacks.nvim' })
 
 require('snacks').setup({
-	styles = { notification_history = { border = 'single' } },
+	styles = { notification_history = { border = 'single', width = 0.8 } },
 	explorer = { replace_netrw = true },
 	notifier = { enabled = true, style = 'compact' },
 	statuscolumn = {
@@ -25,7 +25,7 @@ require('snacks').setup({
 		},
 	},
 	win = {
-		border = 'single',
+		-- border = 'single',
 		keys = {
 			['<Esc>'] = 'close',
 		},
@@ -102,6 +102,77 @@ require('snacks').setup({
 					preview = false,
 				},
 			},
+		},
+	},
+	dashboard = {
+		width = 80,
+		preset = {
+			header = require('xexperimente.utils.dashboard'),
+			keys = {
+				{ icon = ' ', key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
+				{ icon = ' ', key = 'r', desc = 'Recent Files', action = ":lua Snacks.dashboard.pick('oldfiles')" },
+				{
+					icon = ' ',
+					key = 'c',
+					desc = 'Config',
+					action = function()
+						local config = vim.fn.stdpath('config')
+						local path = ''
+						if type(config) == 'table' then
+							path = config[1] or ''
+						else
+							path = config
+						end
+						vim.api.nvim_set_current_dir(path)
+						Snacks.picker.files()
+					end,
+				},
+				{ icon = ' ', key = 'p', desc = 'Update plugins', action = ':lua vim.pack.update()' },
+				{ icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
+			},
+		},
+		sections = {
+			{
+				section = 'header',
+			},
+			{
+				section = 'recent_files',
+				padding = 1,
+				-- title = 'Recent files:',
+				-- indent = 2,
+			},
+			{
+				section = 'keys',
+				gap = 0,
+				padding = 1,
+				-- title = 'Actions:',
+				-- indent = 2,
+			},
+			{
+				align = 'center',
+				text = {
+					{ '󰗠 Neovim loaded in ', hl = 'footer' },
+					{ tostring((vim.uv.hrtime() - vim.g.starttime) / 1e6) .. 'ms', hl = 'special' },
+				},
+			},
+		},
+		formats = {
+			icon = function(_) return '' end,
+			file = function(item, ctx)
+				local fname = vim.fn.fnamemodify(item.file, ':~')
+				fname = ctx.width and #fname > ctx.width and vim.fn.pathshorten(fname) or fname
+				if #fname > ctx.width then
+					local dir = vim.fn.fnamemodify(fname, ':h')
+					local file = vim.fn.fnamemodify(fname, ':t')
+					if dir and file then
+						file = file:sub(-(ctx.width - #dir - 2))
+						fname = dir .. '\\…' .. file
+					end
+				end
+				local dir, file = fname:match('^(.*)\\(.+)$')
+				return dir and { { dir .. '\\', hl = 'SnacksPickerDir' }, { file, hl = 'SnacksDashboardFile' } }
+					or { { fname, hl = 'SnacksDashboardFile' } }
+			end,
 		},
 	},
 })

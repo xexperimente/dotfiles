@@ -34,3 +34,12 @@ autocmd('FileType', {
 autocmd('UIEnter', {
 	command = 'let @/=""',
 })
+
+-- Disble indentscope in dashboard
+autocmd('User', {
+	pattern = 'SnacksDashboardOpened',
+	callback = function(data)
+		vim.b[data.buf].miniindentscope_disable = true
+		vim.b[data.buf].ministatusline_disable = true
+	end,
+})

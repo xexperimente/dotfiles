@@ -14,13 +14,18 @@ local opts = {
 			hex_color = require('mini.hipatterns').gen_highlighter.hex_color(),
 		},
 	},
+	surround = { mappings = { update_n_lines = nil } },
 	diff = {
 		view = { style = 'sign', signs = { add = '┃', change = '┃', delete = '┃' } },
 	},
-	surround = {
-		-- mappings = {
-		-- update_n_lines = nil,
-		-- },
+	indentscope = {
+		draw = {
+			animation = require('mini.indentscope').gen_animation.quadratic({
+				easing = 'out',
+				duration = 50,
+				unit = 'total',
+			}),
+		},
 	},
 }
 
@@ -30,7 +35,7 @@ require('mini.ai').setup()
 require('mini.diff').setup(opts.diff)
 require('mini.git').setup()
 require('mini.icons').setup()
-require('mini.indentscope').setup()
+require('mini.indentscope').setup(opts.indentscope)
 require('mini.splitjoin').setup()
 require('mini.surround').setup(opts.surround)
 require('mini.hipatterns').setup(opts.patterns)
