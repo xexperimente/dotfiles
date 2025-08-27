@@ -92,12 +92,18 @@ require('github-theme').setup({
 			FloatTitle = { fg = 'bg0', bg = 'palette.red' },
 			NormalFloat = { bg = 'bg2' },
 
-			Statusline = { bg = '#0d1117' },
+			Statusline = { bg = 'bg1' }, --'#0d1117' },
 			StatuslineActive = { fg = 'palette.red', bg = 'bg1' },
 			StatuslineDim = { fg = 'palette.blue', bg = 'bg1' },
 			StatuslineHighlight = { fg = 'palette.yellow', bg = 'bg1' },
 
 			Keyword = { fg = 'palette.red' },
+
+			-- Snacks.nvim
+			SnacksNotifierHistory = { bg = 'bg2' },
+			SnacksPickerTitle = { link = 'FloatTitle' },
+			SnacksScratchKey = { bg = 'palette.red', fg = 'bg0' },
+			SnacksScratchDesc = { link = 'SnacksPickerTitle' },
 		},
 	},
 })
