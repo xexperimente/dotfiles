@@ -1,7 +1,15 @@
 vim.pack.add({ 'https://github.com/folke/snacks.nvim' })
 
 require('snacks').setup({
-	styles = { notification_history = { border = 'single', width = 0.8 } },
+	styles = {
+		notification_history = {
+			border = 'single',
+			width = 0.8,
+			keys = {
+				['<Esc>'] = 'close',
+			},
+		},
+	},
 	explorer = { replace_netrw = true },
 	notifier = { enabled = true, style = 'compact' },
 	statuscolumn = {
@@ -22,12 +30,6 @@ require('snacks').setup({
 		win = {
 			border = 'single',
 			wo = { winhighlight = 'NormalFloat:NormalFloat' },
-		},
-	},
-	win = {
-		-- border = 'single',
-		keys = {
-			['<Esc>'] = 'close',
 		},
 	},
 	terminal = {
@@ -148,13 +150,6 @@ require('snacks').setup({
 				-- title = 'Actions:',
 				-- indent = 2,
 			},
-			{
-				align = 'center',
-				text = {
-					{ '󰗠 Neovim loaded in ', hl = 'footer' },
-					{ tostring((vim.uv.hrtime() - vim.g.starttime) / 1e6) .. 'ms', hl = 'special' },
-				},
-			},
 		},
 		formats = {
 			icon = function(_) return '' end,
@@ -250,6 +245,9 @@ bind('n', '<leader>sm', function()
 			statuscolumn = ' ',
 			conceallevel = 3,
 		},
+		keys = {
+			['<Esc>'] = 'close',
+		},
 	}):set_title('Messages', 'center')
 end, { desc = 'Show Messages' })
 
@@ -268,6 +266,9 @@ bind(
 				signcolumn = 'yes',
 				statuscolumn = ' ',
 				conceallevel = 3,
+			},
+			keys = {
+				['<Esc>'] = 'close',
 			},
 		})
 	end,

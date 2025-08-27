@@ -4,6 +4,7 @@ vim.g.mapleader = ' '
 --- @diagnostic disable-next-line: unnecessary-if
 if vim.fn.has('windows') then
 	vim.opt.guifont = 'Cascadia Code NF:h14'
+	vim.opt.background = 'light'
 else
 	vim.opt.guifont = 'CaskaydiaCove NF:h14'
 	if vim.g.neovide then

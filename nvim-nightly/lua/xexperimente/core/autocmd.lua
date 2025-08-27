@@ -35,7 +35,7 @@ autocmd('UIEnter', {
 	command = 'let @/=""',
 })
 
--- Disble indentscope in dashboard
+-- Disable indentscope in dashboard
 autocmd('User', {
 	pattern = 'SnacksDashboardOpened',
 	callback = function(data)

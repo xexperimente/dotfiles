@@ -1,5 +1,3 @@
-vim.g.starttime = vim.uv.hrtime()
-
 vim.loader.enable(true)
 
 require('xexperimente.core.options')
