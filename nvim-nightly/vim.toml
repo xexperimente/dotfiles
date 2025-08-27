@@ -8,6 +8,9 @@ any = true
 [Snacks]
 any = true
 
+[jit]
+any = true
+
 [MiniClue]
 any=true
 

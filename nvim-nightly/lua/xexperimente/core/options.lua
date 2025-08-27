@@ -2,7 +2,7 @@ vim.g.mapleader = ' '
 
 -- Visuals
 --- @diagnostic disable-next-line: unnecessary-if
-if vim.fn.has('windows') then
+if jit.os:find('windows') then
 	vim.opt.guifont = 'Cascadia Code NF:h14'
 	vim.opt.background = 'light'
 else
