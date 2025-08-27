@@ -1,5 +1,6 @@
 vim.pack.add({
 	{ src = 'https://github.com/rose-pine/neovim', name = 'rose-pine' },
+	{ src = 'https://github.com/projekt0n/github-nvim-theme', name = 'github-theme' },
 })
 
 require('rose-pine').setup({
@@ -69,9 +70,41 @@ require('rose-pine').setup({
 	},
 })
 
+require('github-theme').setup({
+	options = {
+		styles = {
+			comments = 'italic',
+		},
+	},
+	groups = {
+
+		-- CurSearch = { fg = 'base', bg = 'rose', inherit = false },
+		-- Search = { fg = 'text', bg = 'rose', blend = 20, inherit = false },
+		-- Keyword = { fg = 'rose' },
+		-- Folded = { bg = 'base' },
+		-- Comment = { fg = 'muted' },
+		-- WinSeparator = { fg = 'overlay', bg = 'none' },
+		-- Directory = { fg = 'rose', bg = 'none' },
+		--
+		all = {
+			-- Floats
+			FloatBorder = { fg = 'bg3', bg = 'bg2' },
+			FloatTitle = { fg = 'bg0', bg = 'palette.red' },
+			NormalFloat = { bg = 'bg2' },
+
+			Statusline = { bg = '#0d1117' },
+			StatuslineActive = { fg = 'palette.red', bg = 'bg1' },
+			StatuslineDim = { fg = 'palette.blue', bg = 'bg1' },
+			StatuslineHighlight = { fg = 'palette.yellow', bg = 'bg1' },
+
+			Keyword = { fg = 'palette.red' },
+		},
+	},
+})
+
 ---@diagnostic disable-next-line: undefined-field
 if vim.opt.background:get() == 'light' then
 	vim.cmd('colorscheme rose-pine-dawn')
 else
-	vim.cmd('colorscheme rose-pine-moon')
+	vim.cmd('colorscheme github_dark_default')
 end
