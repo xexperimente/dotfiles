@@ -9,6 +9,12 @@ require('snacks').setup({
 				['<Esc>'] = 'close',
 			},
 		},
+		scratch = {
+			border = 'single',
+			keys = {
+				['<Esc>'] = 'close',
+			},
+		},
 	},
 	explorer = { replace_netrw = true },
 	notifier = { enabled = true, style = 'compact' },
