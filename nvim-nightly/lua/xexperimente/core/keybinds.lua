@@ -10,8 +10,6 @@ abbr('Qa', 'qa')
 abbr('Bd', 'bd')
 abbr('bD', 'bd')
 
-bind('n', '<leader>r', '<cmd>restart<cr>', { desc = 'Restart' })
-
 -- Cancel search highlight
 bind('n', '<esc>', ':nohl<cr>:redraws!<cr><esc>', { noremap = true, silent = true, desc = 'Hide search' })
 bind('n', '<leader><space>', ':let @/=""<cr>:redraws!<cr>', { noremap = true, silent = true, desc = 'Clear search' })

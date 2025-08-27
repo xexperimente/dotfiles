@@ -229,8 +229,8 @@ bind('n', '<leader>z', '<cmd>lua Snacks.zen()<cr>', { desc = 'Toggle Zen Mode' }
 bind('n', '<leader>Z', '<cmd>lua Snacks.zen.zoom()<cr>', { desc = 'Toggle Zoom' })
 
 -- Notification history
-bind('n', '<leader>sn', '<cmd>lua Snacks.notifier.show_history()<cr>', { desc = 'Show Notification History' })
-bind('n', '<leader>sm', function()
+bind('n', '<leader>n', '<cmd>lua Snacks.notifier.show_history()<cr>', { desc = 'Show Notification History' })
+bind('n', '<leader>m', function()
 	local messages = vim.api.nvim_exec2('messages', { output = true })
 
 	Snacks.win({
@@ -253,7 +253,7 @@ end, { desc = 'Show Messages' })
 
 bind(
 	'n',
-	'<leader>sd',
+	'<leader>i',
 	function()
 		Snacks.win({
 			file = vim.api.nvim_get_runtime_file('doc/news.txt', true)[1],
