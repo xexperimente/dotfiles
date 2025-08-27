@@ -75,6 +75,8 @@ require('github-theme').setup({
 		styles = {
 			comments = 'italic',
 		},
+		transparent = true,
+		hide_nc_statusline = true,
 	},
 	groups = {
 
@@ -88,16 +90,20 @@ require('github-theme').setup({
 		--
 		all = {
 			-- Floats
-			FloatBorder = { fg = 'bg3', bg = 'bg2' },
+			FloatBorder = { fg = 'bg3', bg = 'NONE' },
 			FloatTitle = { fg = 'bg0', bg = 'palette.red' },
-			NormalFloat = { bg = 'bg2' },
+			NormalFloat = { bg = 'NONE' },
 
-			Statusline = { bg = 'bg1' }, --'#0d1117' },
-			StatuslineActive = { fg = 'palette.red', bg = 'bg1' },
-			StatuslineDim = { fg = 'palette.blue', bg = 'bg1' },
-			StatuslineHighlight = { fg = 'palette.yellow', bg = 'bg1' },
+			Statusline = { bg = 'NONE' },
+			StatuslineActive = { fg = 'palette.red', bg = 'NONE' },
+			StatuslineDim = { fg = 'palette.blue', bg = 'NONE' },
+			StatuslineHighlight = { fg = 'palette.yellow', bg = 'NONE' },
 
 			Keyword = { fg = 'palette.red' },
+
+			NoiceCmdlinePopup = { bg = 'NONE', fg = 'fg1' },
+			NoiceCmdlinePopupBorder = { link = 'FloatBorder' },
+			NoiceCmdlinePopupTitle = { link = 'FloatTitle' },
 
 			-- Snacks.nvim
 			SnacksNotifierHistory = { bg = 'bg2' },
@@ -112,5 +118,5 @@ require('github-theme').setup({
 if vim.opt.background:get() == 'light' then
 	vim.cmd('colorscheme rose-pine-dawn')
 else
-	vim.cmd('colorscheme github_dark_default')
+	vim.cmd('colorscheme github_dark')
 end
