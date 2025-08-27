@@ -195,16 +195,3 @@ autocmd({ 'ModeChanged', 'BufEnter', 'DiagnosticChanged' }, {
 	desc = 'Handle state',
 	callback = function() vim.wo.statusline = '%!v:lua._G.Statusline.active()' end,
 })
-
-autocmd('LspAttach', {
-	group = augroup,
-	desc = 'Show diagnostic sign in statusline',
-	callback = function(event)
-		local id = vim.tbl_get(event, 'data', 'client_id')
-		local client = id and vim.lsp.get_client_by_id(id)
-		if client == nil then return end
-
-		---@diagnostic disable-next-line: param-type-not-match
-		if client:supports_method('textDocument/diagnostics', {}) then vim.cmd('redrawstatus') end
-	end,
-})

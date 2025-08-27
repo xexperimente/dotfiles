@@ -1,6 +1,7 @@
 vim.g.mapleader = ' '
 
 -- Visuals
+--- @diagnostic disable-next-line: unnecessary-if
 if vim.fn.has('windows') then
 	vim.opt.guifont = 'Cascadia Code NF:h14'
 else

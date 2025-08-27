@@ -12,16 +12,25 @@ require('blink.cmp').setup({
 	keymap = {
 		preset = 'super-tab',
 		['<C-n>'] = { 'show', 'select_next' },
+		['<CR>'] = { 'accept', 'fallback' },
 	},
 	sources = {
 		default = { 'lsp', 'path', 'snippets' },
+		min_keyword_length = 2,
 	},
 	cmdline = {
 		enabled = true,
+		keymap = {
+			['<Up>'] = { 'select_prev', 'fallback' },
+			['<Down>'] = { 'select_next', 'fallback' },
+		},
 	},
 	completion = {
 		list = {
-			selection = { auto_insert = true },
+			selection = {
+				auto_insert = false,
+				preselect = true,
+			},
 		},
 		trigger = {
 			show_on_keyword = true,
@@ -34,9 +43,9 @@ require('blink.cmp').setup({
 			draw = {
 				treesitter = { 'lsp' },
 				columns = {
+					{ 'kind_icon' },
 					{ 'label', 'label_description', gap = 1 },
 					{ 'kind' },
-					{ 'kind_icon' },
 				},
 			},
 			border = 'rounded',

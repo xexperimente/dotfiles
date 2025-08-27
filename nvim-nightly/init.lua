@@ -2,9 +2,9 @@ vim.g.starttime = vim.uv.hrtime()
 
 vim.loader.enable(true)
 
-require('xexperimente.config.options')
-require('xexperimente.config.keybinds')
-require('xexperimente.config.lsp')
-require('xexperimente.config.autocmd')
+require('xexperimente.core.options')
+require('xexperimente.core.keybinds')
+require('xexperimente.core.lsp')
+require('xexperimente.core.autocmd')
 
 require('xexperimente.plugins')

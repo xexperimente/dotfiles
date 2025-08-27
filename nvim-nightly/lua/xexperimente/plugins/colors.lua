@@ -15,7 +15,6 @@ require('rose-pine').setup({
 		Comment = { fg = 'muted' },
 		WinSeparator = { fg = 'overlay', bg = 'none' },
 		Directory = { fg = 'rose', bg = 'none' },
-		HiddenCursor = { fg = 'rose', bg = 'rose' },
 
 		StatuslineActive = { fg = 'rose', bg = 'none' },
 		StatuslineDim = { fg = 'muted', bg = 'none' },
@@ -70,6 +69,7 @@ require('rose-pine').setup({
 	},
 })
 
+---@diagnostic disable-next-line: undefined-field
 if vim.opt.background:get() == 'light' then
 	vim.cmd('colorscheme rose-pine-dawn')
 else
