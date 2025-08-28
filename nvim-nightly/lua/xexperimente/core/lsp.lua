@@ -48,7 +48,8 @@ autocmd('LspAttach', {
 		bind('n', 'gri', function() Snacks.picker.lsp_implementations() end, { desc = 'Go to implementation' })
 		bind('n', 'grt', function() Snacks.picker.lsp_type_definition() end, { desc = 'Go to type definition' })
 		bind('n', '<f2>', vim.lsp.buf.rename, { desc = 'Rename symbol' })
-		bind('n', '<f4>', vim.lsp.buf.code_action, { desc = 'Code Action' })
+		bind('n', '<f4>', function() vim.lsp.buf.code_action() end, { desc = 'Code Action' })
+		bind('v', '<f4>', function() vim.lsp.buf.code_action() end, { desc = 'Code Action' })
 		bind('n', '<f12>', function() Snacks.picker.lsp_definitions() end, { desc = 'Go to definition' })
 		bind('n', '<leader>lf', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 

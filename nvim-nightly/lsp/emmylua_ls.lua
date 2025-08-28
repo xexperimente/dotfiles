@@ -13,6 +13,7 @@ return {
 			diagnostics = {
 				globals = {
 					'vim',
+					'jit',
 					-- 'Snacks',
 					-- 'MiniStatusline',
 					-- 'MiniClue',
