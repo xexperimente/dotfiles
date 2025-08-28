@@ -42,9 +42,17 @@ autocmd('LspAttach', {
 			})
 		end
 
-		bind('n', '<f2>', 'grn', { desc = 'Rename symbol' })
-		bind('n', '<f4>', 'gra', { desc = 'Code Action' })
-		bind('n', '<f12>', 'gD', { desc = 'Go to declaration' })
+		bind('n', 'gd', function() Snacks.picker.lsp_definitions() end, { desc = 'Go to definition' })
+		bind('n', 'gD', function() Snacks.picker.lsp_declarations() end, { desc = 'Go to declaration' })
+		bind('n', 'grr', function() Snacks.picker.lsp_references() end, { desc = 'Go to references' })
+		bind('n', 'gri', function() Snacks.picker.lsp_implementations() end, { desc = 'Go to implementation' })
+		bind('n', 'grt', function() Snacks.picker.lsp_type_definition() end, { desc = 'Go to type definition' })
+		bind('n', '<f2>', vim.lsp.buf.rename, { desc = 'Rename symbol' })
+		bind('n', '<f4>', vim.lsp.buf.code_action, { desc = 'Code Action' })
+		bind('n', '<f12>', function() Snacks.picker.lsp_definitions() end, { desc = 'Go to definition' })
 		bind('n', '<leader>lf', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+
+		bind('n', '<leader>ls', function() Snacks.picker.lsp_symbols() end, { desc = 'LSP Symbols' })
+		bind('n', '<leader>lS', function() Snacks.picker.lsp_workspace_symbols() end, { desc = 'LSP Workspace Symbols' })
 	end,
 })

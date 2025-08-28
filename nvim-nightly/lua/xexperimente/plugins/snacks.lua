@@ -110,6 +110,12 @@ require('snacks').setup({
 					preview = false,
 				},
 			},
+			qflist = {
+				layout = 'vertical',
+			},
+			loclist = {
+				layout = 'vertical',
+			},
 		},
 	},
 	dashboard = {
@@ -203,11 +209,13 @@ Snacks.toggle.treesitter():map('<leader>uT')
 
 -- Utils
 bind('n', '<leader>bd', '<cmd>lua Snacks.bufdelete()<cr>', { desc = 'Delete buffer' })
+bind('n', '<leader>bD', '<cmd>lua Snacks.bufdelete.other()<cr>', { desc = 'Delete other buffers' })
 
 -- Pickers
 bind('n', '<leader>ff', '<cmd>lua Snacks.picker.files()<cr>', { desc = 'Files' })
 bind('n', '<leader>fe', '<cmd>lua Snacks.explorer()<cr>', { desc = 'Explorer' })
 bind('n', '<leader>fc', '<cmd>lua Snacks.picker.highlights()<cr>', { desc = 'Highlight groups' })
+bind('n', '<leader>fb', '<cmd>lua Snacks.picker.buffers()<cr>', { desc = 'Buffers' })
 bind('n', '<leader>fh', '<cmd>lua Snacks.picker.help()<cr>', { desc = 'Help' })
 bind('n', '<leader>fk', '<cmd>lua Snacks.picker.keymaps()<cr>', { desc = 'Keymaps' })
 bind('n', '<leader>fu', '<cmd>lua Snacks.picker.undo()<cr>', { desc = 'Undo' })
@@ -215,6 +223,8 @@ bind('n', '<leader>fg', '<cmd>lua Snacks.picker.grep()<cr>', { desc = 'Grep' })
 bind('n', '<leader>fG', '<cmd>lua Snacks.picker.grep_word()<cr>', { desc = 'Grep word' })
 bind('n', '<leader>fm', '<cmd>lua Snacks.picker.marks()<cr>', { desc = 'Marks' })
 bind('n', '<leader>fi', '<cmd>lua Snacks.picker.icons()<cr>', { desc = 'Icons' })
+bind('n', '<leader>fq', '<cmd>lua Snacks.picker.qflist()<cr>', { desc = 'Quickfix list' })
+bind('n', '<leader>fl', '<cmd>lua Snacks.picker.loclist()<cr>', { desc = 'Location list' })
 
 -- Git
 bind('n', '<leader>gl', '<cmd>lua Snacks.picker.git_log()<cr>', { desc = 'Git commits' })
