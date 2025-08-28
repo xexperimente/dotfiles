@@ -4,8 +4,9 @@ vim.cmd.language('en_US.UTF-8')
 vim.g.mapleader = ' '
 
 -- Visuals
-if vim.fn.has('windows') then
+if jit.os:find('Windows') then
 	vim.opt.guifont = 'Cascadia Code NF:h14'
+	vim.opt.background = 'light'
 else
 	vim.opt.guifont = 'CaskaydiaCove NF:h14'
 	if vim.g.neovide then

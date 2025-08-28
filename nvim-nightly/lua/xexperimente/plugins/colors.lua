@@ -114,7 +114,6 @@ require('github-theme').setup({
 	},
 })
 
----@diagnostic disable-next-line: undefined-field
 if vim.opt.background:get() == 'light' then
 	vim.cmd('colorscheme rose-pine-dawn')
 else
