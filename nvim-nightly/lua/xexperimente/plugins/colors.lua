@@ -79,22 +79,13 @@ require('github-theme').setup({
 		hide_nc_statusline = true,
 	},
 	groups = {
-
-		-- CurSearch = { fg = 'base', bg = 'rose', inherit = false },
-		-- Search = { fg = 'text', bg = 'rose', blend = 20, inherit = false },
-		-- Keyword = { fg = 'rose' },
-		-- Folded = { bg = 'base' },
-		-- Comment = { fg = 'muted' },
-		-- WinSeparator = { fg = 'overlay', bg = 'none' },
-		-- Directory = { fg = 'rose', bg = 'none' },
-		--
 		all = {
 			-- Floats
 			FloatBorder = { fg = 'bg3', bg = 'NONE' },
 			FloatTitle = { fg = 'bg0', bg = 'palette.red' },
-			NormalFloat = { bg = 'NONE' },
+			NormalFloat = { bg = 'NONE', fg = 'fg1' },
 
-			Statusline = { bg = 'NONE' },
+			Statusline = { bg = 'NONE', fg = 'fg0' },
 			StatuslineActive = { fg = 'palette.red', bg = 'NONE' },
 			StatuslineDim = { fg = 'palette.blue', bg = 'NONE' },
 			StatuslineHighlight = { fg = 'palette.yellow', bg = 'NONE' },

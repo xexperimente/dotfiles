@@ -1,6 +1,6 @@
 ---@diagnostic disable:undefined-field
 
-local Plugin = { 'echasnovski/mini.nvim' }
+local Plugin = { 'nvim-mini/mini.nvim' }
 local user = {}
 
 Plugin.version = false

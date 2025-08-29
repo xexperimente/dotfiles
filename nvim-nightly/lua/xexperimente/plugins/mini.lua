@@ -1,7 +1,7 @@
 local function gh(pkg) return { src = 'https://github.com/' .. pkg, version = vim.version.range('*') } end
 
 vim.pack.add({
-	gh('echasnovski/mini.nvim'),
+	gh('nvim-mini/mini.nvim'),
 })
 
 local opts = {

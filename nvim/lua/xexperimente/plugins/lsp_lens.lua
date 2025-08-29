@@ -1,4 +1,5 @@
 -- LSP lenses - show definitions and references of symbol
+-- replace candidate https://github.com/Wansmer/symbol-usage.nvim
 local Plugin = { 'vidocqh/lsp-lens.nvim' }
 
 Plugin.event = { 'BufRead', 'BufNewFile' }
