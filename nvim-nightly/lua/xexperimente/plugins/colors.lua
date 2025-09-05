@@ -97,10 +97,13 @@ require('github-theme').setup({
 			NoiceCmdlinePopupTitle = { link = 'FloatTitle' },
 
 			-- Snacks.nvim
-			SnacksNotifierHistory = { bg = 'bg2' },
+			-- SnacksNotifierHistory = { bg = 'bg2' },
 			SnacksPickerTitle = { link = 'FloatTitle' },
 			SnacksScratchKey = { bg = 'palette.red', fg = 'bg0' },
 			SnacksScratchDesc = { link = 'SnacksPickerTitle' },
+			SnacksDashboardHeader = { fg = 'palette.red', bg = 'NONE' },
+			SnacksDashboardKey = { fg = 'palette.red', bg = 'NONE' },
+			SnacksNotifierBorderInfo = { fg = 'bg3', bg = 'NONE' },
 		},
 	},
 })

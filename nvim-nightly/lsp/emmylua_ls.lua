@@ -14,14 +14,8 @@ return {
 				globals = {
 					'vim',
 					'jit',
-					-- 'Snacks',
-					-- 'MiniStatusline',
-					-- 'MiniClue',
 				},
-				disable = {
-					'inject-field',
-					-- 'undefined-field',
-				},
+				disable = {},
 			},
 			runtime = {
 				version = 'LuaJIT',

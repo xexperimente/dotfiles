@@ -1,4 +1,4 @@
-local function gh(pkg) return { src = 'https://github.com/' .. pkg, version = vim.version.range('*') } end
+local function gh(pkg) return { src = 'https://github.com/' .. pkg } end
 
 vim.pack.add({
 	gh('nvim-mini/mini.nvim'),
