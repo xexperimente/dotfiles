@@ -1,6 +1,7 @@
 vim.lsp.enable({
 	'emmylua_ls',
 	-- 'lua-ls',
+	'zls',
 })
 
 vim.diagnostic.config({
