@@ -28,6 +28,20 @@ local opts = {
 			}),
 		},
 	},
+	move = {
+		mappings = {
+			left = '<M-left>',
+			right = '<M-right>',
+			up = '<M-up>',
+			down = '<M-down>',
+
+			-- Move current line in Normal mode
+			line_left = '<M-left>',
+			line_right = '<M-right>',
+			line_down = '<M-down>',
+			line_up = '<M-up>',
+		},
+	},
 }
 
 local bind = vim.keymap.set
@@ -37,6 +51,7 @@ require('mini.diff').setup(opts.diff)
 require('mini.git').setup()
 require('mini.icons').setup()
 require('mini.indentscope').setup(opts.indentscope)
+require('mini.move').setup(opts.move)
 require('mini.splitjoin').setup()
 require('mini.surround').setup(opts.surround)
 require('mini.hipatterns').setup(opts.patterns)
