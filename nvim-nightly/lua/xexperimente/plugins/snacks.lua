@@ -63,7 +63,7 @@ require('snacks').setup({
 				layout = {
 					preview = false,
 					layout = {
-						backdrop = false,
+						-- backdrop = false,
 						width = 0.5,
 						min_width = 80,
 						height = 0.7,
@@ -82,7 +82,7 @@ require('snacks').setup({
 			explorer = {
 				tree = true,
 				auto_close = true,
-				layout = { preset = 'vertical', preview = false },
+				layout = { preset = 'vertical', preview = false, layout = { backdrop = 60 } },
 			},
 			icons = {
 				layout = 'select',

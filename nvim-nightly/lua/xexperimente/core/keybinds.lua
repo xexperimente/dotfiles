@@ -22,6 +22,7 @@ bind('n', '<S-F3>', 'N', { noremap = true, desc = 'Previous search result' })
 bind('n', '<c-f>', '/<c-r><c-w>', { desc = 'Search' })
 bind('n', 'cn', '*``cgn', { desc = 'Change word (forward)' }) -- `:h gn`
 bind('n', 'cN', '*``cgN', { desc = 'Change word (backward)' }) -- `:h gN`
+
 -- Redo
 bind('n', 'U', ':redo<cr>', { desc = 'Redo' })
 

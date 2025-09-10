@@ -99,3 +99,10 @@ if vim.fn.executable('nu') == 1 then
 	vim.opt.shellxquote = ''
 	vim.opt.shellquote = ''
 end
+
+if vim.g.neovide then
+	vim.g.neovide_floating_blur_amount_x = 2.0
+	vim.g.neovide_floating_blur_amount_y = 2.0
+	vim.g.neovide_floating_corner_radius = 0.2
+	vim.g.neovide_floating_shadow = false
+end
