@@ -55,6 +55,7 @@ require('rose-pine').setup({
 		SnacksDashboardFooter = { fg = 'iris' },
 		SnacksNotifierBorderInfo = { fg = 'overlay', bg = 'none' },
 		SnacksNotifierTitleInfo = { fg = 'iris', bg = 'none' },
+		SnacksInputTitle = { link = 'FloatTitle' },
 
 		-- Menus
 		PmenuSel = { bg = 'highlight_med', fg = 'NONE' },
