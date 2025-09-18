@@ -21,7 +21,7 @@ require('blink.cmp').setup({
 	cmdline = {
 		enabled = true,
 		keymap = {
-			['<Tab>'] = { 'show_and_insert', 'accept' },
+			['<Tab>'] = { 'show_and_insert_or_accept_single', 'accept' },
 			['<Up>'] = { 'select_prev', 'fallback' },
 			['<Down>'] = { 'select_next', 'fallback' },
 		},
