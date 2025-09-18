@@ -7,10 +7,13 @@ vim.pack.add({
 
 require('nvim-treesitter.configs').setup({
 	ensure_installed = {
+		'bash',
 		'lua',
 		'regex',
 		'vim',
 		'vimdoc',
+		'markdown',
+		'markdown_inline',
 	},
 	auto_install = false,
 	highlight = {

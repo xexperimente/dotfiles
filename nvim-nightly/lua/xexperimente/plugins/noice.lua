@@ -8,11 +8,14 @@ vim.pack.add({
 require('noice').setup({
 	presets = {
 		bottom_search = false,
-		lsp_doc_border = false,
+		lsp_doc_border = true,
 	},
 	lsp = {
 		progress = { enabled = false },
-		signature = { enabled = false },
+		override = {
+			['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+			['vim.lsp.util.stylize_markdown'] = true,
+		},
 	},
 	views = {
 		cmdline_popup = {
@@ -25,9 +28,7 @@ require('noice').setup({
 			},
 		},
 	},
-	messages = {
-		view_search = false,
-	},
+	messages = { view_search = false },
 	popupmenu = { enabled = false },
 	notify = { enabled = false },
 })
