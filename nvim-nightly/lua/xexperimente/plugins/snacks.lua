@@ -137,7 +137,7 @@ require('snacks').setup({
 			header = require('xexperimente.utils.dashboard'),
 			keys = {
 				{ icon = ' ', key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
-				{ icon = ' ', key = 'r', desc = 'Recent Files', action = ":lua Snacks.dashboard.pick('oldfiles')" },
+				{ icon = ' ', key = 'r', desc = 'Recent Projects', action = ":lua Snacks.dashboard.pick('projects')" },
 				{
 					icon = ' ',
 					key = 'c',

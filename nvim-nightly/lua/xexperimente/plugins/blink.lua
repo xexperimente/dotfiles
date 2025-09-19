@@ -25,6 +25,16 @@ require('blink.cmp').setup({
 			['<Up>'] = { 'select_prev', 'fallback' },
 			['<Down>'] = { 'select_next', 'fallback' },
 		},
+		completion = {
+			menu = {
+				auto_show = true,
+				draw = {
+					columns = {
+						{ 'label', 'label_description', gap = 1 },
+					},
+				},
+			},
+		},
 	},
 	completion = {
 		list = {

@@ -34,6 +34,7 @@ require('rose-pine').setup({
 		NoiceCmdlineIconSearch = { fg = 'rose' },
 		NoiceCmdlineIconCmdline = { fg = 'rose' },
 		NoiceCmdlineIconHelp = { fg = 'rose' },
+		NoiceCmdlineIcon = { fg = 'overlay' },
 		NoiceCmdlinePopup = { link = 'NormalFloat' },
 		NoiceCmdlinePopupBorder = { link = 'FloatBorder' },
 		NoiceCmdlinePopupBorderSearch = { link = 'FloatBorder' },
@@ -93,18 +94,32 @@ require('github-theme').setup({
 
 			Keyword = { fg = 'palette.red' },
 
+			NoiceCmdlineIconCmdline = { fg = 'palette.red' },
+			NoiceCmdlineIconHelp = { fg = 'palette.red' },
+			NoiceCmdlineIcon = { fg = 'palette.red' },
+			NoiceCmdlinePrompt = { link = 'NormalFloat' },
 			NoiceCmdlinePopup = { bg = 'NONE', fg = 'fg1' },
 			NoiceCmdlinePopupBorder = { link = 'FloatBorder' },
 			NoiceCmdlinePopupTitle = { link = 'FloatTitle' },
+			NoiceCmdlinePopupBorderSearch = { link = 'FloatBorder' },
+			NoiceCmdlinePopupTitleCmdline = { link = 'FloatTitle' },
+			NoiceCmdlinePopupTitleSearch = { link = 'FloatTitle' },
 
 			-- Snacks.nvim
-			-- SnacksNotifierHistory = { bg = 'bg2' },
 			SnacksPickerTitle = { link = 'FloatTitle' },
 			SnacksScratchKey = { bg = 'palette.red', fg = 'bg0' },
 			SnacksScratchDesc = { link = 'SnacksPickerTitle' },
 			SnacksDashboardHeader = { fg = 'palette.red', bg = 'NONE' },
 			SnacksDashboardKey = { fg = 'palette.red', bg = 'NONE' },
 			SnacksNotifierBorderInfo = { fg = 'bg3', bg = 'NONE' },
+			SnacksInputTitle = { link = 'FloatTitle' },
+			SnacksInputIcon = { fg = 'palette.red' },
+
+			-- Menus
+			Pmenu = { fg = 'fg2', bg = 'NONE' },
+			PmenuSel = { link = 'Visual' },
+			PmenuThumb = { fg = 'NONE', bg = 'palette.blue' },
+			MiniIndentscopeSymbol = { fg = 'palette.yellow' },
 		},
 	},
 })

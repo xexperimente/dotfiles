@@ -36,3 +36,16 @@ local bind = vim.keymap.set
 
 bind({ 'n', 'x', 'o' }, 's', function() require('flash').jump() end, {})
 bind({ 'o', 'x' }, 'S', function() require('flash').treesitter() end, {})
+bind(
+	{ 'n', 'x', 'o' },
+	'<c-right>',
+	function()
+		require('flash').treesitter({
+			actions = {
+				['<c-right>'] = 'next',
+				['<c-left>'] = 'prev',
+			},
+		})
+	end,
+	{ desc = 'Treesitter incremental selection' }
+)
