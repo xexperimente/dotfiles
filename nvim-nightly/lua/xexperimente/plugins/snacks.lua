@@ -218,7 +218,33 @@ Snacks.toggle.dim():map('<leader>uD')
 Snacks.toggle.treesitter():map('<leader>uT')
 
 -- Utils
-bind('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = 'Delete buffer' })
+bind('n', '<leader>bd', function()
+	Snacks.bufdelete(0)
+
+	local buffers = vim.tbl_filter(
+		function(buf)
+			return vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted and vim.api.nvim_buf_get_name(buf) ~= ''
+		end,
+		vim.api.nvim_list_bufs()
+	)
+
+	if #buffers == 0 then
+		-- close extra splits and open dashboard
+		vim.cmd('only')
+		require('snacks').dashboard.open()
+
+		-- Find and delete NoName buffers after mini.starter is open
+		vim.defer_fn(function()
+			for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+				local name = vim.api.nvim_buf_get_name(buf)
+				if name == '' and vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted then
+					vim.api.nvim_buf_delete(buf, { force = false })
+				end
+			end
+		end, 300)
+	end
+end, { desc = 'Delete buffer' })
+
 bind('n', '<leader>bD', function() Snacks.bufdelete.other() end, { desc = 'Delete other buffers' })
 
 -- Pickers
@@ -305,8 +331,12 @@ bind(
 bind('n', '<leader>.', function() Snacks.scratch() end, { desc = 'Toggle Scratch Buffer' })
 bind('n', '<leader>;', function() Snacks.scratch.select() end, { desc = 'Select Scratch Buffer' })
 
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup('SnacksCommands', {})
+
 -- https://github.com/folke/snacks.nvim/blob/main/docs/notifier.md
-vim.api.nvim_create_autocmd('LspProgress', {
+autocmd('LspProgress', {
+	group = augroup,
 	callback = function(ev)
 		local spinner = { '󰪞', '󰪟', '󰪠', '󰪡', '󰪢', '󰪣', '󰪤', '󰪥' }
 
