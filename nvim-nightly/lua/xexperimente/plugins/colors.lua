@@ -16,6 +16,7 @@ require('rose-pine').setup({
 		Comment = { fg = 'muted' },
 		WinSeparator = { fg = 'overlay', bg = 'none' },
 		Directory = { fg = 'rose', bg = 'none' },
+		DiffDelete = { fg = 'overlay', bg = 'base' },
 
 		StatuslineActive = { fg = 'rose', bg = 'none' },
 		StatuslineDim = { fg = 'muted', bg = 'none' },

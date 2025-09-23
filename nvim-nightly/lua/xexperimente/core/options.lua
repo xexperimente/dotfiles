@@ -49,7 +49,10 @@ vim.opt.fillchars = {
 	foldopen = '▾',
 	foldclose = '▸',
 	foldsep = ' ',
+	diff = '╱',
 }
+
+vim.opt.diffopt:append('inline:char')
 
 -- Indentation & tabs
 vim.opt.smartindent = true

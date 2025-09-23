@@ -1,3 +1,4 @@
+-- Enable LSPs
 vim.lsp.enable({
 	'emmylua_ls',
 	-- 'lua-ls',
@@ -21,6 +22,12 @@ vim.diagnostic.config({
 
 local autocmd = vim.api.nvim_create_autocmd
 local bind = vim.keymap.set
+
+-- Disable LSP in diff mode
+autocmd('BufEnter', {
+	group = vim.api.nvim_create_augroup('LspCommands', {}),
+	callback = function(_) vim.diagnostic.enable(not vim.opt.diff:get()) end,
+})
 
 autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('LspCommands', {}),

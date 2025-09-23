@@ -25,5 +25,8 @@ end, { desc = 'Lint' })
 
 autocmd({ 'BufWritePost', 'BufEnter', 'InsertLeave', 'TextChanged' }, {
 	group = augroup,
-	callback = Snacks.util.debounce(start_lint, { ms = 100 }),
+	callback = function()
+		-- Do not lint in diff mode
+		if not vim.opt.diff:get() then Snacks.util.debounce(start_lint, { ms = 100 }) end
+	end,
 })
