@@ -1,6 +1,7 @@
 
 # Transfer files needed for homeoffice
 
+# Backup work data to external drive
 def backup [] {
 	print $"\n(ansi reset)Syncing (ansi blue)c:/_projects/kvp/src(ansi reset) with exclude list\n(ansi grey58)"
 
@@ -13,16 +14,19 @@ def backup [] {
 	rclone sync $"($env.USERPROFILE)/Sources" e:/Projects/sources --stats-one-line -v
 }
 
+# Set neovim to use nightly config
 def --env use_nvim_nightly [] {
 	$env.NVIM_APPNAME = 'nvim-nightly'
 	$env.NVIM_PATH = 'c:\Program Files\Neovim.Nightly\bin'
 }
 
+# Set neovim to use stable config
 def --env use_nvim_stable [] {
 	$env.NVIM_APPNAME = 'nvim'
 	$env.NVIM_PATH = 'c:\Program Files\Neovim\bin'
 }
 
+# Launch neovim with set config
 def nv --wrapped [...rest] {
 	let cmd = $'($env.NVIM_PATH)\nvim.exe'
 	^$cmd ...$rest
