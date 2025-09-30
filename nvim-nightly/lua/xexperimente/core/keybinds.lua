@@ -51,3 +51,5 @@ end, {})
 
 bind('n', '<leader>pl', '<cmd>PackUpdate<cr>', { desc = 'Update plugins' })
 bind('n', '<leader>pu', '<cmd>PackUpdate<cr>', { desc = 'Update plugins' })
+bind('n', '<leader>pM', '<cmd>MasonUpdate<cr>', { desc = 'Update mason' })
+bind('n', '<leader>pm', '<cmd>Mason<cr>', { desc = 'Show mason' })
