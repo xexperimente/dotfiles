@@ -3,6 +3,7 @@ vim.lsp.enable({
 	'emmylua_ls',
 	-- 'lua-ls',
 	'zls',
+	'rust_analyzer',
 })
 
 vim.diagnostic.config({
@@ -19,6 +20,8 @@ vim.diagnostic.config({
 		border = 'single',
 	},
 })
+
+vim.api.nvim_create_user_command('LspLog', function() vim.cmd.tabnew(vim.lsp.log.get_filename()) end, {})
 
 local autocmd = vim.api.nvim_create_autocmd
 local bind = vim.keymap.set
