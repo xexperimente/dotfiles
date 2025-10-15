@@ -68,6 +68,7 @@ require('rose-pine').setup({
 		['@markup.heading.1.vimdoc'] = { bg = 'none', fg = 'love' },
 		['@label.vimdoc'] = { bg = 'none', fg = 'gold' },
 		['@property'] = { fg = 'iris', italic = false },
+		['@variable'] = { fg = 'iris', italic = false },
 		['@lsp.type.variable'] = { fg = 'text', italic = false },
 		['@lsp.type.property'] = { fg = 'iris', italic = false },
 	},
@@ -88,7 +89,7 @@ require('github-theme').setup({
 			FloatTitle = { fg = 'bg0', bg = 'palette.red' },
 			NormalFloat = { bg = 'NONE', fg = 'fg1' },
 
-			Statusline = { bg = 'NONE', fg = 'fg0' },
+			StatusLine = { bg = 'NONE', fg = 'fg0' },
 			StatuslineActive = { fg = 'palette.red', bg = 'NONE' },
 			StatuslineDim = { fg = 'palette.blue', bg = 'NONE' },
 			StatuslineHighlight = { fg = 'palette.yellow', bg = 'NONE' },
