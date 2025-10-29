@@ -282,6 +282,7 @@ bind('n', '<leader>Z', function() Snacks.zen.zoom() end, { desc = 'Toggle Zoom' 
 
 -- Notification history
 bind('n', '<leader>n', function() Snacks.notifier.show_history() end, { desc = 'Show Notification History' })
+bind('n', '<leader>N', function() Snacks.picker.notifications() end, { desc = 'Show Notifications' })
 bind('n', '<leader>m', function()
 	local messages = vim.api.nvim_exec2('messages', { output = true })
 

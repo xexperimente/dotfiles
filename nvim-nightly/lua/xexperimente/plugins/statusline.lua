@@ -24,7 +24,14 @@ require('witch-line').setup({
 			timing = true,
 			padding = 0,
 			update = function()
-				if vim.b.minidiff_summary == nil then return '' end
+				if
+					vim.b.minidiff_summary == nil
+					or vim.b.minidiff_summary.add == nil
+					or vim.b.minidiff_summary.change == nil
+					or vim.b.minidiff_summary.delete == nil
+				then
+					return ''
+				end
 
 				local s = vim.b.minidiff_summary
 				local show = s.add + s.change + s.delete
@@ -32,9 +39,42 @@ require('witch-line').setup({
 				return show > 0 and '|' or ''
 			end,
 		},
-		'git.diff.added',
-		'git.diff.modified',
-		'git.diff.removed',
+		-- {
+		-- 	id = 'tst.changes',
+		-- 	timing = true,
+		-- 	style = {},
+		-- 	update = function() return vim.b.minidiff_summary_string end,
+		-- },
+		{
+			id = 'tst.diff.add',
+			timing = true,
+			style = { fg = 'MiniDiffSignAdd' },
+			update = function()
+				if vim.b.minidiff_summary == nil or vim.b.minidiff_summary.add == nil then return '' end
+				return ' ' .. vim.b.minidiff_summary.add
+			end,
+		},
+		{
+			id = 'tst.diff.change',
+			timing = true,
+			style = { fg = 'MiniDiffSignChange' },
+			update = function()
+				if vim.b.minidiff_summary == nil or vim.b.minidiff_summary.change == nil then return '' end
+				return ' ' .. vim.b.minidiff_summary.change
+			end,
+		},
+		{
+			id = 'tst.diff.delete',
+			timing = true,
+			style = { fg = 'MiniDiffSignDelete' },
+			update = function()
+				if vim.b.minidiff_summary == nil or vim.b.minidiff_summary.delete == nil then return '' end
+				return ' ' .. vim.b.minidiff_summary.delete
+			end,
+		},
+		-- 'git.diff.added',
+		-- 'git.diff.modified',
+		-- 'git.diff.removed',
 		{
 			id = 'filename',
 			ref = {
