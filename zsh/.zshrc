@@ -3,10 +3,7 @@
 
 plug "$HOME/.config/zsh/aliases.zsh"
 plug "$HOME/.config/zsh/exports.zsh"
-
-# fnm
-export PATH="/home/xexperimente/.local/share/fnm:$PATH"
-eval "`fnm env`"
+plug "$HOME/.config/zsh/binds.zsh"
 
 # ZSH Auto suggest
 plug "zsh-users/zsh-autosuggestions"
@@ -23,12 +20,17 @@ plug "wintermi/zsh-starship"
 # Better ls
 plug "zap-zsh/exa"
 
-# Fast node manager
-plug "wintermi/zsh-fnm"
-
 # <Esc><Esc> to run previous command with sudo
 plug "zap-zsh/sudo"
+
+# A Zsh plugin that starts ssh-agent automatically
+plug "sdiebolt/zsh-ssh-agent"
+
+# Use system clipboard for ZLE operations
+plug "kutsan/zsh-system-clipboard"
 
 # Load and initialise completion system
 autoload -Uz compinit
 compinit
+
+eval "$(zoxide init zsh)"
