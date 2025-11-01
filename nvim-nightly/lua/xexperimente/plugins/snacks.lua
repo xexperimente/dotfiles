@@ -245,6 +245,7 @@ bind('n', '<leader>bd', function()
 	end
 end, { desc = 'Delete buffer' })
 
+-- bind('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = 'Delete buffer' })
 bind('n', '<leader>bD', function() Snacks.bufdelete.other() end, { desc = 'Delete other buffers' })
 
 -- Pickers
@@ -280,9 +281,16 @@ bind('n', '<c-t>', function() Snacks.terminal.toggle() end, { desc = 'Toggle ter
 bind('n', '<leader>z', function() Snacks.zen() end, { desc = 'Toggle Zen Mode' })
 bind('n', '<leader>Z', function() Snacks.zen.zoom() end, { desc = 'Toggle Zoom' })
 
+-- Github
+bind('n', '<leader>gi', function() Snacks.picker.gh_issue() end, { desc = 'GitHub Issues (open)' })
+bind('n', '<leader>gI', function() Snacks.picker.gh_issue({ state = 'all' }) end, { desc = 'GitHub Issues (all)' })
+bind('n', '<leader>gp', function() Snacks.picker.gh_pr() end, { desc = 'GitHub Pull Requests (open)' })
+bind('n', '<leader>gP', function() Snacks.picker.gh_pr({ state = 'all' }) end, { desc = 'GitHub Pull Requests (all)' })
+
 -- Notification history
 bind('n', '<leader>n', function() Snacks.notifier.show_history() end, { desc = 'Show Notification History' })
 bind('n', '<leader>N', function() Snacks.picker.notifications() end, { desc = 'Show Notifications' })
+
 bind('n', '<leader>m', function()
 	local messages = vim.api.nvim_exec2('messages', { output = true })
 
