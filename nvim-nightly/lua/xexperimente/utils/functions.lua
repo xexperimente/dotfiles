@@ -100,13 +100,29 @@ end
 function M.show_plugins()
 	local items = {}
 
-	for idx, plugin in ipairs(vim.pack.get()) do
+	items[#items + 1] = {
+		name = 'Update',
+		active = false,
+		icon = '󰚰',
+		text = 'Update all plugins',
+		rev = '',
+		action = function() vim.pack.update() end,
+	}
+
+	items[#items + 1] = {
+		name = 'Update',
+		active = false,
+		icon = '󰚰',
+		text = 'Update all plugins( force )',
+		rev = '',
+		action = function() vim.pack.update({}, { force = true }) end,
+	}
+	for _, plugin in ipairs(vim.pack.get()) do
 		local item = {
-			idx = idx,
 			name = plugin.spec.name,
 			active = plugin.active,
 			icon = plugin.active and '' or '',
-			text = ' ' .. plugin.spec.name,
+			text = plugin.spec.name,
 			rev = (plugin.rev == nil) and '' or plugin.rev,
 			action = function() dd(plugin) end,
 		}
@@ -118,14 +134,26 @@ function M.show_plugins()
 		layout = {
 			preset = 'select',
 			preview = false,
-			width = 0.5,
+			width = 0.4,
+		},
+		win = {
+			input = { keys = { ['d'] = 'pack_delete' } },
+			list = { keys = { ['d'] = 'pack_delete' } },
+		},
+		-- focus = 'list',
+		actions = {
+			pack_delete = function(picker, item, action)
+				if item.name == 'Update' then return end
+				vim.notify('vim.pack.del: ' .. item.name)
+				vim.pack.del({ item.name })
+			end,
 		},
 		items = items,
 		format = function(item, _)
 			local a = Snacks.picker.util.align
 			local ret = {} -- -@type snacks.picker.Highlight[]
 
-			ret[#ret + 1] = { item.icon, item.active and 'SnacksPickerIdx' or 'Comment' }
+			ret[#ret + 1] = { a(item.icon, 2), 'Comment' }
 			ret[#ret + 1] = { a(item.text, 40), item.text_hl }
 			ret[#ret + 1] = { ' ' }
 
