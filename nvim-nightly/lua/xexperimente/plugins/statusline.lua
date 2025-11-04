@@ -39,12 +39,6 @@ require('witch-line').setup({
 				return show > 0 and '|' or ''
 			end,
 		},
-		-- {
-		-- 	id = 'tst.changes',
-		-- 	timing = true,
-		-- 	style = {},
-		-- 	update = function() return vim.b.minidiff_summary_string end,
-		-- },
 		{
 			id = 'tst.diff.add',
 			timing = true,
