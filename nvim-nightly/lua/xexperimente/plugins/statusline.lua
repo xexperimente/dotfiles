@@ -1,6 +1,6 @@
 vim.pack.add({ 'https://github.com/sontungexpt/witch-line' })
 
-local function check_diff(value)
+function check_diff(value)
 	if vim.b.minidiff_summary == nil or vim.b.minidiff_summary[value] == nil then return false end
 	return true
 end
