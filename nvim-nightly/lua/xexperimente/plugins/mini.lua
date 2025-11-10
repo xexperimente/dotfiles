@@ -58,18 +58,3 @@ require('mini.hipatterns').setup(opts.patterns)
 
 bind('n', '<leader>uj', '<cmd>lua MiniSplitjoin.toggle()<cr>', { desc = 'Toggle splitjoin' })
 bind('n', '<leader>gc', '<cmd>lua MiniDiff.toggle_overlay()<cr>', { desc = 'Show diff overlay' })
-
--- Setup Diff summary string
-local format_summary = function(data)
-	local summary = vim.b[data.buf].minidiff_summary
-
-	if summary == nil then return end
-
-	local t = {}
-	if summary.add > 0 then table.insert(t, ' ' .. summary.add) end
-	if summary.change > 0 then table.insert(t, ' ' .. summary.change) end -- 
-	if summary.delete > 0 then table.insert(t, ' ' .. summary.delete) end
-	vim.b[data.buf].minidiff_summary_string = table.concat(t, ' ')
-end
-
-vim.api.nvim_create_autocmd('User', { pattern = 'MiniDiffUpdated', callback = format_summary })

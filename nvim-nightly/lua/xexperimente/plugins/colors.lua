@@ -63,6 +63,9 @@ require('rose-pine').setup({
 		PmenuSel = { bg = 'highlight_med', fg = 'NONE' },
 		Pmenu = { fg = 'overlay', bg = 'base' },
 
+		MatchParen = { bg = 'highlight_med' },
+		LspReferenceText = { bg = 'rose', blend = 15 },
+
 		-- vimdoc
 		['@markup.link.vimdoc'] = { bg = 'gold', fg = 'base' },
 		['@markup.heading.1.vimdoc'] = { bg = 'none', fg = 'love' },
