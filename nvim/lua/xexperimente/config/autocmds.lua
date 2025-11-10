@@ -143,3 +143,11 @@ autocmd('FileType', {
 -- 		vim.api.nvim_echo({ { vim.fn.expand('%:p'), 'Normal' } }, false, {})
 -- 	end,
 -- })
+
+vim.api.nvim_create_user_command('Term', function()
+	local buf = vim.api.nvim_get_current_buf()
+	local b = vim.api.nvim_create_buf(false, true)
+	local chan = vim.api.nvim_open_term(b, {})
+	vim.api.nvim_chan_send(chan, table.concat(vim.api.nvim_buf_get_lines(buf, 0, -1, false), '\n'))
+	vim.api.nvim_win_set_buf(0, b)
+end, {})
