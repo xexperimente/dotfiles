@@ -22,9 +22,7 @@ return {
 			},
 			workspace = {
 				library = vim.tbl_extend('force', vim.api.nvim_get_runtime_file('', true), {
-					-- vim.env.VIMRUNTIME,
 					vim.fn.stdpath('data') .. '/site/pack/core/opt/',
-					vim.env.HOME .. '/AppData/Local/nvim-data/mason/packages/lua-language-server/meta/3rd/luv',
 				}),
 			},
 		},
