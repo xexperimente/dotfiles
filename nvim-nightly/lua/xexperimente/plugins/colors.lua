@@ -18,9 +18,9 @@ require('rose-pine').setup({
 		Directory = { fg = 'rose', bg = 'none' },
 		DiffDelete = { fg = 'overlay', bg = 'base' },
 
-		StatuslineActive = { fg = 'rose', bg = 'none' },
-		StatuslineDim = { fg = 'muted', bg = 'none' },
-		StatuslineHighlight = { fg = 'gold', bg = 'none' },
+		StatusLineActive = { fg = 'rose', bg = 'none' },
+		StatusLineDim = { fg = 'muted', bg = 'none' },
+		StatusLineHighlight = { fg = 'gold', bg = 'none' },
 
 		-- Floats
 		FloatBorder = { fg = 'overlay', bg = 'surface' },
