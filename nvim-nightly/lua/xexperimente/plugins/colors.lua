@@ -46,6 +46,7 @@ require('rose-pine').setup({
 		-- Snacks.nvim
 		SnacksNotifierHistory = { bg = 'surface' },
 		SnacksPickerTitle = { link = 'MiniPickBorderText' },
+		SnacksPickerDirectory = { fg = 'rose' },
 		SnacksScratchKey = { bg = 'rose', fg = 'surface' },
 		SnacksScratchDesc = { link = 'SnacksPickerTitle' },
 		SnacksDashboardIcon = { fg = 'iris' },

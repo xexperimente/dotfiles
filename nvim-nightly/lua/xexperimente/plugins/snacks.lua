@@ -50,7 +50,7 @@ require('snacks').setup({
 			border = 'single',
 			keys = {
 				term_hide = {
-					'<c-t>',
+					'<C-t>',
 					function(self) self:hide() end,
 					mode = 't',
 					expr = true,
@@ -89,6 +89,7 @@ require('snacks').setup({
 			explorer = {
 				tree = true,
 				auto_close = true,
+				git_status = false,
 				layout = { preset = 'vertical', preview = false, layout = { backdrop = 60 } },
 			},
 			icons = {
@@ -118,11 +119,11 @@ require('snacks').setup({
 		preset = {
 			header = require('xexperimente.utils.dashboard'),
 			keys = {
-				{ icon = ' ', key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
-				{ icon = ' ', key = 'r', desc = 'Recent Projects', action = ":lua Snacks.dashboard.pick('projects')" },
-				{ icon = ' ', key = 'c', desc = 'Config', action = function() fn.open_config() end },
-				{ icon = ' ', key = 'p', desc = 'Update plugins', action = ':lua vim.pack.update()' },
-				{ icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
+				{ key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
+				{ key = 'r', desc = 'Recent Projects', action = ":lua Snacks.dashboard.pick('projects')" },
+				{ key = 'c', desc = 'Config', action = function() fn.open_config() end },
+				{ key = 'p', desc = 'Update plugins', action = ':lua vim.pack.update()' },
+				{ key = 'q', desc = 'Quit', action = ':qa' },
 			},
 		},
 		sections = {
