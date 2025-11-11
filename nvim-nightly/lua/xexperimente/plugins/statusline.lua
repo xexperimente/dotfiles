@@ -12,31 +12,32 @@ require('witch-line').setup({
 			timing = true,
 			style = function() return { fg = 'StatusLineActive' } end,
 		},
-		'|',
 		{
 			[0] = 'git.branch',
+			left = '|',
 			style = function() return { fg = 'StatusLineActive' } end,
 		},
-		{
-			id = 'tst.separator',
-			events = 'User MiniDiffUpdated',
-			padding = 0,
-			style = { fg = 'StatusLine' },
-			update = function()
-				if vim.b.minidiff_summary == nil then return '' end
-
-				local fields = { 'add', 'change', 'delete' }
-				local count = 0
-				for _, field in ipairs(fields) do
-					count = count + vim.b.minidiff_summary[field]
-				end
-				return count > 0 and '|' or ''
-			end,
-		},
+		-- {
+		-- 	id = 'tst.separator.diff',
+		-- 	events = 'User MiniDiffUpdated',
+		-- 	padding = 0,
+		-- 	style = { fg = 'StatusLine' },
+		-- 	update = function()
+		-- 		if vim.b.minidiff_summary == nil then return '' end
+		--
+		-- 		local fields = { 'add', 'change', 'delete' }
+		-- 		local count = 0
+		-- 		for _, field in ipairs(fields) do
+		-- 			count = count + vim.b.minidiff_summary[field]
+		-- 		end
+		-- 		return count > 0 and '|' or ''
+		-- 	end,
+		-- },
 		{
 			id = 'tst.diff.add',
 			events = 'User MiniDiffUpdated',
 			style = { fg = 'MiniDiffSignAdd' },
+			left = '|',
 			update = function()
 				if not check_diff('add') then return '' end
 				return ' ' .. vim.b.minidiff_summary.add
