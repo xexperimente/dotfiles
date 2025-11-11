@@ -60,6 +60,8 @@ vim.opt.autoindent = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
+-- experimental
+-- vim.opt.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
 -- Folding
 vim.opt.foldcolumn = '1'

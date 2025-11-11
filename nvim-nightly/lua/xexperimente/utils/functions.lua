@@ -142,14 +142,14 @@ function M.show_plugins()
 		},
 		-- focus = 'list',
 		actions = {
-			pack_delete = function(picker, item, action)
+			pack_delete = function(_picker, item, _action)
 				if item.name == 'Update' then return end
 				vim.notify('vim.pack.del: ' .. item.name)
 				vim.pack.del({ item.name })
 			end,
 		},
 		items = items,
-		format = function(item, _)
+		format = function(item, _picker)
 			local a = Snacks.picker.util.align
 			local ret = {} -- -@type snacks.picker.Highlight[]
 

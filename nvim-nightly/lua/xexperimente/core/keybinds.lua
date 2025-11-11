@@ -26,12 +26,6 @@ bind('n', 'cN', '*``cgN', { desc = 'Change word (backward)' }) -- `:h gN`
 -- Redo
 bind('n', 'U', ':redo<cr>', { desc = 'Redo' })
 
--- Line move using 'Alt'
-bind('n', '<A-j>', ':m .+1<CR>==')
-bind('n', '<A-k>', ':m .-2<CR>==')
-bind('v', '<A-j>', ":m '>+1<CR>gv=gv")
-bind('v', '<A-k>', ":m '<-2<CR>gv=gv")
-
 -- Keep selection after indent
 bind('v', '>', '>gv', { noremap = true, desc = 'Increase selection indentation' })
 bind('v', '<', '<gv', { noremap = true, desc = 'Decrease selection indentation' })
