@@ -1,8 +1,8 @@
 vim.pack.add({ 'https://github.com/sontungexpt/witch-line' })
 
 function check_diff(value)
-	if vim.b.minidiff_summary == nil or vim.b.minidiff_summary[value] == nil then return false end
-	return true
+	if vim.b.minidiff_summary == nil or vim.b.minidiff_summary[value] == nil then return 0 end
+	return vim.b.minidiff_summary[value]
 end
 
 require('witch-line').setup({
@@ -17,56 +17,37 @@ require('witch-line').setup({
 			left = '|',
 			style = function() return { fg = 'StatusLineActive' } end,
 		},
-		-- {
-		-- 	id = 'tst.separator.diff',
-		-- 	events = 'User MiniDiffUpdated',
-		-- 	padding = 0,
-		-- 	style = { fg = 'StatusLine' },
-		-- 	update = function()
-		-- 		if vim.b.minidiff_summary == nil then return '' end
-		--
-		-- 		local fields = { 'add', 'change', 'delete' }
-		-- 		local count = 0
-		-- 		for _, field in ipairs(fields) do
-		-- 			count = count + vim.b.minidiff_summary[field]
-		-- 		end
-		-- 		return count > 0 and '|' or ''
-		-- 	end,
-		-- },
 		{
 			id = 'tst.diff.add',
-			events = 'User MiniDiffUpdated',
+			events = { 'User MiniDiffUpdated', 'BufEnter' },
 			style = { fg = 'MiniDiffSignAdd' },
 			left = '|',
-			update = function()
-				if not check_diff('add') then return '' end
-				return ' ' .. vim.b.minidiff_summary.add
-			end,
+			update = function() return check_diff('add') > 0 and ' ' .. vim.b.minidiff_summary.add or '' end,
 		},
 		{
 			id = 'tst.diff.change',
-			events = 'User MiniDiffUpdated',
+			events = { 'User MiniDiffUpdated', 'BufEnter' },
 			style = { fg = 'MiniDiffSignChange' },
-			update = function()
-				if not check_diff('change') then return '' end
-				return ' ' .. vim.b.minidiff_summary.change
+			update = function(self)
+				self.left = check_diff('add') == 0 and '|' or ''
+				return check_diff('change') > 0 and ' ' .. vim.b.minidiff_summary.change or ''
 			end,
 		},
 		{
 			id = 'tst.diff.delete',
-			events = 'User MiniDiffUpdated',
+			events = { 'User MiniDiffUpdated', 'BufEnter' },
 			style = { fg = 'MiniDiffSignDelete' },
-			update = function()
-				if not check_diff('delete') then return '' end
-				return ' ' .. vim.b.minidiff_summary.delete
+			update = function(self)
+				self.left = check_diff('change') == 0 and '|' or ''
+				return check_diff('delete') > 0 and ' ' .. vim.b.minidiff_summary.delete or ''
 			end,
 		},
-		'|',
 		{
 			id = 'filename',
 			ref = {
 				events = { 'file.name' },
 			},
+			left = '|',
 			style = { fg = 'StatusLineDim' },
 			update = function() return '%t' end,
 		},
@@ -75,16 +56,16 @@ require('witch-line').setup({
 		'diagnostic.warn',
 		'diagnostic.error',
 		'lsp.clients',
-		'|',
 		{
 			[0] = 'cursor.pos',
+			left = '|',
 			style = function() return { fg = 'StatusLineDim' } end,
 		},
-		'|',
 		{
 			id = 'tst.progress',
 			update = function(_, _) return '%p%%' end,
 			events = 'CursorMoved',
+			left = '|',
 			style = function() return { fg = 'StatusLineHighlight', bg = 'NONE' } end,
 		},
 	},
