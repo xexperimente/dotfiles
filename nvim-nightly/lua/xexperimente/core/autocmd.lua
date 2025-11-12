@@ -61,6 +61,7 @@ autocmd('LspProgress', {
 	end,
 })
 
+--- For rendering terminal escape codes
 vim.api.nvim_create_user_command('Term', function(_)
 	local buf = vim.api.nvim_get_current_buf()
 	local b = vim.api.nvim_create_buf(false, true)
@@ -68,3 +69,34 @@ vim.api.nvim_create_user_command('Term', function(_)
 	vim.api.nvim_chan_send(chan, table.concat(vim.api.nvim_buf_get_lines(buf, 0, -1, false), '\n'))
 	vim.api.nvim_win_set_buf(0, b)
 end, {})
+
+--- Run command after updating plugin
+local function PackChanged(event)
+	local after = event.data.spec.data and event.data.spec.data.after
+	if not after then return false end
+
+	local pkg_name = event.data.spec.name
+	local function wait()
+		package.loaded[pkg_name] = nil
+		local ok = pcall(require, pkg_name)
+
+		if ok then
+			if type(after) == 'string' then
+				vim.cmd(after)
+			elseif type(after) == 'function' then
+				after()
+			end
+		else
+			vim.defer_fn(wait, 50)
+		end
+	end
+
+	wait()
+
+	return false
+end
+
+autocmd('PackChanged', {
+	group = augroup('PackCommands', { clear = true }),
+	callback = PackChanged,
+})
