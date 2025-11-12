@@ -1,6 +1,5 @@
 vim.pack.add({
 	{ src = 'https://github.com/rose-pine/neovim', name = 'rose-pine' },
-	{ src = 'https://github.com/projekt0n/github-nvim-theme', name = 'github-theme' },
 })
 
 require('rose-pine').setup({
@@ -60,6 +59,10 @@ require('rose-pine').setup({
 		SnacksNotifierTitleInfo = { fg = 'iris', bg = 'none' },
 		SnacksInputTitle = { link = 'FloatTitle' },
 
+		-- TS Context
+		TreesitterContext = { bg = 'base' },
+		TreesitterContextLineNumber = { bg = 'base', fg = 'muted' },
+		TreesitterContextSeparator = { fg = 'overlay', bg = 'base' },
 		-- Menus
 		PmenuSel = { bg = 'highlight_med', fg = 'NONE' },
 		Pmenu = { fg = 'overlay', bg = 'base' },
@@ -74,65 +77,24 @@ require('rose-pine').setup({
 		['@property'] = { fg = 'iris', italic = false },
 		['@variable'] = { fg = 'iris', italic = false },
 		['@lsp.type.variable'] = { fg = 'text', italic = false },
-		['@lsp.type.property'] = { fg = 'iris', italic = false },
+		['@lsp.type.property'] = { fg = 'text', italic = false }, -- iris
 	},
 })
 
-require('github-theme').setup({
-	options = {
-		styles = {
-			comments = 'italic',
-		},
-		transparent = true,
-		hide_nc_statusline = true,
-	},
-	groups = {
-		all = {
-			-- Floats
-			FloatBorder = { fg = 'bg3', bg = 'NONE' },
-			FloatTitle = { fg = 'bg0', bg = 'palette.red' },
-			NormalFloat = { bg = 'NONE', fg = 'fg1' },
-
-			StatusLine = { bg = 'NONE', fg = 'fg0' },
-			StatuslineActive = { fg = 'palette.red', bg = 'NONE' },
-			StatuslineDim = { fg = 'palette.blue', bg = 'NONE' },
-			StatuslineHighlight = { fg = 'palette.yellow', bg = 'NONE' },
-
-			Keyword = { fg = 'palette.red' },
-
-			NoiceCmdlineIconCmdline = { fg = 'palette.red' },
-			NoiceCmdlineIconHelp = { fg = 'palette.red' },
-			NoiceCmdlineIcon = { fg = 'palette.red' },
-			NoiceCmdlinePrompt = { link = 'NormalFloat' },
-			NoiceCmdlinePopup = { bg = 'NONE', fg = 'fg1' },
-			NoiceCmdlinePopupBorder = { link = 'FloatBorder' },
-			NoiceCmdlinePopupTitle = { link = 'FloatTitle' },
-			NoiceCmdlinePopupBorderSearch = { link = 'FloatBorder' },
-			NoiceCmdlinePopupTitleCmdline = { link = 'FloatTitle' },
-			NoiceCmdlinePopupTitleSearch = { link = 'FloatTitle' },
-
-			-- Snacks.nvim
-			SnacksPickerTitle = { link = 'FloatTitle' },
-			SnacksScratchKey = { bg = 'palette.red', fg = 'bg0' },
-			SnacksScratchDesc = { link = 'SnacksPickerTitle' },
-			SnacksDashboardHeader = { fg = 'palette.red', bg = 'NONE' },
-			SnacksDashboardKey = { fg = 'palette.red', bg = 'NONE' },
-			SnacksNotifierBorderInfo = { fg = 'bg3', bg = 'NONE' },
-			SnacksInputTitle = { link = 'FloatTitle' },
-			SnacksInputIcon = { fg = 'palette.red' },
-
-			-- Menus
-			Pmenu = { fg = 'fg2', bg = 'NONE' },
-			PmenuSel = { link = 'Visual' },
-			PmenuThumb = { fg = 'NONE', bg = 'palette.blue' },
-			MiniIndentscopeSymbol = { fg = 'palette.yellow' },
-		},
-	},
-})
-
----@diagnostic disable-next-line: undefined-field
-if vim.opt.background:get() == 'light' then
-	vim.cmd('colorscheme rose-pine-dawn')
-else
-	vim.cmd('colorscheme github_dark')
+function set_theme(light)
+	if light then
+		vim.cmd('colorscheme rose-pine-dawn')
+	else
+		vim.cmd('colorscheme rose-pine-moon')
+	end
 end
+
+---@diagnostic disable:undefined-field
+set_theme(vim.opt.background:get() == 'light')
+
+vim.keymap.set(
+	'n',
+	'<leader>ub',
+	function() set_theme(vim.opt.background:get() == 'dark') end,
+	{ desc = 'Toggle background' }
+)

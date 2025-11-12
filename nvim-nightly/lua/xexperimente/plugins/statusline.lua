@@ -48,7 +48,7 @@ require('witch-line').setup({
 				events = { 'file.name' },
 			},
 			left = '|',
-			style = { fg = 'StatusLineDim' },
+			style = { fg = 'Normal' },
 			update = function() return '%t' end,
 		},
 		'%=',
@@ -57,9 +57,15 @@ require('witch-line').setup({
 		'diagnostic.error',
 		'lsp.clients',
 		{
+			[0] = 'search.count',
+			timing = 200,
+			style = function() return { link = 'IncSearch' } end,
+			left = '|',
+		},
+		{
 			[0] = 'cursor.pos',
 			left = '|',
-			style = function() return { fg = 'StatusLineDim' } end,
+			style = function() return { fg = 'Normal' } end,
 		},
 		{
 			id = 'tst.progress',

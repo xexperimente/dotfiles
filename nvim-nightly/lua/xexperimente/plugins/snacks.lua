@@ -212,7 +212,7 @@ bind('n', '<leader>sp', function() fn.show_plugins() end, { desc = 'Show plugins
 bind('n', '<leader>sq', function() Snacks.picker.qflist() end, { desc = 'Quickfix List' })
 bind('n', '<leader>sR', function() Snacks.picker.resume() end, { desc = 'Resume' })
 bind('n', '<leader>su', function() Snacks.picker.undo() end, { desc = 'Undo History' })
-bind('n', '<leader>uC', function() Snacks.picker.colorschemes() end, { desc = 'Colorschemes' })
+bind('n', '<leader>st', function() Snacks.picker.colorschemes() end, { desc = 'Themes' })
 
 -- LSP
 bind('n', 'gd', function() Snacks.picker.lsp_definitions() end, { desc = 'Goto Definition' })
