@@ -48,7 +48,7 @@ require('witch-line').setup({
 				events = { 'file.name' },
 			},
 			left = '|',
-			style = { fg = 'Normal' },
+			style = { fg = 'StatusLineDim' },
 			update = function() return '%t' end,
 		},
 		'%=',
@@ -65,7 +65,7 @@ require('witch-line').setup({
 		{
 			[0] = 'cursor.pos',
 			left = '|',
-			style = function() return { fg = 'Normal' } end,
+			style = function() return { fg = 'StatusLineDim' } end,
 		},
 		{
 			id = 'tst.progress',

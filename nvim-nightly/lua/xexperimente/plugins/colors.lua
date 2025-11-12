@@ -18,7 +18,7 @@ require('rose-pine').setup({
 		DiffDelete = { fg = 'overlay', bg = 'base' },
 
 		StatusLineActive = { fg = 'rose', bg = 'none' },
-		StatusLineDim = { fg = 'muted', bg = 'none' },
+		StatusLineDim = { fg = 'subtle', bg = 'none' },
 		StatusLineHighlight = { fg = 'gold', bg = 'none' },
 
 		-- Floats
