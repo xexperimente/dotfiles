@@ -90,11 +90,8 @@ function set_theme(light)
 end
 
 ---@diagnostic disable:undefined-field
-set_theme(vim.opt.background:get() == 'light')
+local dark = function() return vim.opt.background:get() == 'dark' end
 
-vim.keymap.set(
-	'n',
-	'<leader>ub',
-	function() set_theme(vim.opt.background:get() == 'dark') end,
-	{ desc = 'Toggle background' }
-)
+set_theme(not dark())
+
+vim.keymap.set('n', '<leader>ub', function() set_theme(dark()) end, { desc = 'Toggle background' })
