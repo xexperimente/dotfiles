@@ -1,4 +1,3 @@
----@d iagnostic disable:undefined-field
 vim.pack.add({ 'https://github.com/folke/flash.nvim' })
 
 local opts = {
@@ -35,8 +34,8 @@ require('flash').setup(opts)
 
 local bind = vim.keymap.set
 
-bind({ 'n', 'x', 'o' }, 's', function() require('flash').jump() end, {})
-bind({ 'o', 'x' }, 'S', function() require('flash').treesitter() end, {})
+bind({ 'n', 'x', 'o' }, 's', function() require('flash').jump() end, { desc = 'Flash' })
+bind({ 'o', 'x' }, 'S', function() require('flash').treesitter() end, { desc = 'Flash treesitter' })
 bind(
 	{ 'n', 'x', 'o' },
 	'<c-right>',
