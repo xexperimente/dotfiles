@@ -19,7 +19,8 @@ local opts = {
 		},
 	},
 	label = {
-		rainbow = { enabled = true },
+		rainbow = { enabled = false },
+		style = 'eol',
 		format = function(args)
 			return {
 				{ ' ', args.hl_group },
