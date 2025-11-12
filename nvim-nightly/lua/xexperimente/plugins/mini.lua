@@ -16,18 +16,7 @@ local opts = {
 		},
 	},
 	surround = { mappings = { update_n_lines = nil } },
-	diff = {
-		view = { style = 'sign', signs = { add = '┃', change = '┃', delete = '┃' } },
-	},
-	indentscope = {
-		draw = {
-			animation = require('mini.indentscope').gen_animation.quadratic({
-				easing = 'out',
-				duration = 50,
-				unit = 'total',
-			}),
-		},
-	},
+	diff = { view = { style = 'sign', signs = { add = '┃', change = '┃', delete = '┃' } } },
 	move = {
 		mappings = {
 			left = '<M-left>',
@@ -50,7 +39,6 @@ require('mini.ai').setup()
 require('mini.diff').setup(opts.diff)
 require('mini.git').setup()
 require('mini.icons').setup()
-require('mini.indentscope').setup(opts.indentscope)
 require('mini.move').setup(opts.move)
 require('mini.splitjoin').setup()
 require('mini.surround').setup(opts.surround)

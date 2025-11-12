@@ -3,6 +3,7 @@ vim.pack.add({
 		src = 'https://github.com/saghen/blink.cmp',
 		version = vim.version.range('1.*'),
 	},
+	'https://github.com/saghen/blink.indent',
 })
 
 require('blink.cmp').setup({
@@ -67,3 +68,8 @@ require('blink.cmp').setup({
 		},
 	},
 })
+
+local bind = vim.keymap.set
+local indent = require('blink.indent')
+
+bind('n', '<leader>ui', function() indent.enable(not indent.is_enabled()) end, { desc = 'Toggle indent guides' })
