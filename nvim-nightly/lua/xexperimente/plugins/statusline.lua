@@ -43,12 +43,9 @@ require('witch-line').setup({
 			end,
 		},
 		{
-			id = 'filename',
-			ref = {
-				events = { 'file.name' },
-			},
+			[0] = 'file.name',
 			left = '|',
-			style = { fg = 'StatusLineDim' },
+			style = function() return { fg = 'StatusLineDim' } end,
 			update = function() return '%t' end,
 		},
 		'%=',
