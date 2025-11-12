@@ -70,7 +70,7 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-vim.opt.foldtext = 'v:lua.require("xexperimente.utils.foldtext").custom_foldtext()' --'v:lua.vim.lsp.foldtext()'
+vim.opt.foldtext = ''
 
 -- Misc
 vim.opt.swapfile = false
