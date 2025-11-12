@@ -25,21 +25,22 @@ vim.api.nvim_create_user_command('LspLog', function() vim.cmd.tabnew(vim.lsp.log
 
 local autocmd = vim.api.nvim_create_autocmd
 local bind = vim.keymap.set
+local augroup = vim.api.nvim_create_augroup('LspCommands', {})
 
 -- Disable LSP in diff mode
 autocmd('BufEnter', {
-	group = vim.api.nvim_create_augroup('LspCommands', {}),
+	group = augroup,
 	callback = function(_) vim.diagnostic.enable(not vim.opt.diff:get()) end,
 })
 
 autocmd('LspAttach', {
-	group = vim.api.nvim_create_augroup('LspCommands', {}),
+	group = augroup,
 	callback = function(event)
 		local id = vim.tbl_get(event, 'data', 'client_id')
 		local client = id and vim.lsp.get_client_by_id(id)
 		if client == nil then return end
 
-		if client:supports_method(vim.lsp.protocol.Methods.textDocument_diagnostics) then vim.cmd('redrawstatus') end
+		-- if client:supports_method(vim.lsp.protocol.Methods.textDocument_diagnostics) then vim.cmd('redrawstatus') end
 		if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion) then
 			vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
 			vim.lsp.inline_completion()
@@ -63,8 +64,5 @@ autocmd('LspAttach', {
 		bind('v', '<f4>', function() vim.lsp.buf.code_action() end, { desc = 'Code Action' })
 		bind('n', '<f12>', function() Snacks.picker.lsp_definitions() end, { desc = 'Go to definition' })
 		bind('n', '<leader>lf', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-
-		bind('n', '<leader>ls', function() Snacks.picker.lsp_symbols() end, { desc = 'LSP Symbols' })
-		bind('n', '<leader>lS', function() Snacks.picker.lsp_workspace_symbols() end, { desc = 'LSP Workspace Symbols' })
 	end,
 })
