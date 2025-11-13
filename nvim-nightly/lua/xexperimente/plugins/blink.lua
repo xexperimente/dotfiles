@@ -1,9 +1,11 @@
 vim.pack.add({
-	{ src = 'https://github.com/saghen/blink.cmp', version = '1.*' },
+	{ src = 'https://github.com/saghen/blink.cmp', version = 'v1.7.0' },
 	{ src = 'https://github.com/saghen/blink.indent' },
 }, { load = function() end })
 
-vim.api.nvim_create_autocmd('User', {
+local autocmd = vim.api.nvim_create_autocmd
+
+autocmd('User', {
 	once = true,
 	pattern = 'PackLazy',
 	callback = function()
@@ -12,6 +14,7 @@ vim.api.nvim_create_autocmd('User', {
 		require('blink.cmp').setup({
 			fuzzy = {
 				implementation = 'prefer_rust',
+				prebuilt_binaries = { force_version = 'v1.7.0' },
 			},
 			keymap = {
 				preset = 'super-tab',
@@ -74,10 +77,11 @@ vim.api.nvim_create_autocmd('User', {
 		})
 	end,
 })
-vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+
+autocmd({ 'BufEnter' }, {
 	once = true,
 	callback = function()
-		vim.cmd(':packadd blink.indent')
+		vim.cmd('packadd blink.indent')
 
 		local bind = vim.keymap.set
 		local indent = require('blink.indent')
