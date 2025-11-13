@@ -35,12 +35,20 @@ autocmd('UIEnter', {
 	command = 'let @/=""',
 })
 
+-- Fire PackLazy event to lazy load some plugins
+autocmd('UIEnter', {
+	callback = function(_data)
+		vim.defer_fn(function() vim.api.nvim_exec_autocmds('User', { pattern = 'PackLazy' }) end, 15)
+	end,
+})
+
 -- Disable indentscope in dashboard
 autocmd('User', {
 	pattern = { 'SnacksDashboardOpened', 'SnacksDashboardUpdatePost' },
 	callback = function(data)
 		vim.b[data.buf].miniindentscope_disable = true
 		vim.b[data.buf].ministatusline_disable = true
+
 		vim.defer_fn(function() vim.opt.laststatus = 0 end, 15)
 	end,
 })
