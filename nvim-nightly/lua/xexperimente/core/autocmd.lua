@@ -37,10 +37,11 @@ autocmd('UIEnter', {
 
 -- Disable indentscope in dashboard
 autocmd('User', {
-	pattern = 'SnacksDashboardOpened',
+	pattern = { 'SnacksDashboardOpened', 'SnacksDashboardUpdatePost' },
 	callback = function(data)
 		vim.b[data.buf].miniindentscope_disable = true
 		vim.b[data.buf].ministatusline_disable = true
+		vim.defer_fn(function() vim.opt.laststatus = 0 end, 15)
 	end,
 })
 

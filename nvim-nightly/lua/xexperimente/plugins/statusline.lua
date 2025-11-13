@@ -6,6 +6,7 @@ function check_diff(value)
 end
 
 require('witch-line').setup({
+	cache_cleared_notification = false,
 	components = {
 		{
 			[0] = 'mode',
@@ -48,6 +49,11 @@ require('witch-line').setup({
 			style = function() return { fg = 'StatusLineDim' } end,
 			update = function() return '%t' end,
 		},
+		{
+			[0] = 'file.modifier',
+			padding = 0,
+			style = function() return { fg = 'StatusLineDim' } end,
+		},
 		'%=',
 		'diagnostic.info',
 		'diagnostic.warn',
@@ -71,5 +77,9 @@ require('witch-line').setup({
 			left = '|',
 			style = function() return { fg = 'StatusLineHighlight', bg = 'NONE' } end,
 		},
+	},
+	disabled = {
+		-- filetypes = { 'snacks_dashboard' },
+		-- buftypes = { 'nofile' },
 	},
 })
