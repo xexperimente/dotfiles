@@ -119,17 +119,17 @@ require('snacks').setup({
 		preset = {
 			header = require('xexperimente.utils.dashboard'),
 			keys = {
-				{ key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
-				{ key = 'r', desc = 'Recent Projects', action = ":lua Snacks.dashboard.pick('projects')" },
-				{ key = 'c', desc = 'Config', action = function() fn.open_config() end },
-				{ key = 'p', desc = 'Update plugins', action = ':lua vim.pack.update()' },
-				{ key = 'q', desc = 'Quit', action = ':qa' },
+				{ key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')", icon = '' },
+				{ key = 'r', desc = 'Recent Projects', action = ":lua Snacks.dashboard.pick('projects')", icon = '' },
+				{ key = 'c', desc = 'Config', action = function() fn.open_config() end, icon = '' },
+				{ key = 'p', desc = 'Update plugins', action = ':lua vim.pack.update()', icon = '' },
+				{ key = 'q', desc = 'Quit', action = ':qa', icon = '' },
 			},
 		},
 		sections = {
 			{ section = 'header' },
 			{ section = 'recent_files', padding = 1 },
-			{ section = 'keys', gap = 0, padding = 1 },
+			{ section = 'keys', gap = 0 },
 		},
 		formats = {
 			icon = function(_) return '' end,
