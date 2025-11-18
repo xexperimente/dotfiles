@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd('User', {
 			statusline = {
 				cache = {
 					notification = false,
-					-- func_strip = true,
+					func_strip = true,
 				},
 				global = {
 					{
@@ -88,11 +88,12 @@ vim.api.nvim_create_autocmd('User', {
 						style = function() return { fg = 'StatusLineHighlight', bg = 'NONE' } end,
 					},
 				},
-				win = function(_winid) return {} end,
+				-- @type fun(winid): CombinedComponent[]|nil
+				win = nil,
 			},
 			disabled = {
 				filetypes = { 'snacks_dashboard' },
-				-- 	-- buftypes = { 'nofile' },
+				-- buftypes = { 'nofile' },
 			},
 		})
 	end,
