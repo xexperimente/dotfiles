@@ -1,5 +1,5 @@
 vim.pack.add({
-	{ src = 'https://github.com/saghen/blink.cmp', version = 'v1.7.0' },
+	{ src = 'https://github.com/saghen/blink.cmp', version = 'v1.8.0' },
 	{ src = 'https://github.com/saghen/blink.indent' },
 }, { load = function() end })
 
@@ -14,7 +14,7 @@ autocmd('User', {
 		require('blink.cmp').setup({
 			fuzzy = {
 				implementation = 'prefer_rust',
-				prebuilt_binaries = { force_version = 'v1.7.0' },
+				prebuilt_binaries = { force_version = 'v1.8.0' },
 			},
 			keymap = {
 				preset = 'super-tab',
