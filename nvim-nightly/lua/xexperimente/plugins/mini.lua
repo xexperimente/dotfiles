@@ -17,6 +17,10 @@ local opts = {
 	},
 	surround = { mappings = { update_n_lines = nil } },
 	diff = { view = { style = 'sign', signs = { add = '┃', change = '┃', delete = '┃' } } },
+	indentscope = {
+		draw = { animation = require('mini.indentscope').gen_animation.none() },
+		symbol = '▎',
+	},
 	move = {
 		mappings = {
 			left = '<M-left>',
@@ -40,6 +44,7 @@ require('mini.diff').setup(opts.diff)
 require('mini.git').setup()
 require('mini.icons').setup()
 require('mini.move').setup(opts.move)
+require('mini.indentscope').setup(opts.indentscope)
 require('mini.splitjoin').setup()
 require('mini.surround').setup(opts.surround)
 require('mini.hipatterns').setup(opts.patterns)

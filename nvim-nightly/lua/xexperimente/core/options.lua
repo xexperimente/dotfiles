@@ -38,7 +38,7 @@ vim.opt.clipboard = 'unnamedplus'
 vim.opt.list = true
 
 vim.opt.listchars = {
-	tab = '——▸',
+	tab = '→ ', -- '——▸',
 	nbsp = '⎵',
 	space = '·',
 }
@@ -57,6 +57,7 @@ vim.opt.diffopt:append('inline:char')
 -- Indentation & tabs
 vim.opt.smartindent = true
 vim.opt.autoindent = true
+vim.opt.expandtab = false
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -96,8 +97,7 @@ end
 if vim.fn.executable('nu') == 1 then
 	vim.opt.shell = 'nu'
 	vim.opt.shellcmdflag = '--login --stdin --no-newline -c'
-	vim.opt.shellpipe =
-		'| complete | update stderr { ansi strip } | tee { get stderr | save --force --raw %s } | into record'
+	vim.opt.shellpipe = '|complete|update stderr {ansi strip}|tee {get stderr|save --force --raw %s}|into record'
 	vim.opt.shellredir = 'out+err> %s'
 	vim.opt.shelltemp = false
 	vim.opt.shellxescape = ''
