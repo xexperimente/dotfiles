@@ -3,16 +3,15 @@ vim.pack.add({
 })
 
 local opts = {
-	-- What formatters to use
 	formatters_by_ft = {
 		lua = { 'stylua' },
 	},
-	-- Setup format on save autocmd
 	format_on_save = {
 		timeout_ms = 700,
-		lsp_fallback = true,
+		lsp_format = 'fallback',
 	},
-	notify_on_error = false,
+	notify_on_error = true,
+	log_level = vim.log.levels.DEBUG,
 }
 
 require('conform').setup(opts)
@@ -28,5 +27,5 @@ usercmd('Format', function(input)
 		if err ~= nil then vim.notify(err, vim.log.levels.ERROR, { title = 'Conform' }) end
 	end
 
-	require('conform').format({ lsp_fallback = true, async = input.bang, timeout_ms = 700 }, error)
+	require('conform').format({ async = input.bang, timeout_ms = 700 }, error)
 end, { bang = true, range = true })
