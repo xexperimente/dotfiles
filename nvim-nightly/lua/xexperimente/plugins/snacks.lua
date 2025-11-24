@@ -3,23 +3,6 @@ vim.pack.add({ 'https://github.com/folke/snacks.nvim' })
 local fn = require('xexperimente.utils.functions')
 
 require('snacks').setup({
-	styles = {
-		notification_history = {
-			border = 'single',
-			width = 0.8,
-			keys = { ['<Esc>'] = 'close' },
-		},
-		scratch = {
-			border = 'single',
-			keys = { ['<Esc>'] = 'close' },
-			wo = { winhighlight = 'NormalFloat:NormalFloat' },
-		},
-		input = {
-			row = 36,
-			wo = { winhighlight = 'FloatBorder:FloatBorder' },
-			border = 'rounded',
-		},
-	},
 	bigfile = { enabled = true },
 	quickfile = { enabled = true },
 	input = { enabled = true },
@@ -29,6 +12,7 @@ require('snacks').setup({
 	words = { enabled = true },
 	scope = { enabled = true },
 	scroll = { enabled = true },
+	scratch = { icon = '󰄶' },
 	statuscolumn = {
 		left = { 'mark', 'sign' },
 		right = { 'fold', 'git' },
@@ -41,9 +25,6 @@ require('snacks').setup({
 			patterns = { 'GitSign', 'MiniDiffSign' },
 		},
 		refresh = 50, -- refresh at most every 50ms
-	},
-	scratch = {
-		icon = '󰄶', -- '',
 	},
 	terminal = {
 		win = {
@@ -94,9 +75,14 @@ require('snacks').setup({
 				git_status = false,
 				layout = { preset = 'vertical', preview = false, layout = { backdrop = 60 } },
 			},
-			icons = {
-				layout = 'select',
-			},
+			icons = { layout = 'select' },
+			pickers = { preview = false, layout = 'select' },
+			git_status = { preview = false, layout = 'select' },
+			search_history = { preview = false, layout = 'select' },
+			help = { preview = false, layout = 'select' },
+			keymaps = { layout = { preview = false } },
+			qflist = { layout = 'vertical' },
+			loclist = { layout = 'vertical' },
 			recent = {
 				layout = 'select',
 				filter = {
@@ -107,13 +93,6 @@ require('snacks').setup({
 					},
 				},
 			},
-			pickers = { preview = false, layout = 'select' },
-			git_status = { preview = false, layout = 'select' },
-			search_history = { preview = false, layout = 'select' },
-			help = { preview = false, layout = 'select' },
-			keymaps = { layout = { preview = false } },
-			qflist = { layout = 'vertical' },
-			loclist = { layout = 'vertical' },
 		},
 	},
 	dashboard = {
@@ -136,6 +115,23 @@ require('snacks').setup({
 		formats = {
 			icon = function(_) return '' end,
 			file = fn.dashboard_file_format,
+		},
+	},
+	styles = {
+		notification_history = {
+			border = 'single',
+			width = 0.8,
+			keys = { ['<Esc>'] = 'close' },
+		},
+		scratch = {
+			border = 'single',
+			keys = { ['<Esc>'] = 'close' },
+			wo = { winhighlight = 'NormalFloat:NormalFloat' },
+		},
+		input = {
+			row = 36,
+			wo = { winhighlight = 'FloatBorder:FloatBorder' },
+			border = 'rounded',
 		},
 	},
 })
@@ -162,7 +158,6 @@ bind('n', '<leader>N', function() Snacks.notifier.show_history() end, { desc = '
 bind('n', '<leader>e', function() Snacks.explorer() end, { desc = 'File Explorer' })
 bind('n', '<leader>.', function() Snacks.scratch() end, { desc = 'Toggle Scratch Buffer' })
 bind('n', '<leader>;', function() Snacks.scratch.select() end, { desc = 'Select Scratch Buffer' })
--- bind('n', '<leader><space>', function() Snacks.picker.smart() end, { desc = 'Smart Find Files' })
 
 -- find
 bind('n', '<leader>fb', function() Snacks.picker.buffers() end, { desc = 'Buffers' })
