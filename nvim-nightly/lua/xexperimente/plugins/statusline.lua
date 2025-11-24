@@ -1,4 +1,4 @@
-vim.pack.add({ 'https://github.com/sontungexpt/witch-line' }, { load = function() end })
+vim.pack.add({ 'https://github.com/sontungexpt/witch-line' })
 
 function check_diff(value)
 	if vim.b.minidiff_summary == nil or vim.b.minidiff_summary[value] == nil then return 0 end
@@ -6,21 +6,35 @@ function check_diff(value)
 end
 
 local opts = {
+	auto_theme = false,
+	cache = {
+		enabled = false,
+		notification = false,
+		func_strip = false,
+	},
 	statusline = {
-		cache = {
-			notification = false,
-			func_strip = true,
-		},
 		global = {
 			{
 				[0] = 'mode',
 				timing = true,
-				style = function() return { fg = 'StatusLineActive' } end,
+				static = {
+					mode_colors = {
+						[1] = { fg = 'StatusLineActive' }, -- NORMAL
+						[2] = { fg = 'StatusLineActive' }, -- NTERMINAL
+						[3] = { fg = 'StatusLineActive' }, -- VISUAL
+						[4] = { fg = 'StatusLineActive' }, -- INSERT
+						[5] = { fg = 'StatusLineActive' }, -- TERMINAL
+						[6] = { fg = 'StatusLineActive' }, -- REPLACE
+						[7] = { fg = 'StatusLineActive' }, -- SELECT
+						[8] = { fg = 'StatusLineActive' }, -- COMMAND
+						[9] = { fg = 'StatusLineActive' }, -- CONFIRM
+					},
+				},
 			},
 			{
 				[0] = 'git.branch',
 				left = '|',
-				style = function() return { fg = 'StatusLineActive' } end,
+				style = { fg = 'StatusLineActive' },
 			},
 			{
 				id = 'tst.diff.add',
@@ -50,13 +64,13 @@ local opts = {
 			{
 				[0] = 'file.name',
 				left = '|',
-				style = function() return { fg = 'StatusLineDim' } end,
+				style = { fg = 'StatusLineDim' },
 				update = function() return '%t' end,
 			},
 			{
 				[0] = 'file.modifier',
 				padding = 0,
-				style = function() return { fg = 'StatusLineDim' } end,
+				style = { fg = 'StatusLineDim' },
 			},
 			'%=',
 			'diagnostic.info',
@@ -66,23 +80,22 @@ local opts = {
 			{
 				[0] = 'search.count',
 				timing = 200,
-				style = function() return { link = 'IncSearch' } end,
+				style = { link = 'IncSearch' },
 				left = '|',
 			},
 			{
 				[0] = 'cursor.pos',
 				left = '|',
-				style = function() return { fg = 'StatusLineDim' } end,
+				style = { fg = 'StatusLineDim' },
 			},
 			{
 				id = 'tst.progress',
 				update = function(_, _) return '%p%%' end,
 				events = 'CursorMoved',
 				left = '|',
-				style = function() return { fg = 'StatusLineHighlight', bg = 'NONE' } end,
+				style = { fg = 'StatusLineHighlight', bg = 'NONE' },
 			},
 		},
-		-- @type fun(winid): CombinedComponent[]|nil
 		win = nil,
 	},
 	disabled = {
@@ -91,12 +104,4 @@ local opts = {
 	},
 }
 
-vim.api.nvim_create_autocmd('User', {
-	once = true,
-	group = vim.api.nvim_create_augroup('StatuslineLazyLoad', {}),
-	pattern = 'PackLazy',
-	callback = function()
-		vim.cmd('packadd witch-line')
-		require('witch-line').setup(opts)
-	end,
-})
+require('witch-line').setup(opts)
