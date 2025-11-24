@@ -20,7 +20,7 @@ autocmd('FileChangedShellPost', {
 	command = "echohl WarningMsg | echo 'File changed on disk. Buffer reloaded.' | echohl None",
 })
 
--- Allow closing the following buffer file types by pressing 'q'
+-- Allow closing the following buffer file types by pressing 'q' or 'esc'
 autocmd('FileType', {
 	pattern = { 'help', 'man', 'qf' },
 	-- command = 'nnoremap <buffer> q <cmd>quit<cr>',
@@ -49,7 +49,7 @@ autocmd('User', {
 		vim.b[data.buf].miniindentscope_disable = true
 		vim.b[data.buf].ministatusline_disable = true
 
-		vim.defer_fn(function() vim.opt.laststatus = 0 end, 15)
+		-- vim.defer_fn(function() vim.opt.laststatus = 0 end, 15)
 	end,
 })
 

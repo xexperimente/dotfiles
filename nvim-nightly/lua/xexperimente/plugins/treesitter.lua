@@ -14,8 +14,7 @@ vim.pack.add({
 })
 
 -- local ts = require('nvim-treesitter')
-
--- ts.install({ 'regex', 'lua', 'vim', 'vimdoc', 'markdown', 'markdown_inline' })
+-- ts.install({ 'regex' })
 
 require('nvim-treesitter-textobjects').setup({
 	select = {
@@ -53,35 +52,3 @@ bind({ 'n', 'x', 'o' }, ']z', function() move.goto_next_start('@fold', 'folds') 
 bind({ 'n', 'x', 'o' }, '[z', function() move.goto_previous_start('@fold', 'folds') end)
 -- context
 bind('n', '<leader>uc', '<cmd>TSContext toggle<cr>', { desc = 'Toggle treesitter context' })
-
--- local autocmd = vim.api.nvim_create_autocmd
--- local augroup = vim.api.nvim_create_augroup('TreesitterCommands', { clear = true })
-
--- autocmd('FileType', {
--- 	group = augroup,
--- 	pattern = { '*' },
--- 	callback = function(event)
--- 		local filetype = event.match
--- 		local lang = vim.treesitter.language.get_lang(filetype)
--- 		local is_installed, _error = vim.treesitter.language.add(lang)
---
--- 		if not is_installed then
--- 			local available_langs = ts.get_available()
--- 			local is_available = vim.tbl_contains(available_langs, lang)
---
--- 			-- TODO: confirmation dialog
---
--- 			if is_available then
--- 				vim.notify('Installing treesitter parser for ' .. lang, vim.log.levels.INFO)
--- 				ts.install({ lang }):wait(30 * 1000)
--- 			end
--- 		end
---
--- 		local ok, _ = pcall(vim.treesitter.start, event.buf, lang)
--- 		if not ok then return end
---
--- 		--
--- 		-- vim.bo[event.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
--- 		-- vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
--- 	end,
--- })

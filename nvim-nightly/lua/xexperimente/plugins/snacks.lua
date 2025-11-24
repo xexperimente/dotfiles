@@ -23,6 +23,7 @@ require('snacks').setup({
 	bigfile = { enabled = true },
 	quickfile = { enabled = true },
 	input = { enabled = true },
+	image = { enabled = false },
 	explorer = { replace_netrw = true },
 	notifier = { enabled = true, style = 'compact' },
 	words = { enabled = true },
@@ -48,6 +49,7 @@ require('snacks').setup({
 		win = {
 			position = 'float',
 			border = 'single',
+			style = 'terminal',
 			keys = {
 				term_hide = {
 					'<C-t>',
