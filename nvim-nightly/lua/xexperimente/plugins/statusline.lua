@@ -1,10 +1,5 @@
 vim.pack.add({ 'https://github.com/sontungexpt/witch-line' })
 
-function check_diff(value)
-	if vim.b.minidiff_summary == nil or vim.b.minidiff_summary[value] == nil then return 0 end
-	return vim.b.minidiff_summary[value]
-end
-
 local opts = {
 	auto_theme = false,
 	cache = {
@@ -37,35 +32,26 @@ local opts = {
 				style = { fg = 'StatusLineActive' },
 			},
 			{
-				id = 'tst.diff.add',
-				events = { 'User MiniDiffUpdated', 'BufEnter' },
-				style = { fg = 'MiniDiffSignAdd' },
+				[0] = 'git.diff.added',
+				static = { icon = '' },
 				left = '|',
-				update = function() return check_diff('add') > 0 and ' ' .. vim.b.minidiff_summary.add or '' end,
+				style = { fg = 'MiniDiffSignAdd' },
 			},
 			{
-				id = 'tst.diff.change',
-				events = { 'User MiniDiffUpdated', 'BufEnter' },
+				[0] = 'git.diff.modified',
+				static = { icon = '' },
 				style = { fg = 'MiniDiffSignChange' },
-				update = function(self)
-					self.left = check_diff('add') == 0 and '|' or ''
-					return check_diff('change') > 0 and ' ' .. vim.b.minidiff_summary.change or ''
-				end,
 			},
 			{
-				id = 'tst.diff.delete',
-				events = { 'User MiniDiffUpdated', 'BufEnter' },
+				[0] = 'git.diff.removed',
+				static = { icon = '' },
 				style = { fg = 'MiniDiffSignDelete' },
-				update = function(self)
-					self.left = check_diff('change') == 0 and '|' or ''
-					return check_diff('delete') > 0 and ' ' .. vim.b.minidiff_summary.delete or ''
-				end,
 			},
 			{
 				[0] = 'file.name',
 				left = '|',
 				style = { fg = 'StatusLineDim' },
-				update = function() return '%t' end,
+				-- update = function() return '%t' end,
 			},
 			{
 				[0] = 'file.modifier',
