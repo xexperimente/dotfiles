@@ -53,6 +53,23 @@ autocmd('User', {
 	end,
 })
 
+-- Open SnacksDashboard when closing last buffer
+autocmd({ 'BufDelete' }, {
+	group = augroup('DashboardAutoOpen', { clear = true }),
+	callback = function()
+		vim.schedule(function()
+			local buffers = vim.tbl_filter(
+				function(buf)
+					return vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted and vim.api.nvim_buf_get_name(buf) ~= ''
+				end,
+				vim.api.nvim_list_bufs()
+			)
+
+			if #buffers == 0 then Snacks.dashboard.open() end
+		end)
+	end,
+})
+
 -- https://github.com/folke/snacks.nvim/blob/main/docs/notifier.md
 autocmd('LspProgress', {
 	group = augroup('SnacksCommands', {}),
