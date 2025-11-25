@@ -228,7 +228,7 @@ bind('n', '<c-t>', function() Snacks.terminal.toggle() end, { desc = 'Toggle ter
 
 -- Utils
 bind('n', '<leader>bD', function() Snacks.bufdelete.other() end, { desc = 'Delete other buffers' })
-bind('n', '<leader>bd', function() fn.bufdelete_or_dashboard() end, { desc = 'Delete buffer' })
+bind('n', '<leader>bd', function() Snacks.bufdelete(0) end, { desc = 'Delete buffer' })
 
 -- Show messages, info or notifications
 bind('n', '<leader>m', function() fn.show_messages() end, { desc = 'Show Messages' })

@@ -40,34 +40,6 @@ function M.show_info()
 	}):set_title('News', 'center')
 end
 
--- Delete buffer and if no other buffer exists show dashboard
-function M.bufdelete_or_dashboard()
-	Snacks.bufdelete(0)
-
-	local buffers = vim.tbl_filter(
-		function(buf)
-			return vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted and vim.api.nvim_buf_get_name(buf) ~= ''
-		end,
-		vim.api.nvim_list_bufs()
-	)
-
-	if #buffers == 0 then
-		-- close extra splits and open dashboard
-		vim.cmd('only')
-		require('snacks').dashboard.open()
-
-		-- Find and delete NoName buffers after mini.starter is open
-		vim.defer_fn(function()
-			for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-				local name = vim.api.nvim_buf_get_name(buf)
-				if name == '' and vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted then
-					vim.api.nvim_buf_delete(buf, { force = false })
-				end
-			end
-		end, 300)
-	end
-end
-
 function M.open_config()
 	local config = vim.fn.stdpath('config')
 	local path = ''
