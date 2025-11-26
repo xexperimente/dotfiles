@@ -52,7 +52,16 @@ vim.opt.fillchars = {
 	diff = '╱',
 }
 
-vim.opt.diffopt:append('inline:char')
+vim.opt.diffopt = {
+	'internal',
+	'filler',
+	'closeoff',
+	'vertical',
+	'algorithm:histogram',
+	'indent-heuristic',
+	'linematch:60',
+	'inline:char',
+}
 
 -- Indentation & tabs
 vim.opt.smartindent = true
