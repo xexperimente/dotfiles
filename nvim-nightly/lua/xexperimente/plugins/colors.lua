@@ -5,9 +5,6 @@ vim.pack.add({
 require('rose-pine').setup({
 	highlight_groups = {
 		Whitespace = { bg = 'NONE', fg = 'overlay' },
-		StatusLine = { bg = 'NONE', fg = 'highlight_high' },
-		StatusLineTerm = { bg = 'NONE', fg = 'highlight_high' },
-		StatusLineTermNC = { bg = 'NONE', fg = 'highlight_high' },
 		CurSearch = { fg = 'base', bg = 'rose', inherit = false },
 		Search = { fg = 'text', bg = 'rose', blend = 20, inherit = false },
 		Keyword = { fg = 'rose' },
@@ -15,11 +12,18 @@ require('rose-pine').setup({
 		Comment = { fg = 'muted' },
 		WinSeparator = { fg = 'overlay', bg = 'none' },
 		Directory = { fg = 'rose', bg = 'none' },
-		DiffDelete = { fg = 'overlay', bg = 'base' },
 
+		-- Diffs
+		DiffDelete = { fg = 'overlay', bg = 'base' },
+		CodeDiffFiller = { link = 'DiffDelete' },
+
+		-- Statusline
 		StatusLineActive = { fg = 'rose', bg = 'none' },
 		StatusLineDim = { fg = 'subtle', bg = 'none' },
 		StatusLineHighlight = { fg = 'gold', bg = 'none' },
+		StatusLine = { bg = 'NONE', fg = 'highlight_high' },
+		StatusLineTerm = { bg = 'NONE', fg = 'highlight_high' },
+		StatusLineTermNC = { bg = 'NONE', fg = 'highlight_high' },
 
 		-- Floats
 		FloatBorder = { fg = 'overlay', bg = 'surface' },
@@ -63,6 +67,7 @@ require('rose-pine').setup({
 		TreesitterContext = { bg = 'base' },
 		TreesitterContextLineNumber = { bg = 'base', fg = 'muted' },
 		TreesitterContextSeparator = { fg = 'overlay', bg = 'base' },
+
 		-- Menus
 		PmenuSel = { bg = 'highlight_med', fg = 'NONE' },
 		Pmenu = { fg = 'overlay', bg = 'base' },

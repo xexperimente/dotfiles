@@ -65,7 +65,7 @@ autocmd({ 'BufDelete' }, {
 				vim.api.nvim_list_bufs()
 			)
 
-			if #buffers == 0 then Snacks.dashboard.open() end
+			if #buffers == 0 then Snacks.dashboard() end
 		end)
 	end,
 })
