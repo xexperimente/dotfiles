@@ -1,6 +1,6 @@
-vim.pack.add({ 'https://github.com/esmuellert/vscode-diff.nvim' })
+vim.pack.add({ 'https://github.com/esmuellert/codediff.nvim' })
 
-require('vscode-diff').setup({})
+require('codediff').setup({})
 
 local bind = vim.keymap.set
 
