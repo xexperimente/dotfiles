@@ -4,6 +4,7 @@ vim.lsp.enable({
 	-- 'lua-ls',
 	'zls',
 	'rust_analyzer',
+	'clangd',
 })
 
 vim.diagnostic.config({
