@@ -31,3 +31,7 @@ def nv --wrapped [...rest] {
 	let cmd = $'($env.NVIM_PATH)\nvim.exe'
 	^$cmd ...$rest
 }
+
+def kill_git {
+  ps | grep git | each {|x| kill --force $x.pid }
+}
