@@ -96,7 +96,7 @@ function M.show_plugins()
 			icon = plugin.active and '' or '',
 			text = plugin.spec.name,
 			rev = (plugin.rev == nil) and '' or plugin.rev,
-			action = function() dd(plugin) end,
+			action = function() vim.print(plugin) end,
 		}
 		table.insert(items, item)
 	end

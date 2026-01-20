@@ -35,38 +35,12 @@ autocmd('UIEnter', {
 	command = 'let @/=""',
 })
 
--- Fire PackLazy event to lazy load some plugins
-autocmd('UIEnter', {
-	callback = function(_data)
-		vim.defer_fn(function() vim.api.nvim_exec_autocmds('User', { pattern = 'PackLazy' }) end, 15)
-	end,
-})
-
 -- Disable indentscope in dashboard
 autocmd('User', {
 	pattern = { 'SnacksDashboardOpened', 'SnacksDashboardUpdatePost' },
 	callback = function(data)
 		vim.b[data.buf].miniindentscope_disable = true
 		vim.b[data.buf].ministatusline_disable = true
-
-		-- vim.defer_fn(function() vim.opt.laststatus = 0 end, 15)
-	end,
-})
-
--- Open SnacksDashboard when closing last buffer
-autocmd({ 'BufDelete' }, {
-	group = augroup('DashboardAutoOpen', { clear = true }),
-	callback = function()
-		vim.schedule(function()
-			local buffers = vim.tbl_filter(
-				function(buf)
-					return vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted and vim.api.nvim_buf_get_name(buf) ~= ''
-				end,
-				vim.api.nvim_list_bufs()
-			)
-
-			if #buffers == 0 then Snacks.dashboard() end
-		end)
 	end,
 })
 

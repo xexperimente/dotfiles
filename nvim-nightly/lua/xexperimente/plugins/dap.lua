@@ -23,6 +23,7 @@ local function pick_file_sync()
 	})
 
 	-- Yield execution here. The function "stops" until resume is called above.
+	--- @diagnostic disable-next-line: await-in-sync
 	return coroutine.yield()
 end
 

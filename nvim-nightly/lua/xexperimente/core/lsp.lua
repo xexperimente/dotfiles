@@ -41,8 +41,7 @@ autocmd('LspAttach', {
 		local client = id and vim.lsp.get_client_by_id(id)
 		if client == nil then return end
 
-		-- if client:supports_method(vim.lsp.protocol.Methods.textDocument_diagnostics) then vim.cmd('redrawstatus') end
-		if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion) then
+		if client:supports_method('textDocument/inlineCompletion') then
 			vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
 			vim.lsp.inline_completion()
 

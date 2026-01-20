@@ -1,6 +1,6 @@
 vim.pack.add({
 	{ src = 'https://github.com/saghen/blink.cmp', version = 'v1.8.0' },
-}, { load = function() end })
+})
 
 local opts = {
 	fuzzy = {
@@ -67,14 +67,4 @@ local opts = {
 	},
 }
 
-local autocmd = vim.api.nvim_create_autocmd
-
-autocmd('User', {
-	once = true,
-	pattern = 'PackLazy',
-	callback = function()
-		vim.cmd('packadd blink.cmp')
-
-		require('blink.cmp').setup(opts)
-	end,
-})
+vim.defer_fn(function() require('blink.cmp').setup(opts) end, 100)
