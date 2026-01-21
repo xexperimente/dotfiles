@@ -16,6 +16,10 @@ bind({ 'n', 'x' }, '<C-M-S>', function() mc.lineSkipCursor(1) end)
 bind({ 'n', 'x' }, '<C-N>', function() mc.matchAddCursor(1) end)
 bind({ 'n', 'x' }, '<C-S>', function() mc.matchSkipCursor(1) end)
 
+-- Increment/decrement sequences, treating all cursors as one sequence.
+bind({ 'n', 'x' }, 'g<C-a>', mc.sequenceIncrement)
+bind({ 'n', 'x' }, 'g<C-x>', mc.sequenceDecrement)
+
 -- Mappings defined in a keymap layer only apply when there are
 -- multiple cursors. This lets you have overlapping mappings.
 mc.addKeymapLayer(function(layerSet)
