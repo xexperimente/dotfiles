@@ -32,7 +32,11 @@ vim.defer_fn(function()
 	local dap = require('dap')
 	local dap_view = require('dap-view')
 
-	bind('n', '<F5>', '<cmd>DapContinue<cr>')
+	-- bind('n', '<F5>', '<cmd>DapContinue<cr>')
+	bind('n', '<F5>', function()
+		require('dap.ext.vscode').load_launchjs('.launch.json', { codelldb = { 'cpp' } })
+		require('dap').continue()
+	end)
 	bind('n', '<F9>', '<cmd>DapToggleBreakpoint<cr>')
 	bind('n', '<F10>', '<cmd>DapStepOver<cr>')
 	bind('n', '<F11>', '<cmd>DapStepInto<cr>')
@@ -52,19 +56,19 @@ vim.defer_fn(function()
 		},
 	}
 
-	dap.configurations.cpp = {
-		{
-			name = 'Launch file',
-			type = 'codelldb',
-			request = 'launch',
-			program = function()
-				-- return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-				return pick_file_sync()
-			end,
-			cwd = '${workspaceFolder}',
-			stopOnEntry = false,
-		},
-	}
+	-- dap.configurations.cpp = {
+	-- 	{
+	-- 		name = 'Launch file',
+	-- 		type = 'codelldb',
+	-- 		request = 'launch',
+	-- 		-- program = function()
+	-- 		-- 	-- return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+	-- 		-- 	return pick_file_sync()
+	-- 		-- end,
+	-- 		cwd = '${workspaceFolder}',
+	-- 		stopOnEntry = false,
+	-- 	},
+	-- }
 
 	dap.configurations.rust = {
 		{
