@@ -5,6 +5,9 @@ vim.pack.add({
 local opts = {
 	formatters_by_ft = {
 		lua = { 'stylua' },
+		json = { 'deno_fmt' },
+		jsonc = { 'deno_fmt' },
+		markdown = { 'deno_fmt' },
 	},
 	format_on_save = {
 		timeout_ms = 700,
