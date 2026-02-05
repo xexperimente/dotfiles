@@ -3,14 +3,14 @@ vim.pack.add({
 	'https://github.com/igorlfs/nvim-dap-view',
 })
 
-local function _pick_file_sync()
+local function pick_file_sync()
 	local co = coroutine.running()
-	-- assert(co, 'This function must be run inside a coroutine')
+	assert(co, 'This function must be run inside a coroutine')
 
 	local filter = vim.fn.has('win32') and '*.exe' or ''
 
 	require('snacks').picker.files({
-		cwd = vim.fn.getcwd() .. '/',
+		cwd = vim.fn.getcwd(),
 		actions = {
 			confirm = function(picker, item)
 				picker:close()
@@ -19,7 +19,7 @@ local function _pick_file_sync()
 				coroutine.resume(co, selection)
 			end,
 		},
-		args = { '--glob', filter },
+		args = vim.fn.has('win32') == 1 and { '--glob', filter } or {},
 	})
 
 	-- Yield execution here. The function "stops" until resume is called above.
@@ -71,48 +71,21 @@ vim.defer_fn(function()
 		dap.adapters.gdb = {
 			type = 'executable',
 			command = 'gdb',
+			args = { '--interpreter=dap', '--eval-command', 'set print pretty on' },
 			detached = false,
 		}
+
+		dap.configurations.cpp = {
+			{
+				name = 'Launch (System GDB)',
+				type = 'gdb',
+				request = 'launch',
+				program = function() return pick_file_sync() end,
+				cwd = '${workspaceFolder}',
+				stopAtBeginningOfMainSubprogram = false,
+			},
+		}
 	end
-
-	-- dap.configurations.cpp = {
-	-- 	{
-	-- 		name = 'Launch (codelldb)',
-	-- 		type = 'codelldb',
-	-- 		request = 'launch',
-	-- 		program = function()
-	-- 			-- return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-	-- 			return pick_file_sync()
-	-- 		end,
-	-- 		symbolSearchPath = { '${workspaceFolder}' },
-	-- 		stopOnEntry = false,
-	-- 		initCommands = {
-	-- 			-- 'settings set target.process.stop-on-shared-library-events false',
-	--
-	-- 			'settings set symbols.load-on-demand true',
-	-- 			'settings set target.preload-symbols false',
-	--
-	-- 			'settings set target.breakpoints-use-platform-avoid-list true',
-	-- 		},
-	-- 		preRunCommands = {
-	-- 			'breakpoint modify 1 --shlib StepReader.exe',
-	-- 		},
-	-- 	},
-	-- }
-
-	-- dap.configurations.cpp = {
-	-- 	{
-	-- 		name = 'Launch file',
-	-- 		type = 'codelldb',
-	-- 		request = 'launch',
-	-- 		-- program = function()
-	-- 		-- 	-- return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-	-- 		-- 	return pick_file_sync()
-	-- 		-- end,
-	-- 		cwd = '${workspaceFolder}',
-	-- 		stopOnEntry = false,
-	-- 	},
-	-- }
 
 	dap.configurations.rust = {
 		{
