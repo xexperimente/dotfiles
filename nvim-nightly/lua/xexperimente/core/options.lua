@@ -1,7 +1,7 @@
 vim.g.mapleader = ' '
 
 -- Visuals
-if jit.os:find('Windows') then
+if vim.fn.has('win32') then
 	vim.opt.guifont = 'Cascadia Code NF:h14'
 	vim.opt.background = 'light'
 else
