@@ -27,7 +27,7 @@ local result = {
 					'jit',
 					'Snacks',
 				},
-				disable = {},
+				disable = { 'unnecessary-if' },
 			},
 			runtime = {
 				version = 'LuaJIT',
