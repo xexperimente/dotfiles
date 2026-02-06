@@ -88,6 +88,7 @@ require('rose-pine').setup({
 		RenderMarkdownH3Bg = { bg = 'gold' },
 		RenderMarkdownH4Bg = { bg = 'iris' },
 		RenderMarkdownH5Bg = { bg = 'foam' },
+		RenderMarkdownCodeInline = { bg = 'pine', fg = 'base' },
 		['@label.vimdoc'] = { bg = 'none', fg = 'gold' },
 		['@property'] = { fg = 'iris', italic = false },
 		['@variable'] = { fg = 'iris', italic = false },

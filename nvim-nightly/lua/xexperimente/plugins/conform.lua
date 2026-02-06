@@ -14,7 +14,7 @@ local opts = {
 		lsp_format = 'fallback',
 	},
 	notify_on_error = true,
-	log_level = vim.log.levels.DEBUG,
+	-- log_level = vim.log.levels.DEBUG,
 }
 
 require('conform').setup(opts)
