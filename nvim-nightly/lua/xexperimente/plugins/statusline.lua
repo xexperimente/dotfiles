@@ -70,6 +70,10 @@ local opts = {
 				left = '|',
 			},
 			{
+				[0] = 'encoding',
+				left = '|',
+			},
+			{
 				[0] = 'cursor.pos',
 				left = '|',
 				style = { fg = 'StatusLineDim' },

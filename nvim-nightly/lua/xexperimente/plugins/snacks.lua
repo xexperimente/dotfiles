@@ -67,7 +67,7 @@ require('snacks').setup({
 						},
 					},
 				},
-				exclude = { 'zig-out/', 'node_modules', 'vendor' },
+				exclude = { 'zig-out/', 'node_modules', 'vendor', 'vcpkg_installed', 'build', 'target', 'out' },
 			},
 			explorer = {
 				tree = true,

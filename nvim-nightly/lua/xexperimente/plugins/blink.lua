@@ -20,9 +20,10 @@ local opts = {
 		enabled = true,
 		keymap = {
 			['<Tab>'] = { 'show', 'accept' },
-			['<CR>'] = { 'select_accept_and_enter', 'fallback' },
+			-- ['<CR>'] = { 'select_accept_and_enter', 'fallback' },
 			['<Up>'] = { 'select_prev', 'fallback' },
 			['<Down>'] = { 'select_next', 'fallback' },
+			['<Esc>'] = { 'hide', 'fallback' },
 		},
 		completion = {
 			menu = {
