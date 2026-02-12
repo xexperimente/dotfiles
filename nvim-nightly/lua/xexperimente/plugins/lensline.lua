@@ -1,13 +1,18 @@
 vim.pack.add({ 'https://github.com/oribarilan/lensline.nvim' })
 
-require('lensline').setup({
-	profiles = {
-		{
-			name = 'minimal',
-			style = {
-				placement = 'inline',
-				prefix = '',
+vim.defer_fn(
+	function()
+		require('lensline').setup({
+			profiles = {
+				{
+					name = 'minimal',
+					style = {
+						placement = 'inline',
+						prefix = '',
+					},
+				},
 			},
-		},
-	},
-})
+		})
+	end,
+	80
+)
