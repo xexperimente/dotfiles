@@ -109,7 +109,7 @@ require('snacks').setup({
 		},
 		sections = {
 			{ section = 'header' },
-			{ section = 'recent_files', padding = 1 },
+			{ section = 'recent_files', cwd = true, padding = 1 },
 			{ section = 'keys', gap = 0 },
 		},
 		formats = {
