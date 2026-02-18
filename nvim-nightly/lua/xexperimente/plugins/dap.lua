@@ -5,7 +5,7 @@ vim.pack.add({
 
 local function pick_file_sync()
 	local co = coroutine.running()
-	assert(co, 'This function must be run inside a coroutine')
+	-- assert(co, 'This function must be run inside a coroutine')
 
 	local filter = vim.fn.has('win32') and '*.exe' or ''
 
@@ -19,6 +19,7 @@ local function pick_file_sync()
 				coroutine.resume(co, selection)
 			end,
 		},
+		exclude = { 'build/CMakeFiles' },
 		args = vim.fn.has('win32') == 1 and { '--glob', filter } or {},
 	})
 
@@ -32,6 +33,34 @@ vim.defer_fn(function()
 	local dap = require('dap')
 	local dap_view = require('dap-view')
 
+	dap_view.setup({
+		winbar = {
+			show = true,
+			sections = { 'watches', 'scopes', 'breakpoints', 'threads', 'repl' },
+			base_sections = {
+				breakpoints = { label = 'Breakpoints', keymap = 'B' },
+				scopes = { label = 'Local', keymap = 'S' },
+				exceptions = { label = 'Exceptions', keymap = 'E' },
+				watches = { label = 'Watch', keymap = 'W' },
+				threads = { label = 'Threads', keymap = 'T' },
+				repl = { label = 'REPL', keymap = 'R' },
+				sessions = { label = 'Sessions', keymap = 'K' },
+				console = { label = 'Console', keymap = 'C' },
+			},
+			controls = {
+				enabled = true,
+				position = 'left',
+				buttons = {
+					'play',
+					'run_last',
+					'terminate',
+				},
+			},
+		},
+	})
+
+	require('overseer').enable_dap()
+
 	-- dap.set_log_level('TRACE')
 
 	bind('n', '<F5>', '<cmd>DapContinue<cr>')
@@ -39,6 +68,7 @@ vim.defer_fn(function()
 	bind('n', '<F10>', '<cmd>DapStepOver<cr>')
 	bind('n', '<F11>', '<cmd>DapStepInto<cr>')
 	bind('n', '<S-F5>', '<cmd>DapTerminate<cr>')
+	bind('n', '<C-S-F5>', function() require('dap').restart() end)
 
 	dap.listeners.before.attach['dap-view-config'] = function() dap_view.open() end
 	dap.listeners.before.launch['dap-view-config'] = function() dap_view.open() end
@@ -60,6 +90,17 @@ vim.defer_fn(function()
 			type = 'executable',
 			command = 'C:/Program Files/Microsoft Visual Studio/18/Professional/VC/Tools/Llvm/x64/bin/lldb-dap.exe',
 			name = 'lldb',
+		}
+
+		dap.configurations.cpp = {
+			{
+				name = 'Launch (CodeLLDB)',
+				type = 'codelldb',
+				request = 'launch',
+				program = function() return pick_file_sync() end,
+				cwd = '${workspaceFolder}',
+				preLaunchTask = 'CMake Build',
+			},
 		}
 	else
 		dap.adapters.codelldb = {
@@ -114,6 +155,4 @@ vim.defer_fn(function()
 	vim.fn.sign_define('DapStopped', { text = '󰁕 ', texthl = 'DiagnosticWarn', linehl = 'DapStoppedLine', numhl = '' })
 	vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
 	vim.fn.sign_define('DapBreakpointRejected', { text = ' ', texthl = 'DiagnosticError', linehl = '', numhl = '' })
-
-	require('overseer').enable_dap()
 end, 400)
