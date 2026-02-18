@@ -8,7 +8,16 @@ vim.lsp.enable({
 })
 
 vim.diagnostic.config({
+	underline = true,
 	update_in_insert = false,
+	virtual_text = {
+		current_line = false,
+		spacing = 4,
+		source = 'if_many',
+		prefix = ' ●',
+		suffix = ' ',
+	},
+	virtual_lines = { current_line = true },
 	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = '',
@@ -53,16 +62,5 @@ autocmd('LspAttach', {
 				desc = 'Get current inline completion',
 			})
 		end
-
-		bind('n', 'gd', function() Snacks.picker.lsp_definitions() end, { desc = 'Go to definition' })
-		bind('n', 'gD', function() Snacks.picker.lsp_declarations() end, { desc = 'Go to declaration' })
-		bind('n', 'grr', function() Snacks.picker.lsp_references() end, { desc = 'Go to references' })
-		bind('n', 'gri', function() Snacks.picker.lsp_implementations() end, { desc = 'Go to implementation' })
-		bind('n', 'grt', function() Snacks.picker.lsp_type_definition() end, { desc = 'Go to type definition' })
-		bind('n', '<f2>', vim.lsp.buf.rename, { desc = 'Rename symbol' })
-		bind('n', '<f4>', function() vim.lsp.buf.code_action() end, { desc = 'Code Action' })
-		bind('v', '<f4>', function() vim.lsp.buf.code_action() end, { desc = 'Code Action' })
-		bind('n', '<f12>', function() Snacks.picker.lsp_definitions() end, { desc = 'Go to definition' })
-		bind('n', '<leader>lf', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 	end,
 })

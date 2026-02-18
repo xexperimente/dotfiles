@@ -165,7 +165,8 @@ bind('n', '<leader>fc', function() Snacks.picker.files({ cwd = config }) end, { 
 bind('n', '<leader>ff', function() Snacks.picker.files() end, { desc = 'Find Files' })
 bind('n', '<leader>fg', function() Snacks.picker.git_files() end, { desc = 'Find Git Files' })
 bind('n', '<leader>fp', function() Snacks.picker.projects() end, { desc = 'Projects' })
-bind('n', '<leader>fr', function() Snacks.picker.recent() end, { desc = 'Recent' })
+bind('n', '<leader>fr', function() Snacks.picker.recent({ filter = { cwd = true } }) end, { desc = 'Recent(cwd)' })
+bind('n', '<leader>fR', function() Snacks.picker.recent() end, { desc = 'Recent' })
 
 -- git
 bind('n', '<leader>gb', function() Snacks.picker.git_branches() end, { desc = 'Git Branches' })
@@ -175,8 +176,6 @@ bind('n', '<leader>gs', function() Snacks.picker.git_status() end, { desc = 'Git
 bind('n', '<leader>gS', function() Snacks.picker.git_stash() end, { desc = 'Git Stash' })
 bind('n', '<leader>gd', function() Snacks.picker.git_diff() end, { desc = 'Git Diff (Hunks)' })
 bind('n', '<leader>gf', function() Snacks.picker.git_log_file() end, { desc = 'Git Log File' })
-
--- gh
 bind('n', '<leader>gi', function() Snacks.picker.gh_issue() end, { desc = 'GitHub Issues (open)' })
 bind('n', '<leader>gI', function() Snacks.picker.gh_issue({ state = 'all' }) end, { desc = 'GitHub Issues (all)' })
 bind('n', '<leader>gp', function() Snacks.picker.gh_pr() end, { desc = 'GitHub Pull Requests (open)' })
@@ -216,11 +215,28 @@ bind('n', 'gd', function() Snacks.picker.lsp_definitions() end, { desc = 'Goto D
 bind('n', 'gD', function() Snacks.picker.lsp_declarations() end, { desc = 'Goto Declaration' })
 bind('n', 'gr', function() Snacks.picker.lsp_references() end, { nowait = true, desc = 'References' })
 bind('n', 'gI', function() Snacks.picker.lsp_implementations() end, { desc = 'Goto Implementation' })
-bind('n', 'gy', function() Snacks.picker.lsp_type_definitions() end, { desc = 'Goto T[y]pe Definition' })
+bind('n', 'gy', function() Snacks.picker.lsp_type_definitions() end, { desc = 'Goto Type Definition' })
 bind('n', 'gai', function() Snacks.picker.lsp_incoming_calls() end, { desc = 'C[a]lls Incoming' })
 bind('n', 'gao', function() Snacks.picker.lsp_outgoing_calls() end, { desc = 'C[a]lls Outgoing' })
 bind('n', '<leader>ss', function() Snacks.picker.lsp_symbols() end, { desc = 'LSP Symbols' })
 bind('n', '<leader>sS', function() Snacks.picker.lsp_workspace_symbols() end, { desc = 'LSP Workspace Symbols' })
+bind('n', '<leader>cl', function() Snacks.picker.lsp_config() end, { desc = 'Lsp Info' })
+bind('n', 'K', function() return vim.lsp.buf.hover() end, { desc = 'Hover' })
+bind('n', 'gK', function() return vim.lsp.buf.signature_help() end, { desc = 'Signature Help' })
+bind('i', '<c-k>', function() return vim.lsp.buf.signature_help() end, { desc = 'Signature Help' })
+bind({ 'n', 'x' }, '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Action' })
+bind({ 'n', 'x' }, '<leader>cc', vim.lsp.codelens.run, { desc = 'Run Codelens' })
+bind('n', '<leader>cR', function() Snacks.rename.rename_file() end, { desc = 'Rename File' })
+bind('n', '<leader>cr', vim.lsp.buf.rename, { desc = 'Rename' })
+bind('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
+bind('n', '<leader>cC', vim.lsp.codelens.refresh, { desc = 'Refresh & Display Codelens' })
+
+-- Visual Studio LSP binds
+bind('n', '<f2>', vim.lsp.buf.rename, { desc = 'Rename' })
+bind('n', '<f12>', vim.lsp.buf.definition, { desc = 'Goto Definition' })
+bind('n', '<s-f12>', function() Snacks.picker.lsp_references() end, { desc = 'References' })
+bind('n', '<c-f12>', function() Snacks.picker.lsp_declarations() end, { desc = 'Goto Declaration' })
+bind({ 'n', 'x' }, '<f4>', vim.lsp.buf.code_action, { desc = 'Code Action' })
 
 -- Terminal
 bind('n', '<leader>t', function() Snacks.terminal.toggle() end, { desc = 'Toggle terminal' })

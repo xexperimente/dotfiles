@@ -51,10 +51,8 @@ local opts = {
 		{ mode = 'n', keys = '<leader>b', desc = 'Buffers ' },
 		{ mode = 'n', keys = '<leader>p', desc = 'Plugins ' },
 		{ mode = 'n', keys = '<leader>u', desc = 'Options ' },
-		{ mode = 'n', keys = '<leader>v', desc = 'Visual ' },
-		{ mode = 'n', keys = '<leader>l', desc = 'LSP ' },
-		{ mode = 'n', keys = '<leader>s', desc = 'Picker ' },
-		{ mode = 'n', keys = '<leader>lf', desc = 'Open floating diagnostic window' },
+		{ mode = 'n', keys = '<leader>s', desc = 'Search ' },
+		{ mode = 'n', keys = '<leader>c', desc = 'Code ' },
 		{ mode = 'n', keys = 'zu', desc = 'Undo spelling command ' },
 	},
 	window = {

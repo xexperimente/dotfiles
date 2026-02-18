@@ -30,22 +30,15 @@ local opts = {
 	},
 }
 
-require('flash').setup(opts)
-
 local bind = vim.keymap.set
+local flash = require('flash')
 
-bind({ 'n', 'x', 'o' }, 's', function() require('flash').jump() end, { desc = 'Flash' })
-bind({ 'o', 'x' }, 'S', function() require('flash').treesitter() end, { desc = 'Flash treesitter' })
-bind(
-	{ 'n', 'x', 'o' },
-	'<c-right>',
-	function()
-		require('flash').treesitter({
-			actions = {
-				['<c-right>'] = 'next',
-				['<c-left>'] = 'prev',
-			},
-		})
-	end,
-	{ desc = 'Treesitter incremental selection' }
-)
+flash.setup(opts)
+
+local modes = { 'n', 'x', 'o' }
+local actions = { ['<c-right>'] = 'next', ['<c-left>'] = 'prev' }
+
+bind(modes, 's', function() flash.jump() end, { desc = 'Flash' })
+bind(modes, 'S', function() flash.treesitter() end, { desc = 'Flash treesitter' })
+bind(modes, '<c-right>', function() flash.treesitter({ actions = actions }) end, { desc = 'Incremental selection' })
+bind('c', '<c-s>', function() require('flash').toggle() end, { desc = 'Toggle Flash Search' })

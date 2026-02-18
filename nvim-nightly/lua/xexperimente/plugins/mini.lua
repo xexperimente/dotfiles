@@ -16,7 +16,17 @@ vim.defer_fn(function()
 				hex_color = require('mini.hipatterns').gen_highlighter.hex_color(),
 			},
 		},
-		surround = { mappings = { update_n_lines = nil } },
+		surround = {
+			mappings = {
+				add = 'gsa', -- Add surrounding in Normal and Visual modes
+				delete = 'gsd', -- Delete surrounding
+				find = 'gsf', -- Find surrounding (to the right)
+				find_left = 'gsF', -- Find surrounding (to the left)
+				highlight = 'gsh', -- Highlight surrounding
+				replace = 'gsr', -- Replace surrounding
+				update_n_lines = nil, -- 'gsn'
+			},
+		},
 		diff = { view = { style = 'sign', signs = { add = '┃', change = '┃', delete = '┃' } } },
 		indentscope = {
 			draw = { animation = require('mini.indentscope').gen_animation.none() },

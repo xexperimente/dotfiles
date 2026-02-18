@@ -29,6 +29,8 @@ require('rose-pine').setup({
 		FloatBorder = { fg = 'overlay', bg = 'surface' },
 		FloatTitle = { bg = 'rose', fg = 'overlay' },
 		PeekstackPopupBorderFocused = { fg = 'highlight_med', bg = 'surface' },
+		PeekstackTitlePath = { link = 'FloatTitle' },
+		PeekstackTitleLine = { bg = 'rose', fg = 'gold' },
 
 		-- Mini
 		MiniDiffSignChange = { bg = 'none', fg = 'Gold' },

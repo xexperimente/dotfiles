@@ -10,6 +10,6 @@ vim.defer_fn(function()
 
 	local bind = vim.keymap.set
 
-	bind('n', '<Leader>o', '<cmd>OverseerRun<cr>')
-	bind('n', '<Leader>O', '<cmd>OverseerToggle<cr>')
+	bind('n', '<Leader>o', '<cmd>OverseerRun<cr>', { desc = 'Run tasks' })
+	bind('n', '<Leader>O', '<cmd>OverseerToggle<cr>', { desc = 'Toggle Overseer' })
 end, 60)

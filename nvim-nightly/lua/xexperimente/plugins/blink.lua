@@ -1,11 +1,11 @@
 vim.pack.add({
-	{ src = 'https://github.com/saghen/blink.cmp', version = 'v1.8.0' },
+	{ src = 'https://github.com/saghen/blink.cmp', version = 'v1.9.1' },
 })
 
 local opts = {
 	fuzzy = {
 		implementation = 'prefer_rust',
-		prebuilt_binaries = { force_version = 'v1.8.0' },
+		prebuilt_binaries = { force_version = 'v1.9.1' },
 	},
 	keymap = {
 		preset = 'super-tab',
