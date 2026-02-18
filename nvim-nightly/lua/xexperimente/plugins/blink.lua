@@ -16,6 +16,12 @@ local opts = {
 		default = { 'lsp', 'path', 'snippets' },
 		min_keyword_length = 2,
 	},
+	signature = {
+		enabled = true,
+		window = {
+			show_documentation = false,
+		},
+	},
 	cmdline = {
 		enabled = true,
 		keymap = {

@@ -45,21 +45,23 @@ autocmd('User', {
 })
 
 -- https://github.com/folke/snacks.nvim/blob/main/docs/notifier.md
-autocmd('LspProgress', {
-	group = augroup('SnacksCommands', {}),
-	callback = function(ev)
-		local spinner = { '󰪞', '󰪟', '󰪠', '󰪡', '󰪢', '󰪣', '󰪤', '󰪥' }
+vim.defer_fn(function()
+	autocmd('LspProgress', {
+		group = augroup('SnacksCommands', {}),
+		callback = function(ev)
+			local spinner = { '󰪞', '󰪟', '󰪠', '󰪡', '󰪢', '󰪣', '󰪤', '󰪥' }
 
-		vim.notify(vim.lsp.status(), vim.log.levels.INFO, {
-			id = 'lsp_progress',
-			title = 'LSP Progress',
-			opts = function(notif)
-				notif.icon = ev.data.params.value.kind == 'end' and ' '
-					or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
-			end,
-		})
-	end,
-})
+			vim.notify(vim.lsp.status(), vim.log.levels.INFO, {
+				id = 'lsp_progress',
+				title = 'LSP Progress',
+				opts = function(notif)
+					notif.icon = ev.data.params.value.kind == 'end' and ' '
+						or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+				end,
+			})
+		end,
+	})
+end, 50)
 
 --- For rendering terminal escape codes
 vim.api.nvim_create_user_command('Term', function(_)
@@ -71,32 +73,31 @@ vim.api.nvim_create_user_command('Term', function(_)
 end, {})
 
 --- Run command after updating plugin
-local function PackChanged(event)
-	local after = event.data.spec.data and event.data.spec.data.after
-	if not after then return false end
-
-	local pkg_name = event.data.spec.name
-	local function wait()
-		package.loaded[pkg_name] = nil
-		local ok = pcall(require, pkg_name)
-
-		if ok then
-			if type(after) == 'string' then
-				vim.cmd(after)
-			elseif type(after) == 'function' then
-				after()
-			end
-		else
-			vim.defer_fn(wait, 50)
-		end
-	end
-
-	wait()
-
-	return false
-end
 
 autocmd('PackChanged', {
 	group = augroup('PackCommands', { clear = true }),
-	callback = PackChanged,
+	callback = function(event)
+		local after = event.data.spec.data and event.data.spec.data.after
+		if not after then return false end
+
+		local pkg_name = event.data.spec.name
+		local function wait()
+			package.loaded[pkg_name] = nil
+			local ok = pcall(require, pkg_name)
+
+			if ok then
+				if type(after) == 'string' then
+					vim.cmd(after)
+				elseif type(after) == 'function' then
+					after()
+				end
+			else
+				vim.defer_fn(wait, 50)
+			end
+		end
+
+		wait()
+
+		return false
+	end,
 })
