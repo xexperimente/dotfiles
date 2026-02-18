@@ -9,8 +9,8 @@ local opts = {
 	},
 	keymap = {
 		preset = 'super-tab',
-		['<C-n>'] = { 'show', 'select_next' },
-		['<CR>'] = { 'accept', 'fallback' },
+		['<C-n>'] = { 'show', 'select_next', 'fallback_to_mappings' },
+		-- ['<CR>'] = { 'accept', 'fallback' },
 	},
 	sources = {
 		default = { 'lsp', 'path', 'snippets' },
