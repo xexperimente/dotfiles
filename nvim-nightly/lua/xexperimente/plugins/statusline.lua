@@ -6,6 +6,7 @@ local state = {
 	statusline_buf = nil,
 	statusline_win = nil,
 	statusline_is_active = false,
+	sep = ' | ',
 }
 
 vim.api.nvim_create_autocmd('Colorscheme', {
@@ -72,7 +73,7 @@ local function diagnostics()
 			out = out .. with_hl(fmt, get_severity_hl(severity))
 		end
 	end
-	return out ~= '' and (' ' .. out) or ''
+	return out ~= '' and (' ' .. out .. ' |') or ''
 end
 
 local function git_status()
@@ -82,18 +83,27 @@ local function git_status()
 
 	if info == nil then return '' end
 
-	local head_name = summary.head_name and ('' .. summary.head_name) or ''
-	local out = ''
-	local head = with_hl(head_name or '', 'StatusLineActive')
-	local added = (info.add and info.add > 0) and with_hl(' ' .. info.add .. ' ', 'MiniDiffSignAdd') or ''
-	local changed = (info.change and info.change > 0) and with_hl(' ' .. info.change .. ' ', 'MiniDiffSignChange')
-		or ''
-	local removed = (info.delete and info.delete > 0) and with_hl(' ' .. info.delete .. '', 'MiniDiffSignDelete') or ''
+	local function value(table, symbol)
+		for key, val in pairs(table) do
+			if key == symbol then return val end
+		end
+		return 0
+	end
 
-	local changes = ('%s%s%s'):format(added, changed, removed)
-	out = out .. ('%s%s'):format(head, changes == '' and '' or ' | ' .. changes)
-	-- idk if this can be empty
-	return out ~= '' and (' ' .. out) or ''
+	local head_name = summary.head_name and (' ' .. summary.head_name) or ''
+	local head = with_hl(head_name or '', 'StatusLineActive')
+
+	local add = value(info, 'add')
+	local cha = value(info, 'change')
+	local del = value(info, 'delete')
+
+	local out = (head_name == '' and '' or head .. ' | ')
+		.. (add > 0 and with_hl((' %s '):format(add), 'MiniDiffSignAdd') or '')
+		.. (cha > 0 and with_hl((' %s '):format(cha), 'MiniDiffSignChange') or '')
+		.. (del > 0 and with_hl((' %s '):format(del), 'MiniDiffSignDelete') or '')
+		.. ((add + cha + del) > 0 and '| ' or '')
+
+	return out
 end
 
 local function lsp_status()
@@ -104,13 +114,13 @@ local function lsp_status()
 		out = out .. name .. (i ~= #client_names and ', ' or '')
 	end
 	out = with_hl(out, 'StatusLineActive')
-	return '| ' .. out
+	return out .. state.sep
 end
 
 local function filepath()
 	local filename = vim.api.nvim_buf_get_name(state.statusline_buf)
 	if filename == '' then return ' [No name]' end
-	return ' | ' .. vim.fn.fnamemodify(filename, ':~:.')
+	return vim.fn.fnamemodify(filename, ':~:.')
 end
 
 local function mode()
@@ -153,19 +163,17 @@ local function mode()
 
 	local mode_code = vim.api.nvim_get_mode().mode
 	local m = with_hl(mode_map[mode_code] or 'UNKNOWN', 'StatusLineActive')
-	return m .. ' |'
+	return m .. state.sep
 end
 
 local function search_count()
-	-- Pokud není aktivní hledání (není nastaven registr /), nevracíme nic
 	if vim.v.hlsearch == 0 then return '' end
 
-	-- searchcount vrací tabulku: {current, total, incomplete, ...}
 	local ok, s_count = pcall(vim.fn.searchcount, { recompute = 1 })
 
 	if not ok or s_count.total == 0 then return '' end
 
-	return string.format('| [%d/%d]', s_count.current, s_count.total)
+	return with_hl(string.format('[%d/%d]', s_count.current, s_count.total), 'IncSearch') .. state.sep
 end
 
 local function progress()
@@ -188,7 +196,7 @@ function MyStatusline()
 		.. ' '
 		.. lsp_status()
 		.. search_count()
-		.. ' | %l:%c | '
+		.. '%l:%c | '
 		.. progress()
 end
 
