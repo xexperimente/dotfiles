@@ -29,6 +29,9 @@ local result = {
 				},
 				disable = { 'unnecessary-if' },
 			},
+			codelens = {
+				enable = true,
+			},
 			runtime = {
 				version = 'LuaJIT',
 			},
