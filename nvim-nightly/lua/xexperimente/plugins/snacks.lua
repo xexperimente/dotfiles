@@ -9,6 +9,7 @@ require('snacks').setup({
 	image = { enabled = false },
 	explorer = { replace_netrw = true },
 	notifier = { enabled = true, style = 'compact' },
+	notify = { enabled = true },
 	words = { enabled = true },
 	scope = { enabled = true },
 	scroll = { enabled = true },
@@ -16,14 +17,8 @@ require('snacks').setup({
 	statuscolumn = {
 		left = { 'mark', 'sign' },
 		right = { 'fold', 'git' },
-		folds = {
-			open = true, -- show open fold icons
-			git_hl = true, -- use Git Signs hl for fold icons
-		},
-		git = {
-			-- patterns to match Git signs
-			patterns = { 'GitSign', 'MiniDiffSign' },
-		},
+		folds = { open = true, git_hl = true },
+		git = { patterns = { 'GitSign', 'MiniDiffSign' } },
 		refresh = 50, -- refresh at most every 50ms
 	},
 	terminal = {
@@ -39,10 +34,7 @@ require('snacks').setup({
 					expr = true,
 				},
 			},
-			wo = {
-				winbar = '',
-				statusline = '',
-			},
+			wo = { winbar = '', statusline = '' },
 			title = ' Terminal ',
 		},
 		interactive = true,
@@ -56,9 +48,10 @@ require('snacks').setup({
 						box = 'vertical',
 						width = 0.7,
 						height = 0.8,
-						border = 'rounded',
+						border = 'single',
 						title = ' Files ',
 						title_pos = 'center',
+						backdrop = 90,
 						{ win = 'input', height = 1, border = 'bottom' },
 						{
 							box = 'horizontal',
@@ -73,7 +66,7 @@ require('snacks').setup({
 				tree = true,
 				auto_close = true,
 				git_status = false,
-				layout = { preset = 'vertical', preview = false, layout = { backdrop = 60 } },
+				layout = { preset = 'vertical', preview = false, layout = { backdrop = 90 } },
 			},
 			icons = { layout = 'select' },
 			pickers = { preview = false, layout = 'select' },
@@ -131,7 +124,7 @@ require('snacks').setup({
 		input = {
 			row = 36,
 			wo = { winhighlight = 'FloatBorder:FloatBorder' },
-			border = 'rounded',
+			border = 'single',
 		},
 	},
 })
@@ -139,6 +132,7 @@ require('snacks').setup({
 -- Keymaps
 local bind = vim.keymap.set
 local config = vim.fn.stdpath('config')
+local nxm = { 'n', 'x' }
 
 -- Toggle options
 Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map('<leader>uL')
@@ -150,105 +144,95 @@ Snacks.toggle.dim():map('<leader>uD')
 Snacks.toggle.treesitter():map('<leader>uT')
 
 -- Top Pickers & Explorer
-bind('n', '<leader>,', function() Snacks.picker.buffers() end, { desc = 'Buffers' })
-bind('n', '<leader>/', function() Snacks.picker.grep() end, { desc = 'Grep' })
-bind('n', '<leader>:', function() Snacks.picker.command_history() end, { desc = 'Command History' })
-bind('n', '<leader>n', function() Snacks.picker.notifications() end, { desc = 'Notification History' })
-bind('n', '<leader>N', function() Snacks.notifier.show_history() end, { desc = 'Notifier History' })
-bind('n', '<leader>e', function() Snacks.explorer() end, { desc = 'File Explorer' })
-bind('n', '<leader>.', function() Snacks.scratch() end, { desc = 'Toggle Scratch Buffer' })
-bind('n', '<leader>;', function() Snacks.scratch.select() end, { desc = 'Select Scratch Buffer' })
+bind('n', '<leader>,', Snacks.picker.buffers, { desc = 'Buffers' })
+bind('n', '<leader>/', Snacks.picker.grep, { desc = 'Grep' })
+bind('n', '<leader>:', Snacks.picker.command_history, { desc = 'Command History' })
+bind('n', '<leader>n', Snacks.picker.notifications, { desc = 'Notifier History' })
+bind('n', '<leader>N', Snacks.notifier.show_history, { desc = 'Notifier History' })
+bind('n', '<leader>e', Snacks.picker.explorer, { desc = 'File Explorer' })
+bind('n', '<leader>.', function() Snacks.scratch() end, { desc = 'Scratch Buffer' })
+bind('n', '<leader>;', Snacks.scratch.select, { desc = 'Select Scratch Buffer' })
 
 -- find
-bind('n', '<leader>fb', function() Snacks.picker.buffers() end, { desc = 'Buffers' })
+bind('n', '<leader>fb', Snacks.picker.buffers, { desc = 'Buffers' })
+bind('n', '<leader>ff', Snacks.picker.files, { desc = 'Find Files' })
+bind('n', '<leader>fg', Snacks.picker.git_files, { desc = 'Find Git Files' })
+bind('n', '<leader>fp', Snacks.picker.projects, { desc = 'Projects' })
 bind('n', '<leader>fc', function() Snacks.picker.files({ cwd = config }) end, { desc = 'Find in Config' })
-bind('n', '<leader>ff', function() Snacks.picker.files() end, { desc = 'Find Files' })
-bind('n', '<leader>fg', function() Snacks.picker.git_files() end, { desc = 'Find Git Files' })
-bind('n', '<leader>fp', function() Snacks.picker.projects() end, { desc = 'Projects' })
 bind('n', '<leader>fr', function() Snacks.picker.recent({ filter = { cwd = true } }) end, { desc = 'Recent(cwd)' })
-bind('n', '<leader>fR', function() Snacks.picker.recent() end, { desc = 'Recent' })
+bind('n', '<leader>fR', Snacks.picker.recent, { desc = 'Recent' })
 
 -- git
-bind('n', '<leader>gb', function() Snacks.picker.git_branches() end, { desc = 'Git Branches' })
-bind('n', '<leader>gl', function() Snacks.picker.git_log() end, { desc = 'Git Log' })
-bind('n', '<leader>gL', function() Snacks.picker.git_log_line() end, { desc = 'Git Log Line' })
-bind('n', '<leader>gs', function() Snacks.picker.git_status() end, { desc = 'Git Status' })
-bind('n', '<leader>gS', function() Snacks.picker.git_stash() end, { desc = 'Git Stash' })
-bind('n', '<leader>gd', function() Snacks.picker.git_diff() end, { desc = 'Git Diff (Hunks)' })
-bind('n', '<leader>gf', function() Snacks.picker.git_log_file() end, { desc = 'Git Log File' })
-bind('n', '<leader>gi', function() Snacks.picker.gh_issue() end, { desc = 'GitHub Issues (open)' })
+bind('n', '<leader>gb', Snacks.picker.git_branches, { desc = 'Git Branches' })
+bind('n', '<leader>gl', Snacks.picker.git_log, { desc = 'Git Log' })
+bind('n', '<leader>gL', Snacks.picker.git_log_line, { desc = 'Git Log Line' })
+bind('n', '<leader>gs', Snacks.picker.git_status, { desc = 'Git Status' })
+bind('n', '<leader>gS', Snacks.picker.git_stash, { desc = 'Git Stash' })
+bind('n', '<leader>gd', Snacks.picker.git_diff, { desc = 'Git Diff (Hunks)' })
+bind('n', '<leader>gf', Snacks.picker.git_log_file, { desc = 'Git Log File' })
+bind('n', '<leader>gi', Snacks.picker.gh_issue, { desc = 'GitHub Issues (open)' })
 bind('n', '<leader>gI', function() Snacks.picker.gh_issue({ state = 'all' }) end, { desc = 'GitHub Issues (all)' })
-bind('n', '<leader>gp', function() Snacks.picker.gh_pr() end, { desc = 'GitHub Pull Requests (open)' })
-bind('n', '<leader>gP', function() Snacks.picker.gh_pr({ state = 'all' }) end, { desc = 'GitHub Pull Requests (all)' })
+bind('n', '<leader>gp', function() Snacks.picker.gh_pr() end, { desc = 'GitHub PR (open)' })
+bind('n', '<leader>gP', function() Snacks.picker.gh_pr({ state = 'all' }) end, { desc = 'GitHub PR (all)' })
 
 -- grep
-bind('n', '<leader>sb', function() Snacks.picker.lines() end, { desc = 'Buffer Lines' })
-bind('n', '<leader>sB', function() Snacks.picker.grep_buffers() end, { desc = 'Grep Open Buffers' })
-bind('n', '<leader>sg', function() Snacks.picker.grep() end, { desc = 'Grep' })
-bind({ 'n', 'x' }, '<leader>sw', function() Snacks.picker.grep_word() end, { desc = 'Visual selection or word' })
+bind('n', '<leader>sb', Snacks.picker.lines, { desc = 'Buffer Lines' })
+bind('n', '<leader>sB', Snacks.picker.grep_buffers, { desc = 'Grep Open Buffers' })
+bind('n', '<leader>sg', Snacks.picker.grep, { desc = 'Grep' })
+bind(nxm, '<leader>sw', Snacks.picker.grep_word, { desc = 'Visual selection or word' })
 
 -- search
-bind('n', '<leader>s"', function() Snacks.picker.registers() end, { desc = 'Registers' })
-bind('n', '<leader>s/', function() Snacks.picker.search_history() end, { desc = 'Search History' })
-bind('n', '<leader>sa', function() Snacks.picker.autocmds() end, { desc = 'Autocmds' })
-bind('n', '<leader>sb', function() Snacks.picker.lines() end, { desc = 'Buffer Lines' })
-bind('n', '<leader>sc', function() Snacks.picker.command_history() end, { desc = 'Command History' })
-bind('n', '<leader>sC', function() Snacks.picker.commands() end, { desc = 'Commands' })
-bind('n', '<leader>sd', function() Snacks.picker.diagnostics() end, { desc = 'Diagnostics' })
-bind('n', '<leader>sD', function() Snacks.picker.diagnostics_buffer() end, { desc = 'Buffer Diagnostics' })
-bind('n', '<leader>sh', function() Snacks.picker.help() end, { desc = 'Help Pages' })
-bind('n', '<leader>sH', function() Snacks.picker.highlights() end, { desc = 'Highlights' })
-bind('n', '<leader>si', function() Snacks.picker.icons() end, { desc = 'Icons' })
-bind('n', '<leader>sj', function() Snacks.picker.jumps() end, { desc = 'Jumps' })
-bind('n', '<leader>sk', function() Snacks.picker.keymaps() end, { desc = 'Keymaps' })
-bind('n', '<leader>sl', function() Snacks.picker.loclist() end, { desc = 'Location List' })
-bind('n', '<leader>sm', function() Snacks.picker.marks() end, { desc = 'Marks' })
-bind('n', '<leader>sM', function() Snacks.picker.man() end, { desc = 'Man Pages' })
-bind('n', '<leader>sp', function() fn.show_plugins() end, { desc = 'Show plugins' })
-bind('n', '<leader>sq', function() Snacks.picker.qflist() end, { desc = 'Quickfix List' })
-bind('n', '<leader>sR', function() Snacks.picker.resume() end, { desc = 'Resume' })
-bind('n', '<leader>su', function() Snacks.picker.undo() end, { desc = 'Undo History' })
-bind('n', '<leader>st', function() Snacks.picker.colorschemes() end, { desc = 'Themes' })
+bind('n', '<leader>s"', Snacks.picker.registers, { desc = 'Registers' })
+bind('n', '<leader>s/', Snacks.picker.search_history, { desc = 'Search History' })
+bind('n', '<leader>sa', Snacks.picker.autocmds, { desc = 'Autocmds' })
+bind('n', '<leader>sb', Snacks.picker.lines, { desc = 'Buffer Lines' })
+bind('n', '<leader>sc', Snacks.picker.command_history, { desc = 'Command History' })
+bind('n', '<leader>sC', Snacks.picker.commands, { desc = 'Commands' })
+bind('n', '<leader>sd', Snacks.picker.diagnostics, { desc = 'Diagnostics' })
+bind('n', '<leader>sD', Snacks.picker.diagnostics_buffer, { desc = 'Buffer Diagnostics' })
+bind('n', '<leader>sh', Snacks.picker.help, { desc = 'Help Pages' })
+bind('n', '<leader>sH', Snacks.picker.highlights, { desc = 'Highlights' })
+bind('n', '<leader>si', Snacks.picker.icons, { desc = 'Icons' })
+bind('n', '<leader>sj', Snacks.picker.jumps, { desc = 'Jumps' })
+bind('n', '<leader>sk', Snacks.picker.keymaps, { desc = 'Keymaps' })
+bind('n', '<leader>sl', Snacks.picker.loclist, { desc = 'Location List' })
+bind('n', '<leader>sm', Snacks.picker.marks, { desc = 'Marks' })
+bind('n', '<leader>sM', Snacks.picker.man, { desc = 'Man Pages' })
+bind('n', '<leader>sp', fn.show_plugins, { desc = 'Show plugins' })
+bind('n', '<leader>sq', Snacks.picker.qflist, { desc = 'Quickfix List' })
+bind('n', '<leader>sR', Snacks.picker.resume, { desc = 'Resume' })
+bind('n', '<leader>su', Snacks.picker.undo, { desc = 'Undo History' })
+bind('n', '<leader>st', Snacks.picker.colorschemes, { desc = 'Themes' })
 
 -- LSP
-bind('n', 'gd', function() Snacks.picker.lsp_definitions() end, { desc = 'Goto Definition' })
-bind('n', 'gD', function() Snacks.picker.lsp_declarations() end, { desc = 'Goto Declaration' })
-bind('n', 'gr', function() Snacks.picker.lsp_references() end, { nowait = true, desc = 'References' })
-bind('n', 'gI', function() Snacks.picker.lsp_implementations() end, { desc = 'Goto Implementation' })
-bind('n', 'gy', function() Snacks.picker.lsp_type_definitions() end, { desc = 'Goto Type Definition' })
-bind('n', 'gai', function() Snacks.picker.lsp_incoming_calls() end, { desc = 'C[a]lls Incoming' })
-bind('n', 'gao', function() Snacks.picker.lsp_outgoing_calls() end, { desc = 'C[a]lls Outgoing' })
-bind('n', '<leader>ss', function() Snacks.picker.lsp_symbols() end, { desc = 'LSP Symbols' })
-bind('n', '<leader>sS', function() Snacks.picker.lsp_workspace_symbols() end, { desc = 'LSP Workspace Symbols' })
-bind('n', '<leader>cl', function() Snacks.picker.lsp_config() end, { desc = 'Lsp Info' })
-bind('n', 'K', function() return vim.lsp.buf.hover() end, { desc = 'Hover' })
-bind('n', 'gK', function() return vim.lsp.buf.signature_help() end, { desc = 'Signature Help' })
-bind('i', '<c-k>', function() return vim.lsp.buf.signature_help() end, { desc = 'Signature Help' })
-bind({ 'n', 'x' }, '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Action' })
-bind({ 'n', 'x' }, '<leader>cc', vim.lsp.codelens.run, { desc = 'Run Codelens' })
-bind('n', '<leader>cR', function() Snacks.rename.rename_file() end, { desc = 'Rename File' })
-bind('n', '<leader>cr', vim.lsp.buf.rename, { desc = 'Rename' })
-bind('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
-bind('n', '<leader>cC', vim.lsp.codelens.refresh, { desc = 'Refresh & Display Codelens' })
+bind('n', 'gd', Snacks.picker.lsp_definitions, { desc = 'Goto Definition' })
+bind('n', 'gD', Snacks.picker.lsp_declarations, { desc = 'Goto Declaration' })
+bind('n', 'gr', Snacks.picker.lsp_references, { nowait = true, desc = 'References' })
+bind('n', 'gI', Snacks.picker.lsp_implementations, { desc = 'Goto Implementation' })
+bind('n', 'gy', Snacks.picker.lsp_type_definitions, { desc = 'Goto Type Definition' })
+bind('n', 'gai', Snacks.picker.lsp_incoming_calls, { desc = 'C[a]lls Incoming' })
+bind('n', 'gao', Snacks.picker.lsp_outgoing_calls, { desc = 'C[a]lls Outgoing' })
+bind('n', '<leader>ss', Snacks.picker.lsp_symbols, { desc = 'LSP Symbols' })
+bind('n', '<leader>sS', Snacks.picker.lsp_workspace_symbols, { desc = 'LSP Workspace Symbols' })
+bind('n', '<leader>cl', Snacks.picker.lsp_config, { desc = 'Lsp Info' })
+bind('n', '<leader>cR', Snacks.rename.rename_file, { desc = 'Rename File' })
 
 -- Visual Studio LSP binds
-bind('n', '<f2>', vim.lsp.buf.rename, { desc = 'Rename' })
-bind('n', '<f12>', vim.lsp.buf.definition, { desc = 'Goto Definition' })
-bind('n', '<s-f12>', function() Snacks.picker.lsp_references() end, { desc = 'References' })
-bind('n', '<c-f12>', function() Snacks.picker.lsp_declarations() end, { desc = 'Goto Declaration' })
-bind({ 'n', 'x' }, '<f4>', vim.lsp.buf.code_action, { desc = 'Code Action' })
+bind('n', '<f12>', Snacks.picker.lsp_definitions, { desc = 'Goto Definition' })
+bind('n', '<s-f12>', Snacks.picker.lsp_references, { desc = 'References' })
+bind('n', '<c-f12>', Snacks.picker.lsp_declarations, { desc = 'Goto Declaration' })
 
 -- Terminal
-bind('n', '<leader>t', function() Snacks.terminal.toggle() end, { desc = 'Toggle terminal' })
-bind('n', '<c-t>', function() Snacks.terminal.toggle() end, { desc = 'Toggle terminal' })
+bind('n', '<leader>t', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
+bind('n', '<c-t>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 
 -- Utils
-bind('n', '<leader>bD', function() Snacks.bufdelete.other() end, { desc = 'Delete other buffers' })
-bind('n', '<leader>bd', function() Snacks.bufdelete(0) end, { desc = 'Delete buffer' })
+bind('n', '<leader>bD', Snacks.bufdelete.other, { desc = 'Delete other buffers' })
+bind('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = 'Delete buffer' })
 
 -- Show messages, info or notifications
-bind('n', '<leader>m', function() fn.show_messages() end, { desc = 'Show Messages' })
-bind('n', '<leader>i', function() fn.show_info() end, { desc = 'Show Neovim News' })
+bind('n', '<leader>m', fn.show_messages, { desc = 'Show Messages' })
+bind('n', '<leader>i', fn.show_info, { desc = 'Show Neovim News' })
 
 -- Debug print
 _G.dd = function(...) Snacks.debug.inspect(...) end

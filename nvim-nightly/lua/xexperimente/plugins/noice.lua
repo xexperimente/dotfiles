@@ -5,42 +5,38 @@ vim.pack.add({
 	gh('MunifTanjim/nui.nvim'),
 })
 
-vim.defer_fn(
-	function()
-		require('noice').setup({
-			presets = {
-				bottom_search = false,
-				lsp_doc_border = true,
+require('noice').setup({
+	presets = {
+		bottom_search = false,
+		lsp_doc_border = true,
+	},
+	lsp = {
+		progress = { enabled = false },
+		override = {
+			['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+			['vim.lsp.util.stylize_markdown'] = true,
+		},
+	},
+	views = {
+		cmdline_popup = {
+			position = {
+				row = '70%',
+				col = '50%',
 			},
-			lsp = {
-				progress = { enabled = false },
-				override = {
-					['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-					['vim.lsp.util.stylize_markdown'] = true,
-				},
-				signature = { enabled = false },
-			},
-			views = {
-				cmdline_popup = {
-					position = {
-						row = '70%',
-						col = '50%',
-					},
-					border = {
-						style = 'rounded',
-					},
-				},
-			},
-			messages = { view_search = false },
-			cmdline = {
-				format = {
-					cmdline = { icon = '󰘧' },
-					lua = { icon = 'lua' },
-				},
-			},
-			popupmenu = { enabled = false },
-			notify = { enabled = false },
-		})
-	end,
-	80
-)
+			border = { style = 'single' },
+		},
+		hover = {
+			size = { max_height = 10 },
+			border = { style = 'single' },
+		},
+	},
+	messages = { view_search = false },
+	cmdline = {
+		format = {
+			cmdline = { icon = '󰘧' },
+			lua = { icon = 'lua' },
+		},
+	},
+	popupmenu = { enabled = false },
+	notify = { enabled = false },
+})

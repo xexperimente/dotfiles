@@ -17,7 +17,7 @@ local opts = {
 		min_keyword_length = 2,
 	},
 	signature = {
-		enabled = true,
+		enabled = false,
 		window = {
 			show_documentation = false,
 		},
@@ -65,7 +65,7 @@ local opts = {
 					{ 'kind' },
 				},
 			},
-			border = 'rounded',
+			border = 'single',
 		},
 		documentation = {
 			auto_show = false,

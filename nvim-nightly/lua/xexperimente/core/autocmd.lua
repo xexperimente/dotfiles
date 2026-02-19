@@ -61,7 +61,7 @@ vim.defer_fn(function()
 			})
 		end,
 	})
-end, 50)
+end, 90)
 
 --- For rendering terminal escape codes
 vim.api.nvim_create_user_command('Term', function(_)
@@ -73,7 +73,6 @@ vim.api.nvim_create_user_command('Term', function(_)
 end, {})
 
 --- Run command after updating plugin
-
 autocmd('PackChanged', {
 	group = augroup('PackCommands', { clear = true }),
 	callback = function(event)

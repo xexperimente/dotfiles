@@ -95,6 +95,11 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_python_provider = 0
 vim.g.loaded_python3_provider = 0
 
+-- Disable unused vim plugins
+vim.g.loaded_rplugin = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_matchit = 1
+
 -- Grep arguments
 if vim.fn.executable('rg') == 1 then
 	vim.opt.grepprg = 'rg --vimgrep --no-heading --smart-case --hidden'

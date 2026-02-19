@@ -1,9 +1,4 @@
-vim.pack.add(
-	{
-		'https://github.com/MeanderingProgrammer/render-markdown.nvim',
-	}
-	-- , { load = false }
-)
+vim.pack.add({ 'https://github.com/MeanderingProgrammer/render-markdown.nvim' })
 
 vim.defer_fn(function()
 	require('render-markdown').setup({
