@@ -2,6 +2,8 @@ local bind = vim.keymap.set
 
 local abbr = vim.cmd.cnoreabbrev
 
+local fn = require('xexperimente.utils.functions')
+
 -- Allow misspellings
 abbr('qw', 'wq')
 abbr('Wq', 'wq')
@@ -36,14 +38,13 @@ bind('n', '<S-Down>', 'V')
 bind('v', '<S-Up>', 'k')
 bind('v', '<S-Down>', 'j')
 
--- PackUpdate
-vim.api.nvim_create_user_command('PackUpdate', function()
-	vim.pack.update()
-	bind('n', 'q', '<c-w>q', { buffer = 0 })
-	bind('n', 'w', '<cmd>wq<cr>', { buffer = 0 })
-end, {})
+-- Show messages, info or notifications
+bind('n', '<leader>m', fn.show_messages, { desc = 'Show Messages' })
+bind('n', '<leader>i', fn.show_info, { desc = 'Show Neovim News' })
 
-bind('n', '<leader>pl', '<cmd>PackUpdate<cr>', { desc = 'Update plugins' })
-bind('n', '<leader>pu', '<cmd>PackUpdate<cr>', { desc = 'Update plugins' })
+-- Plugins
+bind('n', '<leader>sp', function() vim.pack.update(nil, { offile = true }) end, { desc = 'Show plugins' })
+bind('n', '<leader>pl', function() vim.pack.update() end, { desc = 'Update plugins' })
+bind('n', '<leader>pu', function() vim.pack.update() end, { desc = 'Update plugins' })
 bind('n', '<leader>pM', '<cmd>MasonUpdate<cr>', { desc = 'Update mason' })
 bind('n', '<leader>pm', '<cmd>Mason<cr>', { desc = 'Show mason' })

@@ -1,11 +1,12 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
+local usercmd = vim.api.nvim_create_user_command
 
 -- Highlight when yanking
 autocmd('TextYankPost', {
 	desc = 'Highlight when yanking (copying) text',
 	group = augroup('highlight-yank', { clear = true }),
-	callback = function() vim.highlight.on_yank() end,
+	callback = function() vim.hl.on_yank() end,
 })
 
 -- Do not add comment when adding new line
@@ -22,8 +23,7 @@ autocmd('FileChangedShellPost', {
 
 -- Allow closing the following buffer file types by pressing 'q' or 'esc'
 autocmd('FileType', {
-	pattern = { 'help', 'man', 'qf' },
-	-- command = 'nnoremap <buffer> q <cmd>quit<cr>',
+	pattern = { 'help', 'man', 'qf', 'nvim-pack' },
 	callback = function()
 		vim.keymap.set('n', 'q', '<cmd>quit<cr>', { buffer = true })
 		vim.keymap.set('n', '<esc>', '<cmd>quit<cr>', { buffer = true })
@@ -64,7 +64,7 @@ vim.defer_fn(function()
 end, 90)
 
 --- For rendering terminal escape codes
-vim.api.nvim_create_user_command('Term', function(_)
+usercmd('Term', function(_)
 	local buf = vim.api.nvim_get_current_buf()
 	local b = vim.api.nvim_create_buf(false, true)
 	local chan = vim.api.nvim_open_term(b, {})

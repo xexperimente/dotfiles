@@ -198,7 +198,6 @@ bind('n', '<leader>sk', Snacks.picker.keymaps, { desc = 'Keymaps' })
 bind('n', '<leader>sl', Snacks.picker.loclist, { desc = 'Location List' })
 bind('n', '<leader>sm', Snacks.picker.marks, { desc = 'Marks' })
 bind('n', '<leader>sM', Snacks.picker.man, { desc = 'Man Pages' })
-bind('n', '<leader>sp', fn.show_plugins, { desc = 'Show plugins' })
 bind('n', '<leader>sq', Snacks.picker.qflist, { desc = 'Quickfix List' })
 bind('n', '<leader>sR', Snacks.picker.resume, { desc = 'Resume' })
 bind('n', '<leader>su', Snacks.picker.undo, { desc = 'Undo History' })
@@ -229,10 +228,6 @@ bind('n', '<c-t>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 -- Utils
 bind('n', '<leader>bD', Snacks.bufdelete.other, { desc = 'Delete other buffers' })
 bind('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = 'Delete buffer' })
-
--- Show messages, info or notifications
-bind('n', '<leader>m', fn.show_messages, { desc = 'Show Messages' })
-bind('n', '<leader>i', fn.show_info, { desc = 'Show Neovim News' })
 
 -- Debug print
 _G.dd = function(...) Snacks.debug.inspect(...) end

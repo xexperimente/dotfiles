@@ -1,5 +1,7 @@
 ---@diagnostic disable: param-type-mismatch
 
+local autocmd = vim.api.nvim_create_autocmd
+
 local state = {
 	diagnostic_count = {},
 	lsp_client_names = {},
@@ -9,7 +11,7 @@ local state = {
 	sep = ' | ',
 }
 
-vim.api.nvim_create_autocmd('Colorscheme', {
+autocmd('Colorscheme', {
 	desc = 'Set statusline highlights',
 	group = vim.api.nvim_create_augroup('statusline-highlights', {}),
 	callback = function()
@@ -21,7 +23,7 @@ vim.api.nvim_create_autocmd('Colorscheme', {
 	end,
 })
 
-vim.api.nvim_create_autocmd('DiagnosticChanged', {
+autocmd('DiagnosticChanged', {
 	group = vim.api.nvim_create_augroup('statusline-diagnostics', {}),
 	callback = vim.schedule_wrap(function(args)
 		if vim.fn.mode() == 'i' then return end
@@ -30,7 +32,7 @@ vim.api.nvim_create_autocmd('DiagnosticChanged', {
 	end),
 })
 
-vim.api.nvim_create_autocmd({ 'LspAttach', 'LspDetach' }, {
+autocmd({ 'LspAttach', 'LspDetach' }, {
 	group = vim.api.nvim_create_augroup('statusline-lsp', {}),
 	callback = vim.schedule_wrap(function(args)
 		state.lsp_client_names[args.buf] = vim.tbl_map(
@@ -41,6 +43,13 @@ vim.api.nvim_create_autocmd({ 'LspAttach', 'LspDetach' }, {
 		vim.cmd('redrawstatus')
 	end),
 })
+
+-- autocmd({ 'BufEnter', 'BufWinEnter', 'WinEnter', 'CmdwinEnter' }, {
+-- 	pattern = '*',
+-- 	callback = function()
+-- 		vim.cmd('redrawstatus')
+-- 	end,
+-- })
 
 local function with_hl(str, hl, hl_nc)
 	if not str or str == '' then return '' end
@@ -69,7 +78,7 @@ local function diagnostics()
 			---@diagnostic disable-next-line: need-check-nil
 			local icon = vim.diagnostic.config().signs.text[severity]
 
-			local fmt = ('%s %d'):format(icon, count)
+			local fmt = (' %s %d'):format(icon, count)
 			out = out .. with_hl(fmt, get_severity_hl(severity))
 		end
 	end
@@ -78,10 +87,11 @@ end
 
 local function git_status()
 	-- local git_info = vim.b[state.statusline_buf].gitsigns_status_dict
+	---@diagnostic disable: undefined-field
 	local info = vim.b[state.statusline_buf].minidiff_summary
 	local summary = vim.b[state.statusline_buf].minigit_summary
 
-	if info == nil then return '' end
+	if info == nil or summary == nil then return '' end
 
 	local function value(table, symbol)
 		for key, val in pairs(table) do
@@ -109,18 +119,41 @@ end
 local function lsp_status()
 	local client_names = state.lsp_client_names[state.statusline_buf]
 	if client_names == nil or client_names == 0 then return '' end
-	local out = ''
-	for i, name in ipairs(client_names) do
-		out = out .. name .. (i ~= #client_names and ', ' or '')
-	end
-	out = with_hl(out, 'StatusLineActive')
-	return out .. state.sep
-end
 
-local function filepath()
-	local filename = vim.api.nvim_buf_get_name(state.statusline_buf)
-	if filename == '' then return ' [No name]' end
-	return vim.fn.fnamemodify(filename, ':~:.')
+	local server_names = {}
+
+	local ignore_lsp_servers = {
+		['null-ls'] = true,
+		['copilot'] = true,
+	}
+
+	for _, name in ipairs(client_names) do
+		if not ignore_lsp_servers[name] then server_names[#server_names + 1] = name end
+	end
+
+	if package.loaded['conform'] then
+		local has_conform, conform = pcall(require, 'conform')
+		if has_conform then
+			vim.list_extend(
+				server_names,
+				---@diagnostic disable-next-line: need-check-nil
+				vim.tbl_map(function(formatter) return formatter.name end, conform.list_formatters(0))
+			)
+		end
+	end
+
+	if package.loaded['lint'] then
+		local has_lint, lint = pcall(require, 'lint')
+
+		---@diagnostic disable-next-line: need-check-nil
+		local linters = lint.linters_by_ft[vim.bo.filetype]
+
+		if has_lint and linters then vim.list_extend(server_names, linters) end
+	end
+
+	local out = #server_names > 0 and table.concat(server_names, ', ') or 'NO LSP, FORMATTERS '
+
+	return with_hl(out, 'StatusLineActive') .. state.sep
 end
 
 local function mode()
@@ -166,6 +199,15 @@ local function mode()
 	return m .. state.sep
 end
 
+local function filepath()
+	local filename = vim.api.nvim_buf_get_name(state.statusline_buf)
+	if filename == '' then return ' [No name]' end
+	if vim.startswith(filename, 'nvim-pack') then return 'vim.pack' end
+	if vim.startswith(filename, 'term') then return vim.opt.shell:get() end
+
+	return vim.fn.fnamemodify(filename, ':~:.') .. '%<%w%q %m%r'
+end
+
 local function search_count()
 	if vim.v.hlsearch == 0 then return '' end
 
@@ -188,10 +230,11 @@ function MyStatusline()
 	state.statusline_win = vim.g.statusline_winid
 	state.statusline_buf = vim.api.nvim_win_get_buf(state.statusline_win)
 	state.statusline_is_active = vim.g.statusline_winid == vim.api.nvim_get_current_win()
+
 	return mode()
 		.. git_status()
 		.. filepath()
-		.. '%<%w%q %m%r%='
+		.. '%='
 		.. diagnostics()
 		.. ' '
 		.. lsp_status()
