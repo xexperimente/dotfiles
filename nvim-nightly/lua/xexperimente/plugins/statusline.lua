@@ -203,6 +203,7 @@ local function filepath()
 	local filename = vim.api.nvim_buf_get_name(state.statusline_buf)
 	if filename == '' then return ' [No name]' end
 	if vim.startswith(filename, 'nvim-pack') then return 'vim.pack' end
+	---@diagnostic disable-next-line: undefined-field
 	if vim.startswith(filename, 'term') then return vim.opt.shell:get() end
 
 	return vim.fn.fnamemodify(filename, ':~:.') .. '%<%w%q %m%r'

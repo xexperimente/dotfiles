@@ -2,15 +2,13 @@ vim.pack.add({ 'https://github.com/folke/snacks.nvim' })
 
 local fn = require('xexperimente.utils.functions')
 
-require('snacks').setup({
+local opts = {
 	bigfile = { enabled = true },
-	quickfile = { enabled = true },
+	explorer = { replace_netrw = true },
 	input = { enabled = true },
 	image = { enabled = false },
-	explorer = { replace_netrw = true },
 	notifier = { enabled = true, style = 'compact' },
 	notify = { enabled = true },
-	words = { enabled = true },
 	scope = { enabled = true },
 	scroll = { enabled = true },
 	scratch = { icon = '󰄶' },
@@ -88,6 +86,8 @@ require('snacks').setup({
 			},
 		},
 	},
+	quickfile = { enabled = true },
+	words = { enabled = true },
 	dashboard = {
 		width = 80,
 		preset = {
@@ -127,7 +127,10 @@ require('snacks').setup({
 			border = 'single',
 		},
 	},
-})
+}
+
+---@diagnostic disable-next-line: param-type-mismatch
+require('snacks').setup(opts)
 
 -- Keymaps
 local bind = vim.keymap.set

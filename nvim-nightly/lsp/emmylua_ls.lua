@@ -1,10 +1,10 @@
 --- Get lib paths for input packages.
 --- @param pkgs string[]
-local function libs(pkgs)
+local function plugins(pkgs)
 	for p, pkg in ipairs(pkgs) do
 		pkgs[p] = vim.fn.stdpath('data') .. '/site/pack/core/opt/' .. pkg
 	end
-	return pkgs
+	return unpack(pkgs)
 end
 
 --- @type vim.lsp.Config
@@ -36,20 +36,10 @@ local result = {
 				version = 'LuaJIT',
 			},
 			workspace = {
-				-- library = vim.tbl_extend('force', vim.api.nvim_get_runtime_file('', true), {
-				-- 	vim.fn.stdpath('data') .. '/site/pack/core/opt/',
-				-- }),
 				library = {
 					vim.env.VIMRUNTIME .. '/lua',
 					vim.env.VIMRUNTIME .. '/plugin',
-					unpack(libs({
-						'flash.nvim',
-						'mini.nvim',
-						'nvim-treesitter',
-						'nvim-treesitter-textobjects',
-						'witch-line',
-						'snacks.nvim',
-					})),
+					plugins({ 'snacks.nvim', 'mini.nvim' }),
 				},
 			},
 		},
