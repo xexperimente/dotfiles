@@ -44,13 +44,6 @@ autocmd({ 'LspAttach', 'LspDetach' }, {
 	end),
 })
 
--- autocmd({ 'BufEnter', 'BufWinEnter', 'WinEnter', 'CmdwinEnter' }, {
--- 	pattern = '*',
--- 	callback = function()
--- 		vim.cmd('redrawstatus')
--- 	end,
--- })
-
 local function with_hl(str, hl, hl_nc)
 	if not str or str == '' then return '' end
 	if state.statusline_is_active then
@@ -61,7 +54,6 @@ local function with_hl(str, hl, hl_nc)
 end
 
 local function get_severity_hl(severity_id)
-	-- severity_id je např. vim.diagnostic.severity.ERROR (což je 1)
 	if severity_id == 1 then return 'DiagnosticError' end
 	if severity_id == 2 then return 'DiagnosticWarn' end
 	if severity_id == 3 then return 'DiagnosticInfo' end
@@ -82,11 +74,10 @@ local function diagnostics()
 			out = out .. with_hl(fmt, get_severity_hl(severity))
 		end
 	end
-	return out ~= '' and (' ' .. out .. ' |') or ''
+	return out ~= '' and (' ' .. out .. state.sep) or ''
 end
 
 local function git_status()
-	-- local git_info = vim.b[state.statusline_buf].gitsigns_status_dict
 	---@diagnostic disable: undefined-field
 	local info = vim.b[state.statusline_buf].minidiff_summary
 	local summary = vim.b[state.statusline_buf].minigit_summary
@@ -237,7 +228,6 @@ function MyStatusline()
 		.. filepath()
 		.. '%='
 		.. diagnostics()
-		.. ' '
 		.. lsp_status()
 		.. search_count()
 		.. '%l:%c | '
