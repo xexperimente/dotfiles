@@ -27,7 +27,7 @@ vim.diagnostic.config({
 		},
 	},
 	float = {
-		border = 'single',
+		border = vim.g.winborder,
 	},
 })
 

@@ -7,7 +7,7 @@ function M.show_messages()
 		text = messages.output,
 		width = 0.8,
 		height = 0.6,
-		border = 'single',
+		border = vim.g.winborder,
 		wo = {
 			spell = false,
 			wrap = false,
@@ -26,7 +26,7 @@ function M.show_info()
 		file = vim.api.nvim_get_runtime_file('doc/news.txt', true)[1],
 		width = 0.6,
 		height = 0.6,
-		border = 'single',
+		border = vim.g.winborder,
 		wo = {
 			spell = false,
 			wrap = false,

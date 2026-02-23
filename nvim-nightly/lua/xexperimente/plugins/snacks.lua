@@ -22,7 +22,7 @@ local opts = {
 	terminal = {
 		win = {
 			position = 'float',
-			border = 'single',
+			border = vim.g.winborder,
 			style = 'terminal',
 			keys = {
 				term_hide = {
@@ -46,7 +46,7 @@ local opts = {
 						box = 'vertical',
 						width = 0.7,
 						height = 0.8,
-						border = 'single',
+						border = vim.g.winborder,
 						title = ' Files ',
 						title_pos = 'center',
 						backdrop = 90,
@@ -112,19 +112,19 @@ local opts = {
 	},
 	styles = {
 		notification_history = {
-			border = 'single',
+			border = vim.g.winborder,
 			width = 0.8,
 			keys = { ['<Esc>'] = 'close' },
 		},
 		scratch = {
-			border = 'single',
+			border = vim.g.winborder,
 			keys = { ['<Esc>'] = 'close' },
 			wo = { winhighlight = 'NormalFloat:NormalFloat' },
 		},
 		input = {
 			row = 36,
 			wo = { winhighlight = 'FloatBorder:FloatBorder' },
-			border = 'single',
+			border = vim.g.winborder,
 		},
 	},
 }

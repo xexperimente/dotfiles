@@ -58,7 +58,7 @@ local opts = {
 	window = {
 		config = {
 			width = 'auto',
-			border = 'single',
+			border = vim.g.winborder,
 		},
 	},
 }

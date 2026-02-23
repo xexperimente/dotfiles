@@ -3,7 +3,7 @@ vim.pack.add({ 'https://github.com/williamboman/mason.nvim' })
 vim.defer_fn(function()
 	local opts = {
 		ui = {
-			border = 'single',
+			border = vim.g.winborder,
 		},
 	}
 

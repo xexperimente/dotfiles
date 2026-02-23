@@ -65,7 +65,7 @@ local opts = {
 					{ 'kind' },
 				},
 			},
-			border = 'single',
+			border = vim.g.winborder,
 		},
 		documentation = {
 			auto_show = false,

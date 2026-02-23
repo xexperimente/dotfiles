@@ -13,7 +13,7 @@ local opts = {
 		},
 		size = 50,
 		border = {
-			style = 'single',
+			style = vim.g.winborder,
 			text = {
 				top = { { ' Search ', 'FloatTitle' } },
 				top_align = 'center',

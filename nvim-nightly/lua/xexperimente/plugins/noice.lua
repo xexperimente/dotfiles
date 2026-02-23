@@ -23,11 +23,11 @@ require('noice').setup({
 				row = '70%',
 				col = '50%',
 			},
-			border = { style = 'single' },
+			border = { style = vim.g.winborder },
 		},
 		hover = {
 			size = { max_height = 10 },
-			border = { style = 'single' },
+			border = { style = vim.g.winborder },
 		},
 	},
 	messages = { view_search = false },

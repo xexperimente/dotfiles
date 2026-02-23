@@ -20,12 +20,12 @@ vim.opt.tabline = '%t'
 vim.opt.ruler = false
 vim.opt.wrap = false
 vim.opt.termguicolors = true
-vim.opt.signcolumn = 'yes' -- Always show signcolumn
+vim.opt.signcolumn = 'yes'
 vim.opt.showmode = false
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = 'number'
 vim.g.showcmd = false
 vim.g.winborder = 'single'
-vim.o.cursorline = true
-vim.opt.cursorlineopt = 'number'
 
 -- Search
 vim.opt.ignorecase = true
