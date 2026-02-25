@@ -16,7 +16,7 @@ end
 
 return {
 	cmd = { 'clangd' },
-	filetypes = { 'c', 'cpp', 'h', 'hpp', 'ixx' },
+	filetypes = { 'c', 'cpp' },
 	root_markers = {
 		'.clangd',
 		'.clang-tidy',
