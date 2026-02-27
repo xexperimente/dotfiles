@@ -24,13 +24,26 @@ local opts = {
 			winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder',
 		},
 	},
+	hooks = {
+		after_mount = function(input)
+			local opt = { buffer = input.bufnr }
+
+			-- <F3> / <S-F3> to cycle matches
+			vim.keymap.set('i', '<F3>', '<Plug>(searchbox-next-match)', opt)
+			vim.keymap.set('i', '<S-F3>', '<Plug>(searchbox-prev-match)', opt)
+		end,
+	},
 }
 
-require('searchbox').setup(opts)
-
+local sb = require('searchbox')
+local exp = vim.fn.expand
 local bind = vim.keymap.set
 
--- bind('n', '<leader>s', '<cmd>SearchBoxMatchAll<cr>', { noremap = true, desc = 'Searchbox' })
-bind('n', '<leader>r', '<cmd>SearchBoxReplace<cr>', { noremap = true, desc = 'Searchbox(Replace)' })
--- bind('v', '<leader>s', '<cmd>SearchBoxMatchAll visual_mode=true<cr>', { noremap = true, desc = 'Searchbox' })
-bind('v', '<leader>r', '<cmd>SearchBoxReplace visual_mode=true<cr>', { noremap = true, desc = 'Searchbox(Replace)' })
+sb.setup(opts)
+
+bind('n', '<c-f>', '<cmd>SearchBoxMatchAll<cr>', { desc = 'Searchbox' })
+bind('n', '<c-s-f>', function() sb.match_all({ default_value = exp('<cword>') }) end, { desc = 'Searchbox(cword)' })
+bind('v', '<c-f>', 'y:SearchBoxMatchAll -- <C-r>"<cr>', { desc = 'Searchbox' })
+bind('n', '<leader>r', '<cmd>SearchBoxReplace<cr>', { desc = 'Replace' })
+bind('n', '<leader>R', function() sb.replace({ default_value = exp('<cword>') }) end, { desc = 'Replace(cword)' })
+bind('v', '<leader>r', 'y:SearchBoxReplace -- <C-r>"<cr>', { desc = 'Replace' })

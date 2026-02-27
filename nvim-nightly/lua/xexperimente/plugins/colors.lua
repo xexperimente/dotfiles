@@ -5,7 +5,8 @@ vim.pack.add({
 require('rose-pine').setup({
 	highlight_groups = {
 		Whitespace = { bg = 'NONE', fg = 'overlay' },
-		CurSearch = { fg = 'base', bg = 'rose', inherit = false },
+		IncSearch = { fg = 'base', bg = 'rose', inherit = false },
+		CurSearch = { fg = 'base', bg = 'gold', inherit = false },
 		Search = { fg = 'text', bg = 'rose', blend = 20, inherit = false },
 		Keyword = { fg = 'rose' },
 		Folded = { bg = 'base' },
