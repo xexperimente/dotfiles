@@ -102,6 +102,7 @@ require('rose-pine').setup({
 		['@variable'] = { fg = 'iris', italic = false },
 		['@lsp.type.variable'] = { fg = 'text', italic = false },
 		['@lsp.type.property'] = { fg = 'text', italic = false }, -- iris
+		['@lsp.mod.static'] = { fg = 'iris' },
 		Structure = { fg = 'rose' },
 	},
 })

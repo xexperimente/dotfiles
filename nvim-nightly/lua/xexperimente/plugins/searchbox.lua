@@ -8,7 +8,7 @@ local opts = {
 	},
 	popup = {
 		position = {
-			row = '50%',
+			row = '70%',
 			col = '50%',
 		},
 		size = 50,
