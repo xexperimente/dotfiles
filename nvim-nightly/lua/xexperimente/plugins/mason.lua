@@ -1,6 +1,6 @@
-vim.pack.add({ 'https://github.com/williamboman/mason.nvim' })
+vim.schedule(function()
+	vim.pack.add({ 'https://github.com/williamboman/mason.nvim' })
 
-vim.defer_fn(function()
 	local opts = {
 		ui = {
 			border = vim.g.winborder,
@@ -8,4 +8,4 @@ vim.defer_fn(function()
 	}
 
 	require('mason').setup(opts)
-end, 80)
+end)

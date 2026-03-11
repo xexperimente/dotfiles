@@ -1,8 +1,8 @@
-vim.pack.add({
-	'https://github.com/stevearc/overseer.nvim',
-})
+vim.schedule(function()
+	vim.pack.add({
+		'https://github.com/stevearc/overseer.nvim',
+	})
 
-vim.defer_fn(function()
 	require('overseer').setup({
 		-- log_level = vim.log.levels.DEBUG,
 		dap = false,
@@ -12,4 +12,4 @@ vim.defer_fn(function()
 
 	bind('n', '<Leader>o', '<cmd>OverseerRun<cr>', { desc = 'Run tasks' })
 	bind('n', '<Leader>O', '<cmd>OverseerToggle<cr>', { desc = 'Toggle Overseer' })
-end, 60)
+end)

@@ -1,9 +1,9 @@
-vim.pack.add({
-	'https://github.com/jakewvincent/mkdnflow.nvim',
-	'https://github.com/MeanderingProgrammer/render-markdown.nvim',
-})
+vim.schedule(function()
+	vim.pack.add({
+		'https://github.com/jakewvincent/mkdnflow.nvim',
+		'https://github.com/MeanderingProgrammer/render-markdown.nvim',
+	})
 
-vim.defer_fn(function()
 	require('mkdnflow').setup({})
 	require('render-markdown').setup({
 		file_types = { 'markdown', 'md' },
@@ -53,4 +53,4 @@ vim.defer_fn(function()
 		},
 		completions = { lsp = { enabled = true } },
 	})
-end, 80)
+end)

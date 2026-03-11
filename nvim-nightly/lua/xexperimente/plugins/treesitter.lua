@@ -1,19 +1,15 @@
-local function gh(pkg, data)
-	if data == nil then data = {} end
-	return {
-		src = 'https://github.com/' .. pkg,
-		version = 'main',
-		data = data,
-	}
-end
+vim.schedule(function()
+	local function gh(pkg, data)
+		if data == nil then data = {} end
+		return { src = 'https://github.com/' .. pkg, version = 'main', data = data }
+	end
 
-vim.pack.add({
-	gh('nvim-treesitter/nvim-treesitter', { after = 'TSUpdate' }),
-	gh('nvim-treesitter/nvim-treesitter-textobjects'),
-	'https://github.com/nvim-treesitter/nvim-treesitter-context',
-})
+	vim.pack.add({
+		gh('nvim-treesitter/nvim-treesitter', { after = 'TSUpdate' }),
+		gh('nvim-treesitter/nvim-treesitter-textobjects'),
+		gh('nvim-treesitter/nvim-treesitter-context'),
+	})
 
-vim.defer_fn(function()
 	require('nvim-treesitter-textobjects').setup({
 		select = {
 			lookahead = true,
@@ -50,4 +46,4 @@ vim.defer_fn(function()
 	bind({ 'n', 'x', 'o' }, '[z', function() move.goto_previous_start('@fold', 'folds') end)
 	-- context
 	bind('n', '<leader>uc', '<cmd>TSContext toggle<cr>', { desc = 'Toggle treesitter context' })
-end, 80)
+end)

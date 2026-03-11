@@ -1,34 +1,36 @@
-vim.pack.add({
-	'https://github.com/mfussenegger/nvim-dap',
-	'https://github.com/igorlfs/nvim-dap-view',
-})
-
-local function pick_file_sync()
-	local co = coroutine.running()
-	-- assert(co, 'This function must be run inside a coroutine')
-
-	local filter = vim.fn.has('win32') and '*.exe' or ''
-
-	require('snacks').picker.files({
-		cwd = vim.fn.getcwd(),
-		actions = {
-			confirm = function(picker, item)
-				picker:close()
-				local selection = item and item.file or nil
-				-- Resume the coroutine and pass the file back
-				coroutine.resume(co, selection)
-			end,
-		},
-		exclude = { 'build/CMakeFiles' },
-		args = vim.fn.has('win32') == 1 and { '--glob', filter } or {},
+vim.schedule(function()
+	vim.pack.add({
+		'https://github.com/mfussenegger/nvim-dap',
+		'https://github.com/igorlfs/nvim-dap-view',
 	})
 
-	-- Yield execution here. The function "stops" until resume is called above.
-	--- @diagnostic disable-next-line: await-in-sync
-	return coroutine.yield()
-end
+	local function pick_file_sync()
+		---@diagnostic disable-next-line
+		local co = coroutine.running()
+		-- assert(co, 'This function must be run inside a coroutine')
 
-vim.defer_fn(function()
+		-- local filter = vim.fn.has('win32') and '*.exe' or ''
+
+		require('snacks').picker.files({
+			cwd = vim.fn.getcwd(),
+			actions = {
+				confirm = function(picker, item)
+					picker:close()
+					local selection = item and item.file or nil
+					---@diagnostic disable-next-line
+					if coroutine.status(co) ~= 'running' then coroutine.resume(co, selection) end
+				end,
+			},
+			exclude = { 'build/CMakeFiles' },
+			-- args = vim.fn.has('win32') == 1 and { '--glob', filter } or { '--type', 'x' },
+			args = { '--type', 'x', '--exclude', '*vcpkg_installed*' },
+		})
+
+		-- Yield execution here. The function "stops" until resume is called above.
+		--- @diagnostic disable-next-line: await-in-sync
+		return coroutine.yield()
+	end
+
 	local bind = vim.keymap.set
 	local dap = require('dap')
 	local dap_view = require('dap-view')
@@ -59,8 +61,6 @@ vim.defer_fn(function()
 		},
 	})
 
-	require('overseer').enable_dap()
-
 	-- dap.set_log_level('TRACE')
 
 	bind('n', '<F5>', '<cmd>DapContinue<cr>')
@@ -88,18 +88,18 @@ vim.defer_fn(function()
 
 		dap.adapters.lldb = {
 			type = 'executable',
-			command = 'C:/Program Files/Microsoft Visual Studio/18/Professional/VC/Tools/Llvm/x64/bin/lldb-dap.exe',
+			command = 'lldb-dap.exe', -- C:/Program Files/Microsoft Visual Studio/18/Professional/VC/Tools/Llvm/x64/bin/
 			name = 'lldb',
 		}
 
 		dap.configurations.cpp = {
 			{
-				name = 'Launch (CodeLLDB)',
+				name = 'Launch (codelldb)',
 				type = 'codelldb',
 				request = 'launch',
 				program = function() return pick_file_sync() end,
 				cwd = '${workspaceFolder}',
-				preLaunchTask = 'CMake Build',
+				-- preLaunchTask = 'CMake Build',
 			},
 		}
 	else
@@ -118,7 +118,7 @@ vim.defer_fn(function()
 
 		dap.configurations.cpp = {
 			{
-				name = 'Launch (System GDB)',
+				name = 'Launch (gdb)',
 				type = 'gdb',
 				request = 'launch',
 				program = function() return pick_file_sync() end,
@@ -151,8 +151,10 @@ vim.defer_fn(function()
 		},
 	}
 
+	vim.schedule(function() require('overseer').enable_dap() end)
+
 	vim.fn.sign_define('DapBreakpoint', { text = ' ', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
 	vim.fn.sign_define('DapStopped', { text = '󰁕 ', texthl = 'DiagnosticWarn', linehl = 'DapStoppedLine', numhl = '' })
 	vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
 	vim.fn.sign_define('DapBreakpointRejected', { text = ' ', texthl = 'DiagnosticError', linehl = '', numhl = '' })
-end, 400)
+end)

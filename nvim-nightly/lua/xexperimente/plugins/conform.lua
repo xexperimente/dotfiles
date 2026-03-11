@@ -1,8 +1,8 @@
-vim.pack.add({
-	'https://github.com/stevearc/conform.nvim',
-})
+vim.schedule(function()
+	vim.pack.add({
+		'https://github.com/stevearc/conform.nvim',
+	})
 
-vim.defer_fn(function()
 	local opts = {
 		formatters_by_ft = {
 			lua = { 'stylua' },
@@ -33,4 +33,4 @@ vim.defer_fn(function()
 
 		require('conform').format({ async = input.bang, timeout_ms = 700 }, error)
 	end, { bang = true, range = true })
-end, 80)
+end)

@@ -1,6 +1,6 @@
-vim.pack.add({ 'https://github.com/jake-stewart/multicursor.nvim' })
+vim.schedule(function()
+	vim.pack.add({ 'https://github.com/jake-stewart/multicursor.nvim' })
 
-vim.defer_fn(function()
 	local mc = require('multicursor-nvim')
 
 	mc.setup()
@@ -42,4 +42,4 @@ vim.defer_fn(function()
 	vim.api.nvim_set_hl(0, 'MultiCursorVisual', { link = 'Visual' })
 	vim.api.nvim_set_hl(0, 'MultiCursorDisabledCursor', { link = 'Visual' })
 	vim.api.nvim_set_hl(0, 'MultiCursorDisabledVisual', { link = 'Visual' })
-end, 80)
+end)

@@ -42,6 +42,9 @@ bind('v', '<S-Down>', 'j')
 bind('n', '<leader>m', fn.show_messages, { desc = 'Show Messages' })
 bind('n', '<leader>i', fn.show_info, { desc = 'Show Neovim News' })
 
+-- Use <Esc> to exit terminal mode
+bind('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
 -- Plugins
 bind('n', '<leader>sp', function() vim.pack.update(nil, { offile = true }) end, { desc = 'Show plugins' })
 bind('n', '<leader>pl', function() vim.pack.update() end, { desc = 'Update plugins' })

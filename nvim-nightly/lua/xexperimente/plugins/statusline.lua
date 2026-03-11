@@ -127,7 +127,7 @@ local function lsp_status()
 		if has_conform then
 			vim.list_extend(
 				server_names,
-				---@diagnostic disable-next-line: need-check-nil
+				---@diagnostic disable-next-line: undefined-field
 				vim.tbl_map(function(formatter) return formatter.name end, conform.list_formatters(0))
 			)
 		end
@@ -136,7 +136,7 @@ local function lsp_status()
 	if package.loaded['lint'] then
 		local has_lint, lint = pcall(require, 'lint')
 
-		---@diagnostic disable-next-line: need-check-nil
+		---@diagnostic disable-next-line: undefined-field
 		local linters = lint.linters_by_ft[vim.bo.filetype]
 
 		if has_lint and linters then vim.list_extend(server_names, linters) end
@@ -147,7 +147,7 @@ local function lsp_status()
 	return with_hl(out, 'StatusLineActive') .. state.sep
 end
 
-local function mode()
+local function nvim_mode()
 	local mode_map = {
 		['n'] = 'NORMAL',
 		['no'] = 'O-PENDING',
@@ -186,14 +186,16 @@ local function mode()
 	}
 
 	local mode_code = vim.api.nvim_get_mode().mode
-	local m = with_hl(mode_map[mode_code] or 'UNKNOWN', 'StatusLineActive')
-	return m .. state.sep
+	local mode = with_hl(mode_map[mode_code] or 'UNKNOWN', 'StatusLineActive')
+	return mode .. state.sep
 end
 
 local function filepath()
 	local filename = vim.api.nvim_buf_get_name(state.statusline_buf)
+
 	if filename == '' then return ' [No name]' end
 	if vim.startswith(filename, 'nvim-pack') then return 'vim.pack' end
+
 	---@diagnostic disable-next-line: undefined-field
 	if vim.startswith(filename, 'term') then return vim.opt.shell:get() end
 
@@ -205,6 +207,7 @@ local function search_count()
 
 	local ok, s_count = pcall(vim.fn.searchcount, { recompute = 1 })
 
+	if next(s_count) == nil then return '' end
 	if not ok or s_count.total == 0 then return '' end
 
 	return with_hl(string.format('[%d/%d]', s_count.current, s_count.total), 'IncSearch') .. state.sep
@@ -223,7 +226,7 @@ function MyStatusline()
 	state.statusline_buf = vim.api.nvim_win_get_buf(state.statusline_win)
 	state.statusline_is_active = vim.g.statusline_winid == vim.api.nvim_get_current_win()
 
-	return mode()
+	return nvim_mode()
 		.. git_status()
 		.. filepath()
 		.. '%='
@@ -235,101 +238,3 @@ function MyStatusline()
 end
 
 vim.o.statusline = '%!v:lua.MyStatusline()'
-
--- vim.pack.add({ 'https://github.com/sontungexpt/witch-line' })
---
--- local opts = {
--- 	auto_theme = false,
--- 	cache = {
--- 		enabled = false,
--- 		notification = false,
--- 		func_strip = false,
--- 	},
--- 	statusline = {
--- 		global = {
--- 			{
--- 				[0] = 'mode',
--- 				timing = true,
--- 				static = {
--- 					mode_colors = {
--- 						[1] = { fg = 'StatusLineActive' }, -- NORMAL
--- 						[2] = { fg = 'StatusLineActive' }, -- NTERMINAL
--- 						[3] = { fg = 'StatusLineActive' }, -- VISUAL
--- 						[4] = { fg = 'StatusLineActive' }, -- INSERT
--- 						[5] = { fg = 'StatusLineActive' }, -- TERMINAL
--- 						[6] = { fg = 'StatusLineActive' }, -- REPLACE
--- 						[7] = { fg = 'StatusLineActive' }, -- SELECT
--- 						[8] = { fg = 'StatusLineActive' }, -- COMMAND
--- 						[9] = { fg = 'StatusLineActive' }, -- CONFIRM
--- 					},
--- 				},
--- 			},
--- 			{
--- 				[0] = 'git.branch',
--- 				left = '|',
--- 				style = { fg = 'StatusLineActive' },
--- 			},
--- 			{
--- 				[0] = 'git.diff.added',
--- 				static = { icon = '' },
--- 				left = '|',
--- 				style = { fg = 'MiniDiffSignAdd' },
--- 			},
--- 			{
--- 				[0] = 'git.diff.modified',
--- 				static = { icon = '' },
--- 				style = { fg = 'MiniDiffSignChange' },
--- 			},
--- 			{
--- 				[0] = 'git.diff.removed',
--- 				static = { icon = '' },
--- 				style = { fg = 'MiniDiffSignDelete' },
--- 			},
--- 			{
--- 				[0] = 'file.name',
--- 				left = '|',
--- 				style = { fg = 'StatusLineDim' },
--- 				-- update = function() return '%t' end,
--- 			},
--- 			{
--- 				[0] = 'file.modifier',
--- 				padding = 0,
--- 				style = { fg = 'StatusLineDim' },
--- 			},
--- 			'%=',
--- 			'diagnostic.info',
--- 			'diagnostic.warn',
--- 			'diagnostic.error',
--- 			'lsp.clients',
--- 			{
--- 				[0] = 'search.count',
--- 				timing = 200,
--- 				style = { link = 'IncSearch' },
--- 				left = '|',
--- 			},
--- 			{
--- 				[0] = 'encoding',
--- 				left = '|',
--- 			},
--- 			{
--- 				[0] = 'cursor.pos',
--- 				left = '|',
--- 				style = { fg = 'StatusLineDim' },
--- 			},
--- 			{
--- 				id = 'tst.progress',
--- 				update = function(_, _) return '%p%%' end,
--- 				events = 'CursorMoved',
--- 				left = '|',
--- 				style = { fg = 'StatusLineHighlight', bg = 'NONE' },
--- 			},
--- 		},
--- 		win = nil,
--- 	},
--- 	disabled = {
--- 		filetypes = { 'snacks_dashboard' },
--- 		-- buftypes = { 'nofile' },
--- 	},
--- }
---
--- require('witch-line').setup(opts)

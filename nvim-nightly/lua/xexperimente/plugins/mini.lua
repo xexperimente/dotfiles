@@ -1,11 +1,8 @@
--- local function gh(pkg) return { src = 'https://github.com/' .. pkg, version = vim.version.range('*') } end
-local function gh(pkg) return { src = 'https://github.com/' .. pkg } end
+vim.schedule(function()
+	vim.pack.add({
+		'https://github.com/nvim-mini/mini.nvim', --version = vim.version.range('*')
+	})
 
-vim.pack.add({
-	gh('nvim-mini/mini.nvim'),
-})
-
-vim.defer_fn(function()
 	local opts = {
 		patterns = {
 			highlighters = {
@@ -62,4 +59,4 @@ vim.defer_fn(function()
 
 	bind('n', '<leader>uj', '<cmd>lua MiniSplitjoin.toggle()<cr>', { desc = 'Toggle splitjoin' })
 	bind('n', '<leader>gc', '<cmd>lua MiniDiff.toggle_overlay()<cr>', { desc = 'Show diff overlay' })
-end, 80)
+end)

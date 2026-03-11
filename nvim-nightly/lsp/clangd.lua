@@ -50,22 +50,20 @@ return {
 
 	-- Assumes at most one clangd client is attached to a buffer.
 	on_attach = function(client, buf)
-		vim.api.nvim_buf_create_user_command(
+		local autocmd = vim.api.nvim_create_autocmd
+		local usercmd = vim.api.nvim_buf_create_user_command
+
+		local desc = 'clangd: Toggle source and header'
+		usercmd(
 			buf,
 			'ClangdSwitchSourceHeader',
 			function() switch_source_header(client, buf) end,
-			{
-				bar = true,
-				desc = 'clangd: Switch Between Source and Header File',
-			}
+			{ bar = true, desc = desc }
 		)
-		vim.keymap.set('n', 'grs', '<Cmd>ClangdSwitchSourceHeader<CR>', {
-			buffer = buf,
-			desc = 'clangd: Switch Between Source and Header File',
-		})
+		vim.keymap.set('n', 'grs', '<Cmd>ClangdSwitchSourceHeader<CR>', { buffer = buf, desc = desc })
 
-		vim.api.nvim_create_autocmd('LspDetach', {
-			group = vim.api.nvim_create_augroup('conf_lsp_attach_detach', { clear = false }),
+		autocmd('LspDetach', {
+			group = vim.api.nvim_create_augroup('LspClangdCommands', { clear = false }),
 			buffer = buf,
 			callback = function(args)
 				if args.data.client_id == client.id then

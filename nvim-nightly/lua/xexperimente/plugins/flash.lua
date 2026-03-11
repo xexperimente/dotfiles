@@ -1,6 +1,6 @@
-vim.pack.add({ 'https://github.com/folke/flash.nvim' })
+vim.schedule(function()
+	vim.pack.add({ 'https://github.com/folke/flash.nvim' })
 
-vim.defer_fn(function()
 	local opts = {
 		modes = {
 			search = { enabled = true },
@@ -43,4 +43,4 @@ vim.defer_fn(function()
 	bind(modes, 'S', function() flash.treesitter() end, { desc = 'Flash treesitter' })
 	bind(modes, '<c-right>', function() flash.treesitter({ actions = actions }) end, { desc = 'Incremental selection' })
 	bind('c', '<c-s>', function() require('flash').toggle() end, { desc = 'Toggle Flash Search' })
-end, 80)
+end)
