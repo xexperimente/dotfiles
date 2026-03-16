@@ -1,13 +1,8 @@
 vim.schedule(function()
-	local function gh(pkg, data)
-		if data == nil then data = {} end
-		return { src = 'https://github.com/' .. pkg, version = 'main', data = data }
-	end
-
 	vim.pack.add({
-		gh('nvim-treesitter/nvim-treesitter', { after = 'TSUpdate' }),
-		gh('nvim-treesitter/nvim-treesitter-textobjects'),
-		gh('nvim-treesitter/nvim-treesitter-context'),
+		{ src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main', data = { after = 'TSUpdate' } },
+		{ src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects', version = 'main' },
+		{ src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
 	})
 
 	require('nvim-treesitter-textobjects').setup({
