@@ -13,6 +13,7 @@ vim.schedule(function()
 		keymap = {
 			preset = 'super-tab',
 			['<C-n>'] = { 'show', 'select_next', 'fallback_to_mappings' },
+			['<C-d>'] = { 'show_documentation', 'hide_documentation' },
 		},
 		sources = { default = { 'lsp', 'path', 'snippets' }, min_keyword_length = 2 },
 		signature = { enabled = false, window = { show_documentation = false } },
@@ -49,6 +50,7 @@ vim.schedule(function()
 			documentation = {
 				auto_show = false,
 				auto_show_delay_ms = 500,
+				window = { border = vim.g.winborder },
 			},
 		},
 	}
