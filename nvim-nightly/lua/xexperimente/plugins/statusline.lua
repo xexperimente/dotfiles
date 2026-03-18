@@ -1,6 +1,7 @@
 ---@diagnostic disable: param-type-mismatch
 
 local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
 
 local state = {
 	diagnostic_count = {},
@@ -11,9 +12,18 @@ local state = {
 	sep = ' | ',
 }
 
+local function with_hl(str, hl, hl_nc)
+	if not str or str == '' then return '' end
+	if state.statusline_is_active then
+		return '%#' .. hl .. '#' .. str .. '%#StatusLine#%*'
+	else
+		return '%#' .. (hl_nc or 'StatusLineNC') .. '#' .. str .. '%#StatusLineNC#%*'
+	end
+end
+
 autocmd('Colorscheme', {
 	desc = 'Set statusline highlights',
-	group = vim.api.nvim_create_augroup('statusline-highlights', {}),
+	group = augroup('statusline-highlights', {}),
 	callback = function()
 		vim.api.nvim_set_hl(0, 'User2', { fg = vim.api.nvim_get_hl(0, { name = 'DiagnosticError' }).fg }) -- error
 		vim.api.nvim_set_hl(0, 'User3', { fg = vim.api.nvim_get_hl(0, { name = 'DiagnosticWarn' }).fg }) -- warning
@@ -24,7 +34,7 @@ autocmd('Colorscheme', {
 })
 
 autocmd('DiagnosticChanged', {
-	group = vim.api.nvim_create_augroup('statusline-diagnostics', {}),
+	group = augroup('statusline-diagnostics', {}),
 	callback = vim.schedule_wrap(function(args)
 		if vim.fn.mode() == 'i' then return end
 		state.diagnostic_count[args.buf] = vim.api.nvim_buf_is_valid(args.buf) and vim.diagnostic.count(args.buf or 0)
@@ -33,7 +43,7 @@ autocmd('DiagnosticChanged', {
 })
 
 autocmd({ 'LspAttach', 'LspDetach' }, {
-	group = vim.api.nvim_create_augroup('statusline-lsp', {}),
+	group = augroup('statusline-lsp', {}),
 	callback = vim.schedule_wrap(function(args)
 		state.lsp_client_names[args.buf] = vim.tbl_map(
 			function(client) return client.name end,
@@ -43,15 +53,6 @@ autocmd({ 'LspAttach', 'LspDetach' }, {
 		vim.cmd('redrawstatus')
 	end),
 })
-
-local function with_hl(str, hl, hl_nc)
-	if not str or str == '' then return '' end
-	if state.statusline_is_active then
-		return '%#' .. hl .. '#' .. str .. '%#StatusLine#%*'
-	else
-		return '%#' .. (hl_nc or 'StatusLineNC') .. '#' .. str .. '%#StatusLineNC#%*'
-	end
-end
 
 local function get_severity_hl(severity_id)
 	if severity_id == 1 then return 'DiagnosticError' end
@@ -194,10 +195,13 @@ local function filepath()
 	local filename = vim.api.nvim_buf_get_name(state.statusline_buf)
 
 	if filename == '' then return ' [No name]' end
+
 	if vim.startswith(filename, 'nvim-pack') then return 'vim.pack' end
 
 	---@diagnostic disable-next-line: undefined-field
 	if vim.startswith(filename, 'term') then return vim.opt.shell:get() end
+
+	if filename:match('quickfix-') then return 'Quickfix List' end
 
 	return vim.fn.fnamemodify(filename, ':~:.') .. '%<%w%q %m%r'
 end

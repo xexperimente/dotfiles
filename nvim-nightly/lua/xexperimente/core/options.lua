@@ -24,6 +24,8 @@ vim.opt.signcolumn = 'yes'
 vim.opt.showmode = false
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = 'number'
+
+-- Globals
 vim.g.showcmd = false
 vim.g.winborder = 'single'
 

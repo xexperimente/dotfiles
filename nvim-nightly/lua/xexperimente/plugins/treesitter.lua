@@ -33,12 +33,15 @@ vim.schedule(function()
 	bind({ 'x', 'o' }, 'ac', function() sel.select_textobject('@class.outer', 'textobjects') end)
 	bind({ 'x', 'o' }, 'ic', function() sel.select_textobject('@class.inner', 'textobjects') end)
 	bind({ 'x', 'o' }, 'as', function() sel.select_textobject('@local.scope', 'locals') end)
+
 	-- swap
 	bind('n', '<leader>x', function() swap.swap_next('@parameter.inner') end)
 	bind('n', '<leader>X', function() swap.swap_previous('@parameter.outer') end)
+
 	-- move
 	bind({ 'n', 'x', 'o' }, ']z', function() move.goto_next_start('@fold', 'folds') end)
 	bind({ 'n', 'x', 'o' }, '[z', function() move.goto_previous_start('@fold', 'folds') end)
+
 	-- context
 	bind('n', '<leader>uc', '<cmd>TSContext toggle<cr>', { desc = 'Toggle treesitter context' })
 end)
