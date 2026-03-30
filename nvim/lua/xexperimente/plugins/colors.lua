@@ -3,6 +3,10 @@ vim.pack.add({
 })
 
 require('rose-pine').setup({
+	enable = {
+		legacy_highlights = false,
+		migrations = false,
+	},
 	highlight_groups = {
 		Whitespace = { bg = 'NONE', fg = 'overlay' },
 		IncSearch = { fg = 'base', bg = 'rose', inherit = false },

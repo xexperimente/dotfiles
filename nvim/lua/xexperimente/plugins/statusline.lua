@@ -9,6 +9,7 @@ local state = {
 	statusline_buf = nil,
 	statusline_win = nil,
 	statusline_is_active = false,
+	lsp_progress = 'test',
 	sep = ' | ',
 }
 
@@ -52,6 +53,26 @@ autocmd({ 'LspAttach', 'LspDetach' }, {
 
 		vim.cmd('redrawstatus')
 	end),
+})
+
+autocmd('LspProgress', {
+	group = augroup('statusline-lsp-progress', {}),
+	callback = function(ev)
+		-- local icon = ev.data.params.value.kind == 'end' and ' ' or ''
+		state.lsp_progress = with_hl('[', 'StatusLineActive')
+			.. ' '
+			.. with_hl(vim.lsp.status(), 'StatusLineDim')
+			.. with_hl(' ] ', 'StatusLineActive')
+
+		if ev.data.params.value.kind == 'end' then
+			vim.defer_fn(function()
+				state.lsp_progress = ''
+				vim.cmd('redrawstatus')
+			end, 2000)
+		end
+
+		vim.cmd('redrawstatus')
+	end,
 })
 
 local function get_severity_hl(severity_id)
@@ -109,6 +130,8 @@ local function git_status()
 end
 
 local function lsp_status()
+	if state.lsp_progress:len() > 0 then return state.lsp_progress end
+
 	local client_names = state.lsp_client_names[state.statusline_buf]
 	if client_names == nil or client_names == 0 then return '' end
 
