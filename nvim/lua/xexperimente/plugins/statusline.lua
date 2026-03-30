@@ -63,6 +63,7 @@ autocmd('LspProgress', {
 			.. ' '
 			.. with_hl(vim.lsp.status(), 'StatusLineDim')
 			.. with_hl(' ] ', 'StatusLineActive')
+			.. state.sep
 
 		if ev.data.params.value.kind == 'end' then
 			vim.defer_fn(function()
