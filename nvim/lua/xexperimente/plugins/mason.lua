@@ -1,9 +1,11 @@
-local Plugin = { 'williamboman/mason.nvim' }
+vim.schedule(function()
+	vim.pack.add({ 'https://github.com/williamboman/mason.nvim' })
 
-Plugin.cmd = { 'Mason', 'MasonUpdate' }
+	local opts = {
+		ui = {
+			border = vim.g.winborder,
+		},
+	}
 
-Plugin.opts = {
-	ui = { border = 'single' },
-}
-
-return Plugin
+	require('mason').setup(opts)
+end)

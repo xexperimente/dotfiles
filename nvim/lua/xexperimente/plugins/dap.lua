@@ -1,114 +1,143 @@
----@diagnostic disable:undefined-field
+vim.schedule(function()
+	vim.pack.add({
+		'https://github.com/mfussenegger/nvim-dap',
+		'https://github.com/igorlfs/nvim-dap-view',
+	})
 
-local Plugin = { 'rcarriga/nvim-dap-ui' }
+	local function pick_file_sync()
+		---@diagnostic disable-next-line
+		local co = coroutine.running()
+		-- assert(co, 'This function must be run inside a coroutine')
 
-Plugin.dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' }
+		-- local filter = vim.fn.has('win32') and '*.exe' or ''
 
-Plugin.cmds = {
-	'DapToggleBreakpoint',
-	'DapContinue',
-	'DapStepInto',
-	'DapStepOver',
-}
+		require('snacks').picker.files({
+			cwd = vim.fn.getcwd(),
+			actions = {
+				confirm = function(picker, item)
+					picker:close()
+					local selection = item and item.file or nil
+					---@diagnostic disable-next-line
+					if coroutine.status(co) ~= 'running' then coroutine.resume(co, selection) end
+				end,
+			},
+			exclude = { 'build/CMakeFiles' },
+			-- args = vim.fn.has('win32') == 1 and { '--glob', filter } or { '--type', 'x' },
+			args = { '--type', 'x', '--exclude', '*vcpkg_installed*' },
+		})
 
-Plugin.keys = {
-	'<f5>',
-	'<f9>',
-	'<f10>',
-	'<f11>',
-}
+		-- Yield execution here. The function "stops" until resume is called above.
+		--- @diagnostic disable-next-line: await-in-sync
+		return coroutine.yield()
+	end
 
--- TODO: 'theHamsta/nvim-dap-virtual-text'
-
-function Plugin.config(_, _)
+	local bind = vim.keymap.set
 	local dap = require('dap')
-	local dapui = require('dapui')
+	local dap_view = require('dap-view')
 
-	dapui.setup({
-		controls = { enabled = false },
-		layouts = {
-			-- {
-			-- 	elements = {
-			-- 		{
-			-- 			id = 'scopes',
-			-- 			size = '0.60',
-			-- 		},
-			-- 		{
-			-- 			id = 'console',
-			-- 			size = '0.30',
-			-- 		},
-			-- 		{
-			-- 			id = 'watches',
-			-- 			size = '0.10',
-			-- 		},
-			-- 	},
-			-- 	position = 'bottom',
-			-- 	size = 10,
-			-- },
-			{
-				elements = {
-					'scopes',
+	dap_view.setup({
+		winbar = {
+			show = true,
+			sections = { 'watches', 'scopes', 'breakpoints', 'threads', 'repl' },
+			base_sections = {
+				breakpoints = { label = 'Breakpoints', keymap = 'B' },
+				scopes = { label = 'Local', keymap = 'S' },
+				exceptions = { label = 'Exceptions', keymap = 'E' },
+				watches = { label = 'Watch', keymap = 'W' },
+				threads = { label = 'Threads', keymap = 'T' },
+				repl = { label = 'REPL', keymap = 'R' },
+				sessions = { label = 'Sessions', keymap = 'K' },
+				console = { label = 'Console', keymap = 'C' },
+			},
+			controls = {
+				enabled = true,
+				position = 'left',
+				buttons = {
+					'play',
+					'run_last',
+					'terminate',
 				},
-				size = 0.3,
-				position = 'right',
 			},
-			{
-				elements = {
-					'console',
-					'breakpoints',
-				},
-				size = 0.3,
-				position = 'bottom',
-			},
-		},
-		floating = {
-			max_height = nil,
-			max_width = nil,
-			border = 'single',
-			mappings = {
-				close = { 'q', '<Esc>' },
-			},
-		},
-		windows = { indent = 1 },
-		render = {
-			max_type_length = nil,
 		},
 	})
 
-	dap.listeners.before.attach.dapui_config = function() dapui.open() end
-	dap.listeners.before.launch.dapui_config = function() dapui.open() end
-	dap.listeners.before.event_terminated.dapui_config = function() dapui.close() end
-	dap.listeners.before.event_exited.dapui_config = function() dapui.close() end
+	-- dap.set_log_level('TRACE')
 
-	-- dap.set_log_level('trace') -- for log output
+	bind('n', '<F5>', '<cmd>DapContinue<cr>')
+	bind('n', '<F9>', '<cmd>DapToggleBreakpoint<cr>')
+	bind('n', '<F10>', '<cmd>DapStepOver<cr>')
+	bind('n', '<F11>', '<cmd>DapStepInto<cr>')
+	bind('n', '<S-F5>', '<cmd>DapTerminate<cr>')
+	bind('n', '<C-S-F5>', function() require('dap').restart() end)
 
-	dap.adapters.codelldb = {
-		type = 'server',
-		port = '${port}',
-		executable = {
-			command = 'codelldb.cmd',
-			args = { '--port', '${port}' },
+	dap.listeners.before.attach['dap-view-config'] = function() dap_view.open() end
+	dap.listeners.before.launch['dap-view-config'] = function() dap_view.open() end
+	dap.listeners.before.event_terminated['dap-view-config'] = function() dap_view.close() end
+	dap.listeners.before.event_exited['dap-view-config'] = function() dap_view.close() end
+
+	if vim.fn.has('win32') == 1 then
+		dap.adapters.codelldb = {
+			type = 'server',
+			port = '${port}',
+			executable = {
+				command = 'codelldb.cmd',
+				args = { '--port', '${port}' },
+				detached = false,
+			},
+		}
+
+		dap.adapters.lldb = {
+			type = 'executable',
+			command = 'lldb-dap.exe', -- C:/Program Files/Microsoft Visual Studio/18/Professional/VC/Tools/Llvm/x64/bin/
+			name = 'lldb',
+		}
+
+		dap.configurations.cpp = {
+			{
+				name = 'Launch (codelldb)',
+				type = 'codelldb',
+				request = 'launch',
+				program = function() return pick_file_sync() end,
+				cwd = '${workspaceFolder}',
+				-- preLaunchTask = 'CMake Build',
+			},
+		}
+	else
+		dap.adapters.codelldb = {
+			type = 'executable',
+			command = 'codelldb',
 			detached = false,
+		}
+
+		dap.adapters.gdb = {
+			type = 'executable',
+			command = 'gdb',
+			args = { '--interpreter=dap', '--eval-command', 'set print pretty on' },
+			detached = false,
+		}
+
+		dap.configurations.cpp = {
+			{
+				name = 'Launch (gdb)',
+				type = 'gdb',
+				request = 'launch',
+				program = function() return pick_file_sync() end,
+				cwd = '${workspaceFolder}',
+				stopAtBeginningOfMainSubprogram = false,
+			},
+		}
+	end
+
+	dap.configurations.rust = {
+		{
+			name = 'Launch',
+			type = 'codelldb',
+			request = 'launch',
+			program = '${workspaceFolder}/target/debug/${workspaceFolderBasename}',
+			cwd = '${workspaceFolder}',
+			stopOnEntry = false,
 		},
 	}
-
-	dap.adapters.nlua = function(callback, conf)
-		local adapter = {
-			type = 'server',
-			host = conf.host or '127.0.0.1',
-			port = conf.port or 8086,
-		}
-		if conf.start_neovim then
-			local dap_run = dap.run
-			dap.run = function(c)
-				adapter.port = c.port
-				adapter.host = c.host
-			end
-			require('osv').run_this()
-			dap.run = dap_run
-		end
-		callback(adapter)
-	end
 
 	dap.configurations.zig = {
 		{
@@ -121,38 +150,11 @@ function Plugin.config(_, _)
 			args = {},
 		},
 	}
-	dap.configurations.lua = {
-		{
-			type = 'nlua',
-			request = 'attach',
-			name = 'Run this file',
-			start_neovim = {},
-		},
-		{
-			type = 'nlua',
-			request = 'attach',
-			name = 'Attach to running Neovim instance (port = 8086)',
-			port = 8086,
-		},
-	}
+
+	vim.schedule(function() require('overseer').enable_dap() end)
+
 	vim.fn.sign_define('DapBreakpoint', { text = ' ', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
 	vim.fn.sign_define('DapStopped', { text = '󰁕 ', texthl = 'DiagnosticWarn', linehl = 'DapStoppedLine', numhl = '' })
 	vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
 	vim.fn.sign_define('DapBreakpointRejected', { text = ' ', texthl = 'DiagnosticError', linehl = '', numhl = '' })
-	-- local sign = vim.fn.sign_define
-	--
-	-- sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
-	-- sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
-	-- sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" })
-	-- sign('DapStopped', { text = '', texthl = 'DapStopped', linehl = 'DapStopped', numhl = 'DapStopped' })
-
-	local bind = vim.keymap.set
-
-	bind('n', '<F1>', function() require('dap.ui.widgets').hover(nil, {}) end, { desc = 'Dap hover' })
-	bind('n', '<F5>', ':DapContinue<cr>', { desc = 'Continue debugging' })
-	bind('n', '<F9>', ':DapToggleBreakpoint<cr>', { desc = 'Toggle breakpoint' })
-	bind('n', '<F10>', ':DapStepOver<cr>', { desc = 'Step over' })
-	bind('n', '<F11>', ':DapStepInto<cr>', { desc = 'Step into' })
-end
-
-return Plugin
+end)

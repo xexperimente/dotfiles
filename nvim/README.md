@@ -1,4 +1,6 @@
-# xexperimente dotfiles
+# Neovim configuraton for v0.12
 
-# Evaluate
-https://github.com/NMAC427/guess-indent.nvim
+Changes:
+- use vim.pack for plugin management
+- use lsp/ folder for lsp configuration
+

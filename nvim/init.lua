@@ -1,10 +1,8 @@
 vim.loader.enable(true)
 
-require('xexperimente.core.lazy')
+require('xexperimente.core.options')
+require('xexperimente.core.keybinds')
 require('xexperimente.core.lsp')
+require('xexperimente.core.autocmd')
 
-require('xexperimente.config.options')
-require('xexperimente.config.keymaps')
-require('xexperimente.config.autocmds')
-
-vim.cmd('colorscheme rose-pine-dawn')
+require('xexperimente.plugins')

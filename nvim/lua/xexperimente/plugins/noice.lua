@@ -1,37 +1,44 @@
-local Plugin = { 'folke/noice.nvim' }
+vim.schedule(function()
+	local function gh(pkg) return { src = 'https://github.com/' .. pkg, version = vim.version.range('*') } end
 
-Plugin.event = 'VeryLazy'
+	vim.pack.add({
+		gh('folke/noice.nvim'),
+		gh('MunifTanjim/nui.nvim'),
+	})
 
-Plugin.opts = {
-	presets = {
-		bottom_search = false,
-		lsp_doc_border = false,
-	},
-	lsp = {
-		progress = { enabled = false },
-		signature = { enabled = false },
-	},
-	views = {
-		cmdline_popup = {
-			position = {
-				row = '70%',
-				col = '50%',
-			},
-			border = {
-				style = 'single',
+	require('noice').setup({
+		presets = {
+			bottom_search = false,
+			lsp_doc_border = true,
+		},
+		lsp = {
+			progress = { enabled = false },
+			override = {
+				['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+				['vim.lsp.util.stylize_markdown'] = true,
 			},
 		},
-	},
-	popupmenu = { enabled = false },
-	notify = { enabled = false },
-}
-
-Plugin.dependencies = {
-	-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-	'MunifTanjim/nui.nvim',
-	-- OPTIONAL:
-	--   `nvim-notify` is only needed, if you want to use the notification view.
-	--   If not available, we use `mini` as the fallback
-	-- "rcarriga/nvim-notify",
-}
-return Plugin
+		views = {
+			cmdline_popup = {
+				position = {
+					row = '70%',
+					col = '50%',
+				},
+				border = { style = vim.g.winborder },
+			},
+			hover = {
+				size = { max_height = 10 },
+				border = { style = vim.g.winborder },
+			},
+		},
+		messages = { view_search = false },
+		cmdline = {
+			format = {
+				cmdline = { icon = '󰘧' },
+				lua = { icon = 'lua' },
+			},
+		},
+		popupmenu = { enabled = false },
+		notify = { enabled = false },
+	})
+end)

@@ -1,44 +1,36 @@
----@diagnostic disable:undefined-field
+vim.schedule(function()
+	vim.pack.add({
+		'https://github.com/stevearc/conform.nvim',
+	})
 
-local Plugin = { 'stevearc/conform.nvim' }
+	local opts = {
+		formatters_by_ft = {
+			lua = { 'stylua' },
+			json = { 'deno_fmt' },
+			jsonc = { 'deno_fmt' },
+			-- markdown = { 'deno_fmt' },
+		},
+		format_on_save = {
+			timeout_ms = 700,
+			lsp_format = 'fallback',
+		},
+		notify_on_error = true,
+		-- log_level = vim.log.levels.DEBUG,
+	}
 
-Plugin.dependencies = {
-	'williamboman/mason.nvim',
-}
+	require('conform').setup(opts)
 
-Plugin.lazy = true
-Plugin.event = { 'BufReadPre', 'BufNewFile' } --'BufWritePre'
-Plugin.cmd = 'ConformInfo'
-
-Plugin.opts = {
-	-- What formatters to use
-	formatters_by_ft = {
-		lua = { 'stylua' },
-	},
-	-- Setup format on save autocmd
-	format_on_save = {
-		timeout_ms = 700,
-		lsp_fallback = true,
-	},
-	notify_on_error = false,
-}
-
-Plugin.keys = {
-	{ 'gq', ':Format!<cr>', mode = { 'n', 'x' }, desc = 'Format' },
-}
-
-function Plugin.init()
 	vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
-	local command = vim.api.nvim_create_user_command
+	local usercmd = vim.api.nvim_create_user_command
 
-	command('Format', function(input)
+	usercmd('Format', function(input)
 		vim.notify('Formatting ... ', vim.log.levels.INFO, { title = 'Conform' })
 
-		require('conform').format({ lsp_fallback = true, async = input.bang, timeout_ms = 700 }, function(err)
+		local function error(err)
 			if err ~= nil then vim.notify(err, vim.log.levels.ERROR, { title = 'Conform' }) end
-		end)
-	end, { bang = true, range = true })
-end
+		end
 
-return Plugin
+		require('conform').format({ async = input.bang, timeout_ms = 700 }, error)
+	end, { bang = true, range = true })
+end)

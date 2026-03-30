@@ -1,90 +1,47 @@
----@diagnostic disable:undefined-field
+vim.schedule(function()
+	vim.pack.add({
+		{ src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main', data = { after = 'TSUpdate' } },
+		{ src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects', version = 'main' },
+		{ src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
+	})
 
-local Plugin = { 'nvim-treesitter/nvim-treesitter' }
-
-Plugin.event = 'VeryLazy'
-
-Plugin.dependencies = {
-	{ 'nvim-treesitter/nvim-treesitter-textobjects', lazy = true },
-}
-
-Plugin.opts = {
-	highlight = {
-		enable = true,
-		additional_vim_regex_highlighting = { 'html', 'vimdoc' },
-	},
-	incremental_selection = {
-		enable = true,
-		keymaps = {
-			init_selection = '<C-Right>',
-			node_incremental = '<C-Right>',
-			scope_incremental = false,
-			node_decremental = '<C-Left>',
-		},
-	},
-	textobjects = {
+	require('nvim-treesitter-textobjects').setup({
 		select = {
-			enable = true,
 			lookahead = true,
-			keymaps = {
-				['af'] = '@function.outer',
-				['if'] = '@function.inner',
-				['ac'] = '@class.outer',
-				['ic'] = '@class.inner',
-				['ia'] = '@parameter.inner',
+			selection_modes = {
+				['@parameter.outer'] = 'v', -- charwise
+				['@function.outer'] = 'V', -- linewise
+				['@class.outer'] = '<c-v>', -- blockwise
 			},
+			include_surrounding_whitespace = false,
 		},
-		swap = {
-			enable = true,
-			swap_previous = {
-				['{a'] = '@parameter.inner',
-			},
-			swap_next = {
-				['}a'] = '@parameter.inner',
-			},
-		},
-		move = {
-			enable = true,
-			set_jumps = true,
-			goto_next_start = {
-				[']f'] = '@function.outer',
-				[']c'] = '@class.outer',
-				[']a'] = '@parameter.inner',
-			},
-			goto_next_end = {
-				[']F'] = '@function.outer',
-				[']C'] = '@class.outer',
-			},
-			goto_previous_start = {
-				['[f'] = '@function.outer',
-				['[c'] = '@class.outer',
-				['[a'] = '@parameter.inner',
-			},
-			goto_previous_end = {
-				['[F'] = '@function.outer',
-				['[C'] = '@class.outer',
-			},
-		},
-	},
-	ensure_installed = {
-		'lua',
-		'vimdoc',
-		'vim',
-	},
-}
+	})
 
-Plugin.keys = {
-	{ '<c-right>', desc = 'Increment selection' },
-	{ '<c-left>', desc = 'Decrement selection' },
-}
+	require('treesitter-context').setup({
+		max_lines = 3,
+		separator = '',
+	})
 
-Plugin.cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' }
+	local bind = vim.keymap.set
+	local sel = require('nvim-treesitter-textobjects.select')
+	local swap = require('nvim-treesitter-textobjects.swap')
+	local move = require('nvim-treesitter-textobjects.move')
 
-Plugin.build = ':TSUpdate'
+	-- select keybinds
+	bind({ 'x', 'o' }, 'af', function() sel.select_textobject('@function.outer', 'textobjects') end)
+	bind({ 'x', 'o' }, 'if', function() sel.select_textobject('@function.inner', 'textobjects') end)
+	bind({ 'x', 'o' }, 'ac', function() sel.select_textobject('@class.outer', 'textobjects') end)
+	bind({ 'x', 'o' }, 'ic', function() sel.select_textobject('@class.inner', 'textobjects') end)
+	bind({ 'x', 'o' }, 'as', function() sel.select_textobject('@local.scope', 'locals') end)
 
-function Plugin.config(_, opts)
-	require('nvim-treesitter.install').compilers = { 'zig', 'clang', 'gcc', 'cl' }
-	require('nvim-treesitter.configs').setup(opts)
-end
+	-- swap
+	bind('n', '<leader>x', function() swap.swap_next('@parameter.inner') end)
+	bind('n', '<leader>X', function() swap.swap_previous('@parameter.outer') end)
 
-return Plugin
+	-- move
+	bind({ 'n', 'x', 'o' }, ']z', function() move.goto_next_start('@fold', 'folds') end)
+	bind({ 'n', 'x', 'o' }, '[z', function() move.goto_previous_start('@fold', 'folds') end)
+
+	-- context
+	bind('n', '<leader>uc', '<cmd>TSContext toggle<cr>', { desc = 'Toggle treesitter context' })
+end)
