@@ -1,22 +1,11 @@
-# env.nu
-#
-# Installed by:
-# version = "0.103.0"
-#
-# Previously, environment variables were typically configured in `env.nu`.
-# In general, most configuration can and should be performed in `config.nu`
-# or one of the autoload directories.
-#
-# This file is generated for backwards compatibility for now.
-# It is loaded before config.nu and login.nu
-#
-# See https://www.nushell.sh/book/configuration.html
-#
-# Also see `help config env` for more options.
-#
-# You can remove these comments if you want or leave
-# them for future reference.
-
-# zoxide init nushell | save -f ~/.config/nu/zoxide.nu
-# starship init nu | save -f ~/.config/nu/starship.nu
+# Environment
 $env.HOME = $env.USERPROFILE
+
+$env.Path = ($env.Path | prepend 'c:/Program files/Sublime Text')
+$env.Path = ($env.Path | prepend 'c:/Program Files/Microsoft Visual Studio/18/Professional/VC/Tools/Llvm/x64/bin')
+$env.Path = ($env.Path | prepend 'c:/Program Files/Microsoft Visual Studio/18/Professional/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja')
+$env.Path = ($env.Path | prepend 'c:/Program Files/Microsoft Visual Studio/18/Professional/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin')
+$env.Path = ($env.Path | prepend 'C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64/')
+
+$env.EDITOR = 'nvim'
+$env.VISUAL = 'neovide'

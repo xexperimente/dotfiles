@@ -5,16 +5,9 @@
 #
 # This file is loaded after env.nu and before login.nu
 
-# Functions
+source aliases.nu
+source env.nu
 source functions.nu
-
-# alias
-alias subl = sublime_text.exe
-alias grep = find
-
-# Neovim setup
-$env.Path = ($env.Path | prepend 'c:\Program files\Sublime Text')
-use_nvim_nightly
 
 # Nu configuration
 $env.config = {
@@ -39,8 +32,7 @@ $env.config = {
 # Prompt
 $env.PROMPT_INDICATOR_VI_INSERT = ""
 $env.PROMPT_INDICATOR_VI_NORMAL = ""
-
-use ~/.config/nu/starship.nu
+source starship.nu
 
 # Load zoxide module
-source ~/.config/nu/zoxide.nu
+source zoxide.nu
