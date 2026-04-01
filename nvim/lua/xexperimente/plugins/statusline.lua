@@ -9,7 +9,7 @@ local state = {
 	statusline_buf = nil,
 	statusline_win = nil,
 	statusline_is_active = false,
-	lsp_progress = 'test',
+	lsp_progress = '',
 	sep = ' | ',
 }
 
