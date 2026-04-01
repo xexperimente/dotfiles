@@ -53,16 +53,7 @@ vim.opt.fillchars = {
 	diff = '╱',
 }
 
-vim.opt.diffopt = {
-	'internal',
-	'filler',
-	'closeoff',
-	'vertical',
-	'algorithm:histogram',
-	'indent-heuristic',
-	'linematch:60',
-	'inline:char',
-}
+vim.opt.diffopt:append('algorithm:histogram,vertical,linematch:60')
 
 -- Indentation & tabs
 vim.opt.smartindent = true
@@ -109,7 +100,6 @@ vim.g.loaded_getscript = 1
 vim.g.loaded_getscriptPlugin = 1
 vim.g.loaded_vimball = 1
 vim.g.loaded_vimballPlugin = 1
-vim.g.loaded_2html_plugin = 1
 vim.g.loaded_matchit = 1
 vim.g.loaded_matchparen = 1
 vim.g.loaded_logiPat = 1
