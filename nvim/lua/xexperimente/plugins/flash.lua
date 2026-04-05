@@ -37,10 +37,10 @@ vim.schedule(function()
 	flash.setup(opts)
 
 	local modes = { 'n', 'x', 'o' }
-	local actions = { ['<c-right>'] = 'next', ['<c-left>'] = 'prev' }
+	local actions = { ['<M-i>'] = 'next', ['<M-o>'] = 'prev' }
 
 	bind(modes, 's', function() flash.jump() end, { desc = 'Flash' })
 	bind(modes, 'S', function() flash.treesitter() end, { desc = 'Flash treesitter' })
-	bind(modes, '<c-right>', function() flash.treesitter({ actions = actions }) end, { desc = 'Incremental selection' })
+	bind(modes, '<M-i>', function() flash.treesitter({ actions = actions }) end, { desc = 'Incremental selection' })
 	bind('c', '<c-s>', function() require('flash').toggle() end, { desc = 'Toggle Flash Search' })
 end)

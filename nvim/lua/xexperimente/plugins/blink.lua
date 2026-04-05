@@ -1,14 +1,11 @@
 vim.schedule(function()
-	local version = 'v1.10.1'
-
 	vim.pack.add({
-		{ src = 'https://github.com/saghen/blink.cmp', version = version },
+		{ src = 'https://github.com/saghen/blink.cmp', version = vim.version.range('1.*') },
 	})
 
 	local opts = {
 		fuzzy = {
-			implementation = 'prefer_rust',
-			prebuilt_binaries = { force_version = version },
+			implementation = 'prefer_rust_with_warning',
 		},
 		keymap = {
 			preset = 'super-tab',
