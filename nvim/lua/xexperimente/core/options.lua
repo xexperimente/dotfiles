@@ -12,7 +12,6 @@ else
 	vim.opt.background = vim.g.neovide and 'light' or 'dark'
 end
 
--- Appearance
 vim.opt.number = true
 vim.opt.laststatus = 3
 vim.opt.showtabline = 0
@@ -24,6 +23,7 @@ vim.opt.signcolumn = 'yes'
 vim.opt.showmode = false
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = 'number'
+vim.opt.smoothscroll = true
 
 -- Globals
 vim.g.showcmd = false
@@ -62,6 +62,7 @@ vim.opt.expandtab = false
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
+
 -- experimental
 -- vim.opt.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 

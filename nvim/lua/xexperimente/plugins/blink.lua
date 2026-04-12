@@ -13,7 +13,7 @@ vim.schedule(function()
 			['<C-d>'] = { 'show_documentation', 'hide_documentation' },
 		},
 		sources = { default = { 'lsp', 'path', 'snippets' }, min_keyword_length = 2 },
-		signature = { enabled = false, window = { show_documentation = false } },
+		signature = { enabled = true, window = { show_documentation = false } },
 		cmdline = {
 			enabled = true,
 			keymap = {

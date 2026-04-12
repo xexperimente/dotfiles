@@ -147,6 +147,17 @@ local function lsp_status()
 		if not ignore_lsp_servers[name] then server_names[#server_names + 1] = name end
 	end
 
+	if package.loaded['guard.filetype'] then
+		local ft = require('guard.filetype')
+
+		local fmt = ft(vim.bo.filetype).formatter
+		local lnt = ft(vim.bo.filetype).linter
+
+		vim.list_extend(server_names, vim.tbl_map(function(item) return item.cmd end, fmt))
+
+		vim.list_extend(server_names, vim.tbl_map(function(item) return item.cmd end, lnt))
+	end
+
 	if package.loaded['conform'] then
 		local has_conform, conform = pcall(require, 'conform')
 		if has_conform then
@@ -249,7 +260,7 @@ local function progress()
 	return with_hl(string.format('%d', percentage) .. '%% ', 'StatusLineHighlight')
 end
 
-function MyStatusline()
+function _MyStatusline()
 	state.statusline_win = vim.g.statusline_winid
 	state.statusline_buf = vim.api.nvim_win_get_buf(state.statusline_win)
 	state.statusline_is_active = vim.g.statusline_winid == vim.api.nvim_get_current_win()
@@ -265,4 +276,4 @@ function MyStatusline()
 		.. progress()
 end
 
-vim.o.statusline = '%!v:lua.MyStatusline()'
+vim.o.statusline = '%!v:lua._MyStatusline()'

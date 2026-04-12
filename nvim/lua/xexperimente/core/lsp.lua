@@ -84,10 +84,10 @@ vim.schedule(function()
 				bind('n', 'K', vim.lsp.buf.hover, { desc = 'Hover Documentation' })
 			end
 
-			if client:supports_method('textDocument/signatureHelp') then
-				bind('n', 'gK', vim.lsp.buf.signature_help, { desc = 'Signature Help' })
-				bind('i', '<c-k>', vim.lsp.buf.signature_help, { desc = 'Signature Help' })
-			end
+			-- if client:supports_method('textDocument/signatureHelp') then
+			-- 	bind('n', 'gK', vim.lsp.buf.signature_help, { desc = 'Signature Help' })
+			-- 	bind('i', '<c-k>', vim.lsp.buf.signature_help, { desc = 'Signature Help' })
+			-- end
 
 			if client:supports_method('textDocument/rename') then
 				bind('n', '<f2>', vim.lsp.buf.rename, { desc = 'Rename' })

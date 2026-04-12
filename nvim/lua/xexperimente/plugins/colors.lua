@@ -16,6 +16,7 @@ require('rose-pine').setup({
 		Folded = { bg = 'base' },
 		Comment = { fg = 'muted' },
 		WinSeparator = { fg = 'overlay', bg = 'none' },
+		MsgSeparator = { fg = 'rose', bg = 'none' },
 		Directory = { fg = 'rose', bg = 'none' },
 
 		-- Diffs

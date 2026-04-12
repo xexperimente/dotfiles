@@ -1,4 +1,9 @@
 vim.schedule(function()
+
+	vim.o.cmdheight = 0
+
+	require('vim._core.ui2').enable({ msg = { target = 'cmd' } })
+
 	local function gh(pkg) return { src = 'https://github.com/' .. pkg, version = vim.version.range('*') } end
 
 	vim.pack.add({
@@ -31,8 +36,9 @@ vim.schedule(function()
 				border = { style = vim.g.winborder },
 			},
 		},
-		messages = { view_search = false },
+		messages = { enabled = false, view_search = false },
 		cmdline = {
+			enabled = false,
 			format = {
 				cmdline = { icon = '󰘧' },
 				lua = { icon = 'lua' },
