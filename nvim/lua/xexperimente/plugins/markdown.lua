@@ -19,7 +19,7 @@ vim.schedule(function()
 			above = '▄', --'▁',
 			below = '▀', --'🮂', -- '▔',
 			language_icon = false,
-			-- language_name = false,
+			language_name = false,
 			language_info = true,
 			language_left = '█',
 			language_right = '█',
