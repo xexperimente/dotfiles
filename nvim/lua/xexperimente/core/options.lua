@@ -1,8 +1,6 @@
 vim.opt.encoding = 'utf-8'
 vim.opt.fileencoding = 'utf-8'
 
-vim.g.mapleader = ' '
-
 -- Visuals
 if vim.fn.has('win32') == 1 then
 	vim.opt.guifont = 'Cascadia Code NF:h14'
@@ -28,13 +26,14 @@ vim.opt.smoothscroll = true
 -- Globals
 vim.g.showcmd = false
 vim.g.winborder = 'single'
+vim.opt.pumborder = 'solid'
 
 -- Search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.shortmess:append('S') -- Don't show searchcount in message area
 
-vim.opt.clipboard = 'unnamedplus'
+-- vim.opt.clipboard = 'unnamedplus'
 
 vim.opt.list = true
 

@@ -1,5 +1,8 @@
 vim.loader.enable(true)
 
+vim.g.mapleader = ' '
+vim.g.winborder = 'single'
+
 require('xexperimente.core.options')
 require('xexperimente.core.keybinds')
 require('xexperimente.core.lsp')

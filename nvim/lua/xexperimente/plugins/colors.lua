@@ -79,7 +79,7 @@ require('rose-pine').setup({
 
 		-- Menus
 		PmenuSel = { bg = 'highlight_med', fg = 'NONE' },
-		Pmenu = { fg = 'overlay', bg = 'base' },
+		Pmenu = { fg = 'subtle', bg = 'surface' },
 
 		MatchParen = { bg = 'highlight_med' },
 		LspReferenceText = { bg = 'rose', blend = 15 },

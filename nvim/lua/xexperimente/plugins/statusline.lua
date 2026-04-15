@@ -46,12 +46,13 @@ autocmd('DiagnosticChanged', {
 autocmd({ 'LspAttach', 'LspDetach' }, {
 	group = augroup('statusline-lsp', {}),
 	callback = vim.schedule_wrap(function(args)
-		state.lsp_client_names[args.buf] = vim.tbl_map(
-			function(client) return client.name end,
-			vim.lsp.get_clients({ bufnr = args.buf })
-		)
+		local clients = vim.lsp.get_clients({ bufnr = args.buf })
 
-		vim.cmd('redrawstatus')
+		if #clients > 0 then
+			state.lsp_client_names[args.buf] = vim.tbl_map(function(client) return client.name end, clients)
+
+			vim.cmd('redrawstatus')
+		end
 	end),
 })
 
