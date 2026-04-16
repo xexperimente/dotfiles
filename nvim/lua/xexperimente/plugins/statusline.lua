@@ -3,14 +3,15 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
+local separator = ' | '
+
 local state = {
-	diagnostic_count = {},
-	lsp_client_names = {},
+	diagnostics = {},
+	lsp_names = {},
 	statusline_buf = nil,
 	statusline_win = nil,
 	statusline_is_active = false,
 	lsp_progress = '',
-	sep = ' | ',
 }
 
 local function with_hl(str, hl, hl_nc)
@@ -38,7 +39,7 @@ autocmd('DiagnosticChanged', {
 	group = augroup('statusline-diagnostics', {}),
 	callback = vim.schedule_wrap(function(args)
 		if vim.fn.mode() == 'i' then return end
-		state.diagnostic_count[args.buf] = vim.api.nvim_buf_is_valid(args.buf) and vim.diagnostic.count(args.buf or 0)
+		state.diagnostics[args.buf] = vim.api.nvim_buf_is_valid(args.buf) and vim.diagnostic.count(args.buf or 0)
 		vim.cmd('redrawstatus')
 	end),
 })
@@ -49,7 +50,7 @@ autocmd({ 'LspAttach', 'LspDetach' }, {
 		local clients = vim.lsp.get_clients({ bufnr = args.buf })
 
 		if #clients > 0 then
-			state.lsp_client_names[args.buf] = vim.tbl_map(function(client) return client.name end, clients)
+			state.lsp_names[args.buf] = vim.tbl_map(function(client) return client.name end, clients)
 
 			vim.cmd('redrawstatus')
 		end
@@ -64,7 +65,7 @@ autocmd('LspProgress', {
 			.. ' '
 			.. with_hl(vim.lsp.status(), 'StatusLineDim')
 			.. with_hl(' ] ', 'StatusLineActive')
-			.. state.sep
+			.. separator
 
 		if ev.data.params.value.kind == 'end' then
 			vim.defer_fn(function()
@@ -86,7 +87,7 @@ local function get_severity_hl(severity_id)
 end
 
 local function diagnostics()
-	local diagnostic_count = state.diagnostic_count[state.statusline_buf]
+	local diagnostic_count = state.diagnostics[state.statusline_buf]
 	if diagnostic_count == nil then return '' end
 	local out = ''
 	for severity, count in pairs(diagnostic_count) do
@@ -98,7 +99,7 @@ local function diagnostics()
 			out = out .. with_hl(fmt, get_severity_hl(severity))
 		end
 	end
-	return out ~= '' and (' ' .. out .. state.sep) or ''
+	return out ~= '' and (' ' .. out .. separator) or ''
 end
 
 local function git_status()
@@ -134,7 +135,7 @@ end
 local function lsp_status()
 	if state.lsp_progress:len() > 0 then return state.lsp_progress end
 
-	local client_names = state.lsp_client_names[state.statusline_buf]
+	local client_names = state.lsp_names[state.statusline_buf]
 	if client_names == nil or client_names == 0 then return '' end
 
 	local server_names = {}
@@ -151,12 +152,12 @@ local function lsp_status()
 	if package.loaded['guard.filetype'] then
 		local ft = require('guard.filetype')
 
-		local fmt = ft(vim.bo.filetype).formatter
-		local lnt = ft(vim.bo.filetype).linter
+		local formatter = ft(vim.bo.filetype).formatter
+		local linter = ft(vim.bo.filetype).linter
 
-		vim.list_extend(server_names, vim.tbl_map(function(item) return item.cmd end, fmt))
+		vim.list_extend(server_names, vim.tbl_map(function(item) return item.cmd end, formatter and formatter or {}))
 
-		vim.list_extend(server_names, vim.tbl_map(function(item) return item.cmd end, lnt))
+		vim.list_extend(server_names, vim.tbl_map(function(item) return item.cmd end, linter and linter or {}))
 	end
 
 	if package.loaded['conform'] then
@@ -181,7 +182,7 @@ local function lsp_status()
 
 	local out = #server_names > 0 and table.concat(server_names, ', ') or 'NO LSP, FORMATTERS '
 
-	return with_hl(out, 'StatusLineActive') .. state.sep
+	return with_hl(out, 'StatusLineActive') .. separator
 end
 
 local function nvim_mode()
@@ -224,7 +225,7 @@ local function nvim_mode()
 
 	local mode_code = vim.api.nvim_get_mode().mode
 	local mode = with_hl(mode_map[mode_code] or 'UNKNOWN', 'StatusLineActive')
-	return mode .. state.sep
+	return mode .. separator
 end
 
 local function filepath()
@@ -250,7 +251,7 @@ local function search_count()
 	if next(s_count) == nil then return '' end
 	if not ok or s_count.total == 0 then return '' end
 
-	return with_hl(string.format('[%d/%d]', s_count.current, s_count.total), 'IncSearch') .. state.sep
+	return with_hl(string.format('[%d/%d]', s_count.current, s_count.total), 'IncSearch') .. separator
 end
 
 local function progress()
