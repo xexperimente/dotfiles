@@ -1,0 +1,13 @@
+[selene]
+base = "lua51"
+lua_versions = ["luajit"]
+name = "vim"
+
+[vim]
+any = true
+
+[jit]
+any = true
+
+[Snacks]
+any = true

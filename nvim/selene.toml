@@ -1,8 +1,5 @@
 std="vim"
 
-[config]
-lua_version = "luajit"
-
 [lints]
 global_usage = "allow"
 mixed_table = "allow"
