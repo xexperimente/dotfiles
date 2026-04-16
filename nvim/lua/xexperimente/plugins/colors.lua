@@ -33,7 +33,7 @@ require('rose-pine').setup({
 
 		-- Floats
 		FloatBorder = { fg = 'overlay', bg = 'surface' },
-		FloatTitle = { bg = 'rose', fg = 'overlay' },
+		FloatTitle = { bg = 'rose', fg = 'overlay', blend = 70 },
 		PeekstackPopupBorderFocused = { fg = 'highlight_med', bg = 'surface' },
 		PeekstackTitlePath = { link = 'FloatTitle' },
 		PeekstackTitleLine = { bg = 'rose', fg = 'gold' },
@@ -42,18 +42,6 @@ require('rose-pine').setup({
 		MiniDiffSignChange = { bg = 'none', fg = 'Gold' },
 		MiniPickBorderText = { link = 'FloatTitle' },
 		MiniClueTitle = { link = 'FloatTitle' },
-
-		--Noice
-		NoiceCmdlineIconSearch = { fg = 'rose' },
-		NoiceCmdlineIconCmdline = { fg = 'rose' },
-		NoiceCmdlineIconHelp = { fg = 'rose' },
-		NoiceCmdlineIcon = { fg = 'overlay' },
-		NoiceCmdlinePopup = { link = 'NormalFloat' },
-		NoiceCmdlinePopupBorder = { link = 'FloatBorder' },
-		NoiceCmdlinePopupBorderSearch = { link = 'FloatBorder' },
-		NoiceCmdlinePopupTitleCmdline = { link = 'FloatTitle' },
-		NoiceCmdlinePopupTitleSearch = { link = 'FloatTitle' },
-		NoiceCmdlinePrompt = { link = 'NormalFloat' },
 
 		-- Snacks.nvim
 		SnacksNotifierHistory = { bg = 'surface' },
@@ -89,31 +77,20 @@ require('rose-pine').setup({
 		MatchParen = { bg = 'highlight_med' },
 		LspReferenceText = { bg = 'rose', blend = 15 },
 
-		-- vimdoc
+		-- markdown/vimdoc
 		['@markup.link.vimdoc'] = { bg = 'gold', fg = 'base' },
 		['@markup.heading.1.vimdoc'] = { bg = 'none', fg = 'gold' },
-		['@markup.heading.1.markdown'] = { bg = 'base', fg = 'gold' },
-		['@markup.heading.2.markdown'] = { bg = 'base', fg = 'love' },
-		['@markup.heading.3.markdown'] = { bg = 'base', fg = 'rose' },
-		['@markup.heading.4.markdown'] = { bg = 'base', fg = 'iris' },
-		['@markup.heading.5.markdown'] = { bg = 'base', fg = 'foam' },
-		RenderMarkdownH1Bg = { bg = 'gold' },
-		RenderMarkdownH2Bg = { bg = 'love' },
-		RenderMarkdownH3Bg = { bg = 'rose' },
-		RenderMarkdownH4Bg = { bg = 'iris' },
-		RenderMarkdownH5Bg = { bg = 'foam' },
 		RenderMarkdownCodeInline = { bg = 'overlay', fg = 'text' },
 		RenderMarkdownCodeInfo = { bg = 'rose', blend = 50, fg = 'text' },
 		RenderMarkdownInlineHighlight = { bg = 'gold', blend = 50, fg = 'base' },
-		RenderMarkdownCodeLanguage = { fg = 'highlight_med' },
-		-- RenderMarkdownCodeBorder = { bg = 'rose', fg = 'text' },
-		['@label.vimdoc'] = { bg = 'none', fg = 'gold' },
-		['@property'] = { fg = 'iris', italic = false },
-		['@variable'] = { fg = 'iris', italic = false },
-		['@lsp.type.variable'] = { fg = 'text', italic = false },
-		['@lsp.type.property'] = { fg = 'text', italic = false }, -- iris
-		['@lsp.mod.static'] = { fg = 'iris' },
+
+		-- Semantic tokens
 		Structure = { fg = 'rose' },
+		['@property'] = { fg = 'iris', italic = false },
+		-- ['@variable'] = { fg = 'iris', italic = false },
+		-- ['@lsp.type.variable'] = { fg = 'text', italic = false },
+		-- ['@lsp.type.property'] = { fg = 'text', italic = false }, -- iris
+		-- ['@lsp.mod.static'] = { fg = 'iris' },
 	},
 })
 
