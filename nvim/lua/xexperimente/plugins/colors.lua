@@ -81,6 +81,11 @@ require('rose-pine').setup({
 		PmenuSel = { bg = 'highlight_med', fg = 'NONE' },
 		Pmenu = { fg = 'subtle', bg = 'surface' },
 
+		-- Blink.cmp
+		BlinkCmpMenu = { fg = 'subtle', bg = 'base' },
+		BlinkCmpMenuBorder = { fg = 'overlay', bg = 'base' },
+		BlinkCmpLabelDetail = { fg = 'rose', bg = 'base' },
+
 		MatchParen = { bg = 'highlight_med' },
 		LspReferenceText = { bg = 'rose', blend = 15 },
 

@@ -2,7 +2,7 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 autocmd('MenuPopup', {
-	group = augroup('popupmenu',{}),
+	group = augroup('popupmenu', {}),
 	pattern = '*',
 	callback = function()
 		local cword = vim.fn.expand('<cword>')
@@ -10,38 +10,28 @@ autocmd('MenuPopup', {
 			aunmenu PopUp
 			autocmd! nvim.popupmenu
 
-			anoremenu PopUp.Inspect                 <cmd>Inspect<CR>
 			anoremenu PopUp.Definition              <cmd>lua vim.lsp.buf.definition()<CR>
 			anoremenu PopUp.References              <cmd>lua vim.lsp.buf.references()<CR>
 			anoremenu PopUp.Implementation          <cmd>lua vim.lsp.buf.implementation()<CR>
 			anoremenu PopUp.Declaration             <cmd>lua vim.lsp.buf.declaration()<CR>
 			anoremenu PopUp.-1-                     <Nop>
-			anoremenu PopUp.Diagnostics\ (Trouble)  <cmd>Trouble diagnostics<CR>
 			anoremenu PopUp.Show\ Diagnostics       <cmd>lua vim.diagnostic.open_float()<CR>
-			anoremenu PopUp.Show\ All\ Diagnostics  <cmd>lua vim.diagnostic.setqflist()<CR>
-			anoremenu PopUp.Configure\ Diagnostics  <cmd>help vim.diagnostic.config()<CR>
+			anoremenu PopUp.Find\ symbol            <cmd>lua vim.lsp.buf.workspace_symbol(vim.fn.expand('<cword>'))<CR>
 			anoremenu PopUp.-2-                     <Nop>
-			anoremenu PopUp.Find\ symbol            <cmd>lua require'telescope.builtin'.lsp_workspace_symbols({default_text = vim.fn.expand('<cword>')})<CR>
-			anoremenu PopUp.Grep                    <cmd>lua LazyVim.pick('live_grep', { pattern = vim.fn.expand('<cword>') })()<CR>
-			anoremenu PopUp.TODOs                   <cmd>TodoTrouble<CR>
-			anoremenu PopUp.Bookmarks               <cmd>lua require'bookmarks'.bookmark_list()<CR>
-			anoremenu PopUp.LazyGit                 <cmd>lua Snacks.lazygit()<CR>
-			anoremenu PopUp.Open\ Git\ in\ browser  <cmd>lua Snacks.gitbrowse()<CR>
 			anoremenu PopUp.Open\ in\ web\ browser  gx
+			anoremenu PopUp.Inspect                 <cmd>Inspect<CR>
 			anoremenu PopUp.-3-                     <Nop>
 			vnoremenu PopUp.Cut                     "+x
 			vnoremenu PopUp.Copy                    "+y
 			anoremenu PopUp.Paste                   "+gP
 			vnoremenu PopUp.Paste                   "+P
 			vnoremenu PopUp.Delete                  "_x
-			nnoremenu PopUp.Select\ All             ggVG
-			vnoremenu PopUp.Select\ All             gg0oG$
-			inoremenu PopUp.Select\ All             <C-Home><C-O>VG
+			"nnoremenu PopUp.Select\ All             ggVG
+			"vnoremenu PopUp.Select\ All             gg0oG$
+			"inoremenu PopUp.Select\ All             <C-Home><C-O>VG
 		]])
 
 		-- LSP
-		-- ===
-
 		if cword == '' or not vim.lsp.get_clients({ bufnr = 0, method = 'textDocument/definition' }) then
 			vim.cmd([[amenu disable PopUp.Definition]])
 		end
