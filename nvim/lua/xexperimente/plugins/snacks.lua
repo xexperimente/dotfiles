@@ -230,9 +230,10 @@ vim.schedule(function()
 	bind('n', '<leader>t', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 	bind('n', '<c-t>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 
-	-- Utils
+	-- Buffers
 	bind('n', '<leader>bD', Snacks.bufdelete.other, { desc = 'Delete other buffers' })
-	bind('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = 'Delete buffer' })
+	bind('n', '<leader>bd', Snacks.bufdelete.delete, { desc = 'Delete buffer' })
+	bind('n', '<leader>bx', Snacks.bufdelete.all, { desc = 'Delete all buffers' })
 
 	-- Debug print
 	_G.dd = function(...) Snacks.debug.inspect(...) end ---@diagnostic disable-line
