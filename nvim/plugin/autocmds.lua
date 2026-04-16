@@ -44,26 +44,6 @@ autocmd('User', {
 	end,
 })
 
--- https://github.com/folke/snacks.nvim/blob/main/docs/notifier.md
--- Now using custom solution in statusline
--- vim.defer_fn(function()
--- 	autocmd('LspProgress', {
--- 		group = augroup('SnacksCommands', {}),
--- 		callback = function(ev)
--- 			local spinner = { '󰪞', '󰪟', '󰪠', '󰪡', '󰪢', '󰪣', '󰪤', '󰪥' }
---
--- 			vim.notify(vim.lsp.status(), vim.log.levels.INFO, {
--- 				id = 'lsp_progress',
--- 				title = 'LSP Progress',
--- 				opts = function(notif)
--- 					notif.icon = ev.data.params.value.kind == 'end' and ' '
--- 						or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
--- 				end,
--- 			})
--- 		end,
--- 	})
--- end, 90)
-
 --- For rendering terminal escape codes
 usercmd('Term', function(_)
 	local buf = vim.api.nvim_get_current_buf()

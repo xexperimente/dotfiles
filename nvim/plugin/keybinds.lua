@@ -43,6 +43,7 @@ bind('n', '<leader>m', function()
 	local fn = require('xexperimente.utils.functions')
 	fn.show_messages()
 end, { desc = 'Show Messages' })
+
 -- Show Neovim info - news.txt
 bind('n', '<leader>i', function()
 	local fn = require('xexperimente.utils.functions')
