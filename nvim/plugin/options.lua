@@ -35,7 +35,7 @@ opt.shortmess:append('S') -- Don't show searchcount in message area
 opt.list = true
 
 opt.listchars = {
-	tab = '→ ', -- '——▸',
+	tab = '→ ',
 	nbsp = '⎵',
 	space = '·',
 }
@@ -77,7 +77,8 @@ opt.hidden = true
 opt.splitright = true
 opt.scrolloff = 5
 opt.confirm = true
-opt.inccommand = "split"
+opt.inccommand = 'split'
+opt.exrc = true
 
 -- Grep arguments
 if vim.fn.executable('rg') == 1 then
