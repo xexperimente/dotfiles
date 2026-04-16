@@ -1,5 +1,5 @@
-require('xexperimente.plugins.colors')
 require('xexperimente.plugins.mini')
+require('xexperimente.plugins.colors')
 require('xexperimente.plugins.snacks')
 require('xexperimente.plugins.treesitter')
 require('xexperimente.plugins.blink')

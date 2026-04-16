@@ -1,110 +1,209 @@
-vim.pack.add({
-	{ src = 'https://github.com/rose-pine/neovim', name = 'rose-pine' },
-})
+vim.pack.add({ 'https://github.com/nvim-mini/mini.nvim' })
 
-require('rose-pine').setup({
-	enable = {
-		legacy_highlights = false,
-		migrations = false,
-	},
-	highlight_groups = {
-		Whitespace = { bg = 'NONE', fg = 'overlay' },
-		IncSearch = { fg = 'base', bg = 'rose', inherit = false },
-		CurSearch = { fg = 'base', bg = 'gold', inherit = false },
-		Search = { fg = 'text', bg = 'rose', blend = 20, inherit = false },
-		Keyword = { fg = 'rose' },
-		Folded = { bg = 'base' },
-		Comment = { fg = 'muted' },
-		WinSeparator = { fg = 'overlay', bg = 'none' },
-		MsgSeparator = { fg = 'rose', bg = 'none' },
-		Directory = { fg = 'rose', bg = 'none' },
+local colors = {
+	base = '#faf4ed',
+	surface = '#fffaf3',
+	overlay = '#f2e9de',
+	muted = '#9893a5',
+	subtle = '#797593',
+	text = '#575279',
+	love = '#b4637a',
+	gold = '#ea9d34',
+	rose = '#d7827e',
+	pine = '#286983',
+	foam = '#56949f',
+	iris = '#907aa9',
+	highlight_hi = '#cecacd',
+}
 
-		-- Diffs
-		DiffDelete = { fg = 'overlay', bg = 'base' },
-		CodeDiffFiller = { link = 'DiffDelete' },
+local palette = {
+	base00 = colors.base,
+	base01 = colors.surface,
+	base02 = colors.overlay,
+	base03 = colors.muted,
+	base04 = colors.subtle,
+	base05 = colors.text,
+	base06 = colors.text,
+	base07 = colors.highlight_hi,
+	base08 = colors.love,
+	base09 = colors.gold,
+	base0A = colors.rose,
+	base0B = colors.pine,
+	base0C = colors.foam,
+	base0D = colors.iris,
+	base0E = colors.gold,
+	base0F = colors.highlight_hi,
+}
 
-		-- Statusline
-		StatusLineActive = { fg = 'rose', bg = 'none' },
-		StatusLineDim = { fg = 'subtle', bg = 'none' },
-		StatusLineHighlight = { fg = 'gold', bg = 'none' },
-		StatusLine = { bg = 'NONE', fg = 'highlight_high' },
-		StatusLineTerm = { bg = 'NONE', fg = 'highlight_high' },
-		StatusLineTermNC = { bg = 'NONE', fg = 'highlight_high' },
+require('mini.base16').setup({ palette = palette, use_cterm = false })
 
-		-- Floats
-		FloatBorder = { fg = 'overlay', bg = 'surface' },
-		FloatTitle = { bg = 'rose', fg = 'overlay', blend = 70 },
-		PeekstackPopupBorderFocused = { fg = 'highlight_med', bg = 'surface' },
-		PeekstackTitlePath = { link = 'FloatTitle' },
-		PeekstackTitleLine = { bg = 'rose', fg = 'gold' },
+local hl = vim.api.nvim_set_hl
 
-		-- Mini
-		MiniDiffSignChange = { bg = 'none', fg = 'Gold' },
-		MiniPickBorderText = { link = 'FloatTitle' },
-		MiniClueTitle = { link = 'FloatTitle' },
+-- Basics
+hl(0, 'Whitespace', { fg = colors.overlay, bg = colors.base })
+hl(0, 'CursorLineNr', { fg = colors.text, bg = colors.base, bold = true })
+hl(0, 'LineNr', { fg = colors.muted, bg = colors.base })
+hl(0, 'LineNrAbove', { link = 'LineNr' })
+hl(0, 'LineNrBelow', { link = 'LineNr' })
+hl(0, 'FoldColumn', { fg = colors.muted, bg = colors.base })
+hl(0, 'Folded', { bg = colors.base })
+hl(0, 'Directory', { fg = colors.rose, bg = 'none' })
+hl(0, 'MsgArea', { fg = colors.rose, bg = colors.base })
+hl(0, 'MsgSeparator', { fg = colors.rose, bg = colors.base })
+hl(0, 'WinSeparator', { fg = colors.overlay, bg = colors.base })
+hl(0, 'IncSearch', { fg = colors.base, bg = colors.rose })
+hl(0, 'CurSearch', { fg = colors.base, bg = colors.gold })
 
-		-- Snacks.nvim
-		SnacksNotifierHistory = { bg = 'surface' },
-		SnacksPickerTitle = { link = 'MiniPickBorderText' },
-		SnacksPickerDirectory = { fg = 'rose' },
-		SnacksScratchKey = { bg = 'rose', fg = 'surface' },
-		SnacksScratchDesc = { link = 'SnacksPickerTitle' },
-		SnacksDashboardIcon = { fg = 'iris' },
-		SnacksDashboardFile = { fg = 'rose' },
-		SnacksDashboardSpecial = { fg = 'rose' },
-		SnacksDashboardDesc = { fg = 'rose' },
-		SnacksDashboardTitle = { fg = 'love' },
-		SnacksDashboardHeader = { fg = 'rose' },
-		SnacksDashboardFooter = { fg = 'iris' },
-		SnacksNotifierBorderInfo = { fg = 'overlay', bg = 'none' },
-		SnacksNotifierTitleInfo = { fg = 'iris', bg = 'none' },
-		SnacksInputTitle = { link = 'FloatTitle' },
+-- Syntax
+hl(0, 'Keyword', { fg = colors.rose })
 
-		-- TS Context
-		TreesitterContext = { bg = 'base' },
-		TreesitterContextLineNumber = { bg = 'base', fg = 'muted' },
-		TreesitterContextSeparator = { fg = 'overlay', bg = 'base' },
+-- Statusline
+hl(0, 'StatusLine', { fg = colors.muted, bg = colors.base })
+hl(0, 'StatusLineActive', { fg = colors.rose, bg = colors.base })
+hl(0, 'StatusLineDim', { fg = colors.subtle, bg = colors.base })
 
-		-- Menus
-		PmenuSel = { bg = 'highlight_med', fg = 'NONE' },
-		Pmenu = { fg = 'subtle', bg = 'surface' },
+-- Menus
+hl(0, 'PmenuSel', { bg = colors.highlight_hi, fg = 'NONE' })
+hl(0, 'Pmenu', { fg = colors.subtle, bg = colors.surface })
 
-		-- Blink.cmp
-		BlinkCmpMenu = { fg = 'subtle', bg = 'base' },
-		BlinkCmpMenuBorder = { fg = 'overlay', bg = 'base' },
-		BlinkCmpLabelDetail = { fg = 'rose', bg = 'base' },
+-- Blink.cmp
+hl(0, 'BlinkCmpMenu', { fg = colors.subtle, bg = colors.base })
+hl(0, 'BlinkCmpMenuBorder', { fg = colors.overlay, bg = colors.base })
+hl(0, 'BlinkCmpLabelDetail', { fg = colors.rose, bg = colors.base })
 
-		MatchParen = { bg = 'highlight_med' },
-		LspReferenceText = { bg = 'rose', blend = 15 },
+-- Floats
+hl(0, 'FloatBorder', { fg = colors.overlay, bg = colors.surface })
+hl(0, 'FloatTitle', { bg = colors.rose, fg = colors.overlay, blend = 70 })
 
-		-- markdown/vimdoc
-		['@markup.link.vimdoc'] = { bg = 'gold', fg = 'base' },
-		['@markup.heading.1.vimdoc'] = { bg = 'none', fg = 'gold' },
-		RenderMarkdownCodeInline = { bg = 'overlay', fg = 'text' },
-		RenderMarkdownCodeInfo = { bg = 'rose', blend = 50, fg = 'text' },
-		RenderMarkdownInlineHighlight = { bg = 'gold', blend = 50, fg = 'base' },
+-- Snacks
+hl(0, 'SnacksDashboardHeader', { fg = colors.rose, bg = colors.base })
+hl(0, 'SnacksInputTitle', { link = 'FloatTitle' })
+hl(0, 'SnacksPickerTree', { fg = colors.rose, bg = 'none' })
 
-		-- Semantic tokens
-		Structure = { fg = 'rose' },
-		['@property'] = { fg = 'iris', italic = false },
-		-- ['@variable'] = { fg = 'iris', italic = false },
-		-- ['@lsp.type.variable'] = { fg = 'text', italic = false },
-		-- ['@lsp.type.property'] = { fg = 'text', italic = false }, -- iris
-		-- ['@lsp.mod.static'] = { fg = 'iris' },
-	},
-})
+-- Treesitter Context
+hl(0, 'TreesitterContext', { bg = colors.base })
+hl(0, 'TreesitterContextLineNumber', { bg = colors.base, fg = colors.muted })
+hl(0, 'TreesitterContextSeparator', { fg = colors.overlay, bg = colors.base })
 
-function set_theme(light)
-	if light then
-		vim.cmd('colorscheme rose-pine-dawn')
-	else
-		vim.cmd('colorscheme rose-pine-moon')
-	end
-end
+-- Mini
+hl(0, 'MiniDiffSignChange', { bg = colors.base, fg = colors.gold })
+hl(0, 'MiniDiffSignAdd', { bg = colors.base, fg = colors.foam })
+hl(0, 'MiniDiffSignDelete', { bg = colors.base, fg = colors.love })
+hl(0, 'MiniPickBorderText', { link = 'FloatTitle' })
+hl(0, 'MiniClueTitle', { link = 'FloatTitle' })
 
----@diagnostic disable:undefined-field
-local dark = function() return vim.opt.background:get() == 'dark' end
+-- markdown/vimdoc
+hl(0, '@markup.link.vimdoc', { bg = colors.gold, fg = colors.surface })
+hl(0, '@markup.heading.1.vimdoc', { bg = 'none', fg = colors.gold })
+hl(0, '@markup.heading.1.delimiter.vimdoc', { bg = 'none', fg = colors.rose })
 
-set_theme(not dark())
-
-vim.keymap.set('n', '<leader>ub', function() set_theme(dark()) end, { desc = 'Toggle background' })
+-- vim.pack.add({
+-- 	{ src = 'https://github.com/rose-pine/neovim', name = 'rose-pine' },
+-- })
+--
+-- require('rose-pine').setup({
+-- 	enable = {
+-- 		legacy_highlights = false,
+-- 		migrations = false,
+-- 	},
+-- 	highlight_groups = {
+-- 		Whitespace = { bg = 'NONE', fg = 'overlay' },
+-- 		IncSearch = { fg = 'base', bg = 'rose', inherit = false },
+-- 		CurSearch = { fg = 'base', bg = 'gold', inherit = false },
+-- 		Search = { fg = 'text', bg = 'rose', blend = 20, inherit = false },
+-- 		Keyword = { fg = 'rose' },
+-- 		Folded = { bg = 'base' },
+-- 		Comment = { fg = 'muted' },
+-- 		WinSeparator = { fg = 'overlay', bg = 'none' },
+-- 		MsgSeparator = { fg = 'rose', bg = 'none' },
+-- 		Directory = { fg = 'rose', bg = 'none' },
+--
+-- 		-- Diffs
+-- 		DiffDelete = { fg = 'overlay', bg = 'base' },
+-- 		CodeDiffFiller = { link = 'DiffDelete' },
+--
+-- 		-- Statusline
+-- 		StatusLineActive = { fg = 'rose', bg = 'none' },
+-- 		StatusLineDim = { fg = 'subtle', bg = 'none' },
+-- 		StatusLineHighlight = { fg = 'gold', bg = 'none' },
+-- 		StatusLine = { bg = 'NONE', fg = 'highlight_high' },
+-- 		StatusLineTerm = { bg = 'NONE', fg = 'highlight_high' },
+-- 		StatusLineTermNC = { bg = 'NONE', fg = 'highlight_high' },
+--
+-- 		-- Floats
+-- 		FloatBorder = { fg = 'overlay', bg = 'surface' },
+-- 		FloatTitle = { bg = 'rose', fg = 'overlay', blend = 70 },
+-- 		PeekstackPopupBorderFocused = { fg = 'highlight_med', bg = 'surface' },
+-- 		PeekstackTitlePath = { link = 'FloatTitle' },
+-- 		PeekstackTitleLine = { bg = 'rose', fg = 'gold' },
+--
+-- 		-- Mini
+-- 		MiniDiffSignChange = { bg = 'none', fg = 'Gold' },
+-- 		MiniPickBorderText = { link = 'FloatTitle' },
+-- 		MiniClueTitle = { link = 'FloatTitle' },
+--
+-- 		-- Snacks.nvim
+-- 		SnacksNotifierHistory = { bg = 'surface' },
+-- 		SnacksPickerTitle = { link = 'MiniPickBorderText' },
+-- 		SnacksPickerDirectory = { fg = 'rose' },
+-- 		SnacksScratchKey = { bg = 'rose', fg = 'surface' },
+-- 		SnacksScratchDesc = { link = 'SnacksPickerTitle' },
+-- 		SnacksDashboardIcon = { fg = 'iris' },
+-- 		SnacksDashboardFile = { fg = 'rose' },
+-- 		SnacksDashboardSpecial = { fg = 'rose' },
+-- 		SnacksDashboardDesc = { fg = 'rose' },
+-- 		SnacksDashboardTitle = { fg = 'love' },
+-- 		SnacksDashboardHeader = { fg = 'rose' },
+-- 		SnacksDashboardFooter = { fg = 'iris' },
+-- 		SnacksNotifierBorderInfo = { fg = 'overlay', bg = 'none' },
+-- 		SnacksNotifierTitleInfo = { fg = 'iris', bg = 'none' },
+-- 		SnacksInputTitle = { link = 'FloatTitle' },
+--
+-- 		-- TS Context
+-- 		TreesitterContext = { bg = 'base' },
+-- 		TreesitterContextLineNumber = { bg = 'base', fg = 'muted' },
+-- 		TreesitterContextSeparator = { fg = 'overlay', bg = 'base' },
+--
+-- 		-- Menus
+-- 		PmenuSel = { bg = 'highlight_med', fg = 'NONE' },
+-- 		Pmenu = { fg = 'subtle', bg = 'surface' },
+--
+-- 		-- Blink.cmp
+-- 		BlinkCmpMenu = { fg = 'subtle', bg = 'base' },
+-- 		BlinkCmpMenuBorder = { fg = 'overlay', bg = 'base' },
+-- 		BlinkCmpLabelDetail = { fg = 'rose', bg = 'base' },
+--
+-- 		MatchParen = { bg = 'highlight_med' },
+-- 		LspReferenceText = { bg = 'rose', blend = 15 },
+--
+-- 		-- markdown/vimdoc
+-- 		['@markup.link.vimdoc'] = { bg = 'gold', fg = 'base' },
+-- 		['@markup.heading.1.vimdoc'] = { bg = 'none', fg = 'gold' },
+-- 		RenderMarkdownCodeInline = { bg = 'overlay', fg = 'text' },
+-- 		RenderMarkdownCodeInfo = { bg = 'rose', blend = 50, fg = 'text' },
+-- 		RenderMarkdownInlineHighlight = { bg = 'gold', blend = 50, fg = 'base' },
+--
+-- 		-- Semantic tokens
+-- 		Structure = { fg = 'rose' },
+-- 		['@property'] = { fg = 'iris', italic = false },
+-- 		-- ['@variable'] = { fg = 'iris', italic = false },
+-- 		-- ['@lsp.type.variable'] = { fg = 'text', italic = false },
+-- 		-- ['@lsp.type.property'] = { fg = 'text', italic = false }, -- iris
+-- 		-- ['@lsp.mod.static'] = { fg = 'iris' },
+-- 	},
+-- })
+--
+-- function set_theme(light)
+-- 	if light then
+-- 		vim.cmd('colorscheme rose-pine-dawn')
+-- 	else
+-- 		vim.cmd('colorscheme rose-pine-moon')
+-- 	end
+-- end
+--
+-- ---@diagnostic disable:undefined-field
+-- local dark = function() return vim.opt.background:get() == 'dark' end
+--
+-- set_theme(not dark())
+--
+-- vim.keymap.set('n', '<leader>ub', function() set_theme(dark()) end, { desc = 'Toggle background' })
