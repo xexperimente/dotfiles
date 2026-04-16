@@ -61,6 +61,7 @@ hl(0, 'Keyword', { fg = colors.rose })
 hl(0, 'StatusLine', { fg = colors.muted, bg = colors.base })
 hl(0, 'StatusLineActive', { fg = colors.rose, bg = colors.base })
 hl(0, 'StatusLineDim', { fg = colors.subtle, bg = colors.base })
+hl(0, 'StatusLineHighlight', { fg = colors.gold, bg = colors.base })
 
 -- Menus
 hl(0, 'PmenuSel', { bg = colors.highlight_hi, fg = 'NONE' })
@@ -78,7 +79,9 @@ hl(0, 'FloatTitle', { bg = colors.rose, fg = colors.overlay, blend = 70 })
 -- Snacks
 hl(0, 'SnacksDashboardHeader', { fg = colors.rose, bg = colors.base })
 hl(0, 'SnacksInputTitle', { link = 'FloatTitle' })
-hl(0, 'SnacksPickerTree', { fg = colors.rose, bg = 'none' })
+hl(0, 'SnacksPickerTree', { fg = colors.love, bg = colors.surface })
+hl(0, 'SnacksPickerPrompt', { fg = colors.rose, bg = colors.surface })
+hl(0, 'SnacksInputPrompt', { fg = colors.rose, bg = colors.surface })
 
 -- Treesitter Context
 hl(0, 'TreesitterContext', { bg = colors.base })

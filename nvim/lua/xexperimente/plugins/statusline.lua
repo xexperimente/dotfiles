@@ -23,18 +23,6 @@ local function with_hl(str, hl, hl_nc)
 	end
 end
 
-autocmd('Colorscheme', {
-	desc = 'Set statusline highlights',
-	group = augroup('statusline-highlights', {}),
-	callback = function()
-		vim.api.nvim_set_hl(0, 'User2', { fg = vim.api.nvim_get_hl(0, { name = 'DiagnosticError' }).fg }) -- error
-		vim.api.nvim_set_hl(0, 'User3', { fg = vim.api.nvim_get_hl(0, { name = 'DiagnosticWarn' }).fg }) -- warning
-		vim.api.nvim_set_hl(0, 'User4', { fg = vim.api.nvim_get_hl(0, { name = 'DiagnosticInfo' }).fg }) -- info
-		vim.api.nvim_set_hl(0, 'User5', { fg = vim.api.nvim_get_hl(0, { name = 'DiagnosticHint' }).fg }) -- hint
-		vim.api.nvim_set_hl(0, 'User6', { fg = vim.api.nvim_get_hl(0, { name = 'Special' }).fg }) -- git branch
-	end,
-})
-
 autocmd('DiagnosticChanged', {
 	group = augroup('statusline-diagnostics', {}),
 	callback = vim.schedule_wrap(function(args)
@@ -61,8 +49,7 @@ autocmd('LspProgress', {
 	group = augroup('statusline-lsp-progress', {}),
 	callback = function(ev)
 		-- local icon = ev.data.params.value.kind == 'end' and ' ' or ''
-		state.lsp_progress = with_hl('[', 'StatusLineActive')
-			.. ' '
+		state.lsp_progress = with_hl('[ ', 'StatusLineActive')
 			.. with_hl(vim.lsp.status(), 'StatusLineDim')
 			.. with_hl(' ] ', 'StatusLineActive')
 			.. separator
