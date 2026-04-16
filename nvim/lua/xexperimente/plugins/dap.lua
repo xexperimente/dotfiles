@@ -103,9 +103,9 @@ vim.schedule(function()
 			},
 		}
 	else
-		dap.adapters.codelldb = {
+		dap.adapters.lldb = {
 			type = 'executable',
-			command = 'codelldb',
+			command = 'lldb-dap',
 			detached = false,
 		}
 
