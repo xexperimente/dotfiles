@@ -10,7 +10,7 @@ if vim.fn.has('win32') == 1 then
 	opt.background = 'light'
 else
 	opt.guifont = 'CaskaydiaCove NF:h14'
-	opt.background = g.neovide and 'light' or 'dark'
+	-- opt.background = g.neovide and 'light' or 'dark'
 end
 
 opt.number = true

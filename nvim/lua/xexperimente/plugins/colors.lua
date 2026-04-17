@@ -1,6 +1,6 @@
 vim.pack.add({ 'https://github.com/nvim-mini/mini.nvim' })
 
-local colors = {
+local dawn = {
 	base = '#faf4ed',
 	surface = '#fffaf3',
 	overlay = '#f2e9de',
@@ -15,6 +15,40 @@ local colors = {
 	iris = '#907aa9',
 	highlight_hi = '#cecacd',
 }
+
+local moon = {
+	base = '#232136',
+	surface = '#2a273f',
+	overlay = '#393552',
+	muted = '#6e6a86',
+	subtle = '#908caa',
+	text = '#e0def4',
+	love = '#eb6f92',
+	gold = '#f6c177',
+	rose = '#ea9a97',
+	pine = '#3e8fb0',
+	foam = '#9ccfd8',
+	iris = '#c4a7e7',
+	highlight_hi = '#56526e',
+}
+
+local _default = {
+	base = '#191724',
+	surface = '#1f1d2e',
+	overlay = '#26233a',
+	muted = '#6e6a86',
+	subtle = '#908caa',
+	text = '#e0def4',
+	love = '#eb6f92',
+	gold = '#f6c177',
+	rose = '#ebbcba',
+	pine = '#31748f',
+	foam = '#9ccfd8',
+	iris = '#c4a7e7',
+	highlight_hi = '#524f67',
+}
+
+local colors = vim.opt.background:get() == 'dark' and moon or dawn
 
 local palette = {
 	base00 = colors.base,
@@ -55,7 +89,8 @@ hl(0, 'IncSearch', { fg = colors.base, bg = colors.rose })
 hl(0, 'CurSearch', { fg = colors.base, bg = colors.gold })
 
 -- Syntax
-hl(0, 'Keyword', { fg = colors.rose })
+hl(0, 'Keyword', { fg = colors.love })
+hl(0, 'Identifier', { fg = colors.text })
 
 -- Statusline
 hl(0, 'StatusLine', { fg = colors.muted, bg = colors.base })
