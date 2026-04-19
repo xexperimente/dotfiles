@@ -48,6 +48,7 @@ local _default = {
 	highlight_hi = '#524f67',
 }
 
+--- @diagnostic disable-next-line: undefined-field
 local colors = vim.opt.background:get() == 'dark' and moon or dawn
 
 local palette = {
@@ -91,6 +92,9 @@ hl(0, 'CurSearch', { fg = colors.base, bg = colors.gold })
 -- Syntax
 hl(0, 'Keyword', { fg = colors.love })
 hl(0, 'Identifier', { fg = colors.text })
+hl(0, 'String', { fg = colors.gold })
+-- hl(0, '@variable', { fg = colors.text })
+-- hl(0, '@property', { fg = colors.rose })
 
 -- Statusline
 hl(0, 'StatusLine', { fg = colors.muted, bg = colors.base })

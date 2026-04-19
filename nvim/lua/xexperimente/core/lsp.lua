@@ -1,34 +1,36 @@
 vim.schedule(function()
+	vim.lsp.config('*', {
+		capabilities = vim.lsp.protocol.make_client_capabilities(),
+	})
+
 	vim.lsp.enable({
-		-- 'lua-ls',
 		'emmylua_ls',
 		'zls',
 		'rust_analyzer',
 		'clangd',
+		-- 'lua-ls',
 	})
+
+	local signs = {
+		[vim.diagnostic.severity.ERROR] = '',
+		[vim.diagnostic.severity.WARN] = '',
+		[vim.diagnostic.severity.HINT] = '󰌵',
+		[vim.diagnostic.severity.INFO] = '',
+	}
 
 	vim.diagnostic.config({
 		underline = true,
 		update_in_insert = false,
 		virtual_text = {
-			-- current_line = false,
 			spacing = 4,
 			source = 'if_many',
 			prefix = ' ●',
 			suffix = ' ',
 		},
+		signs = { text = signs },
+		float = { border = vim.g.winborder },
+		-- current_line = false,
 		-- virtual_lines = { current_line = true },
-		signs = {
-			text = {
-				[vim.diagnostic.severity.ERROR] = '',
-				[vim.diagnostic.severity.WARN] = '',
-				[vim.diagnostic.severity.HINT] = '󰌵',
-				[vim.diagnostic.severity.INFO] = '',
-			},
-		},
-		float = {
-			border = vim.g.winborder,
-		},
 	})
 
 	vim.api.nvim_create_user_command('LspLog', function() vim.cmd.tabnew(vim.lsp.log.get_filename()) end, {})
