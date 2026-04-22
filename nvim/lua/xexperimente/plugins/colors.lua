@@ -75,12 +75,12 @@ require('mini.base16').setup({ palette = palette, use_cterm = false })
 local hl = vim.api.nvim_set_hl
 
 -- Basics
-hl(0, 'Whitespace', { fg = colors.overlay, bg = colors.base })
-hl(0, 'CursorLineNr', { fg = colors.text, bg = colors.base, bold = true })
-hl(0, 'LineNr', { fg = colors.muted, bg = colors.base })
+hl(0, 'Whitespace', { fg = colors.overlay, bg = 'none' })
+hl(0, 'CursorLineNr', { fg = colors.text, bg = 'none', bold = true })
+hl(0, 'LineNr', { fg = colors.muted, bg = 'none' })
 hl(0, 'LineNrAbove', { link = 'LineNr' })
 hl(0, 'LineNrBelow', { link = 'LineNr' })
-hl(0, 'FoldColumn', { fg = colors.muted, bg = colors.base })
+hl(0, 'FoldColumn', { fg = colors.muted, bg = 'none' })
 hl(0, 'Folded', { bg = colors.base })
 hl(0, 'Directory', { fg = colors.rose, bg = 'none' })
 hl(0, 'MsgArea', { fg = colors.rose, bg = colors.base })
