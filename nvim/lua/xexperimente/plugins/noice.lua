@@ -1,5 +1,4 @@
 vim.schedule(function()
-
 	vim.o.cmdheight = 0
 
 	require('vim._core.ui2').enable({ msg = { target = 'cmd' } })
@@ -22,6 +21,7 @@ vim.schedule(function()
 				['vim.lsp.util.convert_input_to_markdown_lines'] = true,
 				['vim.lsp.util.stylize_markdown'] = true,
 			},
+			signature = { enabled = false },
 		},
 		views = {
 			cmdline_popup = {

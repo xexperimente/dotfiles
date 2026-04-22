@@ -42,12 +42,10 @@ vim.schedule(function()
 					treesitter = { 'lsp' },
 					columns = { { 'kind_icon' }, { 'label', 'label_description', gap = 1 }, { 'kind' } },
 				},
-				border = vim.g.winborder,
 			},
 			documentation = {
 				auto_show = false,
 				auto_show_delay_ms = 500,
-				window = { border = vim.g.winborder },
 			},
 		},
 	}

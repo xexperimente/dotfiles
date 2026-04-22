@@ -113,6 +113,11 @@ hl(0, 'BlinkCmpMenuBorder', { fg = colors.highlight_hi, bg = colors.base })
 hl(0, 'BlinkCmpMenuSelection', { fg = colors.overlay, bg = colors.rose })
 hl(0, 'BlinkCmpLabelDetail', { fg = colors.rose, bg = colors.base })
 hl(0, 'BlinkCmpScrollBarThumb', { bg = colors.overlay })
+hl(0, 'BlinkCmpDoc', { bg = colors.base })
+hl(0, 'BlinkCmpDocBorder', { fg = colors.highlight_hi, bg = colors.base })
+hl(0, 'BlinkCmpSignatureHelp', { bg = colors.base })
+hl(0, 'BlinkCmpSignatureHelpBorder', { fg = colors.highlight_hi, bg = colors.base })
+hl(0, 'BlinkCmpSignatureHelpActiveParameter', { fg = colors.base, bg = colors.rose })
 
 -- Floats
 hl(0, 'FloatBorder', { fg = colors.overlay, bg = colors.surface })
