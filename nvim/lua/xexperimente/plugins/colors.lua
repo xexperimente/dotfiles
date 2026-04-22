@@ -113,10 +113,12 @@ hl(0, 'BlinkCmpLabelDetail', { fg = colors.rose, bg = colors.base })
 
 -- Floats
 hl(0, 'FloatBorder', { fg = colors.overlay, bg = colors.surface })
-hl(0, 'FloatTitle', { bg = colors.rose, fg = colors.overlay, blend = 70 })
+hl(0, 'FloatTitle', { bg = colors.rose, fg = colors.overlay })
 
 -- Snacks
 hl(0, 'SnacksDashboardHeader', { fg = colors.rose, bg = colors.base })
+hl(0, 'SnacksDashboardDesc', { fg = colors.rose, bg = colors.base })
+hl(0, 'SnacksDashboardFile', { fg = colors.rose, bg = colors.base })
 hl(0, 'SnacksInputTitle', { link = 'FloatTitle' })
 hl(0, 'SnacksPickerTree', { fg = colors.love, bg = colors.surface })
 hl(0, 'SnacksPickerPrompt', { fg = colors.rose, bg = colors.surface })

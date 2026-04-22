@@ -94,10 +94,9 @@ local opts = {
 		preset = {
 			header = require('xexperimente.utils.dashboard'),
 			keys = {
-				{ key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')", icon = '' },
+				-- { key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')", icon = '' },
 				{ key = 'r', desc = 'Recent Projects', action = ":lua Snacks.dashboard.pick('projects')", icon = '' },
-				{ key = 'c', desc = 'Config', action = function() fn.open_config() end, icon = '' },
-				{ key = 'p', desc = 'Update plugins', action = ':lua vim.pack.update()', icon = '' },
+				-- { key = 'c', desc = 'Config', action = function() fn.open_config() end, icon = '' },
 				{ key = 'q', desc = 'Quit', action = ':qa', icon = '' },
 			},
 		},
@@ -109,6 +108,7 @@ local opts = {
 		formats = {
 			icon = function(_) return '' end,
 			file = fn.dashboard_file_format,
+			key = function(item) return { { '[ ', hl = 'Whitespace' }, { item.key, hl = 'key' }, { ' ]', hl = 'Whitespace' } } end,
 		},
 	},
 	styles = {
