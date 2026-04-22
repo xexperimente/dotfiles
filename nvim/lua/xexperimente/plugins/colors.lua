@@ -93,6 +93,7 @@ hl(0, 'CurSearch', { fg = colors.base, bg = colors.gold })
 hl(0, 'Keyword', { fg = colors.love })
 hl(0, 'Identifier', { fg = colors.text })
 hl(0, 'String', { fg = colors.gold })
+hl(0, 'Number', { fg = colors.love })
 -- hl(0, '@variable', { fg = colors.text })
 -- hl(0, '@property', { fg = colors.rose })
 
@@ -103,13 +104,15 @@ hl(0, 'StatusLineDim', { fg = colors.subtle, bg = colors.base })
 hl(0, 'StatusLineHighlight', { fg = colors.gold, bg = colors.base })
 
 -- Menus
-hl(0, 'PmenuSel', { bg = colors.highlight_hi, fg = 'NONE' })
-hl(0, 'Pmenu', { fg = colors.subtle, bg = colors.surface })
+hl(0, 'PmenuSel', { bg = colors.overlay, fg = 'none' })
+hl(0, 'Pmenu', { fg = colors.subtle, bg = 'none' })
 
 -- Blink.cmp
 hl(0, 'BlinkCmpMenu', { fg = colors.subtle, bg = colors.base })
-hl(0, 'BlinkCmpMenuBorder', { fg = colors.overlay, bg = colors.base })
+hl(0, 'BlinkCmpMenuBorder', { fg = colors.highlight_hi, bg = colors.base })
+hl(0, 'BlinkCmpMenuSelection', { fg = colors.overlay, bg = colors.rose })
 hl(0, 'BlinkCmpLabelDetail', { fg = colors.rose, bg = colors.base })
+hl(0, 'BlinkCmpScrollBarThumb', { bg = colors.overlay })
 
 -- Floats
 hl(0, 'FloatBorder', { fg = colors.overlay, bg = colors.surface })
@@ -120,9 +123,21 @@ hl(0, 'SnacksDashboardHeader', { fg = colors.rose, bg = colors.base })
 hl(0, 'SnacksDashboardDesc', { fg = colors.rose, bg = colors.base })
 hl(0, 'SnacksDashboardFile', { fg = colors.rose, bg = colors.base })
 hl(0, 'SnacksInputTitle', { link = 'FloatTitle' })
-hl(0, 'SnacksPickerTree', { fg = colors.love, bg = colors.surface })
-hl(0, 'SnacksPickerPrompt', { fg = colors.rose, bg = colors.surface })
 hl(0, 'SnacksInputPrompt', { fg = colors.rose, bg = colors.surface })
+hl(0, 'SnacksPickerPrompt', { fg = colors.rose, bg = colors.surface })
+hl(0, 'SnacksPickerTree', { fg = colors.highlight_hi, bg = colors.surface })
+
+-- MiniIcons
+hl(0, 'MiniIconsRed', { fg = colors.love })
+
+hl(0, 'MiniIconsGrey', { link = 'MiniIconsRed' })
+hl(0, 'MiniIconsAzure', { link = 'MiniIconsRed' })
+hl(0, 'MiniIconsPurple', { link = 'MiniIconsRed' })
+hl(0, 'MiniIconsBlue', { link = 'MiniIconsRed' })
+hl(0, 'MiniIconsGreen', { link = 'MiniIconsRed' })
+hl(0, 'MiniIconsYellow', { link = 'MiniIconsRed' })
+hl(0, 'MiniIconsCyan', { link = 'MiniIconsRed' })
+hl(0, 'MiniIconsOrange', { link = 'MiniIconsRed' })
 
 -- Treesitter Context
 hl(0, 'TreesitterContext', { bg = colors.base })

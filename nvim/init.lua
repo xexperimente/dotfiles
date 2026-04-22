@@ -2,6 +2,7 @@ vim.loader.enable(true)
 
 vim.g.mapleader = ' '
 vim.g.winborder = 'single'
+vim.o.winborder = vim.g.winborder
 
 require('xexperimente.core.lsp')
 require('xexperimente.plugins')

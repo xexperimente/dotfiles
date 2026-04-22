@@ -64,6 +64,7 @@ local opts = {
 				tree = true,
 				auto_close = true,
 				git_status = false,
+				focus = 'input',
 				layout = { preset = 'vertical', preview = false, layout = { backdrop = 90 } },
 			},
 			icons = { layout = 'select' },
@@ -108,24 +109,23 @@ local opts = {
 		formats = {
 			icon = function(_) return '' end,
 			file = fn.dashboard_file_format,
-			key = function(item) return { { '[ ', hl = 'Whitespace' }, { item.key, hl = 'key' }, { ' ]', hl = 'Whitespace' } } end,
+			key = function(item)
+				return { { '[ ', hl = 'Whitespace' }, { item.key, hl = 'key' }, { ' ]', hl = 'Whitespace' } }
+			end,
 		},
 	},
 	styles = {
 		notification_history = {
-			border = vim.g.winborder,
 			width = 0.8,
 			keys = { ['<Esc>'] = 'close' },
 		},
 		scratch = {
-			border = vim.g.winborder,
 			keys = { ['<Esc>'] = 'close' },
 			wo = { winhighlight = 'NormalFloat:NormalFloat' },
 		},
 		input = {
 			row = 36,
 			wo = { winhighlight = 'FloatBorder:FloatBorder' },
-			border = vim.g.winborder,
 		},
 	},
 }
