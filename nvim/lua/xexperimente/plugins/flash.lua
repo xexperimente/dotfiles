@@ -4,6 +4,7 @@ vim.schedule(function()
 	local opts = {
 		modes = {
 			search = { enabled = true },
+			treesitter = { label = { before = false, after = false } },
 		},
 		search = {
 			exclude = {
@@ -40,7 +41,7 @@ vim.schedule(function()
 	local actions = { ['<M-i>'] = 'next', ['<M-o>'] = 'prev' }
 
 	bind(modes, 's', function() flash.jump() end, { desc = 'Flash' })
-	bind(modes, 'S', function() flash.treesitter() end, { desc = 'Flash treesitter' })
 	bind(modes, '<M-i>', function() flash.treesitter({ actions = actions }) end, { desc = 'Incremental selection' })
 	bind('c', '<c-s>', function() require('flash').toggle() end, { desc = 'Toggle Flash Search' })
+	bind({ 'o', 'x' }, 'R', function() require('flash').treesitter_search() end, { desc = 'Treesitter Search' })
 end)

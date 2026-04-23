@@ -97,6 +97,9 @@ hl(0, 'Number', { fg = colors.love })
 -- hl(0, '@variable', { fg = colors.text })
 -- hl(0, '@property', { fg = colors.rose })
 
+-- Whitespace
+hl(0, 'VisualNonText', { fg = colors.highlight_hi, bg = colors.overlay })
+
 -- Statusline
 hl(0, 'StatusLine', { fg = colors.muted, bg = colors.base })
 hl(0, 'StatusLineActive', { fg = colors.rose, bg = colors.base })
@@ -106,6 +109,10 @@ hl(0, 'StatusLineHighlight', { fg = colors.gold, bg = colors.base })
 -- Menus
 hl(0, 'PmenuSel', { bg = colors.overlay, fg = 'none' })
 hl(0, 'Pmenu', { fg = colors.subtle, bg = 'none' })
+
+-- Diffs
+hl(0, 'DiffDelete', { fg = colors.overlay, bg = colors.base })
+hl(0, 'CodeDiffFiller', { link = 'DiffDelete' })
 
 -- Blink.cmp
 hl(0, 'BlinkCmpMenu', { fg = colors.subtle, bg = colors.base })
@@ -118,6 +125,9 @@ hl(0, 'BlinkCmpDocBorder', { fg = colors.highlight_hi, bg = colors.base })
 hl(0, 'BlinkCmpSignatureHelp', { bg = colors.base })
 hl(0, 'BlinkCmpSignatureHelpBorder', { fg = colors.highlight_hi, bg = colors.base })
 hl(0, 'BlinkCmpSignatureHelpActiveParameter', { fg = colors.base, bg = colors.rose })
+
+-- Flash
+hl(0, 'FlashLabel', { fg = colors.surface, bg = colors.highlight_hi })
 
 -- Floats
 hl(0, 'FloatBorder', { fg = colors.overlay, bg = colors.surface })
@@ -132,18 +142,6 @@ hl(0, 'SnacksInputPrompt', { fg = colors.rose, bg = colors.surface })
 hl(0, 'SnacksPickerPrompt', { fg = colors.rose, bg = colors.surface })
 hl(0, 'SnacksPickerTree', { fg = colors.highlight_hi, bg = colors.surface })
 
--- MiniIcons
-hl(0, 'MiniIconsRed', { fg = colors.love })
-
-hl(0, 'MiniIconsGrey', { link = 'MiniIconsRed' })
-hl(0, 'MiniIconsAzure', { link = 'MiniIconsRed' })
-hl(0, 'MiniIconsPurple', { link = 'MiniIconsRed' })
-hl(0, 'MiniIconsBlue', { link = 'MiniIconsRed' })
-hl(0, 'MiniIconsGreen', { link = 'MiniIconsRed' })
-hl(0, 'MiniIconsYellow', { link = 'MiniIconsRed' })
-hl(0, 'MiniIconsCyan', { link = 'MiniIconsRed' })
-hl(0, 'MiniIconsOrange', { link = 'MiniIconsRed' })
-
 -- Treesitter Context
 hl(0, 'TreesitterContext', { bg = colors.base })
 hl(0, 'TreesitterContextLineNumber', { bg = colors.base, fg = colors.muted })
@@ -155,6 +153,26 @@ hl(0, 'MiniDiffSignAdd', { bg = colors.base, fg = colors.foam })
 hl(0, 'MiniDiffSignDelete', { bg = colors.base, fg = colors.love })
 hl(0, 'MiniPickBorderText', { link = 'FloatTitle' })
 hl(0, 'MiniClueTitle', { link = 'FloatTitle' })
+
+hl(0, 'MiniIconsRed', { fg = colors.love })
+
+hl(0, 'MiniIconsGrey', { link = 'MiniIconsRed' })
+hl(0, 'MiniIconsAzure', { link = 'MiniIconsRed' })
+hl(0, 'MiniIconsPurple', { link = 'MiniIconsRed' })
+hl(0, 'MiniIconsBlue', { link = 'MiniIconsRed' })
+hl(0, 'MiniIconsGreen', { link = 'MiniIconsRed' })
+hl(0, 'MiniIconsYellow', { link = 'MiniIconsRed' })
+hl(0, 'MiniIconsCyan', { link = 'MiniIconsRed' })
+hl(0, 'MiniIconsOrange', { link = 'MiniIconsRed' })
+
+-- Peekstack
+hl(0, 'PeekstackPopupBorderFocused', { fg = colors.highlight_hi, bg = colors.surface })
+hl(0, 'PeekstackTitlePath', { link = 'FloatTitle' })
+hl(0, 'PeekstackTitleLine', { bg = colors.rose, fg = colors.gold })
+hl(0, 'PeekstackStack', { bg = colors.base })
+
+-- Mason
+hl(0, 'MasonHeader', { link = 'FloatTitle' })
 
 -- markdown/vimdoc
 hl(0, '@markup.link.vimdoc', { bg = colors.gold, fg = colors.surface })

@@ -20,13 +20,12 @@ vim.schedule(function()
 		{ src = 'https://github.com/nvimdev/guard.nvim' },
 		{ src = 'https://github.com/nvimdev/guard-collection' },
 	}, {
-		load = on_event('BufReadPost', { 'guard.nvim', 'guard-collection' }, function()
+		load = on_event('BufReadPost', { 'mason.nvim', 'guard.nvim', 'guard-collection' }, function()
 			local ft = require('guard.filetype')
 
 			ft('lua'):fmt('stylua'):lint('selene')
 
 			ft('json,jsonc'):fmt('deno_fmt')
-
 			ft('rust'):fmt('rustfmt')
 		end),
 	})
