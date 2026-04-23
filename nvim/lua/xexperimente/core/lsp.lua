@@ -8,6 +8,7 @@ vim.schedule(function()
 		'zls',
 		'rust_analyzer',
 		'clangd',
+		'nushell',
 		-- 'lua-ls',
 	})
 
