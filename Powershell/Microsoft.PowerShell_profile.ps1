@@ -93,49 +93,4 @@ function grep
 	$input | out-string -stream | select-string $args 
 }
 
-# Completions
-
-function Register-LazyCompleter($CommandName, $CompletionScript)
-{
-	$Context = $script:Context
-	$NativeProp = $script:NativeProp
-
-	Register-ArgumentCompleter -CommandName $CommandName -ScriptBlock {
-		try
-		{
-			. $CompletionScript
-		} catch
-		{
-			throw "Failed to run the autocompleter for '$CommandName'"
-		}
-		$Completer = $NativeProp.GetValue($Context)[$CommandName]
-		return & $Completer @Args
-	}.GetNewClosure()
-}
-
-# Init Rclone completion
-Register-LazyCompleter rclone {
-	rclone completion powershell | Out-String | Invoke-Expression
-}
-
-# rust completer
-Register-LazyCompleter rustup {
-	rustup completions powershell rustup | Out-String | Invoke-Expression
-}
-
-Register-LazyCompleter winget {
-	Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
-		param($wordToComplete, $commandAst, $cursorPosition)
-
-		[Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
-		$Local:word = $wordToComplete.Replace('"', '""')
-		$Local:ast = $commandAst.ToString().Replace('"', '""')
-
-		winget complete --word="$Local:word" --commandline "$Local:ast" --position $cursorPosition | ForEach-Object {
-			[System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
-		}
-	}
-}
-
-Import-Module 'D:\Dev\Applications\vcpkg\scripts\posh-vcpkg' # Init vcpkg completion
 
