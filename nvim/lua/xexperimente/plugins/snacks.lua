@@ -1,7 +1,5 @@
 vim.pack.add({ 'https://github.com/folke/snacks.nvim' })
 
-local fn = require('xexperimente.utils.functions')
-
 local opts = {
 	bigfile = { enabled = true },
 	explorer = { replace_netrw = true },
@@ -89,9 +87,7 @@ local opts = {
 		preset = {
 			header = require('xexperimente.utils.dashboard'),
 			keys = {
-				-- { key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')", icon = '' },
-				{ key = 'r', desc = 'Recent Projects', action = ":lua Snacks.dashboard.pick('projects')", icon = '' },
-				-- { key = 'c', desc = 'Config', action = function() fn.open_config() end, icon = '' },
+				-- { key = 'r', desc = 'Recent Projects', action = ":lua Snacks.dashboard.pick('projects')", icon = '' },
 				{ key = 'q', desc = 'Quit', action = ':qa', icon = '' },
 			},
 		},
@@ -102,7 +98,7 @@ local opts = {
 		},
 		formats = {
 			icon = function(_) return '' end,
-			file = fn.dashboard_file_format,
+			file = require('xexperimente.utils.functions').dashboard_file_format,
 			key = function(item)
 				return { { '[ ', hl = 'Whitespace' }, { item.key, hl = 'key' }, { ' ]', hl = 'Whitespace' } }
 			end,
@@ -171,10 +167,6 @@ vim.schedule(function()
 	bind('n', '<leader>gS', Snacks.picker.git_stash, { desc = 'Git Stash' })
 	bind('n', '<leader>gd', Snacks.picker.git_diff, { desc = 'Git Diff (Hunks)' })
 	bind('n', '<leader>gf', Snacks.picker.git_log_file, { desc = 'Git Log File' })
-	-- bind('n', '<leader>gi', Snacks.picker.gh_issue, { desc = 'GitHub Issues (open)' })
-	-- bind('n', '<leader>gI', function() Snacks.picker.gh_issue({ state = 'all' }) end, { desc = 'GitHub Issues (all)' })
-	-- bind('n', '<leader>gp', function() Snacks.picker.gh_pr() end, { desc = 'GitHub PR (open)' })
-	-- bind('n', '<leader>gP', function() Snacks.picker.gh_pr({ state = 'all' }) end, { desc = 'GitHub PR (all)' })
 
 	-- grep
 	bind('n', '<leader>sb', Snacks.picker.lines, { desc = 'Buffer Lines' })

@@ -1,16 +1,12 @@
 local M = {}
 
-local keys = {
-	['<Esc>'] = 'close',
-	q = 'close',
-}
 function M.show_messages()
 	local messages = vim.api.nvim_exec2('messages', { output = true })
 
 	Snacks.win({
 		text = messages.output,
 		width = 0.8,
-		height = 0.6,
+		height = 0.8,
 		border = vim.g.winborder,
 		wo = {
 			spell = false,
@@ -19,37 +15,11 @@ function M.show_messages()
 			statuscolumn = ' ',
 			conceallevel = 3,
 		},
-		keys = keys,
+		keys = {
+			['<esc>'] = 'close',
+			q = 'close',
+		},
 	}):set_title('Messages', 'center')
-end
-
-function M.show_info()
-	Snacks.win({
-		file = vim.api.nvim_get_runtime_file('doc/news.txt', true)[1],
-		width = 0.6,
-		height = 0.6,
-		border = vim.g.winborder,
-		wo = {
-			spell = false,
-			wrap = false,
-			signcolumn = 'yes',
-			statuscolumn = ' ',
-			conceallevel = 3,
-		},
-		keys = keys,
-	}):set_title('News', 'center')
-end
-
-function M.open_config()
-	local config = vim.fn.stdpath('config')
-	local path = ''
-	if type(config) == 'table' then
-		path = config[1] or ''
-	else
-		path = config
-	end
-	vim.api.nvim_set_current_dir(path)
-	Snacks.picker.files()
 end
 
 function M.dashboard_file_format(item, ctx)

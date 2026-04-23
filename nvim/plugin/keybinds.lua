@@ -45,17 +45,12 @@ bind('n', '<leader>m', function()
 end, { desc = 'Show Messages' })
 
 -- Show Neovim info - news.txt
-bind('n', '<leader>i', function()
-	local fn = require('xexperimente.utils.functions')
-	fn.show_info()
-end, { desc = 'Show Neovim News' })
+bind('n', '<leader>i', '<cmd>vert bo help news.txt<cr>', { desc = 'Show Neovim News' })
 
 -- Use <Esc> to exit terminal mode
 bind('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Plugins
-bind('n', '<leader>sp', function() vim.pack.update(nil, { offile = true }) end, { desc = 'Show plugins' })
 bind('n', '<leader>pl', function() vim.pack.update() end, { desc = 'Update plugins' })
-bind('n', '<leader>pu', function() vim.pack.update() end, { desc = 'Update plugins' })
-bind('n', '<leader>pM', '<cmd>MasonUpdate<cr>', { desc = 'Update mason' })
 bind('n', '<leader>pm', '<cmd>Mason<cr>', { desc = 'Show mason' })
+bind('n', '<leader>pM', '<cmd>MasonUpdate<cr>', { desc = 'Update mason' })

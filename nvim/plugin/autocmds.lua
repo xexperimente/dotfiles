@@ -24,9 +24,10 @@ autocmd('FileChangedShellPost', {
 -- Allow closing the following buffer file types by pressing 'q' or 'esc'
 autocmd('FileType', {
 	pattern = { 'help', 'man', 'qf', 'nvim-pack' },
-	callback = function()
+	callback = function(ev)
 		vim.keymap.set('n', 'q', '<cmd>quit<cr>', { buffer = true })
 		vim.keymap.set('n', '<esc>', '<cmd>quit<cr>', { buffer = true })
+		if ev.match == 'help' then vim.keymap.set('n', '<cr>', '<c-]>', { buffer = true }) end
 	end,
 })
 
