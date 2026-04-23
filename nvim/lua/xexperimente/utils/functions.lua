@@ -1,5 +1,9 @@
 local M = {}
 
+local keys = {
+	['<Esc>'] = 'close',
+	q = 'close',
+}
 function M.show_messages()
 	local messages = vim.api.nvim_exec2('messages', { output = true })
 
@@ -15,9 +19,7 @@ function M.show_messages()
 			statuscolumn = ' ',
 			conceallevel = 3,
 		},
-		keys = {
-			['<Esc>'] = 'close',
-		},
+		keys = keys,
 	}):set_title('Messages', 'center')
 end
 
@@ -34,9 +36,7 @@ function M.show_info()
 			statuscolumn = ' ',
 			conceallevel = 3,
 		},
-		keys = {
-			['<Esc>'] = 'close',
-		},
+		keys = keys,
 	}):set_title('News', 'center')
 end
 

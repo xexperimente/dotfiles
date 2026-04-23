@@ -132,6 +132,7 @@ hl(0, 'FlashLabel', { fg = colors.surface, bg = colors.highlight_hi })
 -- Floats
 hl(0, 'FloatBorder', { fg = colors.overlay, bg = colors.surface })
 hl(0, 'FloatTitle', { bg = colors.rose, fg = colors.overlay })
+hl(0, 'Border', { fg = colors.overlay, bg = colors.base })
 
 -- Snacks
 hl(0, 'SnacksDashboardHeader', { fg = colors.rose, bg = colors.base })
@@ -141,6 +142,8 @@ hl(0, 'SnacksInputTitle', { link = 'FloatTitle' })
 hl(0, 'SnacksInputPrompt', { fg = colors.rose, bg = colors.surface })
 hl(0, 'SnacksPickerPrompt', { fg = colors.rose, bg = colors.surface })
 hl(0, 'SnacksPickerTree', { fg = colors.highlight_hi, bg = colors.surface })
+hl(0, 'SnacksFooterKey', { bg = colors.love, fg = colors.surface })
+hl(0, 'SnacksFooterDesc', { link = 'FloatTitle' })
 
 -- Treesitter Context
 hl(0, 'TreesitterContext', { bg = colors.base })
@@ -153,9 +156,7 @@ hl(0, 'MiniDiffSignAdd', { bg = colors.base, fg = colors.foam })
 hl(0, 'MiniDiffSignDelete', { bg = colors.base, fg = colors.love })
 hl(0, 'MiniPickBorderText', { link = 'FloatTitle' })
 hl(0, 'MiniClueTitle', { link = 'FloatTitle' })
-
 hl(0, 'MiniIconsRed', { fg = colors.love })
-
 hl(0, 'MiniIconsGrey', { link = 'MiniIconsRed' })
 hl(0, 'MiniIconsAzure', { link = 'MiniIconsRed' })
 hl(0, 'MiniIconsPurple', { link = 'MiniIconsRed' })

@@ -25,16 +25,9 @@ local opts = {
 			position = 'float',
 			border = vim.g.winborder,
 			style = 'terminal',
-			keys = {
-				term_hide = {
-					'<C-t>',
-					function(self) self:hide() end,
-					mode = 't',
-					expr = true,
-				},
-			},
 			wo = { winbar = '', statusline = '' },
 			title = ' Terminal ',
+			backdrop = 95,
 		},
 		interactive = true,
 	},
@@ -128,6 +121,9 @@ local opts = {
 			row = 36,
 			wo = { winhighlight = 'FloatBorder:FloatBorder' },
 		},
+		terminal = {
+			wo = { winhighlight = 'NormalFloat:Normal,FloatBorder:Border' },
+		},
 	},
 }
 
@@ -138,7 +134,6 @@ vim.schedule(function()
 	-- Keymaps
 	local bind = vim.keymap.set
 	local config = vim.fn.stdpath('config')
-	local nxm = { 'n', 'x' }
 
 	-- Toggle options
 	Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map('<leader>uL')
@@ -185,7 +180,7 @@ vim.schedule(function()
 	bind('n', '<leader>sb', Snacks.picker.lines, { desc = 'Buffer Lines' })
 	bind('n', '<leader>sB', Snacks.picker.grep_buffers, { desc = 'Grep Open Buffers' })
 	bind('n', '<leader>sg', Snacks.picker.grep, { desc = 'Grep' })
-	bind(nxm, '<leader>sw', Snacks.picker.grep_word, { desc = 'Visual selection or word' })
+	bind({ 'n', 'x' }, '<leader>sw', Snacks.picker.grep_word, { desc = 'Visual selection or word' })
 
 	-- search
 	bind('n', '<leader>s"', Snacks.picker.registers, { desc = 'Registers' })
@@ -228,8 +223,11 @@ vim.schedule(function()
 	bind('n', '<c-f12>', Snacks.picker.lsp_declarations, { desc = 'Goto Declaration' })
 
 	-- Terminal
-	bind('n', '<leader>t', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
-	bind('n', '<c-t>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
+	local nt = { 'n', 't' }
+	bind(nt, '<leader>t', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
+	bind(nt, '<leader>T', Snacks.terminal.open, { desc = 'Open terminal' })
+	bind(nt, '<c-t>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
+	bind(nt, '<c-_>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 
 	-- Buffers
 	bind('n', '<leader>bD', Snacks.bufdelete.other, { desc = 'Delete other buffers' })
