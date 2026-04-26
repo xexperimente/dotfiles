@@ -79,6 +79,7 @@ opt.scrolloff = 5
 opt.confirm = true
 opt.inccommand = 'split'
 opt.exrc = true
+opt.secure = true
 
 -- Grep arguments
 if vim.fn.executable('rg') == 1 then

@@ -108,7 +108,7 @@ hl(0, 'StatusLineHighlight', { fg = colors.gold, bg = colors.base })
 
 -- Menus
 hl(0, 'PmenuSel', { bg = colors.overlay, fg = 'none' })
-hl(0, 'Pmenu', { fg = colors.subtle, bg = 'none' })
+hl(0, 'Pmenu', { fg = colors.subtle, bg = colors.overlay })
 
 -- Diffs
 hl(0, 'DiffDelete', { fg = colors.overlay, bg = colors.base })

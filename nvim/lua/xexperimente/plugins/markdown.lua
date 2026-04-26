@@ -34,7 +34,7 @@ vim.schedule(function()
 			foregrounds = { 'FloatTitle' },
 		},
 		link = { footnote = { enabled = true, icon = '' } },
-		bullet = { left_pad = 1, icons = { '', '', '', '' } },
+		bullet = { left_pad = 1, icons = { '', '' } }, -- '', '', '', '' } },
 		completions = { lsp = { enabled = true } },
 	})
 end)
