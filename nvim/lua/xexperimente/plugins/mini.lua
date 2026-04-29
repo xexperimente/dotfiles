@@ -1,8 +1,7 @@
+vim.pack.add({
+	'https://github.com/nvim-mini/mini.nvim', --version = vim.version.range('*')
+})
 vim.schedule(function()
-	vim.pack.add({
-		'https://github.com/nvim-mini/mini.nvim', --version = vim.version.range('*')
-	})
-
 	local opts = {
 		patterns = {
 			highlighters = {
@@ -25,10 +24,10 @@ vim.schedule(function()
 			},
 		},
 		diff = { view = { style = 'sign', signs = { add = '┃', change = '┃', delete = '┃' } } },
-		indentscope = {
-			draw = { animation = require('mini.indentscope').gen_animation.none() },
-			symbol = '▎',
-		},
+		-- indentscope = {
+		-- 	draw = { animation = require('mini.indentscope').gen_animation.none() },
+		-- 	symbol = '▎',
+		-- },
 		move = {
 			mappings = {
 				left = '<M-left>',

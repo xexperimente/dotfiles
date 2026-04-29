@@ -1,4 +1,4 @@
-vim.pack.add({'https://github.com/folke/snacks.nvim'})
+vim.pack.add({ 'https://github.com/folke/snacks.nvim' })
 
 local opts = {
 	bigfile = { enabled = true },
@@ -21,7 +21,7 @@ local opts = {
 	terminal = {
 		win = {
 			position = 'right',
-			border = vim.g.winborder,
+			border = vim.o.winborder,
 			style = 'terminal',
 			wo = { winbar = '', statusline = '' },
 			title = ' Terminal ',
@@ -38,7 +38,7 @@ local opts = {
 						box = 'vertical',
 						width = 0.7,
 						height = 0.8,
-						border = vim.g.winborder,
+						border = vim.o.winborder,
 						title = ' Files ',
 						title_pos = 'center',
 						backdrop = 90,
@@ -217,7 +217,12 @@ vim.schedule(function()
 	-- Terminal
 	local nt = { 'n', 't' }
 	bind(nt, '<leader>t', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
-	bind(nt, '<leader>T', function() Snacks.terminal.open(nil, {win={position='float'}}) end, { desc = 'Open floating terminal' })
+	bind(
+		nt,
+		'<leader>T',
+		function() Snacks.terminal.open(nil, { win = { position = 'float' } }) end,
+		{ desc = 'Open floating terminal' }
+	)
 	bind(nt, '<c-t>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 	bind(nt, '<c-_>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 	bind(nt, '<c-/>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
