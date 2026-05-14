@@ -4,13 +4,18 @@ vim.schedule(function()
 	local opts = {
 		ui = {
 			border = vim.g.winborder,
-        icons = {
-            package_installed = "",
-            package_pending = "",
-            package_uninstalled = "",
-        },
+			icons = {
+				package_installed = '',
+				package_pending = '',
+				package_uninstalled = '',
+			},
 		},
 	}
 
 	require('mason').setup(opts)
+
+	local bind = vim.keymap.set
+
+	bind('n', '<leader>pm', '<cmd>Mason<cr>', { desc = 'Show mason' })
+	bind('n', '<leader>pM', '<cmd>MasonUpdate<cr>', { desc = 'Update mason' })
 end)

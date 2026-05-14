@@ -5,13 +5,13 @@ opt.encoding = 'utf-8'
 opt.fileencoding = 'utf-8'
 
 -- Visuals
-if vim.fn.has('win32') == 1 then
-	opt.guifont = 'Cascadia Code NF:h14'
-	opt.background = 'light'
-else
-	opt.guifont = 'CaskaydiaCove NF:h14'
-	-- opt.background = g.neovide and 'light' or 'dark'
-end
+-- if vim.fn.has('win32') == 1 then
+-- 	-- opt.guifont = 'Cascadia Code NF:h14'
+-- 	opt.background = 'light'
+-- else
+-- 	-- opt.guifont = 'CaskaydiaCove NF:h14'
+-- 	-- opt.background = g.neovide and 'light' or 'dark'
+-- end
 
 opt.number = true
 opt.laststatus = 3
@@ -102,6 +102,7 @@ end
 -- Globals
 g.showcmd = false
 g.winborder = 'single'
+g.health = { style = 'float' }
 
 -- Disable unused providers
 g.loaded_ruby_provider = 0

@@ -216,13 +216,10 @@ vim.schedule(function()
 
 	-- Terminal
 	local nt = { 'n', 't' }
+	local float = { win = { position = 'float' } }
+
 	bind(nt, '<leader>t', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
-	bind(
-		nt,
-		'<leader>T',
-		function() Snacks.terminal.open(nil, { win = { position = 'float' } }) end,
-		{ desc = 'Open floating terminal' }
-	)
+	bind(nt, '<leader>T', function() Snacks.terminal.open(nil, float) end, { desc = 'Toggle termina(float)' })
 	bind(nt, '<c-t>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 	bind(nt, '<c-_>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 	bind(nt, '<c-/>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })

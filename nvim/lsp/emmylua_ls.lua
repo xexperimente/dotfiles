@@ -1,11 +1,11 @@
---- Get lib paths for input packages.
---- @param pkgs string[]
-local function plugins(pkgs)
-	for p, pkg in ipairs(pkgs) do
-		pkgs[p] = vim.fn.stdpath('data') .. '/site/pack/core/opt/' .. pkg
-	end
-	return unpack(pkgs)
-end
+-- - Get lib paths for input packages.
+-- - @param pkgs string[]
+-- local function plugins(pkgs)
+-- 	for p, pkg in ipairs(pkgs) do
+-- 		pkgs[p] = vim.fn.stdpath('data') .. '/site/pack/core/opt/' .. pkg
+-- 	end
+-- 	return unpack(pkgs)
+-- end
 
 --- @type vim.lsp.Config
 local result = {
@@ -38,8 +38,8 @@ local result = {
 			workspace = {
 				library = {
 					vim.env.VIMRUNTIME .. '/lua',
-					vim.env.VIMRUNTIME .. '/plugin',
-					plugins({ 'snacks.nvim', 'mini.nvim' }),
+					-- vim.env.VIMRUNTIME .. '/plugin',
+					-- plugins({ 'snacks.nvim', 'mini.nvim' }),
 				},
 			},
 		},

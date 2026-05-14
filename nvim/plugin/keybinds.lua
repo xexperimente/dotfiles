@@ -1,5 +1,3 @@
-local bind = vim.keymap.set
-
 local abbr = vim.cmd.cnoreabbrev
 
 -- Allow misspellings
@@ -10,6 +8,8 @@ abbr('Qa', 'qa')
 abbr('Bd', 'bd')
 abbr('bD', 'bd')
 abbr('Wqa', 'wqa')
+
+local bind = vim.keymap.set
 
 -- Cancel search highlight
 bind('n', '<esc>', ':nohl<cr>:redraws!<cr><esc>', { noremap = true, silent = true, desc = 'Hide search' })
@@ -38,6 +38,10 @@ bind('n', '<S-Down>', 'V')
 bind('v', '<S-Up>', 'k')
 bind('v', '<S-Down>', 'j')
 
+-- Resize splits
+bind('n', '<m-[>', '<cmd>vertical resize -5<cr>')
+bind('n', '<m-]>', '<cmd>vertical resize +5<cr>')
+
 -- Show message log
 bind('n', '<leader>m', function()
 	local fn = require('xexperimente.utils.functions')
@@ -52,5 +56,3 @@ bind('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Plugins
 bind('n', '<leader>pl', function() vim.pack.update() end, { desc = 'Update plugins' })
-bind('n', '<leader>pm', '<cmd>Mason<cr>', { desc = 'Show mason' })
-bind('n', '<leader>pM', '<cmd>MasonUpdate<cr>', { desc = 'Update mason' })
