@@ -1,10 +1,11 @@
 vim.schedule(function()
 	vim.pack.add({
 		{ src = 'https://github.com/saghen/blink.cmp', version = vim.version.range('1.*') },
-		{ src = 'https://github.com/saghen/blink.indent' },
 	})
 
-	local opts = {
+	---@module 'blink.cmp'
+	---@type blink.cmp.Config
+	local cmp_opts = {
 		fuzzy = {
 			implementation = 'prefer_rust_with_warning',
 		},
@@ -51,21 +52,5 @@ vim.schedule(function()
 		},
 	}
 
-	require('blink.cmp').setup(opts)
-
-	local ind = require('blink.indent')
-	ind.setup({
-		blocked = {
-			filetypes = { 'snacks_picker_preview', include_defaults = true}
-		},
-		static = {
-			enabled = false,
-		},
-		scope = {
-			-- highlights = { 'BlinkIndentRed', 'BlinkIndentOrange', 'BlinkIndentYellow', 'BlinkIndentViolet' },
-			highlights = {'BlinkIndent'}
-		},
-	})
-
-	vim.keymap.set('n', '<leader>ui', function() ind.enable(not ind.is_enabled()) end, { desc = 'Toggle indent guides' })
+	require('blink.cmp').setup(cmp_opts)
 end)

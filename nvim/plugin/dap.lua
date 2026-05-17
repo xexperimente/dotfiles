@@ -5,11 +5,8 @@ vim.schedule(function()
 	})
 
 	local function pick_file_sync()
-		---@diagnostic disable-next-line
 		local co = coroutine.running()
 		-- assert(co, 'This function must be run inside a coroutine')
-
-		-- local filter = vim.fn.has('win32') and '*.exe' or ''
 
 		require('snacks').picker.files({
 			cwd = vim.fn.getcwd(),
@@ -22,7 +19,6 @@ vim.schedule(function()
 				end,
 			},
 			exclude = { 'build/CMakeFiles' },
-			-- args = vim.fn.has('win32') == 1 and { '--glob', filter } or { '--type', 'x' },
 			args = { '--type', 'x', '--exclude', '*vcpkg_installed*' },
 		})
 
@@ -31,11 +27,12 @@ vim.schedule(function()
 		return coroutine.yield()
 	end
 
-	local bind = vim.keymap.set
 	local dap = require('dap')
 	local dap_view = require('dap-view')
 
-	dap_view.setup({
+	---@module 'dap-view'
+	---@type dapview.Config
+	local opts = {
 		winbar = {
 			show = true,
 			sections = { 'watches', 'scopes', 'breakpoints', 'threads', 'repl' },
@@ -59,9 +56,14 @@ vim.schedule(function()
 				},
 			},
 		},
-	})
+	}
+
+	---@diagnostic disable-next-line: param-type-mismatch
+	dap_view.setup(opts)
 
 	-- dap.set_log_level('TRACE')
+
+	local bind = vim.keymap.set
 
 	bind('n', '<F5>', '<cmd>DapContinue<cr>')
 	bind('n', '<F9>', '<cmd>DapToggleBreakpoint<cr>')
@@ -151,7 +153,7 @@ vim.schedule(function()
 		},
 	}
 
-	vim.schedule(function() require('overseer').enable_dap() end)
+	-- vim.schedule(function() require('overseer').enable_dap() end)
 
 	vim.fn.sign_define('DapBreakpoint', { text = ' ', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
 	vim.fn.sign_define('DapStopped', { text = '󰁕 ', texthl = 'DiagnosticWarn', linehl = 'DapStoppedLine', numhl = '' })

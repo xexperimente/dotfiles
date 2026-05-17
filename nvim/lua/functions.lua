@@ -28,7 +28,6 @@ function M.dashboard_file_format(item, ctx)
 	if #fname > ctx.width then
 		local dir = vim.fn.fnamemodify(fname, ':h')
 		local file = vim.fn.fnamemodify(fname, ':t')
-		--- @diagnostic disable-next-line: unnecessary-if
 		if dir and file then
 			file = file:sub(math.floor(-(ctx.width - #dir - 2)))
 			fname = dir .. '\\…' .. file

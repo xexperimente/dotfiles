@@ -1,11 +1,18 @@
+-- Enable the experimental Lua module loader
 vim.loader.enable(true)
 
-vim.g.mapleader = ' '
-vim.g.winborder = 'single'
-vim.o.winborder = vim.g.winborder
-vim.opt.exrc = true
--- vim.opt.secure = true
+-- General setup
+require('options')
+require('keybinds')
+require('autocmds')
+require('lsp')
+require('statusline')
 
-require('xexperimente.plugins')
+-- Interactive textual undotree:
+vim.cmd.packadd('nvim.undotree')
 
-vim.cmd.colorscheme('dawn')
+-- Colorscheme
+vim.schedule(function() vim.cmd.colorscheme('dawn') end)
+
+-- Enable the new experimental command-line features
+require('vim._core.ui2').enable({})

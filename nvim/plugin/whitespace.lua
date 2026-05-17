@@ -27,7 +27,7 @@ vim.schedule(function()
 
 	bind({ 'n', 'v' }, '<leader>us', require('visual-whitespace').toggle, { desc = 'Toggle visual whitespace' })
 	bind('n', '<leader>uS', function()
-		vim.notify('Whitespace is ' .. (vim.opt.list:get() and 'off' or 'on'))
-		vim.opt.list = not vim.opt.list:get()
+		vim.notify('Whitespace is ' .. (vim.o.list and 'off' or 'on'))
+		vim.opt.list = not vim.o.list
 	end, { desc = 'Toggle whitespace' })
 end)

@@ -14,7 +14,7 @@ vim.schedule(function()
 			local winid = vim.fn.bufwinid(bufnr)
 			vim.api.nvim_win_call(winid, function()
 				vim.opt_local.listchars:append({ space = ' ' })
-				vim.wo.statusline = ' %#StatusLineActive#%q%#StatusLine#%* %= %l/%L'
+				vim.wo.statusline = ' %#FloatTitle#%q%#StatusLine#%* %= %l/%L'
 
 				vim.cmd('redrawstatus')
 			end)

@@ -1,10 +1,12 @@
-local opt = vim.opt
 local g = vim.g
+local opt = vim.opt
 
 opt.encoding = 'utf-8'
 opt.fileencoding = 'utf-8'
 
--- Visuals
+g.mapleader = ' '
+g.maplocalleader = ' '
+
 -- if vim.fn.has('win32') == 1 then
 -- 	-- opt.guifont = 'Cascadia Code NF:h14'
 -- 	opt.background = 'light'
@@ -13,24 +15,35 @@ opt.fileencoding = 'utf-8'
 -- 	-- opt.background = g.neovide and 'light' or 'dark'
 -- end
 
+-- Visuals
+g.winborder = 'single'
 opt.number = true
 opt.laststatus = 3
 opt.showtabline = 0
+opt.showmode = false
 opt.tabline = '%t'
 opt.ruler = false
 opt.wrap = false
 opt.termguicolors = true
 opt.signcolumn = 'yes'
-opt.showmode = false
 opt.cursorline = true
 opt.cursorlineopt = 'number'
 opt.smoothscroll = true
-opt.pumborder = 'solid'
+opt.pumborder = g.winborder
+opt.cmdheight = 0
+
+-- Globals
+g.showcmd = false
+g.health = { style = 'float' }
 
 -- Search
 opt.ignorecase = true
 opt.smartcase = true
-opt.shortmess:append('S') -- Don't show searchcount in message area
+opt.shortmess:append({
+	w = true,
+	s = true, -- Don't show search flip message
+	S = true, -- Don't show search count
+})
 
 opt.list = false
 
@@ -59,9 +72,6 @@ opt.tabstop = 4
 opt.softtabstop = 4
 opt.shiftwidth = 4
 
--- experimental
--- opt.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-
 -- Folding
 opt.foldcolumn = '1'
 opt.foldlevel = 99
@@ -78,7 +88,7 @@ opt.splitright = true
 opt.scrolloff = 5
 opt.confirm = true
 opt.inccommand = 'split'
--- opt.exrc = true
+opt.exrc = true
 -- opt.secure = true
 
 -- Grep arguments
@@ -99,16 +109,10 @@ if vim.fn.executable('nu') == 1 then
 	opt.shellquote = ''
 end
 
--- Globals
-g.showcmd = false
-g.winborder = 'single'
-g.health = { style = 'float' }
-
 -- Disable unused providers
 g.loaded_ruby_provider = 0
 g.loaded_node_provider = 0
 g.loaded_perl_provider = 0
-g.loaded_python_provider = 0
 g.loaded_python3_provider = 0
 
 -- Disable unused vim plugins

@@ -5,6 +5,7 @@ opt.clipboard = 'unnamedplus'
 if vim.env.SSH_CONNECTION then
 	local function vim_paste()
 		local content = vim.fn.getreg('"')
+		---@diagnostic disable-next-line: param-type-mismatch
 		return vim.split(content, '\n')
 	end
 

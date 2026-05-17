@@ -1,17 +1,15 @@
-vim.schedule(function()
-	vim.pack.add({ 'https://github.com/mhiro2/peekstack.nvim' })
+vim.pack.add({ 'https://github.com/mhiro2/peekstack.nvim' })
 
-	local ps = require('peekstack')
-	local bind = vim.keymap.set
+local ps = require('peekstack')
+local bind = vim.keymap.set
 
-	ps.setup({
-		ui = {
-			title = {
-				format = '{path}:{line}{context}',
-				icons = { enabled = false },
-			},
+ps.setup({
+	ui = {
+		title = {
+			format = '{path}:{line}{context}',
+			icons = { enabled = false },
 		},
-	})
+	},
+})
 
-	bind('n', '<a-f12>', function() ps.peek.definition() end, { desc = 'Peek definition' })
-end)
+bind('n', '<a-f12>', function() ps.peek.definition() end, { desc = 'Peek definition' })

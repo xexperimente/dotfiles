@@ -46,7 +46,6 @@ local _default = {
 	highlight_hi = '#524f67',
 }
 
---- @diagnostic disable-next-line: undefined-field
 local colors = vim.opt.background:get() == 'dark' and moon or dawn
 
 local palette = {
@@ -105,15 +104,25 @@ hl(0, 'StatusLineDim', { fg = colors.subtle, bg = colors.base })
 hl(0, 'StatusLineHighlight', { fg = colors.gold, bg = colors.base })
 
 -- Menus
-hl(0, 'PmenuSel', { bg = colors.overlay, fg = 'none' })
-hl(0, 'Pmenu', { fg = colors.subtle, bg = colors.overlay })
+hl(0, 'PmenuSel', { fg = colors.base, bg = colors.rose })
+hl(0, 'Pmenu', { fg = colors.text, bg = colors.base })
+hl(0, 'PmenuBorder', { fg = colors.highlight_hi, bg = colors.base })
 
 -- Diffs
 hl(0, 'DiffDelete', { fg = colors.overlay, bg = colors.base })
 hl(0, 'CodeDiffFiller', { link = 'DiffDelete' })
 
+-- Diagnostics
+hl(0, 'DiagnosticSignHint', { link = 'DiagnosticHint' })
+hl(0, 'DiagnosticSignInfo', { link = 'DiagnosticInfo' })
+hl(0, 'DiagnosticSignWarn', { link = 'DiagnosticWarn' })
+hl(0, 'DiagnosticSignError', { link = 'DiagnosticError' })
+
 -- Blink.cmp
 hl(0, 'BlinkCmpMenu', { fg = colors.subtle, bg = colors.base })
+hl(0, 'BlinkCmpKind', { fg = colors.subtle, bg = colors.base })
+hl(0, 'BlinkCmpLabel', { fg = colors.text, bg = colors.base })
+hl(0, 'BlinkCmpLabelMatch', { fg = colors.love, bg = colors.base })
 hl(0, 'BlinkCmpMenuBorder', { fg = colors.highlight_hi, bg = colors.base })
 hl(0, 'BlinkCmpMenuSelection', { fg = colors.overlay, bg = colors.rose })
 hl(0, 'BlinkCmpLabelDetail', { fg = colors.rose, bg = colors.base })
@@ -177,3 +186,4 @@ hl(0, 'MasonHeader', { link = 'FloatTitle' })
 hl(0, '@markup.link.vimdoc', { bg = colors.gold, fg = colors.surface })
 hl(0, '@markup.heading.1.vimdoc', { bg = 'none', fg = colors.gold })
 hl(0, '@markup.heading.1.delimiter.vimdoc', { bg = 'none', fg = colors.rose })
+hl(0, 'healthsectionDelim', { fg = colors.gold, bg = 'none' })

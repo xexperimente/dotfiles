@@ -1,5 +1,7 @@
 vim.pack.add({ 'https://github.com/folke/snacks.nvim' })
 
+---@module 'snacks'
+---@type snacks.Config
 local opts = {
 	bigfile = { enabled = true },
 	explorer = { replace_netrw = true },
@@ -21,7 +23,7 @@ local opts = {
 	terminal = {
 		win = {
 			position = 'right',
-			border = vim.o.winborder,
+			border = vim.g.winborder,
 			style = 'terminal',
 			wo = { winbar = '', statusline = '' },
 			title = ' Terminal ',
@@ -38,7 +40,7 @@ local opts = {
 						box = 'vertical',
 						width = 0.7,
 						height = 0.8,
-						border = vim.o.winborder,
+						border = vim.g.winborder,
 						title = ' Files ',
 						title_pos = 'center',
 						backdrop = 90,
@@ -85,7 +87,7 @@ local opts = {
 	dashboard = {
 		width = 80,
 		preset = {
-			header = require('xexperimente.utils.dashboard'),
+			header = require('dashboard'),
 			keys = {
 				-- { key = 'r', desc = 'Recent Projects', action = ":lua Snacks.dashboard.pick('projects')", icon = '' },
 				{ key = 'q', desc = 'Quit', action = ':qa', icon = '' },
@@ -98,7 +100,7 @@ local opts = {
 		},
 		formats = {
 			icon = function(_) return '' end,
-			file = require('xexperimente.utils.functions').dashboard_file_format,
+			file = require('functions').dashboard_file_format,
 			key = function(item)
 				return { { '[ ', hl = 'Whitespace' }, { item.key, hl = 'key' }, { ' ]', hl = 'Whitespace' } }
 			end,
@@ -123,7 +125,6 @@ local opts = {
 	},
 }
 
----@diagnostic disable-next-line: param-type-mismatch
 require('snacks').setup(opts)
 
 vim.schedule(function()
@@ -220,7 +221,7 @@ vim.schedule(function()
 
 	bind(nt, '<leader>t', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 	bind(nt, '<leader>T', function() Snacks.terminal.open(nil, float) end, { desc = 'Toggle termina(float)' })
-	bind(nt, '<c-t>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
+	-- bind(nt, '<c-t>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 	bind(nt, '<c-_>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 	bind(nt, '<c-/>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 

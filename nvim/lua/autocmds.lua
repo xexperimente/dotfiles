@@ -4,8 +4,8 @@ local usercmd = vim.api.nvim_create_user_command
 
 -- Highlight when yanking
 autocmd('TextYankPost', {
-	desc = 'Highlight when yanking (copying) text',
-	group = augroup('highlight-yank', { clear = true }),
+	desc = 'Highlight on yank',
+	group = augroup('xexperimente/yank-highlight', { clear = true }),
 	callback = function() vim.hl.on_yank() end,
 })
 
@@ -23,11 +23,40 @@ autocmd('FileChangedShellPost', {
 
 -- Allow closing the following buffer file types by pressing 'q' or 'esc'
 autocmd('FileType', {
+	group = augroup('xexperimente/close_keybinds', { clear = true }),
 	pattern = { 'help', 'man', 'qf', 'nvim-pack' },
+	desc = 'Close with <q> or <esc>',
 	callback = function(ev)
 		vim.keymap.set('n', 'q', '<cmd>quit<cr>', { buffer = true })
 		vim.keymap.set('n', '<esc>', '<cmd>quit<cr>', { buffer = true })
 		if ev.match == 'help' then vim.keymap.set('n', '<cr>', '<c-]>', { buffer = true }) end
+	end,
+})
+
+-- Intercept checkhealth window creation to center it fully
+autocmd('FileType', {
+	pattern = 'checkhealth',
+	callback = function()
+		-- Get current screen dimensions
+		local stats = vim.api.nvim_list_uis()[1]
+		if not stats then return end
+
+		-- Configure your desired window size
+		local width = math.floor(stats.width * 0.8)
+		local height = math.floor(stats.height * 0.8)
+
+		-- Calculate centered offsets
+		local row = math.floor((stats.height - height) / 2)
+		local col = math.floor((stats.width - width) / 2)
+
+		-- Apply configuration to the current checkhealth floating window
+		vim.api.nvim_win_set_config(0, {
+			relative = 'editor',
+			width = width,
+			height = height,
+			row = row,
+			col = col,
+		})
 	end,
 })
 
@@ -56,7 +85,7 @@ end, {})
 
 --- Run command after updating plugin
 autocmd('PackChanged', {
-	group = augroup('PackCommands', { clear = true }),
+	group = augroup('xexperimente/pack-update-callback', { clear = true }),
 	callback = function(event)
 		local after = event.data.spec.data and event.data.spec.data.after
 		if not after then return false end

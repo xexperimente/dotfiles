@@ -1,6 +1,7 @@
 vim.pack.add({
 	'https://github.com/nvim-mini/mini.nvim', --version = vim.version.range('*')
 })
+
 vim.schedule(function()
 	local opts = {
 		patterns = {

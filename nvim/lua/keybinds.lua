@@ -38,15 +38,19 @@ bind('n', '<S-Down>', 'V')
 bind('v', '<S-Up>', 'k')
 bind('v', '<S-Down>', 'j')
 
+-- Switch between windows.
+bind('n', '<C-h>', '<C-w>h', { desc = 'Move to the left window', remap = true })
+bind('n', '<C-j>', '<C-w>j', { desc = 'Move to the bottom window', remap = true })
+bind('n', '<C-k>', '<C-w>k', { desc = 'Move to the top window', remap = true })
+bind('n', '<C-l>', '<C-w>l', { desc = 'Move to the right window', remap = true })
+
 -- Resize splits
 bind('n', '<m-[>', '<cmd>vertical resize -5<cr>')
 bind('n', '<m-]>', '<cmd>vertical resize +5<cr>')
 
 -- Show message log
-bind('n', '<leader>m', function()
-	local fn = require('xexperimente.utils.functions')
-	fn.show_messages()
-end, { desc = 'Show Messages' })
+bind('n', '<leader>m', function() require('functions').show_messages() end, { desc = 'Show Messages' })
+bind('n', '<leader>M', 'g<', { desc = 'Show Last Message' })
 
 -- Show Neovim info - news.txt
 bind('n', '<leader>i', '<cmd>vert bo help news.txt<cr>', { desc = 'Show Neovim News' })

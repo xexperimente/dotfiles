@@ -5,12 +5,13 @@ vim.schedule(function()
 
 	vim.lsp.enable({
 		'emmylua_ls',
-		'zls',
-		'rust_analyzer',
 		'clangd',
-		'nushell',
 		-- 'lua-ls',
+		-- 'zls',
+		-- 'rust_analyzer',
 	})
+
+	if vim.fn.has('win32') == 1 then vim.lsp.enable('nushell') end
 
 	local signs = {
 		[vim.diagnostic.severity.ERROR] = '',
@@ -19,31 +20,48 @@ vim.schedule(function()
 		[vim.diagnostic.severity.INFO] = '',
 	}
 
+	local hl_map = {
+		[vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+		[vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+		[vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
+		[vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+	}
+
 	vim.diagnostic.config({
 		underline = true,
 		update_in_insert = false,
+		signs = { text = signs },
+		float = { border = vim.g.winborder },
 		virtual_text = {
 			spacing = 4,
 			source = 'if_many',
 			prefix = ' ●',
 			suffix = ' ',
 		},
-		signs = { text = signs },
-		float = { border = vim.g.winborder },
-		-- current_line = false,
-		-- virtual_lines = { current_line = true },
+		status = {
+			format = function(counts)
+				local items = {}
+				for level, _ in ipairs(vim.diagnostic.severity) do
+					local count = counts[level] or 0
+					if count > 0 then table.insert(items, ('%%#%s#%s %s'):format(hl_map[level], signs[level], count)) end
+				end
+				return table.concat(items, ' ')
+			end,
+		},
 	})
 
-	vim.api.nvim_create_user_command('LspLog', function() vim.cmd.tabnew(vim.lsp.log.get_filename()) end, {})
+	local usercmd = vim.api.nvim_create_user_command
+	usercmd('LspLog', function() vim.cmd.tabnew(vim.lsp.log.get_filename()) end, {})
+	usercmd('LspInfo', function() vim.cmd('checkhealth vim.lsp') end, {})
 
 	local autocmd = vim.api.nvim_create_autocmd
 	local bind = vim.keymap.set
-	local augroup = vim.api.nvim_create_augroup('LspCommands', {})
+	local augroup = vim.api.nvim_create_augroup('xexperimente/lsp-commands', {})
 
 	-- Disable LSP in diff mode
 	autocmd('BufEnter', {
 		group = augroup,
-		callback = function(_) vim.diagnostic.enable(not vim.opt.diff:get()) end,
+		callback = function() vim.diagnostic.enable(not vim.opt.diff:get()) end,
 	})
 
 	autocmd('LspAttach', {
@@ -54,7 +72,7 @@ vim.schedule(function()
 			if client == nil then return end
 
 			if client:supports_method('textDocument/inlineCompletion') then
-				vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
+				vim.opt.completeopt = 'menu,menuone,noinsert,fuzzy,popup'
 				vim.lsp.inline_completion.enable(true)
 
 				bind('i', '<Tab>', function()

@@ -1,10 +1,12 @@
-vim.schedule(function()
-	vim.pack.add({
-		'https://github.com/jakewvincent/mkdnflow.nvim',
-		'https://github.com/MeanderingProgrammer/render-markdown.nvim',
-	})
+vim.pack.add({
+	'https://github.com/jakewvincent/mkdnflow.nvim',
+	'https://github.com/MeanderingProgrammer/render-markdown.nvim',
+})
 
+vim.schedule(function()
 	require('mkdnflow').setup({})
+
+	---@diagnostic disable-next-line: undefined-field
 	require('render-markdown').setup({
 		file_types = { 'markdown', 'md' },
 		render_modes = { 'n', 'c', 't' },

@@ -1,16 +1,16 @@
----@diagnostic disable: param-type-mismatch
-
-local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup
-
 local separator = ' | '
 
+---@class statusline.State
+---@field statusline_buf integer|nil
+---@field statusline_win integer|nil
+---@field statusline_is_active boolean
+---@field lsp_names table<number,table<number,string>>
+---@field lsp_progress string
 local state = {
-	diagnostics = {},
-	lsp_names = {},
 	statusline_buf = nil,
 	statusline_win = nil,
 	statusline_is_active = false,
+	lsp_names = {},
 	lsp_progress = '',
 }
 
@@ -23,17 +23,11 @@ local function with_hl(str, hl, hl_nc)
 	end
 end
 
-autocmd('DiagnosticChanged', {
-	group = augroup('statusline-diagnostics', {}),
-	callback = vim.schedule_wrap(function(args)
-		if vim.fn.mode() == 'i' then return end
-		state.diagnostics[args.buf] = vim.api.nvim_buf_is_valid(args.buf) and vim.diagnostic.count(args.buf or 0)
-		vim.cmd('redrawstatus')
-	end),
-})
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup('xexperimente/statusline', {})
 
 autocmd({ 'LspAttach', 'LspDetach' }, {
-	group = augroup('statusline-lsp', {}),
+	group = augroup,
 	callback = vim.schedule_wrap(function(args)
 		local clients = vim.lsp.get_clients({ bufnr = args.buf })
 
@@ -46,9 +40,8 @@ autocmd({ 'LspAttach', 'LspDetach' }, {
 })
 
 autocmd('LspProgress', {
-	group = augroup('statusline-lsp-progress', {}),
+	group = augroup,
 	callback = function(ev)
-		-- local icon = ev.data.params.value.kind == 'end' and ' ' or ''
 		state.lsp_progress = with_hl('[ ', 'StatusLineActive')
 			.. with_hl(vim.lsp.status(), 'StatusLineDim')
 			.. with_hl(' ] ', 'StatusLineActive')
@@ -65,28 +58,12 @@ autocmd('LspProgress', {
 	end,
 })
 
-local function get_severity_hl(severity_id)
-	if severity_id == 1 then return 'DiagnosticError' end
-	if severity_id == 2 then return 'DiagnosticWarn' end
-	if severity_id == 3 then return 'DiagnosticInfo' end
-	if severity_id == 4 then return 'DiagnosticHint' end
-	return 'StatuslineActive'
-end
-
 local function diagnostics()
-	local diagnostic_count = state.diagnostics[state.statusline_buf]
-	if diagnostic_count == nil then return '' end
-	local out = ''
-	for severity, count in pairs(diagnostic_count) do
-		if count > 0 then
-			---@diagnostic disable-next-line: need-check-nil
-			local icon = vim.diagnostic.config().signs.text[severity]
+	local diag = vim.diagnostic.status()
 
-			local fmt = (' %s %d'):format(icon, count)
-			out = out .. with_hl(fmt, get_severity_hl(severity))
-		end
-	end
-	return out ~= '' and (' ' .. out .. separator) or ''
+	if diag:len() > 0 then diag = diag .. separator end
+
+	return diag
 end
 
 local function git_status()
@@ -122,8 +99,11 @@ end
 local function lsp_status()
 	if state.lsp_progress:len() > 0 then return state.lsp_progress end
 
-	local client_names = state.lsp_names[state.statusline_buf]
-	if client_names == nil or client_names == 0 then return '' end
+	local no_lsp = state.lsp_names == nil
+		or state.lsp_names[state.statusline_buf] == nil
+		or #state.lsp_names[state.statusline_buf] == 0
+
+	if no_lsp then return '' end
 
 	local server_names = {}
 
@@ -132,39 +112,21 @@ local function lsp_status()
 		['copilot'] = true,
 	}
 
-	for _, name in ipairs(client_names) do
+	for _, name in ipairs(state.lsp_names[state.statusline_buf]) do
 		if not ignore_lsp_servers[name] then server_names[#server_names + 1] = name end
 	end
 
 	if package.loaded['guard.filetype'] then
 		local ft = require('guard.filetype')
 
+		---@diagnostic disable: call-non-callable
 		local formatter = ft(vim.bo.filetype).formatter
 		local linter = ft(vim.bo.filetype).linter
+		---@diagnostic enable
 
 		vim.list_extend(server_names, vim.tbl_map(function(item) return item.cmd end, formatter and formatter or {}))
 
 		vim.list_extend(server_names, vim.tbl_map(function(item) return item.cmd end, linter and linter or {}))
-	end
-
-	if package.loaded['conform'] then
-		local has_conform, conform = pcall(require, 'conform')
-		if has_conform then
-			vim.list_extend(
-				server_names,
-				---@diagnostic disable-next-line: undefined-field
-				vim.tbl_map(function(formatter) return formatter.name end, conform.list_formatters(0))
-			)
-		end
-	end
-
-	if package.loaded['lint'] then
-		local has_lint, lint = pcall(require, 'lint')
-
-		---@diagnostic disable-next-line: undefined-field
-		local linters = lint.linters_by_ft[vim.bo.filetype]
-
-		if has_lint and linters then vim.list_extend(server_names, linters) end
 	end
 
 	local out = #server_names > 0 and table.concat(server_names, ', ') or 'NO LSP, FORMATTERS '
@@ -216,16 +178,15 @@ local function nvim_mode()
 end
 
 local function filepath()
-	local filename = vim.api.nvim_buf_get_name(state.statusline_buf)
+	local filename = vim.api.nvim_buf_get_name(state.statusline_buf or 0)
 
 	if filename == '' then return ' [No name]' end
 
-	if vim.startswith(filename, 'nvim-pack') then return 'vim.pack' end
+	if vim.startswith(filename, 'nvim-pack') then return with_hl('[vim.pack]', 'FloatTitle') end
 
-	---@diagnostic disable-next-line: undefined-field
-	if vim.startswith(filename, 'term') then return vim.opt.shell:get() end
-
-	if filename:match('quickfix-') then return 'Quickfix List' end
+	if vim.startswith(filename, 'term') then return with_hl('[' .. vim.fs.basename(vim.o.shell) .. ']', 'FloatTitle') end
+	
+	if vim.startswith(filename, 'health://') then return with_hl('[vim.checkhealth]', 'FloatTitle') end
 
 	return vim.fn.fnamemodify(filename, ':~:.') .. '%<%w%q %m%r'
 end
@@ -235,6 +196,7 @@ local function search_count()
 
 	local ok, s_count = pcall(vim.fn.searchcount, { recompute = 1 })
 
+	---@diagnostic disable-next-line: param-type-mismatch
 	if next(s_count) == nil then return '' end
 	if not ok or s_count.total == 0 then return '' end
 
