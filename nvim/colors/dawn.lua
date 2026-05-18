@@ -71,6 +71,10 @@ require('mini.base16').setup({ palette = palette, use_cterm = false })
 
 local hl = vim.api.nvim_set_hl
 
+--
+hl(0, 'Normal', { fg = colors.text, bg = colors.base })
+hl(0, 'NormalFloat', { fg = colors.text, bg = colors.surface })
+
 -- Basics
 hl(0, 'Whitespace', { fg = colors.overlay, bg = 'none' })
 hl(0, 'CursorLineNr', { fg = colors.text, bg = 'none', bold = true })

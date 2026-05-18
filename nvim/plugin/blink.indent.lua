@@ -11,8 +11,7 @@ vim.schedule(function()
 			enabled = false,
 		},
 		scope = {
-			-- highlights = { 'BlinkIndentRed', 'BlinkIndentOrange', 'BlinkIndentYellow', 'BlinkIndentViolet' },
-			highlights = { 'BlinkIndent' },
+			highlights = { 'BlinkIndentScope' },
 		},
 	}
 

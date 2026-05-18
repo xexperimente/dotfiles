@@ -12,7 +12,7 @@ require('statusline')
 vim.cmd.packadd('nvim.undotree')
 
 -- Colorscheme
-vim.schedule(function() vim.cmd.colorscheme('dawn') end)
+vim.cmd.colorscheme('rosepine-dawn')
 
 -- Enable the new experimental command-line features
 require('vim._core.ui2').enable({})
