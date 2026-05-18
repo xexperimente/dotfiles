@@ -12,7 +12,8 @@ require('statusline')
 vim.cmd.packadd('nvim.undotree')
 
 -- Colorscheme
-vim.cmd.colorscheme('rosepine-dawn')
+local theme = vim.opt.background:get() == 'dark' and 'rosepine-moon' or 'rosepine-dawn'
+vim.cmd.colorscheme(theme)
 
 -- Enable the new experimental command-line features
 require('vim._core.ui2').enable({})
