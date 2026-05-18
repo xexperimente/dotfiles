@@ -18,10 +18,21 @@ return {
 				version = 'LuaJIT',
 			},
 			diagnostics = {
-				enable = false,
+				enable = true,
+				globals = {
+					'vim',
+					'jit',
+					'Snacks',
+				},
 				disable = { 'lowercase-global' },
 			},
 			hint = {
+				enable = true,
+			},
+			codelens = {
+				enable = true,
+			},
+			signatureHelp = {
 				enable = true,
 			},
 			workspace = {

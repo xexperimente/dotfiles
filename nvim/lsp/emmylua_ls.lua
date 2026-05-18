@@ -37,10 +37,9 @@ local result = {
 			},
 			workspace = {
 				library = {
-					vim.env.VIMRUNTIME .. '/lua',
+					vim.env.VIMRUNTIME,
 					vim.fn.stdpath('data') .. '/site/pack/core/opt',
-					-- vim.env.VIMRUNTIME .. '/plugin',
-					-- plugins({ 'snacks.nvim', 'mini.nvim' }),
+					-- plugins({ 'snacks.nvim', 'mini.nvim', 'blink.cmp' }),
 				},
 			},
 		},
