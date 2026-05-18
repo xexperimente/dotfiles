@@ -184,9 +184,13 @@ local function filepath()
 
 	if vim.startswith(filename, 'nvim-pack') then return with_hl('[vim.pack]', 'FloatTitle') end
 
-	if vim.startswith(filename, 'term') then return with_hl('[' .. vim.fs.basename(vim.o.shell) .. ']', 'FloatTitle') end
-	
+	if vim.startswith(filename, 'term://') then
+		return with_hl('[' .. vim.fs.basename(vim.o.shell) .. ']', 'FloatTitle')
+	end
+
 	if vim.startswith(filename, 'health://') then return with_hl('[vim.checkhealth]', 'FloatTitle') end
+
+	if vim.startswith(filename, 'codediff://') then return with_hl('[CodeDiff]', 'FloatTitle') end
 
 	return vim.fn.fnamemodify(filename, ':~:.') .. '%<%w%q %m%r'
 end
