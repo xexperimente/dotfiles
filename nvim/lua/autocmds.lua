@@ -54,9 +54,14 @@ autocmd('FileType', {
 			relative = 'editor',
 			width = width,
 			height = height,
+			border = vim.g.winborder,
 			row = row,
 			col = col,
 		})
+		--   vim.bo.modifiable = true
+		--   vim.cmd([[%s/✅//ge]])
+		-- -- vim.cmd[[silent! %s/\v( ?[^\x00-\x7F])//g]]
+		--   vim.bo.modifiable = false
 	end,
 })
 

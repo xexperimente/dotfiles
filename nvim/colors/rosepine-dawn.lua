@@ -143,7 +143,7 @@ local groups = {
 	['@markup.link'] = { fg = colors.gold, bold = true },
 	['@markup.link.uri'] = { fg = colors.gold, italic = true },
 	['@markup.list'] = { fg = colors.pine },
-	['@markup.raw'] = { fg = colors.gold },
+	['@markup.raw'] = { fg = colors.rose },
 	['@markup.strong'] = { fg = colors.gold, bold = true },
 	['@markup.underline'] = { fg = colors.gold },
 	['@module'] = { fg = colors.gold },
@@ -167,7 +167,7 @@ local groups = {
 	['@type.qualifier'] = { fg = colors.rose },
 	['@variable'] = { fg = colors.text },
 	['@variable.builtin'] = { fg = colors.iris },
-	['@variable.member'] = { fg = colors.gold },
+	['@variable.member'] = { fg = colors.subtle },
 	['@variable.parameter'] = { fg = colors.gold },
 
 	-- Semantic tokens.
@@ -209,6 +209,7 @@ local groups = {
 	DiagnosticHint = { fg = colors.iris },
 	DiagnosticInfo = { fg = colors.pine },
 	DiagnosticWarn = { fg = colors.gold },
+	DiagnosticOk = { fg = colors.foam },
 	DiagnosticFloatingError = { fg = colors.love },
 	DiagnosticFloatingHint = { fg = colors.iris },
 	DiagnosticFloatingInfo = { fg = colors.pine },
@@ -351,11 +352,17 @@ local groups = {
 	PeekstackTitleLine = { bg = colors.rose, fg = colors.gold },
 	PeekstackStack = { bg = colors.base },
 
+	-- Render-Markdown
+	RenderMarkdownCodeInline = { bg = colors.overlay },
+
 	-- Mason
 	MasonHeader = { link = 'FloatTitle' },
 
 	-- Links.
 	HighlightUrl = { underline = true, fg = colors.love, sp = colors.love },
+
+	-- Checkhealth
+	healthsectionDelim = { fg = colors.gold, bg = 'none' },
 }
 
 for group, opts in pairs(groups) do

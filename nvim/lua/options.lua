@@ -136,7 +136,6 @@ g.loaded_netrwFileHandlers = 1
 g.loaded_rplugin = 1
 g.loaded_rrhelper = 1
 g.loaded_remote_plugins = 1
-g.loaded_2html_plugin = 1
 
 if g.neovide then
 	g.neovide_floating_blur_amount_x = 2.0
