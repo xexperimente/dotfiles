@@ -31,7 +31,7 @@ vim.schedule(function()
 			width = 'block',
 			right_pad = 1,
 			position = 'inline',
-			icons = { ' 󰎤 ', ' 󰎧 ', ' 󰎪 ', ' 󰎭 ', ' 󰎱 ', ' 󰎳 ' },
+			icons = require('icons').heading,
 			backgrounds = { 'FloatTitle' },
 			foregrounds = { 'FloatTitle' },
 		},

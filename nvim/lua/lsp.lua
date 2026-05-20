@@ -13,13 +13,7 @@ vim.schedule(function()
 
 	if vim.fn.has('win32') == 1 then vim.lsp.enable('nushell') end
 
-	local signs = {
-		[vim.diagnostic.severity.ERROR] = '',
-		[vim.diagnostic.severity.WARN] = '',
-		[vim.diagnostic.severity.HINT] = '󰌵',
-		[vim.diagnostic.severity.INFO] = '',
-	}
-
+	local signs = require('icons').diagnostics
 	local hl_map = {
 		[vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
 		[vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',

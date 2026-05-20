@@ -87,7 +87,7 @@ local opts = {
 	dashboard = {
 		width = 80,
 		preset = {
-			header = require('dashboard'),
+			header = require('icons').art,
 			keys = {
 				-- { key = 'r', desc = 'Recent Projects', action = ":lua Snacks.dashboard.pick('projects')", icon = '' },
 				{ key = 'q', desc = 'Quit', action = ':qa', icon = '' },
