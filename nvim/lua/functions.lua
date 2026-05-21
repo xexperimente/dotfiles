@@ -29,12 +29,13 @@ function M.dashboard_file_format(item, ctx)
 		local dir = vim.fn.fnamemodify(fname, ':h')
 		local file = vim.fn.fnamemodify(fname, ':t')
 		if dir and file then
+			dir = dir:gsub('\\', '/')
 			file = file:sub(math.floor(-(ctx.width - #dir - 2)))
-			fname = dir .. '\\…' .. file
+			fname = dir .. '/…' .. file
 		end
 	end
-	local dir, file = fname:match('^(.*)\\(.+)$')
-	return dir and { { dir .. '\\', hl = 'SnacksPickerDir' }, { file, hl = 'SnacksDashboardFile' } }
+	local dir, file = fname:match('^(.*)[\\/](.+)$')
+	return dir and { { dir .. '/', hl = 'SnacksPickerDir' }, { file, hl = 'SnacksDashboardFile' } }
 		or { { fname, hl = 'SnacksDashboardFile' } }
 end
 

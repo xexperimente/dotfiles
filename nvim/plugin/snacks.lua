@@ -1,7 +1,7 @@
 vim.pack.add({ 'https://github.com/folke/snacks.nvim' })
 
----@module 'snacks'
----@type snacks.Config
+vim.o.winborder = vim.g.winborder
+
 local opts = {
 	bigfile = { enabled = true },
 	explorer = { replace_netrw = true },
@@ -33,40 +33,22 @@ local opts = {
 	},
 	picker = {
 		sources = {
-			files = {
-				layout = {
-					preview = false,
-					layout = {
-						box = 'vertical',
-						width = 0.7,
-						height = 0.8,
-						border = vim.g.winborder,
-						title = ' Files ',
-						title_pos = 'center',
-						backdrop = 90,
-						{ win = 'input', height = 1, border = 'bottom' },
-						{
-							box = 'horizontal',
-							{ win = 'list', border = 'none' },
-							{ win = 'preview', title = '{preview}', width = 0.6, border = 'left' },
-						},
-					},
-				},
-				exclude = { 'zig-out/', 'node_modules', 'vendor', 'vcpkg_installed', 'build', 'target', 'out' },
-			},
 			explorer = {
 				tree = true,
 				auto_close = true,
 				git_status = false,
-				-- focus = 'input',
 				layout = { preset = 'vertical', preview = false, layout = { backdrop = 90 } },
 			},
+			files = {
+				layout = { preview = false },
+				exclude = { 'zig-out/', 'node_modules', 'vendor', 'vcpkg_installed', 'build', 'target', 'out' },
+			},
+			help = { layout = 'select' },
 			icons = { layout = 'select' },
-			pickers = { preview = false, layout = 'select' },
-			git_status = { preview = false, layout = 'select' },
-			command_history = { preview = false, layout = 'select' },
-			search_history = { preview = false, layout = 'select' },
-			help = { preview = false, layout = 'select' },
+			pickers = { layout = 'select' },
+			git_status = { layout = 'select' },
+			command_history = { layout = 'select' },
+			search_history = { layout = 'select' },
 			keymaps = { layout = { preview = false } },
 			qflist = { layout = 'vertical' },
 			loclist = { layout = 'vertical' },
@@ -85,11 +67,14 @@ local opts = {
 	quickfile = { enabled = true },
 	words = { enabled = true },
 	dashboard = {
+		enabled = true,
 		width = 80,
 		preset = {
 			header = require('icons').art,
 			keys = {
 				-- { key = 'r', desc = 'Recent Projects', action = ":lua Snacks.dashboard.pick('projects')", icon = '' },
+				{ key = 'r', desc = 'Recent Files', action = ':lua Snacks.picker.recent({ cwd= true})', icon = '' },
+				{ key = 'u', desc = 'Update plugins', action = ':lua vim.pack.update(nil, { force = true})', icon = '' },
 				{ key = 'q', desc = 'Quit', action = ':qa', icon = '' },
 			},
 		},
@@ -97,6 +82,23 @@ local opts = {
 			{ section = 'header' },
 			{ section = 'recent_files', cwd = true, padding = 1 },
 			{ section = 'keys', gap = 0 },
+			function()
+				local plugins = vim.pack.get()
+				---@diagnostic disable-next-line: redundant-parameter
+				local loaded = vim.iter(plugins):map(function(p) return p.active end):totable()
+				local startup_time = string.format('%sms', vim.g.nvim_startup_time or '0')
+				local plugin_count = string.format('%d/%d', #loaded or 0, #plugins or 0)
+
+				return {
+					align = 'center',
+					text = {
+						{ 'loaded ', hl = 'SnacksDashboardDir' },
+						{ plugin_count, hl = 'SnacksDashboardKey' },
+						{ ' plugins in ', hl = 'SnacksDashboardDir' },
+						{ startup_time, hl = 'SnacksDashboardKey' },
+					},
+				}
+			end,
 		},
 		formats = {
 			icon = function(_) return '' end,
@@ -107,28 +109,16 @@ local opts = {
 		},
 	},
 	styles = {
-		notification_history = {
-			width = 0.8,
-			keys = { ['<Esc>'] = 'close' },
-		},
-		scratch = {
-			keys = { ['<Esc>'] = 'close' },
-			wo = { winhighlight = 'NormalFloat:NormalFloat' },
-		},
-		input = {
-			row = 36,
-			wo = { winhighlight = 'FloatBorder:FloatBorder' },
-		},
-		terminal = {
-			wo = { winhighlight = 'NormalFloat:Normal,FloatBorder:Border' },
-		},
+		notification_history = { width = 0.8, keys = { ['<Esc>'] = 'close' } },
+		scratch = { keys = { ['<Esc>'] = 'close' }, wo = { winhighlight = 'NormalFloat:NormalFloat' } },
+		input = { row = 36, wo = { winhighlight = 'FloatBorder:FloatBorder' } },
+		terminal = { wo = { winhighlight = 'NormalFloat:Normal,FloatBorder:Border' } },
 	},
 }
 
-require('snacks').setup(opts)
+require('snacks').setup(opts --[[@as snacks.Config]])
 
 vim.schedule(function()
-	-- Keymaps
 	local bind = vim.keymap.set
 	local config = vim.fn.stdpath('config')
 

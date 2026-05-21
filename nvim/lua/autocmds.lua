@@ -2,6 +2,29 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 local usercmd = vim.api.nvim_create_user_command
 
+local function startuptime()
+	if vim.g.strive_startup_time ~= nil then return end
+	vim.g.strive_startup_time = 0
+	local usage = vim.uv.getrusage()
+	if usage then
+		-- Calculate time in milliseconds (user + system time)
+		local user_time = (usage.utime.sec * 1000) + (usage.utime.usec / 1000)
+		local sys_time = (usage.stime.sec * 1000) + (usage.stime.usec / 1000)
+		vim.g.nvim_startup_time = user_time + sys_time
+	end
+end
+
+autocmd('UIEnter', {
+	group = augroup('xexperimente/dashboard', { clear = true }),
+	once = true,
+	callback = function()
+		startuptime()
+		-- vim.schedule(function()
+		-- 	require('welcome').show()
+		-- end)
+	end,
+})
+
 -- Highlight when yanking
 autocmd('TextYankPost', {
 	desc = 'Highlight on yank',

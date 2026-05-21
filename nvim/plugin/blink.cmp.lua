@@ -3,9 +3,7 @@ vim.schedule(function()
 		{ src = 'https://github.com/saghen/blink.cmp', version = vim.version.range('1.*') },
 	})
 
-	---@module 'blink.cmp'
-	---@type blink.cmp.Config
-	local cmp_opts = {
+	local opts = {
 		fuzzy = {
 			implementation = 'prefer_rust_with_warning',
 		},
@@ -54,5 +52,5 @@ vim.schedule(function()
 		},
 	}
 
-	require('blink.cmp').setup(cmp_opts)
+	require('blink.cmp').setup(opts --[[@as blink.cmp.Config]])
 end)
