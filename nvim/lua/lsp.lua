@@ -7,7 +7,6 @@ vim.schedule(function()
 		'emmylua_ls',
 		'clangd',
 		-- 'lua-ls',
-		-- 'zls',
 		-- 'rust_analyzer',
 	})
 
@@ -95,9 +94,14 @@ vim.schedule(function()
 				bind({ 'n', 'x' }, '<f4>', vim.lsp.buf.code_action, { desc = 'Code Action' })
 			end
 
-			if client:supports_method('textDocument/hover') then
-				bind('n', 'K', vim.lsp.buf.hover, { desc = 'Hover Documentation' })
-			end
+			-- if client:supports_method('textDocument/hover') then
+			-- 	bind(
+			-- 		'n',
+			-- 		'K',
+			-- 		function() vim.lsp.buf.hover({ border = vim.g.winborder, max_height = 15 }) end,
+			-- 		{ buf = event.buf, desc = 'Hover Documentation' }
+			-- 	)
+			-- end
 
 			if client:supports_method('textDocument/rename') then
 				bind('n', '<f2>', vim.lsp.buf.rename, { desc = 'Rename' })

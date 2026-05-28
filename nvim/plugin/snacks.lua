@@ -83,18 +83,12 @@ local opts = {
 			{ section = 'recent_files', cwd = true, padding = 1 },
 			{ section = 'keys', gap = 0 },
 			function()
-				local plugins = vim.pack.get()
-				---@diagnostic disable-next-line: redundant-parameter
-				local loaded = vim.iter(plugins):map(function(p) return p.active end):totable()
 				local startup_time = string.format('%sms', vim.g.nvim_startup_time or '0')
-				local plugin_count = string.format('%d/%d', #loaded or 0, #plugins or 0)
 
 				return {
 					align = 'center',
 					text = {
-						{ 'loaded ', hl = 'SnacksDashboardDir' },
-						{ plugin_count, hl = 'SnacksDashboardKey' },
-						{ ' plugins in ', hl = 'SnacksDashboardDir' },
+						{ 'Loaded in ', hl = 'SnacksDashboardDir' },
 						{ startup_time, hl = 'SnacksDashboardKey' },
 					},
 				}

@@ -1,9 +1,9 @@
-vim.pack.add({
-	'https://github.com/jakewvincent/mkdnflow.nvim',
-	'https://github.com/MeanderingProgrammer/render-markdown.nvim',
-})
-
 vim.schedule(function()
+	vim.pack.add({
+		'https://github.com/jakewvincent/mkdnflow.nvim',
+		'https://github.com/MeanderingProgrammer/render-markdown.nvim',
+	})
+
 	require('mkdnflow').setup({})
 
 	---@diagnostic disable-next-line: undefined-field
@@ -38,5 +38,6 @@ vim.schedule(function()
 		link = { footnote = { enabled = true, icon = '' } },
 		bullet = { left_pad = 1, icons = { '', '' } }, -- '', '', '', '' } },
 		completions = { lsp = { enabled = true } },
+		ignore = function() return vim.bo.buftype == 'nofile' end,
 	})
 end)

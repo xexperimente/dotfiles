@@ -358,6 +358,13 @@ local groups = {
 	-- Mason
 	MasonHeader = { link = 'FloatTitle' },
 
+	--Hover.nvim
+	HoverWindow = { bg = colors.base },
+	HoverBorder = { bg = colors.base, fg = colors.highlight_med },
+	HoverActiveSource = { bg = colors.overlay },
+	HoverInactiveSource = { bg = colors.base },
+	HoverSourceLine = { bg = colors.base },
+
 	-- Links.
 	HighlightUrl = { underline = true, fg = colors.love, sp = colors.love },
 

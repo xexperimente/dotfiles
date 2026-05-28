@@ -7,16 +7,9 @@ opt.fileencoding = 'utf-8'
 g.mapleader = ' '
 g.maplocalleader = ' '
 
--- if vim.fn.has('win32') == 1 then
--- 	-- opt.guifont = 'Cascadia Code NF:h14'
--- 	opt.background = 'light'
--- else
--- 	-- opt.guifont = 'CaskaydiaCove NF:h14'
--- 	-- opt.background = g.neovide and 'light' or 'dark'
--- end
-
 -- Visuals
 g.winborder = 'single'
+opt.winborder = g.winborder
 opt.number = true
 opt.laststatus = 3
 opt.showtabline = 0
@@ -91,23 +84,25 @@ opt.inccommand = 'split'
 opt.exrc = true
 -- opt.secure = true
 
--- Grep arguments
-if vim.fn.executable('rg') == 1 then
-	opt.grepprg = 'rg --vimgrep --no-heading --smart-case --hidden'
-	opt.grepformat = '%f:%l:%c:%m'
-end
+vim.schedule(function()
+	-- Grep arguments
+	if vim.fn.executable('rg') == 1 then
+		opt.grepprg = 'rg --vimgrep --no-heading --smart-case --hidden'
+		opt.grepformat = '%f:%l:%c:%m'
+	end
 
--- Terminal
-if vim.fn.executable('nu') == 1 then
-	opt.shell = 'nu'
-	opt.shellcmdflag = '--login --stdin --no-newline -c'
-	opt.shellpipe = '|complete|update stderr {ansi strip}|tee {get stderr|save --force --raw %s}|into record'
-	opt.shellredir = 'out+err> %s'
-	opt.shelltemp = false
-	opt.shellxescape = ''
-	opt.shellxquote = ''
-	opt.shellquote = ''
-end
+	-- Terminal
+	if vim.fn.executable('nu') == 1 then
+		opt.shell = 'nu'
+		opt.shellcmdflag = '--login --stdin --no-newline -c'
+		opt.shellpipe = '|complete|update stderr {ansi strip}|tee {get stderr|save --force --raw %s}|into record'
+		opt.shellredir = 'out+err> %s'
+		opt.shelltemp = false
+		opt.shellxescape = ''
+		opt.shellxquote = ''
+		opt.shellquote = ''
+	end
+end)
 
 -- Disable unused providers
 g.loaded_ruby_provider = 0
