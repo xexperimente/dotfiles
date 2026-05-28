@@ -1,6 +1,4 @@
-vim.pack.add({
-	'https://github.com/nvim-mini/mini.nvim', --version = vim.version.range('*')
-})
+vim.pack.add({ 'https://github.com/nvim-mini/mini.nvim' })
 
 vim.schedule(function()
 	local opts = {
@@ -10,7 +8,7 @@ vim.schedule(function()
 				hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
 				todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
 				note = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
-				hex_color = require('mini.hipatterns').gen_highlighter.hex_color(),
+				-- hex_color = require('mini.hipatterns').gen_highlighter.hex_color(),
 			},
 		},
 		surround = {
@@ -25,10 +23,6 @@ vim.schedule(function()
 			},
 		},
 		diff = { view = { style = 'sign', signs = { add = '┃', change = '┃', delete = '┃' } } },
-		-- indentscope = {
-		-- 	draw = { animation = require('mini.indentscope').gen_animation.none() },
-		-- 	symbol = '▎',
-		-- },
 		move = {
 			mappings = {
 				left = '<M-left>',
@@ -48,6 +42,8 @@ vim.schedule(function()
 	local bind = vim.keymap.set
 
 	require('mini.ai').setup()
+	require('mini.bracketed').setup()
+	require('mini.cursorword').setup()
 	require('mini.diff').setup(opts.diff)
 	require('mini.git').setup()
 	require('mini.icons').setup()

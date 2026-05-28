@@ -43,6 +43,7 @@ local opts = {
 				layout = { preview = false },
 				exclude = { 'zig-out/', 'node_modules', 'vendor', 'vcpkg_installed', 'build', 'target', 'out' },
 			},
+			buffers = { layout = 'select'},
 			help = { layout = 'select' },
 			icons = { layout = 'select' },
 			pickers = { layout = 'select' },

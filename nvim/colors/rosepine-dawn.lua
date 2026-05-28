@@ -305,6 +305,7 @@ local groups = {
 	MiniDiffOverDelete = { bg = '#e4c3c6' },
 	MiniDiffOverChange = { bg = '#f3ca91' },
 	MiniDiffOverContext = { bg = '#f9e8cf' },
+	MiniCursorword = { bg = colors.highlight_low },
 
 	-- Dap UI.
 	DapStoppedLine = { default = true, link = 'Visual' },
