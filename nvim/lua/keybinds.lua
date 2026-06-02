@@ -38,6 +38,9 @@ bind('n', '<S-Down>', 'V')
 bind('v', '<S-Up>', 'k')
 bind('v', '<S-Down>', 'j')
 
+bind('n', 'H', '^')
+bind('n', 'L', '$')
+
 -- Switch between windows.
 bind('n', '<C-h>', '<C-w>h', { desc = 'Move to the left window', remap = true })
 bind('n', '<C-j>', '<C-w>j', { desc = 'Move to the bottom window', remap = true })

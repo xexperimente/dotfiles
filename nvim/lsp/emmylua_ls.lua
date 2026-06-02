@@ -26,6 +26,7 @@ local result = {
 					'vim',
 					'jit',
 					'Snacks',
+					'MiniSplitjoin',
 				},
 				disable = { 'unnecessary-if' },
 			},

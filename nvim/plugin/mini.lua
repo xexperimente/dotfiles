@@ -54,4 +54,5 @@ vim.schedule(function()
 
 	bind('n', '<leader>gc', '<cmd>lua MiniDiff.toggle_overlay()<cr>', { desc = 'Show diff overlay' })
 	bind('n', '<leader>uj', '<cmd>lua MiniSplitjoin.toggle()<cr>', { desc = 'Toggle splitjoin' })
+	bind('n', 'J', MiniSplitjoin.toggle, { desc = 'Toggle splitjoin' })
 end)
