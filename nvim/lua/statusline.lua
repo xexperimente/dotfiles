@@ -186,7 +186,7 @@ local function filepath()
 
 	if vim.startswith(filename, 'codediff://') then return with_hl('[CodeDiff]', 'FloatTitle') end
 
-	return vim.fn.fnamemodify(filename, ':~:.') .. '%<%w%q %m%r'
+	return vim.fn.fnamemodify(filename, ':~:.:gs?\\?/?') .. '%<%w%q %m%r'
 end
 
 local function search_count()

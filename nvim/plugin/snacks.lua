@@ -198,7 +198,7 @@ vim.schedule(function()
 	-- Visual Studio LSP binds
 	bind('n', '<f12>', Snacks.picker.lsp_definitions, { desc = 'Goto Definition' })
 	bind('n', '<s-f12>', Snacks.picker.lsp_references, { desc = 'References' })
-	bind('n', '<c-f12>', Snacks.picker.lsp_declarations, { desc = 'Goto Declaration' })
+	-- bind('n', '<c-f12>', Snacks.picker.lsp_declarations, { desc = 'Goto Declaration' })
 
 	-- Terminal
 	local nt = { 'n', 't' }
