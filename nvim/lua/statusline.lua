@@ -3,24 +3,18 @@ local separator = ' | '
 ---@class statusline.State
 ---@field statusline_buf integer|nil
 ---@field statusline_win integer|nil
----@field statusline_is_active boolean
 ---@field lsp_names table<number,table<number,string>>
 ---@field lsp_progress string
 local state = {
 	statusline_buf = nil,
 	statusline_win = nil,
-	statusline_is_active = false,
 	lsp_names = {},
 	lsp_progress = '',
 }
 
-local function with_hl(str, hl, hl_nc)
+local function with_hl(str, hl)
 	if not str or str == '' then return '' end
-	if state.statusline_is_active then
-		return '%#' .. hl .. '#' .. str .. '%#StatusLine#%*'
-	else
-		return '%#' .. (hl_nc or 'StatusLineNC') .. '#' .. str .. '%#StatusLineNC#%*'
-	end
+	return '%#' .. hl .. '#' .. str .. '%#StatusLine#%*'
 end
 
 local autocmd = vim.api.nvim_create_autocmd
@@ -31,11 +25,11 @@ autocmd({ 'LspAttach', 'LspDetach' }, {
 	callback = vim.schedule_wrap(function(args)
 		local clients = vim.lsp.get_clients({ bufnr = args.buf })
 
-		if #clients > 0 then
-			state.lsp_names[args.buf] = vim.tbl_map(function(client) return client.name end, clients)
+		if not clients or next(clients) == nil then return end
 
-			vim.cmd('redrawstatus')
-		end
+		state.lsp_names[args.buf] = vim.tbl_map(function(client) return client.name end, clients)
+
+		vim.cmd('redrawstatus')
 	end),
 })
 
@@ -218,7 +212,6 @@ end
 function _MyStatusline()
 	state.statusline_win = vim.g.statusline_winid
 	state.statusline_buf = vim.api.nvim_win_get_buf(state.statusline_win)
-	state.statusline_is_active = vim.g.statusline_winid == vim.api.nvim_get_current_win()
 
 	return nvim_mode()
 		.. git_status()
