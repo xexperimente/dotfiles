@@ -132,7 +132,7 @@ local groups = {
 	['@keyword'] = { fg = colors.rose },
 	['@keyword.conditional'] = { fg = colors.rose },
 	['@keyword.exception'] = { fg = colors.iris },
-	['@keyword.function'] = { fg = colors.pine },
+	['@keyword.function'] = { fg = colors.rose },
 	['@keyword.include'] = { fg = colors.rose },
 	['@keyword.operator'] = { fg = colors.rose },
 	['@keyword.repeat'] = { fg = colors.rose },
@@ -322,6 +322,9 @@ local groups = {
 	CodeDiffFiller = { link = 'DiffDelete' },
 	CodeDiffCharInsert = { bg = colors.foam },
 	CodeDiffCharDelete = { bg = colors.rose },
+	Added = { fg = colors.foam },
+	Changed = { fg = colors.gold },
+	Removed = { fg = colors.love },
 
 	-- Command line.
 	MoreMsg = { fg = colors.overlay, bold = true },

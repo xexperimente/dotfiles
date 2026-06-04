@@ -1,6 +1,7 @@
 ---@type vim.lsp.Config
 return {
 	cmd = { 'lua-language-server' },
+	filetypes = { 'lua' },
 	root_markers = {
 		'.luarc.json',
 		'.luarc.jsonc',
@@ -11,7 +12,6 @@ return {
 		'selene.yml',
 		'.git',
 	},
-	filetypes = { 'lua' },
 	settings = {
 		Lua = {
 			runtime = {

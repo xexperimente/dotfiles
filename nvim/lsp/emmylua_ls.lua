@@ -1,12 +1,3 @@
--- - Get lib paths for input packages.
--- - @param pkgs string[]
--- local function plugins(pkgs)
--- 	for p, pkg in ipairs(pkgs) do
--- 		pkgs[p] = vim.fn.stdpath('data') .. '/site/pack/core/opt/' .. pkg
--- 	end
--- 	return unpack(pkgs)
--- end
-
 --- @type vim.lsp.Config
 local result = {
 
@@ -21,6 +12,9 @@ local result = {
 	},
 	settings = {
 		Lua = {
+			runtime = {
+				version = 'LuaJIT',
+			},
 			diagnostics = {
 				globals = {
 					'vim',
@@ -33,14 +27,11 @@ local result = {
 			codelens = {
 				enable = true,
 			},
-			runtime = {
-				version = 'LuaJIT',
-			},
 			workspace = {
+				checkThirdParty = false,
 				library = {
 					vim.env.VIMRUNTIME,
 					vim.fn.stdpath('data') .. '/site/pack/core/opt',
-					-- plugins({ 'snacks.nvim', 'mini.nvim', 'blink.cmp' }),
 				},
 			},
 		},
