@@ -44,6 +44,8 @@ vim.schedule(function()
 	end
 
 	function handler.update(bufnr, winid)
+		if not package.loaded['mini.diff'] then return {} end
+
 		local marks = {} --- @type Satellite.Mark[]
 
 		local summary = vim.b[bufnr].minidiff_summary
