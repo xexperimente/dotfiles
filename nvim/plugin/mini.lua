@@ -37,6 +37,14 @@ vim.schedule(function()
 				line_up = '<M-up>',
 			},
 		},
+		icons = {
+			file = {
+				['README.md'] = { glyph = '', hl = 'MiniIconsRed' },
+			},
+			extension = {
+				md = { glyph = '', hl = 'MiniIconsRed' },
+			},
+		},
 	}
 
 	local bind = vim.keymap.set
@@ -46,7 +54,7 @@ vim.schedule(function()
 	require('mini.cursorword').setup()
 	require('mini.diff').setup(opts.diff)
 	require('mini.git').setup()
-	require('mini.icons').setup()
+	require('mini.icons').setup(opts.icons)
 	require('mini.move').setup(opts.move)
 	require('mini.splitjoin').setup()
 	require('mini.surround').setup(opts.surround)

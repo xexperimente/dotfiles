@@ -112,25 +112,17 @@ g.loaded_python3_provider = 0
 
 -- Disable unused vim plugins
 g.loaded_vscode_diff = 1
-g.loaded_tar = 1
 g.loaded_gzip = 1
+g.loaded_tar = 1
+g.loaded_tarPlugin = 1
 g.loaded_zip = 1
 g.loaded_zipPlugin = 1
-g.loaded_tarPlugin = 1
-g.loaded_getscript = 1
-g.loaded_getscriptPlugin = 1
-g.loaded_vimball = 1
-g.loaded_vimballPlugin = 1
-g.loaded_matchit = 1
--- g.loaded_matchparen = 1
-g.loaded_logiPat = 1
-g.loaded_netrw = 1
+-- g.loaded_matchit = 1
+g.loaded_matchparen = 1
 g.loaded_netrwPlugin = 1
-g.loaded_netrwSettings = 1
-g.loaded_netrwFileHandlers = 1
 g.loaded_rplugin = 1
-g.loaded_rrhelper = 1
 g.loaded_remote_plugins = 1
+g.loaded_tutor_mode_plugin = 1
 
 if g.neovide then
 	g.neovide_floating_blur_amount_x = 2.0

@@ -43,7 +43,7 @@ local opts = {
 				layout = { preview = false },
 				exclude = { 'zig-out/', 'node_modules', 'vendor', 'vcpkg_installed', 'build', 'target', 'out' },
 			},
-			buffers = { layout = 'select'},
+			buffers = { layout = 'select' },
 			help = { layout = 'select' },
 			icons = { layout = 'select' },
 			pickers = { layout = 'select' },
@@ -66,7 +66,7 @@ local opts = {
 		},
 	},
 	quickfile = { enabled = true },
-	words = { enabled = true },
+	words = { enabled = false },
 	dashboard = {
 		enabled = true,
 		width = 80,
@@ -125,6 +125,7 @@ vim.schedule(function()
 	Snacks.toggle.inlay_hints():map('<leader>uh')
 	Snacks.toggle.dim():map('<leader>uD')
 	Snacks.toggle.treesitter():map('<leader>uT')
+	Snacks.toggle.words():map('<leader>uW')
 
 	-- Top Pickers & Explorer
 	bind('n', '<leader>,', Snacks.picker.buffers, { desc = 'Buffers' })
