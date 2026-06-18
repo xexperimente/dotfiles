@@ -41,6 +41,11 @@ return {
 					vim.env.VIMRUNTIME,
 					vim.fn.stdpath('data') .. '/site/pack/core/opt',
 				},
+				ignoreDir = {
+					'**/test/**',
+					'**/tests/**',
+					'**/spec/**',
+				},
 			},
 			telemetry = {
 				enable = false,

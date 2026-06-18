@@ -10,6 +10,7 @@ local result = {
 		'selene.toml',
 		'.git',
 	},
+	workspace_required = false,
 	settings = {
 		Lua = {
 			runtime = {
@@ -32,6 +33,14 @@ local result = {
 				library = {
 					vim.env.VIMRUNTIME,
 					vim.fn.stdpath('data') .. '/site/pack/core/opt',
+				},
+				ignoreDir = {
+					vim.fn.stdpath('data') .. '/site/pack/core/opt/mini.nvim',
+				},
+				ignoreGlobs = {
+					'**/test/**',
+					'**/tests/**',
+					'**/spec/**',
 				},
 			},
 		},
