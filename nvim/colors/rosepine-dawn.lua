@@ -207,7 +207,7 @@ local groups = {
 	DiagnosticDeprecated = { strikethrough = true, fg = colors.text },
 	DiagnosticError = { fg = colors.love },
 	DiagnosticHint = { fg = colors.iris },
-	DiagnosticInfo = { fg = colors.pine },
+	DiagnosticInfo = { fg = colors.muted },
 	DiagnosticWarn = { fg = colors.gold },
 	DiagnosticOk = { fg = colors.foam },
 	DiagnosticFloatingError = { fg = colors.love },
@@ -225,8 +225,8 @@ local groups = {
 	-- DiagnosticVirtualTextWarn = { fg = colors.gold, bg = colors.transparent_yellow },
 	LspCodeLens = { fg = colors.muted },
 	LspInlayHint = { fg = colors.muted, italic = true },
-	LspReferenceRead = {}, -- bg = colors.highlight_low
-	LspReferenceText = {},
+	LspReferenceRead = { bg = colors.gold }, -- bg = colors.highlight_low
+	LspReferenceText = { bg = colors.rose },
 	LspReferenceWrite = { bg = colors.rose },
 	LspSignatureActiveParameter = { bold = true, underline = true, sp = colors.text },
 

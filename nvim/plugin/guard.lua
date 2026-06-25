@@ -11,6 +11,7 @@ vim.schedule(function()
 
 			ft('json,jsonc'):fmt('deno_fmt')
 			ft('rust'):fmt('rustfmt')
+			ft('cpp,hpp'):fmt('clang-format')
 			---@diagnostic enable
 		end),
 	})
