@@ -14,12 +14,12 @@ vim.schedule(function()
 			quickfix = { enable = false },
 		},
 	}
-	require('satellite').setup(opts --[[@as SatelliteConfig]])
+	require('satellite').setup(opts)
 
 	-- Register custom handler for Mini.diff
 	local api = vim.api
 	local util = require('satellite.util')
-	local augroup = vim.api.nvim_create_augroup('xexperimente/satellite', {})
+	local augroup = api.nvim_create_augroup('xexperimente/satellite', {})
 
 	local handler = {
 		name = 'minidiff',
@@ -46,11 +46,12 @@ vim.schedule(function()
 	function handler.update(bufnr, winid)
 		if not package.loaded['mini.diff'] then return {} end
 
-		local marks = {} --- @type Satellite.Mark[]
+		local marks = {}
 
 		local summary = vim.b[bufnr].minidiff_summary
 		if not summary then return marks end
 
+		---@diagnostic disable-next-line: unresolved-require
 		local hunks = require('mini.diff').get_buf_data(bufnr).hunks or {}
 
 		for _, hunk in ipairs(hunks) do
@@ -61,24 +62,10 @@ vim.schedule(function()
 				highlight = 'MiniDiffSignDelete'
 			end
 
-			-- mini.diff používá 1-indexed řádky
-			-- satellite.nvim potřebuje rozsah (počáteční řádek je inkluzivní, koncový exkluzivní)
-			-- local start_row = hunk.buf_start
-			-- local end_row = hunk.buf_start + hunk.buf_count
-			--
-			-- -- Ošetření pro smazané řádky (buf_count může být 0)
-			-- if start_row == end_row then end_row = start_row + 1 end
-
-			-- local min_lnum = math.max(1, start_row)
-			-- local min_pos = util.row_to_barpos(winid, start_row - 1)
-			--
-			-- -- local max_lnum = math.max(1, end_row)
-			-- local max_pos = util.row_to_barpos(winid, end_row - 1)
-
 			local min_lnum = math.max(1, hunk.buf_start)
 			local min_pos = util.row_to_barpos(winid, min_lnum - 1)
 
-			local max_lnum = math.max(1, hunk.buf_start + math.max(0, hunk.buf_count - 1))
+			local max_lnum = math.max(1, hunk.buf_start + math.max(0, hunk.buf_count - 1)) ---@as integer
 			local max_pos = util.row_to_barpos(winid, max_lnum - 1)
 
 			for pos = min_pos, max_pos do
@@ -92,5 +79,5 @@ vim.schedule(function()
 		return marks
 	end
 
-	require('satellite.handlers').register(handler)
+	require('satellite.handlers').register(handler --[[@as Satellite.Handler]])
 end)

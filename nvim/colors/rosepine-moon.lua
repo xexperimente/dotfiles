@@ -22,6 +22,24 @@ local colors = {
 	highlight_low = '#2a283e',
 }
 
+local function blend(foreground, background, alpha)
+	-- Helper to parse hex strings to RGB
+	local function hex_to_rgb(hex)
+		hex = hex:gsub('#', '')
+		return tonumber('0x' .. hex:sub(1, 2)), tonumber('0x' .. hex:sub(3, 4)), tonumber('0x' .. hex:sub(5, 6))
+	end
+
+	local fg_r, fg_g, fg_b = hex_to_rgb(foreground)
+	local bg_r, bg_g, bg_b = hex_to_rgb(background)
+
+	-- Linear interpolation formula
+	local r = math.floor(alpha * fg_r + (1 - alpha) * bg_r)
+	local g = math.floor(alpha * fg_g + (1 - alpha) * bg_g)
+	local b = math.floor(alpha * fg_b + (1 - alpha) * bg_b)
+
+	return string.format('#%02X%02X%02X', r, g, b)
+end
+
 ---@type table<string, vim.api.keyset.highlight>
 local groups = {
 	-- Builtins.
@@ -103,7 +121,7 @@ local groups = {
 	['@constant'] = { fg = colors.iris },
 	['@constant.builtin'] = { fg = colors.iris },
 	['@constant.macro'] = { fg = colors.pine },
-	['@constructor'] = { fg = colors.pine },
+	['@constructor'] = { fg = colors.text },
 	['@error'] = { fg = colors.love },
 	['@function'] = { fg = colors.iris },
 	['@function.builtin'] = { fg = colors.iris, italic = true },
@@ -129,15 +147,16 @@ local groups = {
 	['@module'] = { fg = colors.gold },
 	['@number'] = { fg = colors.iris },
 	['@number.float'] = { fg = colors.foam },
-	['@operator'] = { fg = colors.text },
+	['@operator'] = { fg = colors.rose },
 	['@parameter.reference'] = { fg = colors.gold },
-	['@property'] = { fg = colors.iris },
+	['@property'] = { fg = colors.text },
 	['@punctuation.bracket'] = { fg = colors.text },
 	['@punctuation.delimiter'] = { fg = colors.text },
 	['@string'] = { fg = colors.gold },
 	['@string.escape'] = { fg = colors.pine },
 	['@string.regexp'] = { fg = colors.love },
 	['@string.special.symbol'] = { fg = colors.iris },
+	['@string.special.url'] = { fg = colors.love, underline = true },
 	['@structure'] = { fg = colors.iris },
 	['@tag'] = { fg = colors.pine },
 	['@tag.attribute'] = { fg = colors.foam },
@@ -147,7 +166,7 @@ local groups = {
 	['@type.qualifier'] = { fg = colors.rose },
 	['@variable'] = { fg = colors.text },
 	['@variable.builtin'] = { fg = colors.iris },
-	['@variable.member'] = { fg = colors.gold },
+	['@variable.member'] = { fg = colors.text },
 	['@variable.parameter'] = { fg = colors.gold },
 
 	-- Semantic tokens.
@@ -167,7 +186,7 @@ local groups = {
 	['@lsp.type.method'] = { fg = colors.text },
 	['@lsp.type.namespace'] = { fg = colors.gold },
 	['@lsp.type.parameter'] = { fg = colors.gold },
-	['@lsp.type.property'] = { fg = colors.subtle },
+	['@lsp.type.property'] = { link = '@property' },
 	['@lsp.type.struct'] = { fg = colors.pine },
 	['@lsp.type.type'] = { fg = colors.foam },
 	['@lsp.type.variable'] = { fg = colors.text },
@@ -189,6 +208,7 @@ local groups = {
 	DiagnosticHint = { fg = colors.iris },
 	DiagnosticInfo = { fg = colors.pine },
 	DiagnosticWarn = { fg = colors.gold },
+	DiagnosticOk = { fg = colors.foam },
 	DiagnosticFloatingError = { fg = colors.love },
 	DiagnosticFloatingHint = { fg = colors.iris },
 	DiagnosticFloatingInfo = { fg = colors.pine },
@@ -280,26 +300,31 @@ local groups = {
 	MiniIconsYellow = { link = 'MiniIconsRed' },
 	MiniIconsCyan = { link = 'MiniIconsRed' },
 	MiniIconsOrange = { link = 'MiniIconsRed' },
-	MiniDiffOverAdd = { bg = '#dde4e0' },
-	MiniDiffOverDelete = { bg = '#e4c3c6' },
-	MiniDiffOverChange = { bg = '#f3ca91' },
-	MiniDiffOverContext = { bg = '#f9e8cf' },
+	MiniDiffOverAdd = { bg = '#1e572d' },
+	MiniDiffOverDelete = { fg = colors.love, bg = blend(colors.love, colors.base, 0.2) },
+	MiniDiffOverChange = { fg = colors.text, bg = '#1e572d' },
+	MiniDiffOverContext = { bg = blend('#1e572d', colors.base, 0.3) },
+	MiniCursorword = { bg = colors.overlay },
 
 	-- Dap UI.
 	DapStoppedLine = { default = true, link = 'Visual' },
 	NvimDapVirtualText = { fg = colors.rose, underline = true },
 
-	-- Diffs.
-	DiffAdd = { fg = colors.foam, bg = colors.base },
-	DiffChange = { fg = colors.gold, bg = colors.base },
-	DiffDelete = { fg = colors.rose, bg = colors.base },
-	DiffText = { fg = colors.overlay, bg = colors.gold, bold = true },
+	-- Diffs. Something.
+	DiffAdd = { bg = blend('#1e572d', colors.base, 0.4) },
+	DiffChange = { bg = blend('#1e572d', colors.base, 0.4) },
+	DiffDelete = { fg = blend(colors.rose, colors.base, 0.4) },
+	DiffText = { bg = blend('#1e572d', colors.base, 0.9), bold = false },
 	diffAdded = { fg = colors.foam, bold = true },
 	diffChanged = { fg = colors.gold, bold = true },
-	diffRemoved = { fg = colors.love, bold = true },
+	diffRemoved = { fg = colors.rose, bold = true },
 	CodeDiffFiller = { link = 'DiffDelete' },
-	CodeDiffCharInsert = { bg = colors.foam },
-	CodeDiffCharDelete = { bg = colors.rose },
+	CodeDiffCharInsert = { bg = colors.pine }, -- Deep/dark green for inserted characters
+	CodeDiffCharDelete = { bg = colors.rose }, -- Deep/dark red for deleted characters
+	CodeDiffLineInsert = { bg = '#dde4e0' }, -- Light green background for inserted lines
+	CodeDiffLineDelete = { bg = '#653b54' }, -- Light red background for deleted lines
+	CodeDiffLineMove = {}, -- Background for moved code lines (derived from DiffChange)
+	CodeDiffMoveTo = {}, -- Sign column and annotation color for move indicators
 	Added = { fg = colors.foam },
 	Changed = { fg = colors.gold },
 	Removed = { fg = colors.love },
@@ -334,11 +359,24 @@ local groups = {
 	PeekstackTitleLine = { bg = colors.rose, fg = colors.gold },
 	PeekstackStack = { bg = colors.base },
 
+	-- Render-Markdown
+	RenderMarkdownCodeInline = { bg = colors.overlay },
+
 	-- Mason
 	MasonHeader = { link = 'FloatTitle' },
 
+	--Hover.nvim
+	HoverWindow = { bg = colors.base },
+	HoverBorder = { bg = colors.base, fg = colors.highlight_med },
+	HoverActiveSource = { bg = colors.overlay },
+	HoverInactiveSource = { bg = colors.base },
+	HoverSourceLine = { bg = colors.base },
+
 	-- Links.
 	HighlightUrl = { underline = true, fg = colors.love, sp = colors.love },
+
+	-- Checkhealth
+	healthsectionDelim = { fg = colors.gold, bg = 'none' },
 }
 
 for group, opts in pairs(groups) do
