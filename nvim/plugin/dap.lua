@@ -30,8 +30,6 @@ vim.schedule(function()
 	local dap = require('dap')
 	local dap_view = require('dap-view')
 
-	---@module 'dap-view'
-	---@type dapview.Config
 	local opts = {
 		winbar = {
 			show = true,
@@ -58,8 +56,7 @@ vim.schedule(function()
 		},
 	}
 
-	---@diagnostic disable-next-line: param-type-mismatch
-	dap_view.setup(opts)
+	dap_view.setup(opts --[[@as dapview.Config]])
 
 	-- dap.set_log_level('TRACE')
 
