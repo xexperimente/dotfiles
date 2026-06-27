@@ -63,3 +63,6 @@ bind('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Plugins
 bind('n', '<leader>pl', function() vim.pack.update() end, { desc = 'Update plugins' })
+
+-- Shortcuts
+bind('n', '<a-f1>', '<cmd>Inspect<cr>', { desc = 'Inspect' })
