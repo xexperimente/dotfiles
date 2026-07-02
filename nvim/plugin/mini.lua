@@ -49,6 +49,7 @@ vim.schedule(function()
 
 	local bind = vim.keymap.set
 
+	---@diagnostic disable: unresolved-require
 	require('mini.ai').setup()
 	require('mini.bracketed').setup()
 	require('mini.cursorword').setup()
@@ -59,6 +60,7 @@ vim.schedule(function()
 	require('mini.splitjoin').setup()
 	require('mini.surround').setup(opts.surround)
 	require('mini.hipatterns').setup(opts.patterns)
+	---@diagnostic enable: unresolved-require
 
 	bind('n', '<leader>gc', '<cmd>lua MiniDiff.toggle_overlay()<cr>', { desc = 'Show diff overlay' })
 	bind('n', '<leader>uj', '<cmd>lua MiniSplitjoin.toggle()<cr>', { desc = 'Toggle splitjoin' })

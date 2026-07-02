@@ -1,9 +1,9 @@
 local separator = ' | '
 
----@class statusline.State
+---@class statusline.state
 ---@field statusline_buf integer|nil
 ---@field statusline_win integer|nil
----@field lsp_names table<number,table<number,string>>
+---@field lsp_names table<integer,table<integer,string>>
 ---@field lsp_progress string
 local state = {
 	statusline_buf = nil,
@@ -93,9 +93,9 @@ end
 local function lsp_status()
 	if state.lsp_progress:len() > 0 then return state.lsp_progress end
 
-	local no_lsp = state.lsp_names == nil
-		or state.lsp_names[state.statusline_buf] == nil
-		or #state.lsp_names[state.statusline_buf] == 0
+	local buf = state.statusline_buf or 0
+
+	local no_lsp = state.lsp_names == nil or state.lsp_names[buf] == nil or #state.lsp_names[buf] == 0
 
 	if no_lsp then return '' end
 
@@ -106,7 +106,7 @@ local function lsp_status()
 		['copilot'] = true,
 	}
 
-	for _, name in ipairs(state.lsp_names[state.statusline_buf]) do
+	for _, name in ipairs(state.lsp_names[buf]) do
 		if not ignore_lsp_servers[name] then server_names[#server_names + 1] = name end
 	end
 
