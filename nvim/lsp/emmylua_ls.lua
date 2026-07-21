@@ -13,9 +13,7 @@ local result = {
 	workspace_required = false,
 	settings = {
 		Lua = {
-			runtime = {
-				version = 'LuaJIT',
-			},
+			runtime = { version = 'LuaJIT' },
 			diagnostics = {
 				globals = {
 					'vim',
@@ -25,23 +23,15 @@ local result = {
 				},
 				disable = { 'unnecessary-if' },
 			},
-			codelens = {
-				enable = true,
-			},
+			codelens = { enable = true },
 			workspace = {
-				checkThirdParty = false,
 				library = {
 					vim.env.VIMRUNTIME,
 					vim.fn.stdpath('data') .. '/site/pack/core/opt',
 				},
-				ignoreDir = {
-					vim.fn.stdpath('data') .. '/site/pack/core/opt/mini.nvim',
-				},
-				ignoreGlobs = {
-					'**/test/**',
-					'**/tests/**',
-					'**/spec/**',
-				},
+				ignoreDir = { vim.fn.stdpath('data') .. '/site/pack/core/opt/mini.nvim' },
+				ignoreGlobs = { '**/test/**', '**/tests/**', '**/spec/**' },
+				checkThirdParty = false,
 			},
 		},
 	},
