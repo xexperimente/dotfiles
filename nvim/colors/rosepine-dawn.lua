@@ -327,7 +327,7 @@ local groups = {
 	Removed = { fg = colors.love },
 
 	-- Command line.
-	MoreMsg = { fg = colors.overlay, bold = true },
+	MoreMsg = { fg = colors.text, bold = true },
 	MsgArea = { fg = colors.rose },
 	MsgSeparator = { fg = colors.highlight_hi },
 
