@@ -1,10 +1,6 @@
 vim.schedule(function()
 	vim.pack.add({ 'https://github.com/lewis6991/satellite.nvim' })
 
-	-- '🭶','🭷','🭸','🭹','🭺','🭻'
-	-- '🬂','🬋','🬭'
-	-- '▀', '▄'
-
 	local opts = {
 		handlers = {
 			cursor = { enable = true, symbols = { '▀', '▄' } },
@@ -25,6 +21,7 @@ vim.schedule(function()
 		name = 'minidiff',
 	}
 
+	---@class satellite.Config
 	local config = {
 		enable = true,
 		overlap = false,
