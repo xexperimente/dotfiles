@@ -22,7 +22,7 @@ local opts = {
 	},
 	terminal = {
 		win = {
-			position = 'right',
+			position = 'float',
 			border = vim.g.winborder,
 			style = 'terminal',
 			wo = { winbar = '', statusline = '' },
@@ -203,10 +203,10 @@ vim.schedule(function()
 
 	-- Terminal
 	local nt = { 'n', 't' }
-	local float = { win = { position = 'float' } }
+	local pos = { win = { position = 'right' } }
 
 	bind(nt, '<leader>t', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
-	bind(nt, '<leader>T', function() Snacks.terminal.open(nil, float) end, { desc = 'Toggle termina(float)' })
+	bind(nt, '<leader>T', function() Snacks.terminal.open(nil, pos) end, { desc = 'Toggle termina(right)' })
 	-- bind(nt, '<c-t>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 	bind(nt, '<c-_>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 	bind(nt, '<c-/>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
