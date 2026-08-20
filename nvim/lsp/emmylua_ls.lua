@@ -29,7 +29,7 @@ local result = {
 					vim.env.VIMRUNTIME,
 					vim.fn.stdpath('data') .. '/site/pack/core/opt',
 				},
-				ignoreDir = { vim.fn.stdpath('data') .. '/site/pack/core/opt/mini.nvim' },
+				-- ignoreDir = { vim.fn.stdpath('data') .. '/site/pack/core/opt/mini.nvim' },
 				ignoreGlobs = { '**/test/**', '**/tests/**', '**/spec/**' },
 				checkThirdParty = false,
 			},
