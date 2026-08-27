@@ -1,6 +1,6 @@
 vim.pack.add({ 'https://github.com/nvim-mini/mini.nvim' })
 
-vim.schedule(function()
+vim.defer_fn(function()
 	local opts = {
 		patterns = {
 			highlighters = {
@@ -8,7 +8,6 @@ vim.schedule(function()
 				hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
 				todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
 				note = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
-				-- hex_color = require('mini.hipatterns').gen_highlighter.hex_color(),
 			},
 		},
 		surround = {
@@ -65,4 +64,4 @@ vim.schedule(function()
 	bind('n', '<leader>gc', '<cmd>lua MiniDiff.toggle_overlay()<cr>', { desc = 'Show diff overlay' })
 	bind('n', '<leader>uj', '<cmd>lua MiniSplitjoin.toggle()<cr>', { desc = 'Toggle splitjoin' })
 	bind('n', 'J', '<cmd>lua MiniSplitjoin.toggle()<cr>', { desc = 'Toggle splitjoin' })
-end)
+end, 0)

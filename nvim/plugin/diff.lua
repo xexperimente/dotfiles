@@ -1,4 +1,4 @@
-vim.schedule(function()
+vim.defer_fn(function()
 	vim.pack.add({ 'https://github.com/sindrets/diffview.nvim' })
 
 	require('diffview').setup({
@@ -22,4 +22,4 @@ vim.schedule(function()
 	--     vim.cmd("DiffviewOpen " .. e.args)
 	--   end
 	-- end, { nargs = "*" })
-end)
+end, 0)

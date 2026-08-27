@@ -1,4 +1,4 @@
-vim.schedule(function()
+vim.defer_fn(function()
 	vim.pack.add({
 		'https://github.com/mfussenegger/nvim-dap',
 		'https://github.com/igorlfs/nvim-dap-view',
@@ -156,4 +156,4 @@ vim.schedule(function()
 	vim.fn.sign_define('DapStopped', { text = '󰁕 ', texthl = 'DiagnosticWarn', linehl = 'DapStoppedLine', numhl = '' })
 	vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
 	vim.fn.sign_define('DapBreakpointRejected', { text = ' ', texthl = 'DiagnosticError', linehl = '', numhl = '' })
-end)
+end, 10)

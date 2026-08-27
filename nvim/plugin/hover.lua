@@ -1,4 +1,4 @@
-vim.schedule(function()
+vim.defer_fn(function()
 	vim.pack.add({ 'https://github.com/lewis6991/hover.nvim' })
 
 	require('hover').config({
@@ -12,4 +12,4 @@ vim.schedule(function()
 	local bind = vim.keymap.set
 	bind('n', 'K', function() require('hover').open() end, { desc = 'hover.nvim' })
 	bind('n', 'gK', function() require('hover').enter() end, { desc = 'hover.nvim (enter)' })
-end)
+end, 0)

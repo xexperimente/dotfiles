@@ -1,4 +1,4 @@
-vim.schedule(function()
+vim.defer_fn(function()
 	vim.pack.add({ 'https://github.com/lewis6991/satellite.nvim' })
 
 	local opts = {
@@ -77,4 +77,4 @@ vim.schedule(function()
 	end
 
 	require('satellite.handlers').register(handler --[[@as Satellite.Handler]])
-end)
+end, 0)

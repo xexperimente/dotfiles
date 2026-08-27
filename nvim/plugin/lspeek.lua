@@ -1,4 +1,4 @@
-vim.schedule(function()
+vim.defer_fn(function()
 	vim.pack.add({ 'https://github.com/r4ppz/lspeek.nvim' })
 
 	local opts = {
@@ -25,4 +25,4 @@ vim.schedule(function()
 
 	bind('n', '<a-f12>', ps.peek_definition, { desc = 'Peek definition' })
 	bind('n', '<c-f12>', ps.peek_type_definition, { desc = 'Peek type definition' })
-end)
+end, 0)
