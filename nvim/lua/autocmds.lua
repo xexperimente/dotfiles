@@ -1,6 +1,5 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
-local usercmd = vim.api.nvim_create_user_command
 
 local function startuptime()
 	if vim.g.strive_startup_time ~= nil then return end
@@ -17,24 +16,11 @@ end
 autocmd('UIEnter', {
 	group = augroup('xexperimente/dashboard', { clear = true }),
 	once = true,
-	callback = function()
-		startuptime()
-		-- vim.schedule(function()
-		-- 	require('welcome').show()
-		-- end)
-	end,
-})
-
--- Highlight when yanking
-autocmd('TextYankPost', {
-	desc = 'Highlight on yank',
-	group = augroup('xexperimente/yank-highlight', { clear = true }),
-	callback = function() vim.hl.on_yank() end,
+	callback = function() startuptime() end,
 })
 
 -- Do not add comment when adding new line
 autocmd('BufEnter', {
-	pattern = '',
 	command = 'set fo-=c fo-=r fo-=o',
 })
 
@@ -101,15 +87,6 @@ autocmd('User', {
 		vim.b[data.buf].ministatusline_disable = true
 	end,
 })
-
---- For rendering terminal escape codes
-usercmd('Term', function(_)
-	local buf = vim.api.nvim_get_current_buf()
-	local b = vim.api.nvim_create_buf(false, true)
-	local chan = vim.api.nvim_open_term(b, {})
-	vim.api.nvim_chan_send(chan, table.concat(vim.api.nvim_buf_get_lines(buf, 0, -1, false), '\n'))
-	vim.api.nvim_win_set_buf(0, b)
-end, {})
 
 --- Run command after updating plugin
 autocmd('PackChanged', {
