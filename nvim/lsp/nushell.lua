@@ -4,5 +4,5 @@ return {
 		'--no-config-file',
 		'--lsp',
 	},
-	filetypes = {'nu'}
+	filetypes = { 'nu' },
 }

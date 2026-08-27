@@ -17,9 +17,9 @@ bind('n', '<leader><space>', ':let @/=""<cr>:redraws!<cr>', { noremap = true, si
 
 -- Hlsearch next/prev
 bind('c', '<F3>', '<c-g>', { noremap = true, desc = 'Next search result' })
-bind('n', '<F3>', 'n', { noremap = true, desc = 'Next search result' })
+bind('n', '<F3>', 'nzzzv', { noremap = true, desc = 'Next search result' })
 bind('c', '<S-F3>', '<c-t>', { noremap = true, desc = 'Previos search result' })
-bind('n', '<S-F3>', 'N', { noremap = true, desc = 'Previous search result' })
+bind('n', '<S-F3>', 'Nzzzv', { noremap = true, desc = 'Previous search result' })
 
 -- bind('n', '<c-f>', '/<c-r><c-w>', { desc = 'Search' }) --search word under cursor
 bind('n', 'cn', '*``cgn', { desc = 'Change word (forward)' }) -- `:h gn`

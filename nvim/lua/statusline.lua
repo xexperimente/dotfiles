@@ -1,13 +1,9 @@
 local separator = ' | '
 
 ---@class statusline.state
----@field statusline_buf integer|nil
----@field statusline_win integer|nil
 ---@field lsp_names table<integer,table<integer,string>>
 ---@field lsp_progress string
 local state = {
-	statusline_buf = nil,
-	statusline_win = nil,
 	lsp_names = {},
 	lsp_progress = '',
 }
@@ -18,7 +14,7 @@ local function with_hl(str, hl)
 end
 
 local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup('xexperimente/statusline', {})
+local augroup = vim.api.nvim_create_augroup('xexperimente/statusline', {clear = true})
 
 autocmd({ 'LspAttach', 'LspDetach' }, {
 	group = augroup,
@@ -59,11 +55,10 @@ local function diagnostics()
 
 	return diag
 end
-
 local function git_status()
 	---@diagnostic disable: undefined-field
-	local info = vim.b[state.statusline_buf].minidiff_summary
-	local summary = vim.b[state.statusline_buf].minigit_summary
+	local info = vim.b.minidiff_summary
+	local summary = vim.b.minigit_summary
 
 	if info == nil or summary == nil then return '' end
 
@@ -93,7 +88,7 @@ end
 local function lsp_status()
 	if state.lsp_progress:len() > 0 then return state.lsp_progress end
 
-	local buf = state.statusline_buf or 0
+	local buf = vim.api.nvim_get_current_buf()
 
 	local no_lsp = state.lsp_names == nil or state.lsp_names[buf] == nil or #state.lsp_names[buf] == 0
 
@@ -166,13 +161,18 @@ local function nvim_mode()
 		['t'] = 'TERMINAL',
 	}
 
-	local mode_code = vim.api.nvim_get_mode().mode
-	local mode = with_hl(mode_map[mode_code] or 'UNKNOWN', 'StatusLineActive')
-	return mode .. separator
+	-- Get the respective string to display.
+	local mode = mode_map[vim.api.nvim_get_mode().mode] or 'UNKNOWN'
+
+	-- Construct the bubble-like component.
+	return table.concat({
+		string.format('%%#StatusLineActive#%s', mode),
+		string.format('%%#StatusLine#%s', separator),
+	})
 end
 
 local function filepath()
-	local filename = vim.api.nvim_buf_get_name(state.statusline_buf or 0)
+	local filename = vim.api.nvim_buf_get_name(0)
 
 	if filename == '' then return ' [No name]' end
 
@@ -210,9 +210,6 @@ local function progress()
 end
 
 function _MyStatusline()
-	state.statusline_win = vim.g.statusline_winid
-	state.statusline_buf = vim.api.nvim_win_get_buf(state.statusline_win)
-
 	return nvim_mode()
 		.. git_status()
 		.. filepath()

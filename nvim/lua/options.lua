@@ -10,6 +10,7 @@ g.maplocalleader = ' '
 -- Visuals
 g.winborder = 'single'
 opt.winborder = g.winborder
+opt.pumborder = g.winborder
 opt.number = true
 opt.laststatus = 3
 opt.showtabline = 0
@@ -22,8 +23,13 @@ opt.signcolumn = 'yes'
 opt.cursorline = true
 opt.cursorlineopt = 'number'
 opt.smoothscroll = true
-opt.pumborder = g.winborder
 opt.cmdheight = 0
+
+-- Indentation & tabs
+opt.smartindent = true
+opt.tabstop = 4
+opt.softtabstop = 4
+opt.shiftwidth = 4
 
 -- Globals
 g.showcmd = false
@@ -37,8 +43,6 @@ opt.shortmess:append({
 	s = true, -- Don't show search flip message
 	S = true, -- Don't show search count
 })
-
-opt.list = false
 
 opt.listchars = {
 	tab = '→ ',
@@ -56,14 +60,6 @@ opt.fillchars = {
 }
 
 opt.diffopt:append('algorithm:histogram,vertical,linematch:60')
-
--- Indentation & tabs
-opt.smartindent = true
-opt.autoindent = true
-opt.expandtab = false
-opt.tabstop = 4
-opt.softtabstop = 4
-opt.shiftwidth = 4
 
 -- Folding
 opt.foldcolumn = '1'
