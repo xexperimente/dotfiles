@@ -1,4 +1,4 @@
-vim.schedule(function()
+vim.defer_fn(function()
 	vim.pack.add({ 'https://github.com/mcauley-penney/visual-whitespace.nvim' })
 
 	local opts = {
@@ -23,11 +23,12 @@ vim.schedule(function()
 	}
 
 	require('visual-whitespace').setup(opts)
+
 	local bind = vim.keymap.set
 
 	bind({ 'n', 'v' }, '<leader>us', require('visual-whitespace').toggle, { desc = 'Toggle visual whitespace' })
 	bind('n', '<leader>uS', function()
-		vim.notify('Whitespace is ' .. (vim.o.list and 'off' or 'on'))
+		vim.notify(string.format('%s whitespace...', vim.o.list and 'Disabling' or 'Enabling'))
 		vim.opt.list = not vim.o.list
 	end, { desc = 'Toggle whitespace' })
-end)
+end, 0)

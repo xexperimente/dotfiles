@@ -1,4 +1,4 @@
-vim.schedule(function()
+vim.defer_fn(function()
 	vim.pack.add({ 'https://github.com/saghen/blink.indent' })
 
 	local opts = {
@@ -15,10 +15,10 @@ vim.schedule(function()
 
 	local indent = require('blink.indent')
 
-	indent.setup(opts --[[@as blink.indent.Config]])
+	indent.setup(opts)
 
 	vim.keymap.set('n', '<leader>ui', function()
 		local enabled = indent.is_enabled()
 		indent.enable(not enabled)
 	end, { desc = 'Toggle indent guides' })
-end)
+end, 0)
