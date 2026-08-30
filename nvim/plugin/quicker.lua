@@ -1,4 +1,4 @@
-vim.schedule(function()
+vim.defer_fn(function()
 	vim.pack.add({ 'https://github.com/stevearc/quicker.nvim' })
 
 	local qr = require('quicker')
@@ -25,4 +25,4 @@ vim.schedule(function()
 
 	bind('n', '<leader>q', function() qr.toggle({ focus = true }) end, { desc = 'Toggle quickfix' })
 	bind('n', '<leader>l', function() qr.toggle({ loclist = true, focus = true }) end, { desc = 'Toggle loclist' })
-end)
+end,0)

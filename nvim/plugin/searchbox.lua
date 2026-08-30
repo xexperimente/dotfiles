@@ -1,4 +1,4 @@
-vim.schedule(function()
+vim.defer_fn(function()
 	vim.pack.add({
 		'https://github.com/VonHeikemen/searchbox.nvim',
 	})
@@ -48,4 +48,4 @@ vim.schedule(function()
 	bind('n', '<leader>r', '<cmd>SearchBoxReplace<cr>', { desc = 'Replace' })
 	bind('n', '<leader>R', function() sb.replace({ default_value = exp('<cword>') }) end, { desc = 'Replace(cword)' })
 	bind('v', '<leader>r', 'y:SearchBoxReplace -- <C-r>"<cr>', { desc = 'Replace' })
-end)
+end, 0)

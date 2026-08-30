@@ -1,4 +1,4 @@
-vim.schedule(function()
+vim.defer_fn(function()
 	vim.pack.add({
 		{ src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main', data = { after = 'TSUpdate' } },
 		{ src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects', version = 'main' },
@@ -44,4 +44,4 @@ vim.schedule(function()
 
 	-- context
 	bind('n', '<leader>uc', '<cmd>TSContext toggle<cr>', { desc = 'Toggle treesitter context' })
-end)
+end,0)
