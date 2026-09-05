@@ -31,6 +31,7 @@ vim.schedule(function()
 
 			-- `z` key
 			{ mode = 'n', keys = 'z' },
+			{ mode = 'n', keys = 'Z' },
 			{ mode = 'x', keys = 'z' },
 
 			-- Customs
@@ -55,6 +56,9 @@ vim.schedule(function()
 			{ mode = 'n', keys = '<leader>s', desc = 'Search ' },
 			{ mode = 'n', keys = '<leader>c', desc = 'Code ' },
 			{ mode = 'n', keys = 'zu', desc = 'Undo spelling command ' },
+			{ mode = 'n', keys = 'ZZ', desc = 'Save and close' },
+			{ mode = 'n', keys = 'ZR', desc = 'Restart' },
+			{ mode = 'n', keys = 'ZQ', desc = 'Force quit' },
 		},
 		window = {
 			config = {
