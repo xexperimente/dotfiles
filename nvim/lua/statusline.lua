@@ -14,7 +14,7 @@ local function with_hl(str, hl)
 end
 
 local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup('xexperimente/statusline', {clear = true})
+local augroup = vim.api.nvim_create_augroup('xexperimente/statusline', { clear = true })
 
 autocmd({ 'LspAttach', 'LspDetach' }, {
 	group = augroup,
@@ -90,10 +90,6 @@ local function lsp_status()
 
 	local buf = vim.api.nvim_get_current_buf()
 
-	local no_lsp = state.lsp_names == nil or state.lsp_names[buf] == nil or #state.lsp_names[buf] == 0
-
-	if no_lsp then return '' end
-
 	local server_names = {}
 
 	local ignore_lsp_servers = {
@@ -101,21 +97,28 @@ local function lsp_status()
 		['copilot'] = true,
 	}
 
-	for _, name in ipairs(state.lsp_names[buf]) do
+	for _, name in ipairs(state.lsp_names[buf] or {}) do
 		if not ignore_lsp_servers[name] then server_names[#server_names + 1] = name end
 	end
 
-	if package.loaded['guard.filetype'] then
-		local ft = require('guard.filetype')
+	if package.loaded['conform'] then
+		local has_conform, conform = pcall(require, 'conform')
+		if has_conform then
+			vim.list_extend(
+				server_names,
+				vim.tbl_map(function(formatter) return formatter.name end, conform and conform.list_formatters(0) or {})
+			)
+		end
+	end
 
-		---@diagnostic disable: call-non-callable
-		local formatter = ft(vim.bo.filetype).formatter
-		local linter = ft(vim.bo.filetype).linter
-		---@diagnostic enable
+	if package.loaded['lint'] then
+		local has_lint, lint = pcall(require, 'lint')
 
-		vim.list_extend(server_names, vim.tbl_map(function(item) return item.cmd end, formatter and formatter or {}))
+		if has_lint then
+			local linters = lint and lint.linters_by_ft[vim.bo.filetype] or {}
 
-		vim.list_extend(server_names, vim.tbl_map(function(item) return item.cmd end, linter and linter or {}))
+			if linters then vim.list_extend(server_names, linters) end
+		end
 	end
 
 	local out = #server_names > 0 and table.concat(server_names, ', ') or 'NO LSP, FORMATTERS '

@@ -1,6 +1,5 @@
 --- @type vim.lsp.Config
 local result = {
-
 	cmd = { 'emmylua_ls' },
 	filetypes = { 'lua' },
 	root_markers = {

@@ -33,7 +33,6 @@ opt.shiftwidth = 4
 
 -- Globals
 g.showcmd = false
-g.health = { style = 'float' }
 
 -- Search
 opt.ignorecase = true

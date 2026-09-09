@@ -53,6 +53,7 @@ local opts = {
 			keymaps = { layout = { preview = false } },
 			qflist = { layout = 'vertical' },
 			loclist = { layout = 'vertical' },
+			diagnostics = { layout = { preset = 'vertical', layout = { width = 0.65 } } },
 			recent = {
 				layout = 'select',
 				filter = {
@@ -118,14 +119,14 @@ vim.schedule(function()
 	local config = vim.fn.stdpath('config')
 
 	-- Toggle options
-	Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map('<leader>uL')
-	Snacks.toggle.option('wrap', { name = 'Wrap' }):map('<leader>uw')
-	Snacks.toggle.diagnostics():map('<leader>ud')
-	Snacks.toggle.line_number():map('<leader>ul')
-	Snacks.toggle.inlay_hints():map('<leader>uh')
-	Snacks.toggle.dim():map('<leader>uD')
-	Snacks.toggle.treesitter():map('<leader>uT')
-	Snacks.toggle.words():map('<leader>uW')
+	-- Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map('<leader>uL')
+	-- Snacks.toggle.option('wrap', { name = 'Wrap' }):map('<leader>uw')
+	-- Snacks.toggle.diagnostics():map('<leader>ud')
+	-- Snacks.toggle.line_number():map('<leader>ul')
+	-- Snacks.toggle.inlay_hints():map('<leader>uh')
+	-- Snacks.toggle.dim():map('<leader>uD')
+	-- Snacks.toggle.treesitter():map('<leader>uT')
+	-- Snacks.toggle.words():map('<leader>uW')
 
 	-- Top Pickers & Explorer
 	bind('n', '<leader>,', Snacks.picker.buffers, { desc = 'Buffers' })

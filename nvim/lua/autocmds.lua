@@ -13,6 +13,7 @@ local function startuptime()
 	end
 end
 
+-- Measure startup time
 autocmd('UIEnter', {
 	group = augroup('xexperimente/dashboard', { clear = true }),
 	once = true,
@@ -39,38 +40,6 @@ autocmd('FileType', {
 		vim.keymap.set('n', 'q', '<cmd>quit<cr>', { buffer = true })
 		vim.keymap.set('n', '<esc>', '<cmd>quit<cr>', { buffer = true })
 		if ev.match == 'help' then vim.keymap.set('n', '<cr>', '<c-]>', { buffer = true }) end
-	end,
-})
-
--- Intercept checkhealth window creation to center it fully
-autocmd('FileType', {
-	pattern = 'checkhealth',
-	callback = function()
-		-- Get current screen dimensions
-		local stats = vim.api.nvim_list_uis()[1]
-		if not stats then return end
-
-		-- Configure your desired window size
-		local width = math.floor(stats.width * 0.8)
-		local height = math.floor(stats.height * 0.8)
-
-		-- Calculate centered offsets
-		local row = math.floor((stats.height - height) / 2)
-		local col = math.floor((stats.width - width) / 2)
-
-		-- Apply configuration to the current checkhealth floating window
-		vim.api.nvim_win_set_config(0, {
-			relative = 'editor',
-			width = width,
-			height = height,
-			border = vim.g.winborder,
-			row = row,
-			col = col,
-		})
-		--   vim.bo.modifiable = true
-		--   vim.cmd([[%s/✅//ge]])
-		-- -- vim.cmd[[silent! %s/\v( ?[^\x00-\x7F])//g]]
-		--   vim.bo.modifiable = false
 	end,
 })
 

@@ -15,7 +15,11 @@ local function switch_source_header(client, buf)
 end
 
 return {
-	cmd = { 'clangd' },
+	cmd = {
+		'clangd',
+		'--compile-commands-dir=build',
+		'--experimental-modules-support',
+	},
 	filetypes = { 'c', 'cpp' },
 	root_markers = {
 		'.clangd',

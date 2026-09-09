@@ -5,6 +5,7 @@ vim.loader.enable()
 require('options')
 require('keybinds')
 require('autocmds')
+require('commands')
 require('lsp')
 require('statusline')
 
