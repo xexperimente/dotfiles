@@ -12,25 +12,32 @@ local servers = { 'emmylua_ls', 'clangd' }
 ---@param bufnr integer
 local function on_attach(client, bufnr)
 	local bind = vim.keymap.set
-	local vd = vim.diagnostic
+	local diag = vim.diagnostic
 
-	bind('n', '[e', function() vd.jump({ count = -1, severity = vd.severity.ERROR }) end, { desc = 'Previous error' })
-	bind('n', ']e', function() vd.jump({ count = 1, severity = vd.severity.ERROR }) end, { desc = 'Next error' })
-	bind('n', '<leader>cd', vd.open_float, { desc = 'Open floating diagnostics' })
+	bind('n', '[e', function() diag.jump({ count = -1, severity = diag.severity.ERROR }) end, { desc = 'Previous error' })
+	bind('n', ']e', function() diag.jump({ count = 1, severity = diag.severity.ERROR }) end, { desc = 'Next error' })
+	bind('n', '<leader>cd', diag.open_float, { desc = 'Open floating diagnostics' })
 
 	if client:supports_method('textDocument/codeLens') then
-		vim.lsp.codelens.enable(true)
+		local codelens = vim.lsp.codelens
+
+		codelens.enable(true)
 
 		vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
 			buffer = bufnr,
-			callback = function() vim.lsp.codelens.enable(true, { bufnr = bufnr }) end,
+			callback = function() codelens.enable(codelens.is_enabled(), { bufnr = bufnr }) end,
 		})
 
-		bind({ 'n', 'x' }, '<leader>cc', vim.lsp.codelens.run, { desc = 'Run Codelens' })
-		bind('n', '<leader>cC', function() vim.lsp.codelens.enable(true) end, { desc = 'Refresh Codelens' })
+		local function toggle_codelens() codelens.enable(not codelens.is_enabled()) end
+
+		bind({ 'n', 'x' }, '<leader>cL', codelens.run, { desc = 'Run Codelens' })
+		bind({ 'n', 'x' }, '<leader>cl', toggle_codelens, { desc = 'Toggle Codelens' })
 	end
 
 	if client:supports_method('textDocument/codeAction') then
+		-- Show indicator on lines with code action.
+		require('lightbulb').attach_lightbulb(bufnr, client)
+
 		bind({ 'n', 'x' }, '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Action' })
 		bind({ 'n', 'x' }, '<f4>', vim.lsp.buf.code_action, { desc = 'Code Action' })
 	end
@@ -39,7 +46,6 @@ local function on_attach(client, bufnr)
 		bind('n', '<f2>', vim.lsp.buf.rename, { desc = 'Rename' })
 		bind('n', '<leader>cr', vim.lsp.buf.rename, { desc = 'Rename' })
 	end
-	if client:supports_method('textDocument/codeAction') then require('lightbulb').attach_lightbulb(bufnr, client) end
 end
 
 --- @param severity vim.diagnostic.Severity
@@ -116,6 +122,59 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
 		vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities(nil, true) })
 
 		vim.lsp.enable(servers)
+
+		-- Align CodeLens text to line indentation.
+		do
+			local codelens = vim.lsp.codelens
+
+			-- Provider is private in 0.12, so retrieve it from codelens.get().
+			local Provider
+			for i = 1, 20 do
+				local name, value = debug.getupvalue(codelens.get, i)
+
+				if not name then break end
+
+				if name == 'Provider' then
+					Provider = value
+					break
+				end
+			end
+
+			assert(Provider, 'Could not find vim.lsp.codelens Provider')
+
+			if not Provider._indent_alignment_patched then
+				local original_on_win = Provider.on_win
+
+				Provider.on_win = function(self, toprow, botrow)
+					local original_range_lsp = vim.range.lsp
+
+					-- codelens.on_win() uses range.start_col as the amount of
+					-- padding before the virtual-line text. Replace that value
+					-- with the indentation width of the actual source line.
+					vim.range.lsp = function(bufnr, lsp_range, encoding)
+						local range = original_range_lsp(bufnr, lsp_range, encoding)
+
+						local row = lsp_range.start.line
+						local line = vim.api.nvim_buf_get_lines(bufnr, row, row + 1, false)[1] or ''
+
+						local indent = line:match('^%s*') or ''
+
+						range.start_col = vim.fn.strdisplaywidth(indent)
+
+						return range
+					end
+
+					-- Make sure vim.range.lsp is restored even if rendering fails.
+					local ok, err = xpcall(function() original_on_win(self, toprow, botrow) end, debug.traceback)
+
+					vim.range.lsp = original_range_lsp
+
+					if not ok then error(err) end
+				end
+
+				Provider._indent_alignment_patched = true
+			end
+		end
 	end,
 })
 

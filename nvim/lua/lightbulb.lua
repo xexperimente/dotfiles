@@ -5,7 +5,7 @@ local M = {}
 
 local lb_name = 'mariasolos/lightbulb'
 local lb_namespace = vim.api.nvim_create_namespace(lb_name)
-local lb_icon = require('icons').diagnostics.HINT
+local lb_icon = require('icons').diagnostics[vim.diagnostic.severity.HINT]
 local lb_group = vim.api.nvim_create_augroup(lb_name, {})
 local code_action_method = 'textDocument/codeAction' --- @type vim.lsp.protocol.Method.ClientToServer.Request
 
@@ -15,15 +15,14 @@ assert(timer, 'Timer was not initialized')
 local updated_bufnr = nil
 
 --- Updates the current lightbulb.
----@param bufnr number?
----@param line number?
+---@param bufnr integer?
+---@param line integer?
 local function update_extmark(bufnr, line)
 	if not bufnr or not vim.api.nvim_buf_is_valid(bufnr) then return end
 
 	vim.api.nvim_buf_clear_namespace(bufnr, lb_namespace, 0, -1)
 
-	-- Extra check for not being in insert mode here because sometimes the autocommand
-	-- fails.
+	-- Extra check for not being in insert mode here because sometimes the autocommand fails.
 	if not line or vim.startswith(vim.api.nvim_get_mode().mode, 'i') then return end
 
 	-- Swallow errors.
@@ -35,9 +34,8 @@ local function update_extmark(bufnr, line)
 	updated_bufnr = bufnr
 end
 
---- Queries the LSP servers for code actions and updates the lightbulb
---- accordingly.
----@param bufnr number
+--- Queries the LSP servers for code actions and updates the lightbulb accordingly.
+---@param bufnr integer
 ---@param client vim.lsp.Client
 local function render(bufnr, client)
 	local winnr = vim.api.nvim_get_current_win()
@@ -47,11 +45,12 @@ local function render(bufnr, client)
 	local diagnostics = vim.lsp.diagnostic.from(vim.diagnostic.get(bufnr, { lnum = line }))
 
 	---@type lsp.CodeActionParams
-	local params = vim.lsp.util.make_range_params(winnr, client.offset_encoding)
-	params.context = {
-		diagnostics = diagnostics,
-		triggerKind = vim.lsp.protocol.CodeActionTriggerKind.Automatic,
-	}
+	local params = vim.tbl_extend('error', vim.lsp.util.make_range_params(winnr, client.offset_encoding), {
+		context = {
+			diagnostics = diagnostics,
+			triggerKind = vim.lsp.protocol.CodeActionTriggerKind.Automatic,
+		},
+	} --[[@as lsp.CodeActionContext]])
 
 	vim.lsp.buf_request(bufnr, code_action_method, params, function(_, res, _)
 		if vim.api.nvim_get_current_buf() ~= bufnr then return end
@@ -60,9 +59,8 @@ local function render(bufnr, client)
 	end)
 end
 
--- I don't fully understand how this works, kind of just copy-pasted it
--- from lspsaga.
----@param bufnr number
+-- I don't fully understand how this works, kind of just copy-pasted it from lspsaga
+---@param bufnr integer
 ---@param client vim.lsp.Client
 local function update(bufnr, client)
 	timer:stop()

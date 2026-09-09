@@ -194,7 +194,7 @@ vim.schedule(function()
 	bind('n', 'gao', Snacks.picker.lsp_outgoing_calls, { desc = 'C[a]lls Outgoing' })
 	bind('n', '<leader>ss', Snacks.picker.lsp_symbols, { desc = 'LSP Symbols' })
 	bind('n', '<leader>sS', Snacks.picker.lsp_workspace_symbols, { desc = 'LSP Workspace Symbols' })
-	bind('n', '<leader>cl', Snacks.picker.lsp_config, { desc = 'Lsp Info' })
+	bind('n', '<leader>cL', Snacks.picker.lsp_config, { desc = 'Lsp Info' })
 	bind('n', '<leader>cR', Snacks.rename.rename_file, { desc = 'Rename File' })
 
 	-- Visual Studio LSP binds
