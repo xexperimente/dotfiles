@@ -1,6 +1,17 @@
-vim.pack.add({ 'https://github.com/nvim-mini/mini.nvim' })
-
 vim.defer_fn(function()
+	vim.pack.add({
+		'https://github.com/nvim-mini/mini.ai',
+		'https://github.com/nvim-mini/mini.bracketed',
+		'https://github.com/nvim-mini/mini.cursorword',
+		'https://github.com/nvim-mini/mini.diff',
+		'https://github.com/nvim-mini/mini-git',
+		'https://github.com/nvim-mini/mini.icons',
+		'https://github.com/nvim-mini/mini.move',
+		'https://github.com/nvim-mini/mini.splitjoin',
+		'https://github.com/nvim-mini/mini.surround',
+		'https://github.com/nvim-mini/mini.hipatterns',
+	})
+
 	local opts = {
 		patterns = {
 			highlighters = {
@@ -46,9 +57,6 @@ vim.defer_fn(function()
 		},
 	}
 
-	local bind = vim.keymap.set
-
-	---@diagnostic disable: unresolved-require
 	require('mini.ai').setup()
 	require('mini.bracketed').setup()
 	require('mini.cursorword').setup()
@@ -59,7 +67,8 @@ vim.defer_fn(function()
 	require('mini.splitjoin').setup()
 	require('mini.surround').setup(opts.surround)
 	require('mini.hipatterns').setup(opts.patterns)
-	---@diagnostic enable: unresolved-require
+
+	local bind = vim.keymap.set
 
 	bind('n', '<leader>gc', '<cmd>lua MiniDiff.toggle_overlay()<cr>', { desc = 'Show diff overlay' })
 	bind('n', '<leader>uj', '<cmd>lua MiniSplitjoin.toggle()<cr>', { desc = 'Toggle splitjoin' })

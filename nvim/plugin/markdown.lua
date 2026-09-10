@@ -1,4 +1,4 @@
-vim.schedule(function()
+vim.defer_fn(function()
 	vim.pack.add({
 		'https://github.com/jakewvincent/mkdnflow.nvim',
 		'https://github.com/MeanderingProgrammer/render-markdown.nvim',
@@ -36,8 +36,8 @@ vim.schedule(function()
 			foregrounds = { 'FloatTitle' },
 		},
 		link = { footnote = { enabled = true, icon = '' } },
-		bullet = { left_pad = 1, icons = { '', '' } }, -- '', '', '', '' } },
+		bullet = { left_pad = 1, icons = { '', '󰪥', '' } }, -- '', '', '', '' } },
 		completions = { lsp = { enabled = true } },
 		ignore = function() return vim.bo.buftype == 'nofile' end,
 	})
-end)
+end, 0)

@@ -1,4 +1,5 @@
-vim.schedule(function()
+vim.defer_fn(function()
+	vim.pack.add({ 'https://github.com/nvim-mini/mini.clue' })
 	local clue = require('mini.clue')
 
 	local opts = {
@@ -69,4 +70,4 @@ vim.schedule(function()
 	}
 
 	clue.setup(opts)
-end)
+end, 0)

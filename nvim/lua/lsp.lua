@@ -5,7 +5,7 @@ local M = {}
 -- Disable inlay hints initially (and enable if needed with my ToggleInlayHints command).
 vim.g.inlay_hints = false
 
-local servers = { 'emmylua_ls', 'clangd' }
+local servers = { 'emmylua_ls', 'clangd', 'nushell' }
 
 --- Sets up LSP keymaps and autocommands for the given buffer.
 ---@param client vim.lsp.Client
@@ -16,24 +16,25 @@ local function on_attach(client, bufnr)
 
 	bind('n', '[e', function() diag.jump({ count = -1, severity = diag.severity.ERROR }) end, { desc = 'Previous error' })
 	bind('n', ']e', function() diag.jump({ count = 1, severity = diag.severity.ERROR }) end, { desc = 'Next error' })
-	bind('n', '<leader>cd', diag.open_float, { desc = 'Open floating diagnostics' })
 
+	-- Enable codelens
 	if client:supports_method('textDocument/codeLens') then
 		local codelens = vim.lsp.codelens
 
 		codelens.enable(true)
 
+		local function toggle_codelens(buf) codelens.enable(not codelens.is_enabled(), buf and { bufnr = buf } or {}) end
+
 		vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
 			buffer = bufnr,
-			callback = function() codelens.enable(codelens.is_enabled(), { bufnr = bufnr }) end,
+			callback = function() toggle_codelens(bufnr) end,
 		})
-
-		local function toggle_codelens() codelens.enable(not codelens.is_enabled()) end
 
 		bind({ 'n', 'x' }, '<leader>cL', codelens.run, { desc = 'Run Codelens' })
 		bind({ 'n', 'x' }, '<leader>cl', toggle_codelens, { desc = 'Toggle Codelens' })
 	end
 
+	-- Enable code actions
 	if client:supports_method('textDocument/codeAction') then
 		-- Show indicator on lines with code action.
 		require('lightbulb').attach_lightbulb(bufnr, client)
@@ -42,15 +43,17 @@ local function on_attach(client, bufnr)
 		bind({ 'n', 'x' }, '<f4>', vim.lsp.buf.code_action, { desc = 'Code Action' })
 	end
 
-	if client:supports_method('textDocument/rename') then
-		bind('n', '<f2>', vim.lsp.buf.rename, { desc = 'Rename' })
-		bind('n', '<leader>cr', vim.lsp.buf.rename, { desc = 'Rename' })
+	-- Enable symbol rename
+	if client:supports_method('textDocument/rename') then bind('n', '<f2>', vim.lsp.buf.rename, { desc = 'Rename' }) end
+
+	if client:supports_method('textDocument/diagnostic') then
+		bind('n', '<leader>cd', diag.open_float, { desc = 'Open diagnostics window' })
 	end
 end
 
 --- @param severity vim.diagnostic.Severity
 --- @return string
-local function get_severity_string(severity)
+local function get_severity_name(severity)
 	local map = {
 		[vim.diagnostic.severity.ERROR] = 'Error',
 		[vim.diagnostic.severity.WARN] = 'Warn',
@@ -61,13 +64,63 @@ local function get_severity_string(severity)
 	return map[severity]
 end
 
+local function fix_codelens_align()
+	-- Provider is private in 0.12, so retrieve it from codelens.get().
+	local provider
+	for i = 1, 20 do
+		local name, value = debug.getupvalue(vim.lsp.codelens.get, i)
+
+		if not name then break end
+
+		if name == 'Provider' then
+			provider = value
+			break
+		end
+	end
+
+	assert(provider, 'Could not find vim.lsp.codelens Provider')
+
+	if not provider._indent_alignment_patched then
+		local original_on_win = provider.on_win
+
+		provider.on_win = function(self, toprow, botrow)
+			local original_range_lsp = vim.range.lsp
+
+			-- codelens.on_win() uses range.start_col as the amount of
+			-- padding before the virtual-line text. Replace that value
+			-- with the indentation width of the actual source line.
+			vim.range.lsp = function(bufnr, lsp_range, encoding)
+				local range = original_range_lsp(bufnr, lsp_range, encoding)
+
+				local row = lsp_range.start.line
+				local line = vim.api.nvim_buf_get_lines(bufnr, row, row + 1, false)[1] or ''
+
+				local indent = line:match('^%s*') or ''
+
+				range.start_col = vim.fn.strdisplaywidth(indent)
+
+				return range
+			end
+
+			-- Make sure vim.range.lsp is restored even if rendering fails.
+			local ok, err = xpcall(function() original_on_win(self, toprow, botrow) end, debug.traceback)
+
+			vim.range.lsp = original_range_lsp
+
+			if not ok then error(err) end
+		end
+
+		provider._indent_alignment_patched = true
+	end
+end
+
 -- Diagnostic configuration.
 vim.diagnostic.config({
 	status = {
 		format = function(counts)
 			local items = {}
 			for severity, count in pairs(counts) do
-				local hl = 'DiagnosticSign' .. get_severity_string(severity) --name:sub(1, 1) .. name:sub(2):lower()
+				local hl = 'DiagnosticSign' .. get_severity_name(severity) --name:sub(1, 1) .. name:sub(2):lower()
 				table.insert(items, ('%%#%s#%s %d'):format(hl, diagnostic_icons[severity], count))
 			end
 			return table.concat(items, ' ')
@@ -97,7 +150,7 @@ vim.diagnostic.config({
 		-- Show severity icons as prefixes.
 		prefix = function(diagnostic)
 			local prefix = string.format(' %s ', diagnostic_icons[diagnostic.severity])
-			return prefix, get_severity_string(diagnostic.severity)
+			return prefix, get_severity_name(diagnostic.severity)
 		end,
 	},
 	signs = { text = diagnostic_icons },
@@ -119,63 +172,19 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
 	once = true,
 	callback = function()
 		-- Extend neovim's client capabilities with the completion ones.
-		vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities(nil, true) })
+		vim.lsp.config('*', { capabilities = vim.lsp.protocol.make_client_capabilities() }) --require('blink.cmp').get_lsp_capabilities(nil, true) })
 
 		vim.lsp.enable(servers)
 
 		-- Align CodeLens text to line indentation.
-		do
-			local codelens = vim.lsp.codelens
-
-			-- Provider is private in 0.12, so retrieve it from codelens.get().
-			local Provider
-			for i = 1, 20 do
-				local name, value = debug.getupvalue(codelens.get, i)
-
-				if not name then break end
-
-				if name == 'Provider' then
-					Provider = value
-					break
-				end
-			end
-
-			assert(Provider, 'Could not find vim.lsp.codelens Provider')
-
-			if not Provider._indent_alignment_patched then
-				local original_on_win = Provider.on_win
-
-				Provider.on_win = function(self, toprow, botrow)
-					local original_range_lsp = vim.range.lsp
-
-					-- codelens.on_win() uses range.start_col as the amount of
-					-- padding before the virtual-line text. Replace that value
-					-- with the indentation width of the actual source line.
-					vim.range.lsp = function(bufnr, lsp_range, encoding)
-						local range = original_range_lsp(bufnr, lsp_range, encoding)
-
-						local row = lsp_range.start.line
-						local line = vim.api.nvim_buf_get_lines(bufnr, row, row + 1, false)[1] or ''
-
-						local indent = line:match('^%s*') or ''
-
-						range.start_col = vim.fn.strdisplaywidth(indent)
-
-						return range
-					end
-
-					-- Make sure vim.range.lsp is restored even if rendering fails.
-					local ok, err = xpcall(function() original_on_win(self, toprow, botrow) end, debug.traceback)
-
-					vim.range.lsp = original_range_lsp
-
-					if not ok then error(err) end
-				end
-
-				Provider._indent_alignment_patched = true
-			end
-		end
+		fix_codelens_align()
 	end,
+})
+
+-- Disable LSP in diff mode
+vim.api.nvim_create_autocmd('BufEnter', {
+	group = vim.api.nvim_create_augroup('xexperimente/lsp', { clear = true }),
+	callback = function() vim.diagnostic.enable(not vim.opt.diff:get()) end,
 })
 
 return M

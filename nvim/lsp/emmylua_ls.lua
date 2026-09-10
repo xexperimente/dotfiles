@@ -29,7 +29,7 @@ local result = {
 					vim.fn.stdpath('data') .. '/site/pack/core/opt',
 				},
 				-- ignoreDir = { vim.fn.stdpath('data') .. '/site/pack/core/opt/mini.nvim' },
-				ignoreGlobs = { '**/test/**', '**/tests/**', '**/spec/**' },
+				ignoreGlobs = { '**/test/**', '**/tests/**', '**/spec/**', '**/.git/**', '**/doc/**' },
 				checkThirdParty = false,
 			},
 		},

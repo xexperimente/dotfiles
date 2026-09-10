@@ -1,15 +1,17 @@
 vim.pack.add({ 'https://github.com/lewis6991/satellite.nvim' })
 
-local opts = {
-	handlers = {
-		cursor = { enable = true, symbols = { '▀', '▄' } },
-		marks = { enable = false },
-		gitsigns = { enable = false },
-		minidiff = { enable = true },
-		quickfix = { enable = false },
-	},
-}
-require('satellite').setup(opts)
+vim.schedule(function()
+	local opts = {
+		handlers = {
+			cursor = { enable = true, symbols = { '▀', '▄' } },
+			marks = { enable = false },
+			gitsigns = { enable = false },
+			minidiff = { enable = true },
+			quickfix = { enable = false },
+		},
+	}
+	require('satellite').setup(opts)
+end)
 
 -- Register custom handler for Mini.diff
 local augroup = vim.api.nvim_create_augroup('xexperimente/satellite', {})

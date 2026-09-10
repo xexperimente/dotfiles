@@ -5,7 +5,7 @@ vim.defer_fn(function()
 	})
 
 	local opts = {
-		fuzzy = { implementation = 'rust' },
+		fuzzy = { implementation = 'prefer_rust' },
 		keymap = {
 			preset = 'super-tab',
 			['<C-n>'] = { 'show', 'select_next', 'fallback_to_mappings' },
@@ -42,4 +42,4 @@ vim.defer_fn(function()
 
 	require('blink.cmp').build():pwait()
 	require('blink.cmp').setup(opts)
-end, 0)
+end, 10)
