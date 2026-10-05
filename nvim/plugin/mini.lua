@@ -59,7 +59,7 @@ vim.defer_fn(function()
 
 	require('mini.ai').setup()
 	require('mini.bracketed').setup()
-	require('mini.cursorword').setup()
+	-- require('mini.cursorword').setup()
 	require('mini.diff').setup(opts.diff)
 	require('mini.git').setup()
 	require('mini.icons').setup(opts.icons)

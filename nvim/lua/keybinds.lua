@@ -47,6 +47,12 @@ bind('n', '<C-j>', '<C-w>j', { desc = 'Move to the bottom window', remap = true 
 bind('n', '<C-k>', '<C-w>k', { desc = 'Move to the top window', remap = true })
 bind('n', '<C-l>', '<C-w>l', { desc = 'Move to the right window', remap = true })
 
+-- Use <C-[> for Multicursior clear
+bind('n', '<C-[>', function()
+	local mc_ns = vim.api.nvim_create_namespace('nvim.multicursor')
+	vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1)
+end)
+
 -- Resize splits
 bind('n', '<m-[>', '<cmd>vertical resize -5<cr>')
 bind('n', '<m-]>', '<cmd>vertical resize +5<cr>')
