@@ -30,22 +30,48 @@ local function on_attach(client, bufnr)
 			callback = function() toggle_codelens(bufnr) end,
 		})
 
-		bind({ 'n', 'x' }, '<leader>cL', codelens.run, { desc = 'Run Codelens' })
 		bind({ 'n', 'x' }, '<leader>cl', toggle_codelens, { desc = 'Toggle Codelens' })
 	end
 
 	-- Enable code actions
 	if client:supports_method('textDocument/codeAction') then
-		-- Show indicator on lines with code action.
-		require('lightbulb').attach_lightbulb(bufnr, client)
+		require('lightbulb').attach_lightbulb(bufnr, client) -- Show indicator on lines with code action.
 
-		bind({ 'n', 'x' }, '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Action' })
 		bind({ 'n', 'x' }, '<f4>', vim.lsp.buf.code_action, { desc = 'Code Action' })
 	end
 
-	-- Enable symbol rename
-	if client:supports_method('textDocument/rename') then bind('n', '<f2>', vim.lsp.buf.rename, { desc = 'Rename' }) end
+	if client:supports_method('textDocument/documentColor') then
+		bind(
+			{ 'n', 'x' },
+			'grc',
+			vim.lsp.document_color.color_presentation,
+			{ desc = 'vim.lsp.document_color.color_presentation()' }
+		)
+	end
 
+	if client:supports_method('textDocument/references') then
+		bind('n', 'grr', '<cmd>lua Snacks.picker.lsp_references()<cr>', { desc = 'vim.lsp.buf.references()' })
+	end
+
+	if client:supports_method('textDocument/typeDefinition') then
+		bind('n', 'grt', '<cmd>lua Snacks.picker.lsp_type_definitions<cr>', { desc = 'Go to type definition' })
+	end
+
+	if client:supports_method('textDocument/documentSymbol') then
+		bind('n', 'gO', '<cmd>lua Snacks.picker.lsp_symbols<cr>', { desc = 'Document symbols' })
+	end
+
+	if client:supports_method('textDocument/definition') then
+		bind('n', 'gd', Snacks.picker.lsp_definitions, { desc = 'Go to definition' })
+		bind('n', 'gD', Snacks.picker.lsp_declarations, { desc = 'Go to declaration' })
+	end
+
+	-- Enable symbol rename
+	if client:supports_method('textDocument/rename') then
+		bind('n', '<f2>', vim.lsp.buf.rename, { desc = 'Rename symbol' })
+	end
+
+	-- Show diagnostic float window
 	if client:supports_method('textDocument/diagnostic') then
 		bind('n', '<leader>cd', diag.open_float, { desc = 'Open diagnostics window' })
 	end
@@ -120,7 +146,7 @@ vim.diagnostic.config({
 		format = function(counts)
 			local items = {}
 			for severity, count in pairs(counts) do
-				local hl = 'DiagnosticSign' .. get_severity_name(severity) --name:sub(1, 1) .. name:sub(2):lower()
+				local hl = 'DiagnosticSign' .. get_severity_name(severity)
 				table.insert(items, ('%%#%s#%s %d'):format(hl, diagnostic_icons[severity], count))
 			end
 			return table.concat(items, ' ')
