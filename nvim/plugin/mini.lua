@@ -62,11 +62,14 @@ vim.defer_fn(function()
 	-- require('mini.cursorword').setup()
 	require('mini.diff').setup(opts.diff)
 	require('mini.git').setup()
-	require('mini.icons').setup(opts.icons)
 	require('mini.move').setup(opts.move)
 	require('mini.splitjoin').setup()
 	require('mini.surround').setup(opts.surround)
 	require('mini.hipatterns').setup(opts.patterns)
+
+	local icons = require('mini.icons')
+	icons.setup(opts.icons)
+	icons.mock_nvim_web_devicons()
 
 	local bind = vim.keymap.set
 
