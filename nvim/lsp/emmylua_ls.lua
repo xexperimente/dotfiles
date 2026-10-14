@@ -15,10 +15,9 @@ local result = {
 			runtime = { version = 'LuaJIT' },
 			diagnostics = {
 				globals = {
-					'vim',
-					'jit',
+					-- 'vim',
+					-- 'jit',
 					'Snacks',
-					'MiniSplitjoin',
 				},
 				disable = { 'unnecessary-if' },
 			},
@@ -26,7 +25,7 @@ local result = {
 			workspace = {
 				library = {
 					vim.env.VIMRUNTIME,
-					vim.fn.stdpath('data') .. '/site/pack/core/opt',
+					-- vim.fn.stdpath('data') .. '/site/pack/core/opt',
 				},
 				-- ignoreDir = { vim.fn.stdpath('data') .. '/site/pack/core/opt/mini.nvim' },
 				ignoreGlobs = { '**/test/**', '**/tests/**', '**/spec/**', '**/.git/**', '**/doc/**' },
