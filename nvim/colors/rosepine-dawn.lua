@@ -359,6 +359,9 @@ local groups = {
 	-- Render-Markdown
 	RenderMarkdownCodeInline = { bg = colors.overlay },
 
+	JsonBraces = { fg = colors.rose },
+	jsonBoolean = { fg = colors.gold },
+
 	-- Mason
 	MasonHeader = { link = 'FloatTitle' },
 

@@ -55,6 +55,7 @@ local function diagnostics()
 
 	return diag
 end
+
 local function git_status()
 	---@diagnostic disable: undefined-field
 	local info = vim.b.minidiff_summary

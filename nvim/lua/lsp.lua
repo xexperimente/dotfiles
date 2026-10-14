@@ -5,7 +5,13 @@ local M = {}
 -- Disable inlay hints initially (and enable if needed with my ToggleInlayHints command).
 vim.g.inlay_hints = false
 
-local servers = { 'emmylua_ls', 'clangd', 'nushell' }
+local servers = {
+	'emmylua_ls',
+	'clangd',
+	'nushell',
+	'biome',
+	'zls',
+}
 
 --- Sets up LSP keymaps and autocommands for the given buffer.
 ---@param client vim.lsp.Client
