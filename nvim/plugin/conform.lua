@@ -10,10 +10,10 @@ vim.defer_fn(function()
 		},
 		formatters_by_ft = {
 			lua = { 'stylua' },
-			json = { 'oxfmt' },
-			jsonc = { 'oxfmt' },
+			-- json = { 'oxfmt' },
+			-- jsonc = { 'oxfmt' },
 			yaml = { 'oxfmt' },
-			markdown = { 'oxfmt' },
+			-- markdown = { 'oxfmt' },
 			cpp = { 'clang-format' },
 		},
 	})
