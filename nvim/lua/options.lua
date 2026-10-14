@@ -1,55 +1,54 @@
-local g = vim.g
-local opt = vim.opt
-
-opt.encoding = 'utf-8'
-opt.fileencoding = 'utf-8'
-
-g.mapleader = ' '
-g.maplocalleader = ' '
-
--- Visuals
-g.winborder = 'single'
-opt.winborder = g.winborder
-opt.pumborder = g.winborder
-opt.number = true
-opt.laststatus = 3
-opt.showtabline = 0
-opt.showmode = false
-opt.tabline = '%t'
-opt.ruler = false
-opt.wrap = false
-opt.termguicolors = true
-opt.signcolumn = 'yes'
-opt.cursorline = true
-opt.cursorlineopt = 'number'
-opt.smoothscroll = true
-opt.cmdheight = 0
-
--- Indentation & tabs
-opt.smartindent = true
-opt.tabstop = 4
-opt.softtabstop = 4
-opt.shiftwidth = 4
+vim.o.encoding = 'utf-8'
+vim.o.fileencoding = 'utf-8'
 
 -- Globals
-g.showcmd = false
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+vim.g.showcmd = false
+
+local border = 'single'
+
+-- Visuals
+vim.g.winborder = border
+vim.o.winborder = border
+vim.o.pumborder = border
+vim.o.number = true
+vim.o.laststatus = 3
+vim.o.showtabline = 0
+vim.o.showmode = false
+vim.o.tabline = '%t'
+vim.o.ruler = false
+vim.o.wrap = false
+vim.o.termguicolors = true
+vim.o.signcolumn = 'yes'
+vim.o.cursorline = true
+vim.o.cursorlineopt = 'number'
+vim.o.smoothscroll = true
+vim.o.cmdheight = 0
+
+-- Indentation & tabs
+vim.o.smartindent = true
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
 
 -- Search
-opt.ignorecase = true
-opt.smartcase = true
-opt.shortmess:append({
-	w = true,
-	s = true, -- Don't show search flip message
-	S = true, -- Don't show search count
-})
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.opt.shortmess:append('w') -- Flatten write message
+vim.opt.shortmess:append('s') -- Don't show search flip message
+vim.opt.shortmess:append('S') -- Don't show search count
 
-opt.listchars = {
+---@diagnostic disable-next-line: missing-fields
+vim.opt.listchars = {
 	tab = '→ ',
 	nbsp = '⎵',
+	trail = '·',
 	space = '·',
 }
 
-opt.fillchars = {
+---@diagnostic disable-next-line: missing-fields
+vim.opt.fillchars = {
 	eob = ' ',
 	fold = ' ',
 	foldopen = '▾',
@@ -58,50 +57,50 @@ opt.fillchars = {
 	diff = '╱',
 }
 
-opt.diffopt:append('algorithm:histogram,vertical,linematch:60')
+vim.opt.diffopt:append('algorithm:histogram,vertical,linematch:60')
 
 -- Folding
-opt.foldcolumn = '1'
-opt.foldlevel = 99
-opt.foldlevelstart = 99
-opt.foldenable = true
-opt.foldmethod = 'expr'
-opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-opt.foldtext = ''
+vim.o.foldcolumn = '1'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.o.foldtext = ''
 
 -- Misc
-opt.swapfile = false
-opt.hidden = true
-opt.splitright = true
-opt.scrolloff = 5
-opt.confirm = true
-opt.inccommand = 'split'
-opt.exrc = true
+vim.o.swapfile = false
+vim.o.hidden = true
+vim.o.splitright = true
+vim.o.scrolloff = 5
+vim.o.confirm = true
+vim.o.inccommand = 'split'
+vim.o.exrc = true
 -- opt.secure = true
 
 vim.schedule(function()
 	-- Grep arguments
 	if vim.fn.executable('rg') == 1 then
-		opt.grepprg = 'rg --vimgrep --no-heading --smart-case --hidden'
-		opt.grepformat = '%f:%l:%c:%m'
+		vim.o.grepprg = 'rg --vimgrep --no-heading --smart-case --hidden'
+		vim.o.grepformat = '%f:%l:%c:%m'
 	end
 
 	-- Terminal
 	if vim.fn.executable('nu') == 1 then
-		opt.shell = 'nu'
-		opt.shellcmdflag = '--login --stdin --no-newline -c'
-		opt.shellpipe = '|complete|update stderr {ansi strip}|tee {get stderr|save --force --raw %s}|into record'
-		opt.shellredir = 'out+err> %s'
-		opt.shelltemp = false
-		opt.shellxescape = ''
-		opt.shellxquote = ''
-		opt.shellquote = ''
+		vim.o.shell = 'nu'
+		vim.o.shellcmdflag = '--login --stdin --no-newline -c'
+		vim.o.shellpipe = '|complete|update stderr {ansi strip}|tee {get stderr|save --force --raw %s}|into record'
+		vim.o.shellredir = 'out+err> %s'
+		vim.o.shelltemp = false
+		vim.o.shellxescape = ''
+		vim.o.shellxquote = ''
+		vim.o.shellquote = ''
 	end
 end)
 
 -- Silence `wl-paste`'s "Nothing is copied" stderr on an empty Wayland clipboard.
 if vim.fn.has('linux') == 1 and vim.env.WAYLAND_DISPLAY then
-	g.clipboard = {
+	vim.g.clipboard = {
 		name = 'wl-clipboard',
 		copy = {
 			['+'] = 'wl-copy --type text/plain',
@@ -114,28 +113,29 @@ if vim.fn.has('linux') == 1 and vim.env.WAYLAND_DISPLAY then
 		cache_enabled = true,
 	}
 end
+
 -- Disable unused providers
-g.loaded_ruby_provider = 0
-g.loaded_node_provider = 0
-g.loaded_perl_provider = 0
-g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
 
 -- Disable unused vim plugins
-g.loaded_tar = 1
-g.loaded_tarPlugin = 1
-g.loaded_zip = 1
-g.loaded_zipPlugin = 1
-g.loaded_gzip = 1
+vim.g.loaded_tar = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_zip = 1
+vim.g.loaded_zipPlugin = 1
+vim.g.loaded_gzip = 1
+vim.g.loaded_matchparen = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_rplugin = 1
+vim.g.loaded_remote_plugins = 1
+vim.g.loaded_tutor_mode_plugin = 1
 -- g.loaded_matchit = 1
-g.loaded_matchparen = 1
-g.loaded_netrwPlugin = 1
-g.loaded_rplugin = 1
-g.loaded_remote_plugins = 1
-g.loaded_tutor_mode_plugin = 1
 
-if g.neovide then
-	g.neovide_floating_blur_amount_x = 2.0
-	g.neovide_floating_blur_amount_y = 2.0
-	g.neovide_floating_corner_radius = 0.2
-	g.neovide_floating_shadow = false
+if vim.g.neovide then
+	vim.g.neovide_floating_blur_amount_x = 2.0
+	vim.g.neovide_floating_blur_amount_y = 2.0
+	vim.g.neovide_floating_corner_radius = 0.2
+	vim.g.neovide_floating_shadow = false
 end
