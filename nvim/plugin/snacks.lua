@@ -206,7 +206,7 @@ vim.schedule(function()
 	local nt = { 'n', 't' }
 	local pos = { win = { position = 'right' } }
 
-	bind(nt, '<leader>t', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
+	-- bind(nt, '<leader>t', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 	bind(nt, '<leader>T', function() Snacks.terminal.open(nil, pos) end, { desc = 'Toggle termina(right)' })
 	-- bind(nt, '<c-t>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
 	bind(nt, '<c-_>', Snacks.terminal.toggle, { desc = 'Toggle terminal' })
