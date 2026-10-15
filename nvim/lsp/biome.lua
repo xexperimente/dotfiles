@@ -21,6 +21,6 @@ return {
 		'markdown',
 	},
 	workspace_required = false,
-	root_markers = { 'biome.json', 'biome.jsonc', '.git' },
+	root_markers = { 'biome.json', 'biome.jsonc' },
 	settings = {},
 }
