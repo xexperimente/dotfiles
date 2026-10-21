@@ -8,6 +8,14 @@ M.diagnostics = {
 	[vim.diagnostic.severity.INFO] = '',
 }
 
+--- For folding.
+M.arrows = {
+    right = '',
+    left = '',
+    up = '',
+    down = '',
+}
+
 -- Mason UI
 M.mason = {
 	package_installed = '',

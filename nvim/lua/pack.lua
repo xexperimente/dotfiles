@@ -1,31 +1,65 @@
 local M = {}
 
-local function ensure_list(specs)
-	return (type(specs) == 'string' or (type(specs) == 'table' and specs.src)) and { specs } or specs
+---@class PluginSpec
+---@field src string The GitHub repository of the plugin
+---@field module_name? string Optional module name for configuration (defaults to the repo name)
+---@field opts? table|fun():table Optional configuration options for the plugin
+---@field on_setup? fun():nil Optional function to run after the plugin is loaded and configured
+---@field setup? false Set to false to skip require/setup entirely (for vimscript-only or data-only plugins)
+
+---@param plugins PluginSpec[]
+local function configure(plugins)
+	local sources = vim
+		.iter(plugins)
+		:map(function(plugin)
+			-- Ensure we use GitHub urls.
+			return string.format('https://github.com/%s', plugin.src)
+		end)
+		:totable()
+
+	vim.pack.add(sources)
+
+	-- Configure each plugin after loading.
+	for _, plugin in ipairs(plugins) do
+		if plugin.setup ~= false then
+			local module_name = plugin.module_name or (plugin.src:match('.+/(.+)'):gsub('%.nvim$', ''))
+			local mod = require(module_name)
+			if type(mod.setup) == 'function' then
+				local opts = type(plugin.opts) == 'function' and plugin.opts() or plugin.opts
+				mod.setup(opts or {})
+			end
+		end
+
+		if plugin.on_setup then plugin.on_setup() end
+	end
 end
 
-function M.on_event(events, pkg_name, setup_fn)
-	return function()
-		vim.api.nvim_create_autocmd(events, {
-			once = true,
-			callback = function()
-				for _, p in ipairs(ensure_list(pkg_name)) do
-					vim.cmd.packadd(p)
-				end
-				if setup_fn then setup_fn() end
-			end,
-		})
-	end
+---@param event vim.api.keyset.events|vim.api.keyset.events[]
+---@param pattern? string|string[]
+---@param plugins PluginSpec[]
+local add_on_event = function(event, pattern, plugins)
+	vim.api.nvim_create_autocmd(event, {
+		pattern = pattern,
+		once = true,
+		callback = function() configure(plugins) end,
+	})
 end
-function M.on_cmd(cmd, pkg_name, setup_fn)
-	return function()
-		vim.api.nvim_create_user_command(cmd, function(data)
-			vim.api.nvim_del_user_command(cmd)
-			vim.cmd.packadd(pkg_name)
-			if setup_fn then setup_fn() end
-			vim.cmd(('%s %s'):format(cmd, data.args))
-		end, { nargs = '?' })
-	end
-end
+
+--- Helper function for adding and configuring plugins eagerly, with no lazy-loading.
+---
+---@param plugins PluginSpec[]
+function M.add(plugins) configure(plugins) end
+
+--- Helper function for adding and configuring plugins to the current session on a specific event.
+---
+---@param event vim.api.keyset.events|vim.api.keyset.events[]
+---@param plugins PluginSpec[]
+function M.add_on_event(event, plugins) add_on_event(event, nil, plugins) end
+
+--- Helper function for adding and configuring plugins to the current session when a file of a specific type is first opened.
+---
+---@param patterns string|string[]
+---@param plugins PluginSpec[]
+function M.add_on_file_type(patterns, plugins) add_on_event('FileType', patterns, plugins) end
 
 return M

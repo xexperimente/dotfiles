@@ -1,80 +1,83 @@
-vim.pack.add({ 'https://github.com/lewis6991/satellite.nvim' })
+local add_on_event = require('pack').add_on_event
 
-vim.schedule(function()
-	local opts = {
-		handlers = {
-			cursor = { enable = true, symbols = { '▀', '▄' } },
-			marks = { enable = false },
-			gitsigns = { enable = false },
-			minidiff = { enable = true },
-			quickfix = { enable = false },
+add_on_event('UIEnter', {
+	{
+		src = 'lewis6991/satellite.nvim',
+		opts = {
+			handlers = {
+				cursor = { enable = true, symbols = { '▀', '▄' } },
+				marks = { enable = false },
+				gitsigns = { enable = false },
+				minidiff = { enable = true },
+				quickfix = { enable = false },
+			},
 		},
-	}
-	require('satellite').setup(opts)
-end)
+		on_setup = function()
+			-- Register custom handler for Mini.diff
+			local augroup = vim.api.nvim_create_augroup('xexperimente/satellite', {})
 
--- Register custom handler for Mini.diff
-local augroup = vim.api.nvim_create_augroup('xexperimente/satellite', {})
-
---- @class Satellite.Handler.Diff : Satellite.Handler
-local handler = {
-	name = 'minidiff',
-}
-
---- @class Satellite.Handlers.DiffConfig: Satellite.Handlers.BaseConfig
-local config = {
-	enable = true,
-	overlap = false,
-	priority = 20,
-	symbol = '┃',
-}
-
-function handler.setup(config0, update)
-	config = vim.tbl_deep_extend('force', config, config0)
-	handler.config = config
-
-	vim.api.nvim_create_autocmd('User', {
-		pattern = 'MiniDiffUpdated',
-		group = augroup,
-		callback = function() update() end,
-	})
-end
-
-function handler.update(bufnr, winid)
-	if not package.loaded['mini.diff'] then return {} end
-
-	local marks = {}
-
-	local summary = vim.b[bufnr].minidiff_summary
-	if not summary then return marks end
-
-	local bufdata = require('mini.diff').get_buf_data(bufnr)
-	if bufdata == nil then return marks end
-
-	local util = require('satellite.util')
-	for _, hunk in ipairs(bufdata.hunks or {}) do
-		local highlight = 'MiniDiffSignChange'
-		if hunk.type == 'add' then
-			highlight = 'MiniDiffSignAdd'
-		elseif hunk.type == 'delete' then
-			highlight = 'MiniDiffSignDelete'
-		end
-
-		local min_lnum = math.max(1, hunk.buf_start)
-		local min_pos = util.row_to_barpos(winid, min_lnum - 1)
-
-		local max_lnum = math.max(1, hunk.buf_start + math.max(0, hunk.buf_count - 1)) ---@as integer
-		local max_pos = util.row_to_barpos(winid, max_lnum - 1)
-
-		for pos = min_pos, max_pos do
-			marks[#marks + 1] = {
-				pos = pos,
-				symbol = '┃',
-				highlight = highlight,
+			--- @class Satellite.Handler.Diff : Satellite.Handler
+			local handler = {
+				name = 'minidiff',
 			}
-		end
-	end
-	return marks
-end
 
-require('satellite.handlers').register(handler --[[@as Satellite.Handler]])
+			--- @class Satellite.Handlers.DiffConfig: Satellite.Handlers.BaseConfig
+			local config = {
+				enable = true,
+				overlap = false,
+				priority = 20,
+				symbol = '┃',
+			}
+
+			function handler.setup(config0, update)
+				config = vim.tbl_deep_extend('force', config, config0)
+				handler.config = config
+
+				vim.api.nvim_create_autocmd('User', {
+					pattern = 'MiniDiffUpdated',
+					group = augroup,
+					callback = function() update() end,
+				})
+			end
+
+			function handler.update(bufnr, winid)
+				if not package.loaded['mini.diff'] then return {} end
+
+				local marks = {}
+
+				local summary = vim.b[bufnr].minidiff_summary
+				if not summary then return marks end
+
+				local bufdata = require('mini.diff').get_buf_data(bufnr)
+				if bufdata == nil then return marks end
+
+				local util = require('satellite.util')
+				for _, hunk in ipairs(bufdata.hunks or {}) do
+					local highlight = 'MiniDiffSignChange'
+					if hunk.type == 'add' then
+						highlight = 'MiniDiffSignAdd'
+					elseif hunk.type == 'delete' then
+						highlight = 'MiniDiffSignDelete'
+					end
+
+					local min_lnum = math.max(1, hunk.buf_start)
+					local min_pos = util.row_to_barpos(winid, min_lnum - 1)
+
+					local max_lnum = math.max(1, hunk.buf_start + math.max(0, hunk.buf_count - 1)) ---@as integer
+					local max_pos = util.row_to_barpos(winid, max_lnum - 1)
+
+					for pos = min_pos, max_pos do
+						marks[#marks + 1] = {
+							pos = pos,
+							symbol = '┃',
+							highlight = highlight,
+						}
+					end
+				end
+				return marks
+			end
+
+			require('satellite.handlers').register(handler --[[@as Satellite.Handler]])
+		end,
+	},
+})

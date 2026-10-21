@@ -1,24 +1,26 @@
-vim.defer_fn(function()
-	vim.pack.add({ 'https://github.com/saghen/blink.indent' })
+local add_on_event = require('pack').add_on_event
 
-	local opts = {
-		blocked = {
-			filetypes = { 'snacks_picker_preview', include_defaults = true },
+add_on_event('UIEnter', {
+	{
+		src = 'saghen/blink.indent',
+
+		opts = {
+			blocked = {
+				filetypes = { 'snacks_picker_preview', include_defaults = true },
+			},
+			static = {
+				enabled = false,
+			},
+			scope = {
+				highlights = { 'BlinkIndentScope' },
+			},
 		},
-		static = {
-			enabled = false,
-		},
-		scope = {
-			highlights = { 'BlinkIndentScope' },
-		},
-	}
-
-	local indent = require('blink.indent')
-
-	indent.setup(opts)
-
-	vim.keymap.set('n', '<leader>ui', function()
-		local enabled = indent.is_enabled()
-		indent.enable(not enabled)
-	end, { desc = 'Toggle indent guides' })
-end, 0)
+		on_setup = function()
+			vim.keymap.set('n', '<leader>ui', function()
+				local indent = require('blink.indent')
+				local enabled = indent.is_enabled()
+				indent.enable(not enabled)
+			end, { desc = 'Toggle indent guides' })
+		end,
+	},
+})

@@ -1,28 +1,32 @@
-vim.defer_fn(function()
-	vim.pack.add({ 'https://github.com/stevearc/quicker.nvim' })
+local add_on_event = require('pack').add_on_event
 
-	local qr = require('quicker')
-
-	qr.setup({
+-- Improved quickfix UI.
+add_on_event('UIEnter', {
+	{
+		src = 'stevearc/quicker.nvim',
 		opts = {
-			signcolumn = 'no',
-		},
-		borders = {
-			vert = '|',
-		},
-		on_qf = function(bufnr)
-			local winid = vim.fn.bufwinid(bufnr)
-			vim.api.nvim_win_call(winid, function()
-				vim.opt_local.listchars:append({ space = ' ' })
-				vim.wo.statusline = ' %#FloatTitle#%q%#StatusLine#%* %= %l/%L'
+			opts = {
+				signcolumn = 'no',
+			},
+			borders = {
+				vert = '|',
+			},
+			on_qf = function(bufnr)
+				local winid = vim.fn.bufwinid(bufnr)
+				vim.api.nvim_win_call(winid, function()
+					-- vim.opt_local.listchars:append({ space = ' ' })
+					vim.wo.statusline = ' %#FloatTitle#%q%#StatusLine#%* %= %l/%L'
 
-				vim.cmd('redrawstatus')
-			end)
+					vim.cmd('redrawstatus')
+				end)
+			end,
+		},
+		on_setup = function()
+			local toggle = require('quicker').toggle
+			local bind = vim.keymap.set
+
+			bind('n', '<leader>q', function() toggle({ focus = true }) end, { desc = 'Toggle quickfix' })
+			bind('n', '<leader>l', function() toggle({ loclist = true, focus = true }) end, { desc = 'Toggle loclist' })
 		end,
-	})
-
-	local bind = vim.keymap.set
-
-	bind('n', '<leader>q', function() qr.toggle({ focus = true }) end, { desc = 'Toggle quickfix' })
-	bind('n', '<leader>l', function() qr.toggle({ loclist = true, focus = true }) end, { desc = 'Toggle loclist' })
-end,0)
+	},
+})
