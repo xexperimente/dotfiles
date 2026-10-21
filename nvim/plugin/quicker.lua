@@ -22,11 +22,13 @@ add_on_event('UIEnter', {
 			end,
 		},
 		on_setup = function()
-			local toggle = require('quicker').toggle
+			local quick = require('quicker')
 			local bind = vim.keymap.set
 
-			bind('n', '<leader>q', function() toggle({ focus = true }) end, { desc = 'Toggle quickfix' })
-			bind('n', '<leader>l', function() toggle({ loclist = true, focus = true }) end, { desc = 'Toggle loclist' })
+			bind('n', '<leader>xq', function() quick.toggle() end, { desc = 'Toggle quickfix' })
+			bind('n', '<leader>xl', function() quick.toggle({ loclist = true }) end, { desc = 'Toggle loclist list' })
+			bind('n', '>', function() quick.expand({ add_to_existing = true }) end, { desc = 'Expand context' })
+			bind('n', '<', function() quick.collapse() end, { desc = 'Collapse context' })
 		end,
 	},
 })

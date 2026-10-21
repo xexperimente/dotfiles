@@ -1,5 +1,7 @@
-vim.defer_fn(function()
-	vim.pack.add({ 'https://github.com/monkoose/matchparen.nvim' })
+local add_on_event = require('pack').add_on_event
 
-	require('matchparen').setup({})
-end, 0)
+add_on_event('UIEnter', {
+	{
+		src = 'monkoose/matchparen.nvim',
+	},
+})

@@ -1,45 +1,48 @@
-vim.schedule(function()
-	vim.pack.add({ 'https://github.com/jake-stewart/multicursor.nvim' })
+local add_on_event = require('pack').add_on_event
 
-	local mc = require('multicursor-nvim')
+add_on_event('UIEnter', {
+	{
+		src = 'jake-stewart/multicursor.nvim',
+		module_name = 'multicursor-nvim',
+		on_setup = function()
+			local bind = vim.keymap.set
+			local mc = require('multicursor-nvim')
 
-	mc.setup()
+			-- Add or skip cursor above/below the main cursor.
+			bind({ 'n', 'x' }, '<C-M-up>', function() mc.lineAddCursor(-1) end)
+			bind({ 'n', 'x' }, '<C-M-down>', function() mc.lineAddCursor(1) end)
+			bind({ 'n', 'x' }, '<C-M-B>', function() mc.lineSkipCursor(-1) end)
+			-- bind({ 'n', 'x' }, '<C-M-S>', function() mc.lineSkipCursor(1) end)
 
-	local bind = vim.keymap.set
+			-- Add or skip adding a new cursor by matching word/selection
+			bind({ 'n', 'x' }, '<C-N>', function() mc.matchAddCursor(1) end)
+			bind({ 'n', 'x' }, '<C-S>', function() mc.matchSkipCursor(1) end)
 
-	-- Add or skip cursor above/below the main cursor.
-	bind({ 'n', 'x' }, '<C-M-up>', function() mc.lineAddCursor(-1) end)
-	bind({ 'n', 'x' }, '<C-M-down>', function() mc.lineAddCursor(1) end)
-	bind({ 'n', 'x' }, '<C-M-B>', function() mc.lineSkipCursor(-1) end)
-	bind({ 'n', 'x' }, '<C-M-S>', function() mc.lineSkipCursor(1) end)
+			-- Increment/decrement sequences, treating all cursors as one sequence.
+			bind({ 'n', 'x' }, 'g<C-a>', mc.sequenceIncrement)
+			bind({ 'n', 'x' }, 'g<C-x>', mc.sequenceDecrement)
 
-	-- Add or skip adding a new cursor by matching word/selection
-	bind({ 'n', 'x' }, '<C-N>', function() mc.matchAddCursor(1) end)
-	bind({ 'n', 'x' }, '<C-S>', function() mc.matchSkipCursor(1) end)
+			-- Mappings defined in a keymap layer only apply when there are
+			-- multiple cursors. This lets you have overlapping mappings.
+			mc.addKeymapLayer(function(layerSet)
+				-- Delete the main cursor.
+				layerSet({ 'n', 'x' }, '<leader>x', mc.deleteCursor)
 
-	-- Increment/decrement sequences, treating all cursors as one sequence.
-	bind({ 'n', 'x' }, 'g<C-a>', mc.sequenceIncrement)
-	bind({ 'n', 'x' }, 'g<C-x>', mc.sequenceDecrement)
+				-- Enable and clear cursors using escape.
+				layerSet('n', '<esc>', function()
+					if not mc.cursorsEnabled() then
+						mc.enableCursors()
+					else
+						mc.clearCursors()
+					end
+				end)
+			end)
 
-	-- Mappings defined in a keymap layer only apply when there are
-	-- multiple cursors. This lets you have overlapping mappings.
-	mc.addKeymapLayer(function(layerSet)
-		-- Delete the main cursor.
-		layerSet({ 'n', 'x' }, '<leader>x', mc.deleteCursor)
-
-		-- Enable and clear cursors using escape.
-		layerSet('n', '<esc>', function()
-			if not mc.cursorsEnabled() then
-				mc.enableCursors()
-			else
-				mc.clearCursors()
-			end
-		end)
-	end)
-
-	-- Customize how cursors look.
-	vim.api.nvim_set_hl(0, 'MultiCursorCursor', { link = 'Cursor' })
-	vim.api.nvim_set_hl(0, 'MultiCursorVisual', { link = 'Visual' })
-	vim.api.nvim_set_hl(0, 'MultiCursorDisabledCursor', { link = 'Visual' })
-	vim.api.nvim_set_hl(0, 'MultiCursorDisabledVisual', { link = 'Visual' })
-end)
+			-- Customize how cursors look.
+			vim.api.nvim_set_hl(0, 'MultiCursorCursor', { link = 'Cursor' })
+			vim.api.nvim_set_hl(0, 'MultiCursorVisual', { link = 'Visual' })
+			vim.api.nvim_set_hl(0, 'MultiCursorDisabledCursor', { link = 'Visual' })
+			vim.api.nvim_set_hl(0, 'MultiCursorDisabledVisual', { link = 'Visual' })
+		end,
+	},
+})
