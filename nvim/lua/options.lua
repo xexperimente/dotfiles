@@ -35,6 +35,7 @@ vim.o.shiftwidth = 4
 -- Search
 vim.o.ignorecase = true
 vim.o.smartcase = true
+vim.o.incsearch = true
 vim.opt.shortmess:append('w') -- Flatten write message
 vim.opt.shortmess:append('s') -- Don't show search flip message
 vim.opt.shortmess:append('S') -- Don't show search count

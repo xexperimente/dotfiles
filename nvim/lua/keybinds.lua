@@ -72,3 +72,26 @@ bind('n', '<leader>pl', function() vim.pack.update() end, { desc = 'Update plugi
 
 -- Shortcuts
 bind('n', '<a-f1>', '<cmd>Inspect<cr>', { desc = 'Inspect' })
+
+local function substitute_current_search()
+	-- Get the last searched pattern (what you typed in / or flash.nvim)
+	local pattern = vim.fn.getreg('/')
+
+	if pattern == '' then
+		vim.notify('No active search pattern found!', vim.log.levels.WARN)
+		return
+	end
+
+	vim.ui.input({ prompt = "Substitute '" .. pattern .. "' with: " }, function(input)
+		if not input or input == '' then
+			vim.notify('Substitution cancelled', vim.log.levels.INFO)
+			return
+		end
+
+		local cmd = string.format('%%s#%s#%s#gc', pattern, input)
+
+		vim.cmd(cmd)
+	end)
+end
+
+bind('n', '<leader>r', substitute_current_search, { desc = 'Substitute current search(confirm)' })

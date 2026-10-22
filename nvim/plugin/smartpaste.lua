@@ -1,5 +1,3 @@
-vim.defer_fn(function()
-	vim.pack.add({ 'https://github.com/nemanjamalesija/smart-paste.nvim' })
+local add_on_event = require('pack').add_on_event
 
-	require('smart-paste').setup({})
-end, 0)
+add_on_event('UIEnter', { { src = 'nemanjamalesija/smart-paste.nvim' } })
