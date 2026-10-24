@@ -11,15 +11,17 @@ local result = {
 	workspace_required = true,
 	settings = {
 		Lua = {
-			runtime = { version = 'LuaJIT' },
+			runtime = {
+				version = 'LuaJIT',
+			},
 			diagnostics = {
 				globals = {
 					'Snacks',
 				},
-				disable = { 'unnecessary-if' },
 			},
 			codelens = { enable = true },
 			workspace = {
+				-- library = vim.api.nvim_list_runtime_paths(),
 				library = {
 					vim.env.VIMRUNTIME,
 					vim.fn.stdpath('data') .. '/site/pack/core/opt',

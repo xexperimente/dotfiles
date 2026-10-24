@@ -42,36 +42,14 @@ return {
 			},
 			workspace = {
 				checkThirdParty = false,
-				library = { vim.env.VIMRUNTIME },
+				library = {
+					vim.env.VIMRUNTIME,
+					vim.fn.stdpath('data') .. '/site/pack/core/opt',
+				},
+				ignoreDir = { '**/test/**', '**/tests/**', '**/spec/**', '**/.git/**', '**/doc/**' },
 			},
+			telemetry = { enable = false },
 		})
 	end,
-	settings = {
-		Lua = {
-			-- 		runtime = { version = 'LuaJIT' },
-			-- 		diagnostics = {
-			-- 			enable = true,
-			-- 			globals = {
-			-- 				-- 'vim',
-			-- 				-- 'jit',
-			-- 				'Snacks',
-			-- 			},
-			-- 			disable = { 'lowercase-global' },
-			-- 		},
-			-- 		hint = { enable = true },
-			-- 		codelens = { enable = true },
-			-- 		signatureHelp = { enable = true },
-			-- 		workspace = {
-			-- 			checkThirdParty = false,
-			-- 			library = {
-			-- 				vim.env.VIMRUNTIME,
-			-- 			},
-			-- 			userThirdParty = {
-			-- 				vim.fn.stdpath('data') .. '/site/pack/core/opt',
-			-- 			},
-			-- 			ignoreDir = { '**/test/**', '**/tests/**', '**/spec/**', '**/.git/**', '**/doc/**' },
-			-- 		},
-			-- 		telemetry = { enable = false },
-		},
-	},
+	settings = { Lua = {} },
 }

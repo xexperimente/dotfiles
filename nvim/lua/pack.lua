@@ -6,6 +6,7 @@ local M = {}
 ---@field opts? table|fun():table Optional configuration options for the plugin
 ---@field on_setup? fun():nil Optional function to run after the plugin is loaded and configured
 ---@field setup? false Set to false to skip require/setup entirely (for vimscript-only or data-only plugins)
+---@field version? string Optional branch for the plugin
 
 ---@param plugins PluginSpec[]
 local function configure(plugins)
@@ -13,7 +14,11 @@ local function configure(plugins)
 		.iter(plugins)
 		:map(function(plugin)
 			-- Ensure we use GitHub urls.
-			return string.format('https://github.com/%s', plugin.src)
+			local cfg = { src = string.format('https://github.com/%s', plugin.src) }
+
+			if plugin.version then cfg.version = plugin.version end
+
+			return cfg
 		end)
 		:totable()
 
@@ -22,6 +27,7 @@ local function configure(plugins)
 	-- Configure each plugin after loading.
 	for _, plugin in ipairs(plugins) do
 		if plugin.setup ~= false then
+			---@diagnostic disable-next-line: need-check-nil, param-type-mismatch
 			local module_name = plugin.module_name or (plugin.src:match('.+/(.+)'):gsub('%.nvim$', ''))
 			local mod = require(module_name)
 			if type(mod.setup) == 'function' then

@@ -29,46 +29,12 @@ add_on_event('UIEnter', {
 		},
 		on_setup = function() bind('n', '<leader>uc', '<cmd>TSContext toggle<cr>', { desc = 'Toggle treesitter context' }) end,
 	},
-	-- {
-	-- 	src = 'nvim-treesitter/nvim-treesitter-textobjects',
-	-- 	version = 'main',
-	-- 	opts = {
-	-- 		select = {
-	-- 			lookahead = true,
-	-- 			selection_modes = {
-	-- 				['@parameter.outer'] = 'v', -- charwise
-	-- 				['@function.outer'] = 'V', -- linewise
-	-- 				['@class.outer'] = '<c-v>', -- blockwise
-	-- 			},
-	-- 			include_surrounding_whitespace = false,
-	-- 		},
-	-- 	},
-	-- 	on_setup = function()
-	-- 		local sel = require('nvim-treesitter-textobjects.select')
-	-- 		local swap = require('nvim-treesitter-textobjects.swap')
-	-- 		local move = require('nvim-treesitter-textobjects.move')
-	--
-	-- 		-- select keybinds
-	-- 		bind({ 'x', 'o' }, 'af', function() sel.select_textobject('@function.outer', 'textobjects') end)
-	-- 		bind({ 'x', 'o' }, 'if', function() sel.select_textobject('@function.inner', 'textobjects') end)
-	-- 		bind({ 'x', 'o' }, 'ac', function() sel.select_textobject('@class.outer', 'textobjects') end)
-	-- 		bind({ 'x', 'o' }, 'ic', function() sel.select_textobject('@class.inner', 'textobjects') end)
-	-- 		bind({ 'x', 'o' }, 'as', function() sel.select_textobject('@local.scope', 'locals') end)
-	--
-	-- 		-- swap
-	-- 		bind('n', '<leader>x', function() swap.swap_next('@parameter.inner') end)
-	-- 		bind('n', '<leader>X', function() swap.swap_previous('@parameter.outer') end)
-	--
-	-- 		-- move
-	-- 		bind({ 'n', 'x', 'o' }, ']z', function() move.goto_next_start('@fold', 'folds') end)
-	-- 		bind({ 'n', 'x', 'o' }, '[z', function() move.goto_previous_start('@fold', 'folds') end)
-	-- 	end,
-	-- },
 })
 
 vim.api.nvim_create_autocmd('PackChanged', {
 	callback = function(args)
 		if args.data.spec.name == 'nvim-treesitter' and (args.data.kind == 'install' or args.data.kind == 'update') then
+			---@diagnostic disable-next-line: undefined-field
 			require('nvim-treesitter').update():wait(300000)
 		end
 	end,

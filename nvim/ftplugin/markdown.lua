@@ -1,3 +1,3 @@
-vim.opt_local.list = false
+vim.bo.list = false
 
 vim.treesitter.start()

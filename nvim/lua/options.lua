@@ -99,22 +99,6 @@ vim.schedule(function()
 	end
 end)
 
--- Silence `wl-paste`'s "Nothing is copied" stderr on an empty Wayland clipboard.
-if vim.fn.has('linux') == 1 and vim.env.WAYLAND_DISPLAY then
-	vim.g.clipboard = {
-		name = 'wl-clipboard',
-		copy = {
-			['+'] = 'wl-copy --type text/plain',
-			['*'] = 'wl-copy --primary --type text/plain',
-		},
-		paste = {
-			['+'] = { 'sh', '-c', 'wl-paste --no-newline 2>/dev/null || true' },
-			['*'] = { 'sh', '-c', 'wl-paste --primary --no-newline 2>/dev/null || true' },
-		},
-		cache_enabled = true,
-	}
-end
-
 -- Disable unused providers
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0

@@ -4,7 +4,23 @@ local add_on_event = require('pack').add_on_event
 add_on_event('BufReadPre', {
 	{
 		src = 'nvim-treesitter/nvim-treesitter-textobjects',
-		setup = false,
+		version = 'main',
+		-- setup = false,
+		on_setup = function()
+			local bind = vim.keymap.set
+			local move = 'nvim-treesitter-textobjects.move'
+			local swap = 'nvim-treesitter-textobjects.swap'
+
+			-- swap
+			bind('n', '<leader>a', function() require(swap).swap_next('@parameter.inner') end)
+			bind('n', '<leader>A', function() require(swap).swap_previous('@parameter.inner') end)
+
+			-- move
+			bind('n', ']z', function() require(move).goto_next_start('@fold', 'folds') end)
+			bind('n', '[z', function() require(move).goto_previous_start('@fold', 'folds') end)
+			bind('n', ']a', function() require(move).goto_next_start('@parameter.inner', 'textobjects') end)
+			bind('n', '[a', function() require(move).goto_previous_start('@parameter.inner', 'textobjects') end)
+		end,
 	},
 	{
 		src = 'nvim-mini/mini.ai',
@@ -32,21 +48,6 @@ add_on_event('BufReadPre', {
 					inside_last = '',
 				},
 			}
-		end,
-		on_setup = function()
-			local swap = require('nvim-treesitter-textobjects.swap')
-			local move = require('nvim-treesitter-textobjects.move')
-			local bind = vim.keymap.set
-
-			-- swap
-			bind('n', '<leader>a', function() swap.swap_next('@parameter.inner') end)
-			bind('n', '<leader>A', function() swap.swap_previous('@parameter.inner') end)
-
-			-- move
-			bind({ 'n', 'x', 'o' }, ']z', function() move.goto_next_start('@fold', 'folds') end)
-			bind({ 'n', 'x', 'o' }, '[z', function() move.goto_previous_start('@fold', 'folds') end)
-			bind({ 'n', 'x', 'o' }, ']a', function() move.goto_next_start('@parameter.inner', 'textobjects') end)
-			bind({ 'n', 'x', 'o' }, '[a', function() move.goto_previous_start('@parameter.inner', 'textobjects') end)
 		end,
 	},
 })

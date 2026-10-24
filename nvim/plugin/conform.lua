@@ -8,10 +8,10 @@ add_on_event('BufWritePre', {
 			notify_on_error = false,
 			notify_no_formatters = false,
 			formatters_by_ft = {
-				-- c = { name = 'clangd', timeout_ms = 500, lsp_format = 'prefer' },
+				cpp = { name = 'clangd', timeout_ms = 500, lsp_format = 'prefer' },
 				lua = { 'stylua' },
-				-- rust = { name = 'rust_analyzer', timeout_ms = 500, lsp_format = 'prefer' },
-				-- sh = { 'shfmt' },
+				rust = { name = 'rust_analyzer', timeout_ms = 500, lsp_format = 'prefer' },
+				sh = { 'shfmt' },
 				yaml = { 'oxfmt' },
 				-- For filetypes without a formatter:
 				['_'] = { 'trim_whitespace', 'trim_newlines' },
@@ -42,28 +42,3 @@ vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
 -- Start auto-formatting by default (and disable with my ToggleFormat command).
 vim.g.autoformat = true
-
--- vim.defer_fn(function()
--- 	vim.pack.add({ 'https://github.com/stevearc/conform.nvim' })
---
--- 	local conform = require('conform')
---
--- 	conform.setup({
--- 		format_on_save = {
--- 			timeout_ms = 500,
--- 			lsp_format = 'fallback',
--- 		},
--- 		formatters_by_ft = {
--- 			lua = { 'stylua' },
--- 			yaml = { 'oxfmt' },
--- 			cpp = { 'clang-format' },
--- 		},
--- 	})
---
--- 	vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
---
--- 	vim.api.nvim_create_autocmd('BufWritePre', {
--- 		pattern = '*',
--- 		callback = function(args) conform.format({ bufnr = args.buf }) end,
--- 	})
--- end, 0)
