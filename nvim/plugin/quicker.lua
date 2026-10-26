@@ -1,5 +1,24 @@
 local add_on_event = require('pack').add_on_event
 
+function _G.filter_text()
+	if vim.bo.buftype ~= 'quickfix' then return '' end
+
+	-- Get the title of the current quickfix list
+	local qf_info = vim.fn.getqflist({ title = 0 })
+	local title = qf_info.title or ''
+
+	-- cfilter sets titles like ":Cfilter /your_pattern/" or ":Cfilter! /your_pattern/"
+	if title:match('^:Cfilter') or title:match('^:Lfilter') then
+		local pattern = title:match('/(.*)/')
+		if pattern then
+			local is_inverted = title:match('!') and '!' or ''
+			return 'Filter' .. is_inverted .. ': ' .. pattern
+		end
+	end
+
+	return ''
+end
+
 -- Improved quickfix UI.
 add_on_event('UIEnter', {
 	{
@@ -15,7 +34,7 @@ add_on_event('UIEnter', {
 				local winid = vim.fn.bufwinid(bufnr)
 				vim.api.nvim_win_call(winid, function()
 					-- vim.opt_local.listchars:append({ space = ' ' })
-					vim.wo.statusline = ' %#FloatTitle#%q%#StatusLine#%* %= %l/%L'
+					vim.wo.statusline = ' %#FloatTitle#%q%#StatusLine#%* %= %{v:lua.filter_text()} | %l/%L'
 
 					vim.cmd('redrawstatus')
 				end)

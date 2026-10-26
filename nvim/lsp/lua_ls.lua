@@ -5,41 +5,20 @@ return {
 	root_markers = {
 		'.luarc.json',
 		'.luarc.jsonc',
-		'.luacheckrc',
 		'.stylua.toml',
-		'stylua.toml',
-		'selene.toml',
-		'selene.yml',
 		'.git',
 	},
-	on_init = function(client)
-		if client.workspace_folders then
-			local path = client.workspace_folders[1].name
-			if
-				path ~= vim.fn.stdpath('config')
-				and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
-			then
-				return
-			end
-		end
-
-		client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-			runtime = {
-				version = 'LuaJIT',
-			},
-			diagnostics = {
-				enable = true,
-				globals = { 'Snacks' },
-			},
-			hint = {
-				enable = true,
-			},
-			codelens = {
-				enable = true,
-			},
-			signatureHelp = {
-				enable = true,
-			},
+	-- NOTE: These will be merged with the configuration file.
+	settings = {
+		Lua = {
+			completion = { callSnippet = 'Replace' },
+			-- Using stylua for formatting.
+			format = { enable = false },
+			hint = { enable = true, arrayIndex = 'Disable' },
+			diagnostics = { enable = true, globals = { 'Snacks' } },
+			codelens = { enable = true },
+			signatureHelp = { enable = true },
+			runtime = { version = 'LuaJIT' },
 			workspace = {
 				checkThirdParty = false,
 				library = {
@@ -49,7 +28,6 @@ return {
 				ignoreDir = { '**/test/**', '**/tests/**', '**/spec/**', '**/.git/**', '**/doc/**' },
 			},
 			telemetry = { enable = false },
-		})
-	end,
-	settings = { Lua = {} },
+		},
+	},
 }
