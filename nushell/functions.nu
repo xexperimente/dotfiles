@@ -2,22 +2,24 @@
 # Transfer files needed for homeoffice
 def backup [] {
 	print $"\n(ansi reset)Syncing (ansi blue)c:/_projects/kvp/src(ansi reset) with exclude list\n(ansi grey58)"
+	rclone sync C:\_Projects\KVP\src E:\_Projects_svn\KVP\src --exclude-from=$"($env.USERPROFILE)/kovoprog.rclone.exclude" --stats-one-line --no-update-modtime -v
 
-	rclone sync C:\_Projects\KVP\src E:\_Projects_svn\KVP\src --exclude-from=$"($env.USERPROFILE)/kovoprog.rclone.exclude" --stats-one-line -v
-	
-	print $"\n(ansi reset)Syncing (ansi blue)c:/_projects/kvp/data\n(ansi grey58)"
-	rclone sync C:\_Projects\KVP\data E:\_Projects_svn\KVP\data --stats-one-line -v
-	
+	print $"\n(ansi reset)Syncing (ansi blue)c:/_projects/kvp(ansi reset) to backup location\n(ansi grey58)"
+	rclone sync C:\_Projects\KVP\src D:\Backups\Work\KVP  --stats-one-line --no-update-modtime -v
+
+    print $"\n(ansi reset)Syncing (ansi blue)c:/_projects/kvp/data\n(ansi grey58)"
+	rclone sync C:\_Projects\KVP\data E:\_Projects_svn\KVP\data --stats-one-line --no-update-modtime -v
+
 	print $"\n(ansi reset)Syncing (ansi blue)$HOME/Sources\n(ansi grey58)"
-	rclone sync $"($env.USERPROFILE)/Sources" e:/Projects/sources --stats-one-line -v --delete-excluded --exclude="*/.zig-cache/**" --skip-links
-	
+	rclone sync $"($env.USERPROFILE)/Sources" e:/Projects/sources --stats-one-line --no-update-modtime -v --delete-excluded --exclude="*/.zig-cache/**" --skip-links
+
     print $"\n(ansi reset)Syncing (ansi blue)D:/Dev/libs\n(ansi grey58)"
-	rclone sync D:/Dev/Libs E:/Dev/Libs --stats-one-line -v
+	rclone sync D:/Dev/Libs E:/Dev/Libs --stats-one-line --no-update-modtime -v
 }
 
 # Start nvim in Notes directory
 def notes [] {
-  nvim -c $"cd ($env.USERPROFILE)/Documents/Notes" $"($env.USERPROFILE)/Documents/Notes" 
+  nvim -c $"cd ($env.USERPROFILE)/Documents/Notes" -c "autocmd UIEnter * lua Snacks.explorer()" #":lua Snacks.explorer()"
 }
 
 # Sync notes folder to Mega
@@ -33,4 +35,3 @@ def sync_notes [] {
 def kill_git [] {
   ps | grep git | each {|x| kill --force $x.pid }
 }
-
